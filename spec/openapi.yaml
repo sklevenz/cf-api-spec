@@ -27,6 +27,18 @@ paths:
     description: >
       Returns metadata about the platform, such as the supported API versions, feature flags,
       and other relevant information.
+    get:
+      summary: Retrieve API and platform information
+      description: >
+        Provides metadata about the Cloud Foundry API, including supported versions,
+        available resources, and feature flags.
+      responses:
+        '200':
+          description: Successful response with platform information.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Info'
   /v3/apps:
     summary: Manage applications.
     description: Interact with application resources.
@@ -168,4 +180,9 @@ paths:
     description: Access or update details of a specific user by GUID.
     parameters:
     - $ref: './components/parameters/guid.yaml#/guid'
+
+components:
+  schemas:
+    Info: 
+      $ref: './components/schemas/info.yaml#/Info'
 
