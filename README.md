@@ -18,7 +18,7 @@ The repository serves as a foundation for:
 
 Through this effort, the project contributes to the Cloud Foundry ecosystem by promoting greater accessibility, transparency, and interoperability for its APIs.
 
-# Folder Structure
+## Folder Structure
 
 ```plaintext
 ├── docs                # Documentation files for the project (e.g., guides, references)
@@ -69,6 +69,19 @@ Swagger CLI is used for validating the OpenAPI specification to ensure it adhere
   swagger-cli validate spec/openapi.yaml
   ```
 
+### 3. [Spectral CLI](https://meta.stoplight.io/docs/spectral)
+Spectral is a flexible linter for JSON/YAML files, designed to enforce best practices and validate OpenAPI specifications. It ensures your OpenAPI spec adheres to the standard and best practices.
+
+- **Installation**:
+  Install Spectral globally via npm:
+  ```bash
+  npm install -g @stoplight/spectral-cli
+  ```
+
+- **Usage**:
+  ```bash
+  spectral lint --ruleset script/spectral-ruleset.yaml spec/openapi.yaml
+  ```
 ---
 
 ### Additional Requirements
@@ -84,13 +97,19 @@ npm -v
 
 ## Usage
 
-1. **Validate the OpenAPI Specification**:
+**Validate the OpenAPI Specification**:
    Use the `validate.sh` script to ensure the OpenAPI spec is valid:
    ```bash
    bash scripts/validate.sh
    ```
 
-2. **Generate Documentation**:
+**Lint the OpenAPI Specification**:
+   Use the `lint.sh` script to ensure the OpenAPI spec is valid:
+   ```bash
+   bash scripts/lint.sh
+   ```
+
+**Generate Documentation**:
    Generate interactive API documentation using the `generate-docs.sh` script:
    ```bash
    bash scripts/generate-docs.sh
@@ -98,7 +117,7 @@ npm -v
 
    The generated documentation will be available at `docs/index.html`.
 
-3. **View the Documentation**:
+**View the Documentation**:
    Open the generated documentation in a browser:
    ```bash
    open docs/index.html

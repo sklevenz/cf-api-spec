@@ -13,14 +13,8 @@ info:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
 servers:
-  - url: "https://api.example.com"
-    description: "Production server (default)"
-  - url: "https://staging-api.example.com"
-    description: "Staging server for testing"
-  - url: "http://localhost:8080"
-    description: "Local development server"
-  - url: "{api_base_url}"
-    description: "API Base URL (replace {api_base_url} with the appropriate base URL)"
+  - url: "https://api.cf.eu10.hana.ondemand.com/v3"
+    description: "SAP production server (default)"
 paths:
   /v3/info:
     summary: Retrieve platform information
