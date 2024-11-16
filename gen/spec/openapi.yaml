@@ -1,0 +1,256 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "Cloud Foundry API",
+    "description" : "API compatible with Cloud Controller API v3",
+    "version" : "0.0.1"
+  },
+  "servers" : [ {
+    "url" : "{api_base_url}",
+    "description" : "xAPI Base URL (replace {api_base_url} with the appropriate base URL)"
+  } ],
+  "paths" : {
+    "/" : {
+      "get" : {
+        "summary" : "Get API Base Information",
+        "description" : "Provides general information or redirects for the API.",
+        "responses" : {
+          "200" : {
+            "description" : "Successful response containing API base information.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v3" : {
+      "get" : {
+        "summary" : "Retrieve API Root Information",
+        "description" : "Fetches the root information of the API, including available endpoints and services.",
+        "responses" : {
+          "200" : {
+            "description" : "Successful response containing API root information.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_1"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v3/info" : {
+      "get" : {
+        "summary" : "Get API Information",
+        "description" : "Returns information about the API version and features.",
+        "responses" : {
+          "200" : {
+            "description" : "Successful response containing API version information.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_2"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "inline_response_200" : {
+        "type" : "object",
+        "properties" : {
+          "links" : {
+            "type" : "object",
+            "properties" : {
+              "v3" : {
+                "type" : "object",
+                "properties" : {
+                  "href" : {
+                    "type" : "string",
+                    "example" : "{api_base_url}/v3"
+                  }
+                }
+              },
+              "v2" : {
+                "type" : "object",
+                "properties" : {
+                  "href" : {
+                    "type" : "string",
+                    "example" : "{api_base_url}/v2"
+                  }
+                }
+              },
+              "health" : {
+                "type" : "object",
+                "properties" : {
+                  "href" : {
+                    "type" : "string",
+                    "example" : "{api_base_url}/health"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "inline_response_200_1" : {
+        "type" : "object",
+        "properties" : {
+          "links" : {
+            "type" : "object",
+            "properties" : {
+              "self" : {
+                "type" : "object",
+                "properties" : {
+                  "href" : {
+                    "type" : "string",
+                    "example" : "{api_base_url}/v3"
+                  }
+                }
+              },
+              "cloud_controller_v3" : {
+                "type" : "object",
+                "properties" : {
+                  "href" : {
+                    "type" : "string",
+                    "example" : "{api_base_url}/v3"
+                  }
+                }
+              },
+              "cloud_controller_v2" : {
+                "type" : "object",
+                "properties" : {
+                  "href" : {
+                    "type" : "string",
+                    "example" : "{api_base_url}/v2"
+                  }
+                }
+              },
+              "uaa" : {
+                "type" : "object",
+                "properties" : {
+                  "href" : {
+                    "type" : "string",
+                    "example" : "{uaa_url}"
+                  }
+                }
+              },
+              "routing" : {
+                "type" : "object",
+                "properties" : {
+                  "href" : {
+                    "type" : "string",
+                    "example" : "{api_base_url}/routing"
+                  }
+                }
+              },
+              "logging" : {
+                "type" : "object",
+                "properties" : {
+                  "href" : {
+                    "type" : "string",
+                    "example" : "{log_api_url}"
+                  }
+                }
+              },
+              "app_ssh" : {
+                "type" : "object",
+                "properties" : {
+                  "href" : {
+                    "type" : "string",
+                    "example" : "ssh.{ssh_base_url}:2222"
+                  },
+                  "meta" : {
+                    "type" : "object",
+                    "properties" : {
+                      "host_key_fingerprint" : {
+                        "type" : "string",
+                        "example" : "aa:bb:cc:dd:ee:ff:00:11:22:33:44:55:66:77:88:99"
+                      },
+                      "oauth_client" : {
+                        "type" : "string",
+                        "example" : "ssh-proxy"
+                      }
+                    }
+                  }
+                }
+              },
+              "credhub" : {
+                "type" : "object",
+                "properties" : {
+                  "href" : {
+                    "type" : "string",
+                    "example" : "{credhub_url}"
+                  }
+                }
+              },
+              "network_policy_v0" : {
+                "type" : "object",
+                "properties" : {
+                  "href" : {
+                    "type" : "string",
+                    "example" : "{api_base_url}/networking/v0/external"
+                  }
+                }
+              },
+              "network_policy_v1" : {
+                "type" : "object",
+                "properties" : {
+                  "href" : {
+                    "type" : "string",
+                    "example" : "{api_base_url}/networking/v1/external"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "inline_response_200_2" : {
+        "type" : "object",
+        "properties" : {
+          "links" : {
+            "type" : "object",
+            "properties" : {
+              "self" : {
+                "type" : "string",
+                "example" : "{api_base_url}/v3/info"
+              },
+              "cloud_controller_v3" : {
+                "type" : "string",
+                "example" : "{api_base_url}/v3"
+              },
+              "uaa" : {
+                "type" : "string",
+                "example" : "{uaa_url}"
+              }
+            }
+          },
+          "api_version" : {
+            "type" : "string",
+            "example" : "3.98.0"
+          },
+          "min_cli_version" : {
+            "type" : "string",
+            "example" : "6.53.0"
+          },
+          "min_recommended_cli_version" : {
+            "type" : "string",
+            "example" : "6.53.0"
+          }
+        }
+      }
+    }
+  }
+}
