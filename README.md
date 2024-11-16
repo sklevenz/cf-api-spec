@@ -2,8 +2,6 @@
 
 OpenAPI Specification of Cloud Foundry API
 
-## Status
-
 [![Validation Status](https://github.com/sklevenz/cf-api-spec/actions/workflows/validate-spec.yml/badge.svg)](https://github.com/sklevenz/cf-api-spec/actions)
 
 ## Abstract
