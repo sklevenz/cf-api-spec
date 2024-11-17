@@ -1,0 +1,15 @@
+get:
+  summary: Retrieve API and platform information
+  description: >
+    Provides metadata about the Cloud Foundry API, including supported versions,
+    available resources, and feature flags.
+  operationId: getApiInfo
+  tags:
+    - Platform
+  responses:
+    '200':
+      description: Successful response with platform information.
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/info.yaml'

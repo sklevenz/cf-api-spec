@@ -1,0 +1,23 @@
+type: object
+required:
+  - name
+properties:
+  name:
+    type: string
+    description: Name of the application.
+  relationships:
+    type: object
+    properties:
+      space:
+        type: object
+        properties:
+          data:
+            type: object
+            properties:
+              guid:
+                type: string
+                description: Unique identifier of the space.
+  environment_variables:
+    type: object
+    additionalProperties:
+      type: string

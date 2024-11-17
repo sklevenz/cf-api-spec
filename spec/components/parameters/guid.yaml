@@ -1,4 +1,3 @@
-guid:
   name: guid
   in: path
   required: true
