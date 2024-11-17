@@ -1,3 +1,7 @@
+summary: Retrieve platform information
+description: >
+      Returns metadata about the platform, such as the supported API versions, feature flags,
+      and other relevant information.
 get:
   summary: Retrieve API and platform information
   description: >
