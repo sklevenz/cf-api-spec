@@ -4,6 +4,7 @@ OpenAPI Specification of Cloud Foundry API
 
 [![Validation Status](https://github.com/sklevenz/cf-api-spec/actions/workflows/validate-spec.yaml/badge.svg)](https://github.com/sklevenz/cf-api-spec/actions)
 [![Lint Status](https://github.com/sklevenz/cf-api-spec/actions/workflows/lint-spec.yaml/badge.svg)](https://github.com/sklevenz/cf-api-spec/actions)
+
 ## Abstract
 
 This project provides an OpenAPI Specification for the [Cloud Foundry API](https://v3-apidocs.cloudfoundry.org/version/3.181.0/index.html), covering the Cloud Controller and Korifi APIs. By defining a standardized and machine-readable format, the specification aims to enhance developer productivity, improve API integration, and ensure consistent documentation.
@@ -19,6 +20,9 @@ The repository serves as a foundation for:
 Through this effort, the project contributes to the Cloud Foundry ecosystem by promoting greater accessibility, transparency, and interoperability for its APIs.
 
 ## Folder Structure
+
+The directory structure of this repository is organized to separate concerns and improve clarity. Each folder serves a specific purpose, from storing the OpenAPI specification and its components to providing tools and scripts for validation, documentation generation, and testing.
+
 
 ```plaintext
 ├── docs                # Documentation files for the project (e.g., guides, references)
@@ -44,13 +48,13 @@ Redoc CLI is used to generate an interactive HTML documentation page from the Op
 
 - **Installation**:
   ```bash
-  npm install -g redoc-cli
+  npm install -g @redocly/cli
   ```
 
 - **Usage**:
   Run the following command to generate documentation:
   ```bash
-  redoc-cli bundle spec/openapi.yaml -o docs/index.html
+  npx @redocly/cli build-docs spec/openapi.yaml --output docs/index.html
   ```
 
 ---
@@ -80,7 +84,7 @@ Spectral is a flexible linter for JSON/YAML files, designed to enforce best prac
 
 - **Usage**:
   ```bash
-  spectral lint --ruleset script/spectral-ruleset.yaml spec/openapi.yaml
+  spectral lint --ruleset script/cfg/spectral-ruleset.yaml spec/openapi.yaml
   ```
 ---
 
@@ -96,6 +100,14 @@ npm -v
 ---
 
 ## Usage
+
+**Upgrade Node.js Tools**:
+   Use the `upgrade-nodes-env.sh` script to update Node.js tools like `@redocly/cli`, `swagger-cli`, and `spectral-cli` to their latest versions.
+
+   **Usage**:
+   ```bash
+   bash scripts/upgrade-nodes-env.sh
+   ```
 
 **Validate the OpenAPI Specification**:
    Use the `validate.sh` script to ensure the OpenAPI spec is valid:

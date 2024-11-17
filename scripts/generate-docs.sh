@@ -1,13 +1,16 @@
 #!/usr/bin/env bash
 
+# Enable warnings suppression for Node.js
+export NODE_NO_WARNINGS=1
+
 # Set variables
 SPEC_FILE="spec/openapi.yaml"
 OUTPUT_DIR="docs"
 OUTPUT_FILE="$OUTPUT_DIR/index.html"
 
-# Check if redoc-cli is installed
-if ! command -v redoc-cli &> /dev/null; then
-  echo "Error: redoc-cli is not installed. Please install it with 'npm install -g redoc-cli'."
+# Check if redocly/cli is installed
+if ! command -v redocly &> /dev/null; then
+  echo "Error: redocly/cliis not installed. Please install it with 'npm install -g @redocly/cli'."
   exit 1
 fi
 
@@ -25,7 +28,7 @@ fi
 
 # Generate the documentation
 echo "Generating API documentation from '$SPEC_FILE' to '$OUTPUT_FILE'..."
-redoc-cli bundle "$SPEC_FILE" -o "$OUTPUT_FILE"
+npx @redocly/cli build-docs "$SPEC_FILE" --output "$OUTPUT_FILE"
 
 # Check if the generation was successful
 if [ $? -eq 0 ]; then

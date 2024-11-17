@@ -15,6 +15,9 @@ info:
 servers:
   - url: "https://api.cf.eu10.hana.ondemand.com/v3"
     description: "SAP production server (default)"
+tags:
+  - name: Platform
+    description: Operations related to platform information and metadata.
 paths:
   /v3/info:
     summary: Retrieve platform information
@@ -26,6 +29,9 @@ paths:
       description: >
         Provides metadata about the Cloud Foundry API, including supported versions,
         available resources, and feature flags.
+      operationId: getApiInfo
+      tags:
+        - Platform
       responses:
         '200':
           description: Successful response with platform information.

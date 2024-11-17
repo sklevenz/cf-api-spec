@@ -2,10 +2,13 @@
 
 # Script to lint the OpenAPI specification using Spectral
 
+# Enable warnings suppression for Node.js
+export NODE_NO_WARNINGS=1
+
 # Variables
-SPEC_FILE="spec/openapi.yaml"      # Path to your OpenAPI spec
-LINTER="spectral"                  # Linter command
-RULESET="scripts/spectral-ruleset.yaml"    # Default ruleset for OpenAPI
+SPEC_FILE="spec/openapi.yaml"                  # Path to your OpenAPI spec
+LINTER="spectral"                              # Linter command
+RULESET="scripts/cfg/spectral-ruleset.yaml"    # Default ruleset for OpenAPI
 EXIT_SUCCESS=0
 EXIT_FAILURE=1
 

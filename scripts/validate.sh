@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Enable warnings suppression for Node.js
+export NODE_NO_WARNINGS=1
+
 # Define the OpenAPI spec file
 SPEC_FILE="spec/openapi.yaml"
 
