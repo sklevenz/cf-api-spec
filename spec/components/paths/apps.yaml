@@ -1,0 +1,39 @@
+summary: Manage applications.
+description: Interact with application resources.
+get:
+  summary: List applications
+  description: Retrieve a list of all applications accessible to the user.
+  operationId: listApplications
+  tags:
+    - Application
+  parameters:
+    - $ref: '../parameters/page.yaml'
+    - $ref: '../parameters/per_page.yaml'
+    - $ref: '../parameters/names.yaml'
+  responses:
+    '200':
+      $ref: '../responses/list_apps_responses.yaml#/200'
+    '401':
+      $ref: '../responses/list_apps_responses.yaml#/401'
+    '500':
+      $ref: '../responses/list_apps_responses.yaml#/500'
+
+post:
+  summary: Create an application
+  description: Create a new application.
+  tags:
+    - Application
+  operationId: createApplication
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../schemas/new_application.yaml'
+  responses:
+    '201':
+      $ref: '../responses/create_app_responses.yaml#/201'
+    '400':
+      $ref: '../responses/create_app_responses.yaml#/400'
+    '401':
+      $ref: '../responses/create_app_responses.yaml#/401'

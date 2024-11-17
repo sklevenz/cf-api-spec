@@ -18,30 +18,13 @@ servers:
 tags:
   - name: Platform
     description: Operations related to platform information and metadata.
+  - name: Application
+    description: Endpoints for managing applications.
 paths:
   /v3/info:
-    summary: Retrieve platform information
-    description: >
-      Returns metadata about the platform, such as the supported API versions, feature flags,
-      and other relevant information.
-    get:
-      summary: Retrieve API and platform information
-      description: >
-        Provides metadata about the Cloud Foundry API, including supported versions,
-        available resources, and feature flags.
-      operationId: getApiInfo
-      tags:
-        - Platform
-      responses:
-        '200':
-          description: Successful response with platform information.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Info'
+    $ref: './components/paths/info.yaml'
   /v3/apps:
-    summary: Manage applications.
-    description: Interact with application resources.
+    $ref: './components/paths/apps.yaml'
   /v3/apps/{guid}:
     summary: Manage a specific application.
     description: Access, update, or delete a specific application by GUID.
@@ -49,12 +32,12 @@ paths:
     summary: List processes for an application.
     description: Retrieve processes associated with the specified application.
     parameters:
-    - $ref: './components/parameters/guid.yaml#/guid'
+    - $ref: './components/parameters/guid.yaml'
   /v3/apps/{guid}/tasks:
     summary: List tasks for an application.
     description: Retrieve tasks associated with the specified application.
     parameters:
-    - $ref: './components/parameters/guid.yaml#/guid'
+    - $ref: './components/parameters/guid.yaml'
   /v3/buildpacks:
     summary: Manage buildpacks.
     description: List or update buildpacks used for building applications.
@@ -62,7 +45,7 @@ paths:
     summary: Manage a specific buildpack.
     description: Access or update a specific buildpack by GUID.
     parameters:
-    - $ref: './components/parameters/guid.yaml#/guid'
+    - $ref: './components/parameters/guid.yaml'
   /v3/builds:
     summary: Manage builds.
     description: List or create builds for applications.
@@ -70,7 +53,7 @@ paths:
     summary: Manage a specific build.
     description: Access details of a specific build by GUID.
     parameters:
-    - $ref: './components/parameters/guid.yaml#/guid'
+    - $ref: './components/parameters/guid.yaml'
   /v3/droplets:
     summary: Manage droplets.
     description: Interact with droplets, which are deployable artifacts of builds.
@@ -78,7 +61,7 @@ paths:
     summary: Manage a specific droplet.
     description: Access or update a specific droplet by GUID.
     parameters:
-    - $ref: './components/parameters/guid.yaml#/guid'
+    - $ref: './components/parameters/guid.yaml'
   /v3/droplets/{guid}/assignments:
     summary: Assign droplets to applications.
     description: Assign a specific droplet to an application by GUID.
@@ -95,7 +78,7 @@ paths:
     summary: Manage a specific platform feature.
     description: Access or update details of a specific platform feature by name.
     parameters:
-    - $ref: './components/parameters/name.yaml#/name'
+    - $ref: './components/parameters/name.yaml'
   /v3/jobs:
     summary: Manage jobs for long-running tasks.
     description: List or monitor the status of background jobs.
@@ -103,7 +86,7 @@ paths:
     summary: Monitor the status of a specific job.
     description: Check the status or result of a background job by GUID.
     parameters:
-    - $ref: './components/parameters/guid.yaml#/guid'
+    - $ref: './components/parameters/guid.yaml'
   /v3/organizations:
     summary: Manage organizations.
     description: List or manage organizations in the platform.
@@ -114,7 +97,7 @@ paths:
     summary: List spaces in an organization.
     description: Retrieve all spaces associated with the specified organization.
     parameters:
-    - $ref: './components/parameters/guid.yaml#/guid'
+    - $ref: './components/parameters/guid.yaml'
   /v3/packages:
     summary: Manage packages.
     description: List, create, or update packages for applications.
@@ -122,7 +105,7 @@ paths:
     summary: Manage a specific package.
     description: Access or update details of a package by GUID.
     parameters:
-    - $ref: './components/parameters/guid.yaml#/guid'
+    - $ref: './components/parameters/guid.yaml'
   /v3/processes:
     summary: Manage processes.
     description: List or update processes for applications.
@@ -130,12 +113,12 @@ paths:
     summary: Manage a specific process.
     description: Access or update details of a specific process by GUID.
     parameters:
-    - $ref: './components/parameters/guid.yaml#/guid'
+    - $ref: './components/parameters/guid.yaml'
   /v3/processes/{guid}/instances:
     summary: Scale or restart instances of a process.
     description: Manage instances associated with a specific process.
     parameters:
-    - $ref: './components/parameters/guid.yaml#/guid'
+    - $ref: './components/parameters/guid.yaml'
   /v3/roles:
     summary: Manage user roles and permissions.
     description: List or update roles for users in organizations or spaces.
@@ -146,7 +129,7 @@ paths:
     summary: Manage a specific route.
     description: Access or update details of a route by GUID.
     parameters:
-    - $ref: './components/parameters/guid.yaml#/guid'
+    - $ref: './components/parameters/guid.yaml'
   /v3/service_brokers:
     summary: Manage service brokers.
     description: List or manage service brokers in the platform.
@@ -163,7 +146,7 @@ paths:
     summary: Manage a specific space.
     description: Access or update details of a specific space by GUID.
     parameters:
-    - $ref: './components/parameters/guid.yaml#/guid'
+    - $ref: './components/parameters/guid.yaml'
   /v3/tasks:
     summary: Manage tasks.
     description: List, create, or update tasks for applications.
@@ -171,7 +154,7 @@ paths:
     summary: Manage a specific task.
     description: Access or update details of a specific task by GUID.
     parameters:
-    - $ref: './components/parameters/guid.yaml#/guid'
+    - $ref: './components/parameters/guid.yaml'
   /v3/users:
     summary: Manage users.
     description: List or manage user accounts in the platform.
@@ -179,10 +162,6 @@ paths:
     summary: Manage a specific user.
     description: Access or update details of a specific user by GUID.
     parameters:
-    - $ref: './components/parameters/guid.yaml#/guid'
+    - $ref: './components/parameters/guid.yaml'
 
-components:
-  schemas:
-    Info: 
-      $ref: './components/schemas/info.yaml#/Info'
 

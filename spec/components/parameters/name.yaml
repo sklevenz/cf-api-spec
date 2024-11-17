@@ -1,7 +1,6 @@
-name:
-  name: name
-  in: path
-  required: true
-  description: The name of the resource.
-  schema:
-    type: string
+name: name
+in: path
+required: true
+description: The name of the resource.
+schema:
+  type: string

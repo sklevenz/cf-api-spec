@@ -1,0 +1,18 @@
+type: object
+properties:
+  guid:
+    type: string
+    description: Unique identifier of the application.
+  name:
+    type: string
+    description: Name of the application.
+  state:
+    type: string
+    enum: [STARTED, STOPPED]
+    description: Current state of the application.
+  created_at:
+    type: string
+    format: date-time
+  updated_at:
+    type: string
+    format: date-time

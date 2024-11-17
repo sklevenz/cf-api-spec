@@ -1,0 +1,9 @@
+description: Error response for invalid request or other API errors.
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error description.

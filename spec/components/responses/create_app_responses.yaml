@@ -1,0 +1,10 @@
+'201':
+  description: Application created.
+  content:
+    application/json:
+      schema:
+        $ref: '../schemas/application.yaml'
+'400':
+  description: Invalid request.
+'401':
+  description: Unauthorized.
