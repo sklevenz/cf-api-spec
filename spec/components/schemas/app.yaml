@@ -1,0 +1,20 @@
+type: object
+properties:
+  guid:
+    type: string
+    description: The GUID of the app.
+  name:
+    type: string
+    description: The name of the app.
+  state:
+    type: string
+    enum: [STARTED, STOPPED]
+    description: The current state of the app.
+  created_at:
+    type: string
+    format: date-time
+    description: Timestamp when the app was created.
+  updated_at:
+    type: string
+    format: date-time
+    description: Timestamp when the app was last updated.

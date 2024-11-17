@@ -31,6 +31,7 @@ The directory structure of this repository is organized to separate concerns and
 │   ├── components      # Reusable elements for the OpenAPI spec
 │   │   ├── examples    # Example data for API requests/responses
 │   │   ├── parameters  # Reusable parameter definitions (e.g., query strings, headers)
+│   │   ├── paths       # Reusable path definitions (e.g. get, post ...)
 │   │   ├── responses   # Reusable response definitions (e.g., 200 OK, 404 Not Found)
 │   │   └── schemas     # Data model definitions (e.g., JSON objects)
 │   └── openapi.yaml    # Main OpenAPI specification file (defines paths, operations, and components)
