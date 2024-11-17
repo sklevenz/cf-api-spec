@@ -3,9 +3,9 @@
 # Script to lint the OpenAPI specification using Spectral
 
 # Variables
-SPEC_FILE="spec/openapi.yaml"      # Path to your OpenAPI spec
-LINTER="spectral"                  # Linter command
-RULESET="scripts/spectral-ruleset.yaml"    # Default ruleset for OpenAPI
+SPEC_FILE="spec/openapi.yaml"                  # Path to your OpenAPI spec
+LINTER="spectral"                              # Linter command
+RULESET="scripts/cfg/spectral-ruleset.yaml"    # Default ruleset for OpenAPI
 EXIT_SUCCESS=0
 EXIT_FAILURE=1
 
