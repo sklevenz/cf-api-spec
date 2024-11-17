@@ -26,8 +26,7 @@ paths:
   /v3/apps:
     $ref: './components/paths/apps.yaml'
   /v3/apps/{guid}:
-    summary: Manage a specific application.
-    description: Access, update, or delete a specific application by GUID.
+    $ref: './components/paths/app.yaml'
   /v3/apps/{guid}/processes:
     summary: List processes for an application.
     description: Retrieve processes associated with the specified application.

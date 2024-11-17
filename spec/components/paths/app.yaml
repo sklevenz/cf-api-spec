@@ -1,0 +1,54 @@
+summary: Manage a specific application.
+description: Access, update, or delete a specific application by GUID.
+get:
+  summary: Retrieve app details
+  description: Get information about a specific app by its GUID.
+  operationId: listApplication
+  tags:
+    - Application
+  parameters:
+    - $ref: './../parameters/guid.yaml'
+  responses:
+    '200':
+      description: Successful response containing app details.
+      content:
+        application/json:
+          schema:
+            $ref: './../schemas/app.yaml'
+    '404':
+      description: App not found.
+    '500':
+      description: Internal server error.
+patch:
+  summary: Update an app
+  description: Update details of a specific app by its GUID.
+  operationId: updateApplications
+  tags:
+    - Application
+  parameters:
+    - name: guid
+      in: path
+      required: true
+      description: The GUID of the app.
+      schema:
+        type: string
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: './../schemas/app_update.yaml'
+  responses:
+    '200':
+      description: Successful response after updating the app.
+      content:
+        application/json:
+          schema:
+            $ref: './../schemas/app.yaml'
+    '400':
+      description: Invalid request.
+    '404':
+      description: App not found.
+    '500':
+      description: Internal server error.
+
