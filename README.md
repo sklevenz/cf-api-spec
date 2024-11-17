@@ -2,8 +2,8 @@
 
 OpenAPI Specification of Cloud Foundry API
 
-[![Validation Status](https://github.com/sklevenz/cf-api-spec/actions/workflows/validate-spec.yml/badge.svg)](https://github.com/sklevenz/cf-api-spec/actions)
-[![Lint Status](https://github.com/sklevenz/cf-api-spec/actions/workflows/lint-spec.yml/badge.svg)](https://github.com/sklevenz/cf-api-spec/actions)
+[![Validation Status](https://github.com/sklevenz/cf-api-spec/actions/workflows/validate-spec.yaml/badge.svg)](https://github.com/sklevenz/cf-api-spec/actions)
+[![Lint Status](https://github.com/sklevenz/cf-api-spec/actions/workflows/lint-spec.yaml/badge.svg)](https://github.com/sklevenz/cf-api-spec/actions)
 ## Abstract
 
 This project provides an OpenAPI Specification for the [Cloud Foundry API](https://v3-apidocs.cloudfoundry.org/version/3.181.0/index.html), covering the Cloud Controller and Korifi APIs. By defining a standardized and machine-readable format, the specification aims to enhance developer productivity, improve API integration, and ensure consistent documentation.
