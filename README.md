@@ -21,6 +21,9 @@ Through this effort, the project contributes to the Cloud Foundry ecosystem by p
 
 ## Folder Structure
 
+The directory structure of this repository is organized to separate concerns and improve clarity. Each folder serves a specific purpose, from storing the OpenAPI specification and its components to providing tools and scripts for validation, documentation generation, and testing.
+
+
 ```plaintext
 ├── docs                # Documentation files for the project (e.g., guides, references)
 ├── scripts             # Utility scripts for automation, setup, or deployment
@@ -45,13 +48,13 @@ Redoc CLI is used to generate an interactive HTML documentation page from the Op
 
 - **Installation**:
   ```bash
-  npm install -g redoc-cli
+  npm install -g @redocly/cli
   ```
 
 - **Usage**:
   Run the following command to generate documentation:
   ```bash
-  redoc-cli bundle spec/openapi.yaml -o docs/index.html
+  npx @redocly/cli build-docs spec/openapi.yaml --output docs/index.html
   ```
 
 ---
