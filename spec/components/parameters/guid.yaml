@@ -1,0 +1,7 @@
+guid:
+  name: guid
+  in: path
+  required: true
+  description: The GUID of the resource.
+  schema:
+    type: string
