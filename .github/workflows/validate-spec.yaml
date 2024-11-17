@@ -16,8 +16,6 @@ jobs:
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
-        with:
-          node-version: '23' # Ensure compatibility with swagger-cli
 
       - name: Install swagger-cli
         run: npm install -g @apidevtools/swagger-cli
