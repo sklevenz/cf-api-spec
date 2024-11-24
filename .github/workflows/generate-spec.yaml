@@ -1,4 +1,4 @@
-name: Lint OpenAPI Spec
+name: Generate OpenAPI Spec
 
 on:
   push:
@@ -20,5 +20,8 @@ jobs:
       - name: Install Spectral CLI
         run: npm install -g @stoplight/spectral-cli
 
+      - name: Install swagger-cli
+        run: npm install -g @apidevtools/swagger-cli
+
       - name: Lint OpenAPI Spec
-        run: bash scripts/lint.sh
+        run: bash scripts/generate-spec.sh
