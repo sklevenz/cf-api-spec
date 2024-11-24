@@ -74,6 +74,11 @@ Swagger CLI is used for validating the OpenAPI specification to ensure it adhere
   swagger-cli validate spec/openapi.yaml
   ```
 
+  Run the following command to bundle your OpenAPI spec:
+  ```bash
+  swagger-cli bundle spec/openapi.yaml
+  ```
+
 ### 3. [Spectral CLI](https://meta.stoplight.io/docs/spectral)
 Spectral is a flexible linter for JSON/YAML files, designed to enforce best practices and validate OpenAPI specifications. It ensures your OpenAPI spec adheres to the standard and best practices.
 
@@ -130,6 +135,13 @@ npm -v
 
    The generated documentation will be available at `docs/index.html`.
 
+**Generate Specificationn**:
+   Generate API bundle `generate-spec.sh` script:
+   ```bash
+   bash scripts/generate-spec.sh
+   ```
+
+   The generated documentation will be available at `docs/index.html`.
 **View the Documentation**:
    Open the generated documentation in a browser:
    ```bash
