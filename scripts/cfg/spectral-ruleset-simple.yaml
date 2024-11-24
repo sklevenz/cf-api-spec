@@ -6,9 +6,9 @@
 # OpenAPI documents are applied.
 # Additionally, you can define custom rules or modify (disable, adjust) existing ones here.
 extends: spectral:oas
-# rules:
-  # Schalte eine spezifische Regel aus
-  # oas3-schema: off
+rules:
+  # Beispiel: Schalte eine spezifische Regel aus
+  oas3-schema: off
 
 formats:
   - oas3.0

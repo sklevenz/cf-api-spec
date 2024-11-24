@@ -1,26 +1,26 @@
 #!/usr/bin/env bash
 
-# Enable warnings suppression for Node.js
+# Suppress Node.js warnings
 export NODE_NO_WARNINGS=1
 
-# Define the OpenAPI spec file
+# Path to the OpenAPI specification file
 SPEC_FILE="spec/openapi.yaml"
 
 # Check if swagger-cli is installed
 if ! command -v swagger-cli &> /dev/null; then
-  echo "swagger-cli is not installed. Install it using 'npm install -g @apidevtools/swagger-cli'."
+  echo "swagger-cli is not installed. Install it using: npm install -g @apidevtools/swagger-cli."
   exit 1
 fi
 
-# Validate the OpenAPI spec
-echo "Validating OpenAPI spec at $SPEC_FILE..."
+# Validate the OpenAPI specification
+echo "Validating OpenAPI specification at $SPEC_FILE..."
 swagger-cli validate "$SPEC_FILE"
 
-# Exit with the result of the validation
+# Check the result of the validation
 if [ $? -eq 0 ]; then
-  echo "OpenAPI spec is valid!"
+  echo "The OpenAPI specification is valid."
   exit 0
 else
-  echo "OpenAPI spec validation failed."
+  echo "OpenAPI specification validation failed."
   exit 1
 fi
