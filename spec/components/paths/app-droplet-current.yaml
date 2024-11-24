@@ -1,0 +1,18 @@
+summary: Manage a droplet for an app
+description: Access, update, or delete a specific droplet of an application by GUID.
+get:
+  operationId: readDroplet
+  tags:
+    - Droplet  
+  summary: Retrieve the current droplet for an app
+  description: Get the droplet that is currently assigned to an app.
+  parameters:
+    - $ref: ../parameters/guid.yaml
+  responses:
+    '200':
+      $ref: ../responses/current_droplet.yaml
+    '404':
+      $ref: ../responses/error.yaml
+    '500':
+      $ref: ../responses/error.yaml
+  

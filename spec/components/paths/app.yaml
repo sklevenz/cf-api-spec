@@ -51,4 +51,18 @@ patch:
       description: App not found.
     '500':
       description: Internal server error.
-
+delete:
+  summary: Delete an application
+  description: Deletes an application with the specified GUID.
+  operationId: deletepplication
+  tags:
+    - Application
+  parameters:
+    - $ref: "../parameters/guid.yaml"
+  responses:
+    '204':
+      description: Application deleted successfully. No content is returned.
+    '404':
+      $ref: "../responses/error.yaml"
+    '500':
+      $ref: "../responses/error.yaml"
