@@ -23,8 +23,8 @@ tags:
   - name: Droplet
     description: Endpoints for managing droplets.
 x-components:
-  responses:
-    $ref: './components/responses/cf-errors.yaml'
+  # responses:
+  #   $ref: './components/responses/cf-errors.yaml'
 paths:
   /v3/info:
     $ref: './components/paths/info.yaml'
@@ -32,10 +32,16 @@ paths:
     $ref: './components/paths/apps.yaml'
   /v3/apps/{guid}:
     $ref: './components/paths/app.yaml'
-
   /v3/apps/{guid}/droplets/current:
     $ref: ./components/paths/app-droplet-current.yaml
-        
+  /v3/apps/{guid}/env:
+    $ref: './components/paths/app_env.yaml'
+
+
+
+
+    
+            
   /v3/apps/{guid}/processes:
     summary: List processes for an application.
     description: Retrieve processes associated with the specified application.
