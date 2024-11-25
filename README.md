@@ -4,6 +4,7 @@ OpenAPI Specification of Cloud Foundry API
 
 [![Validation Status](https://github.com/sklevenz/cf-api-spec/actions/workflows/validate-spec.yaml/badge.svg)](https://github.com/sklevenz/cf-api-spec/actions)
 [![Lint Status](https://github.com/sklevenz/cf-api-spec/actions/workflows/lint-spec.yaml/badge.svg)](https://github.com/sklevenz/cf-api-spec/actions)
+[![Generate Status](https://github.com/sklevenz/cf-api-spec/actions/workflows/generate-spec.yaml/badge.svg)](https://github.com/sklevenz/cf-api-spec/actions)
 
 ## Abstract
 
