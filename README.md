@@ -109,11 +109,11 @@ npm -v
 ## Usage
 
 **Upgrade Node.js Tools**:
-   Use the `upgrade-nodes-env.sh` script to update Node.js tools like `@redocly/cli`, `swagger-cli`, and `spectral-cli` to their latest versions.
+   Use the `upgrade-nodes-packages.sh` script to update Node.js tools like `@redocly/cli`, `swagger-cli`, and `spectral-cli` to their latest versions.
 
    **Usage**:
    ```bash
-   bash scripts/upgrade-nodes-env.sh
+   bash scripts/upgrade-nodes-packages.sh
    ```
 
 **Validate the OpenAPI Specification**:
