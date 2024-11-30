@@ -1,0 +1,14 @@
+type: object
+properties:
+  error:
+    type: string
+    description: A short error code.
+  error_description:
+    type: string
+    description: Detailed explanation of the error.
+required:
+  - error
+  - error_description
+example:
+  error: "InvalidParameter"
+  error_description: "The parameter 'name' is required but was not provided."
