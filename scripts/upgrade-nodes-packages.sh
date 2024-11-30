@@ -8,8 +8,8 @@ echo "Updating npm to the latest version..."
 npm install -g npm || { echo "Failed to update npm"; exit 1; }
 
 # Update all globally installed packages
-echo "Updating all globally installed npm packages..."
-npm update -g || { echo "Failed to update global npm packages"; exit 1; }
+echo "Updating all locally installed npm packages..."
+npm -g update || { echo "Failed to update global npm packages"; exit 1; }
 
 # Define packages to update
 packages=(

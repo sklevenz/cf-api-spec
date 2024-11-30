@@ -5,10 +5,8 @@
 # In this case, we extend the default 'spectral:oas' ruleset to ensure the standard rules for
 # OpenAPI documents are applied.
 # Additionally, you can define custom rules or modify (disable, adjust) existing ones here.
-extends: spectral:oas
-# rules:
-  # Schalte eine spezifische Regel aus
-  # oas3-schema: off
+extends: 
+- spectral:oas
 
 formats:
   - oas3.0

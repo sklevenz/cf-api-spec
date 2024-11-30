@@ -5,11 +5,21 @@
 # In this case, we extend the default 'spectral:oas' ruleset to ensure the standard rules for
 # OpenAPI documents are applied.
 # Additionally, you can define custom rules or modify (disable, adjust) existing ones here.
-extends: spectral:oas
-rules:
-  # Beispiel: Schalte eine spezifische Regel aus
-  oas3-schema: off
+extends: 
+  - "spectral:oas"
 
+rules:
+  oas3-schema: off # doesn't work for $ref and throws unevaluated propoerties error 
+  # oas3-schema: 
+  #   description: Validates OpenAPI 3.x schemas
+  #   severity: error
+  #   then:
+  #     field: "$"
+  #     function: oasDocumentSchema
+  #     functionOptions:
+  #       ignoreUnevaluatedProperties: true
+  
+  
 formats:
   - oas3.0
   - oas3.1

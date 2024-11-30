@@ -54,7 +54,7 @@ patch:
 delete:
   summary: Delete an application
   description: Deletes an application with the specified GUID.
-  operationId: deletepplication
+  operationId: deleteApplication
   tags:
     - Application
   parameters:

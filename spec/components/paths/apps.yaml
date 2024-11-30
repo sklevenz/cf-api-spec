@@ -12,11 +12,22 @@ get:
     - $ref: '../parameters/names.yaml'
   responses:
     '200':
-      $ref: '../responses/list_apps_responses.yaml#/200'
+      description: List of applications.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              pagination:
+                $ref: '../schemas/pagination.yaml'
+              resources:
+                type: array
+                items:
+                  $ref: '../schemas/application.yaml'
     '401':
-      $ref: '../responses/list_apps_responses.yaml#/401'
+      $ref: '../responses/error.yaml#/Error401'
     '500':
-      $ref: '../responses/list_apps_responses.yaml#/500'
+      $ref: '../responses/error.yaml#/Error500'
 
 post:
   summary: Create an application
@@ -32,8 +43,12 @@ post:
           $ref: '../schemas/new_application.yaml'
   responses:
     '201':
-      $ref: '../responses/create_app_responses.yaml#/201'
+      description: Application created.
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/application.yaml'    
     '400':
-      $ref: '../responses/create_app_responses.yaml#/400'
+      $ref: '../responses/error.yaml#/Error400'
     '401':
-      $ref: '../responses/create_app_responses.yaml#/401'
+      $ref: '../responses/error.yaml#/Error401'
