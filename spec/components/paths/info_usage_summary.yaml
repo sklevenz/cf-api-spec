@@ -1,0 +1,55 @@
+get:
+  summary: Returns a summary of usage information for the Cloud Foundry API
+  operationId: getUsageSummary
+  description: |-
+    This endpoint retrieves a high-level summary of usage across the entire Cloud Foundry installation.
+  security:
+    - oauth:
+        - cloud_controller.admin
+        - cloud_controller.admin_read_only
+        - cloud_controller.global_auditor
+  tags:
+    - Platform
+  responses:
+    '200':
+      description: Successful response with usage summary data
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              total_usage:
+                type: integer
+                example: 1200
+                description: The total usage of resources (e.g., CPU, memory, etc.)
+              started_instances:
+                type: integer
+                example: 250
+                description: The number of instances that have been started
+              memory_in_mb:
+                type: integer
+                example: 8192
+                description: Total memory usage in MB
+              resource_breakdown:
+                type: object
+                properties:
+                  memory:
+                    type: integer
+                    example: 1024
+                    description: Memory usage in MB
+                  cpu:
+                    type: integer
+                    example: 250
+                    description: CPU usage in percentage
+                  storage:
+                    type: integer
+                    example: 500
+                    description: Storage usage in GB
+    '401':
+      $ref: '../responses/error.yaml#/Error401'
+    '403':
+      $ref: '../responses/error.yaml#/Error403'
+    '429':
+      $ref: '../responses/error.yaml#/Error429'
+    '500':
+      $ref: '../responses/error.yaml#/Error500'

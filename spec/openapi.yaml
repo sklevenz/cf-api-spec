@@ -45,6 +45,8 @@ components:
 paths:
   /v3/info:
     $ref: './components/paths/info.yaml'
+  /v3/info/usage_summary:
+    $ref: './components/paths/info_usage_summary.yaml'
   /v3/apps:
     $ref: './components/paths/apps.yaml'
   
