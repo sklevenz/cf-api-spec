@@ -62,9 +62,7 @@ get:
                 example:
                   user_org_creation: true
                   service_instance_sharing: false
-    '400':
-      $ref: '../responses/error.yaml#/Error400'
-    '404':
-      $ref: '../responses/error.yaml#/Error404'
+    '429':
+      $ref: '../responses/error.yaml#/Error429'
     '500':
       $ref: '../responses/error.yaml#/Error500'

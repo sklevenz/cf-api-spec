@@ -92,6 +92,7 @@ Spectral is a flexible linter for JSON/YAML files, designed to enforce best prac
 - **Usage**:
   ```bash
   spectral lint --ruleset script/cfg/spectral-ruleset.yaml spec/openapi.yaml
+  spectral lint --ruleset script/cfg/spectral-ruleset-simple.yaml spec/openapi.yaml
   ```
 ---
 
