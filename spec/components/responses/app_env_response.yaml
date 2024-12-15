@@ -1,5 +1,0 @@
-description: A successful response containing the app's environment variables
-content:
-  application/json:
-    schema:
-      $ref: '../schemas/app_env.yaml'

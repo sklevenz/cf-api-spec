@@ -1,6 +1,0 @@
-name: names
-in: query
-description: Filter applications by their names.
-required: false
-schema:
-  type: string
