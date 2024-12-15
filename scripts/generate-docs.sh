@@ -46,7 +46,6 @@ npx @redocly/cli build-docs "$SPEC_FILE" --output "$OUTPUT_FILE"
 # Check if the generation was successful
 if [ $? -eq 0 ]; then
   print_success "Documentation generated successfully: $OUTPUT_FILE"
-  open $OUTPUT_FILE
 else
   print_error "Failed to generate documentation."
   exit 1

@@ -143,11 +143,11 @@ npm -v
    bash scripts/generate-spec.sh
    ```
 
-   The generated documentation will be available at `docs/index.html`.
+   The generated documentation will be available at `gen/docs/index.html`.
 **View the Documentation**:
    Open the generated documentation in a browser:
    ```bash
-   open docs/index.html
+   open gen/docs/index.html
    ```
 
 
