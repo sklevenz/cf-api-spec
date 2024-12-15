@@ -3,6 +3,9 @@ info:
   title: Cloud Foundry V3 API
   description: "# Welcome to the Cloud Foundry V3 API docs! Version 3 adds support for several key features:\n\n- Running one-off tasks on Cloud Foundry\n- Applications consisting of several processes via a Procfile\n- Direct access to application packages and droplets\n- Changing application source code without stopping the app via deployments\n\n# Getting help\nThe CAPI team can most easily be reached on our Slack channel for questions and issues regarding the API. To report an issue with the docs or API, please feel free to file a GitHub issue on our API repo, cloud_controller_ng.\nWe recommend reaching out to Slack first as we will be most responsive there.\n    \n# More resources\n- The Cloud Foundry V2 API is still depricated but still available for interacting with Cloud Foundry.\n- Running Tasks\n- V3 API Documentation OpenAPI Spec Source Code. "
   version: 3.1.0
+  contact:
+    name: Cloud Foundry Foundation
+    url: https://cloudfoundry.org
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
@@ -1605,72 +1608,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/buildpack'
-    stack:
-      type: object
-      allOf:
-        - $ref: '#/components/schemas/baseSchema'
-        - properties:
-            name:
-              type: string
-              description: The name of the stack.
-            description:
-              type: string
-              description: A description of the stack.
-            build_rootfs_image:
-              type: string
-              description: The name of the stack image associated with staging/building Apps. If a stack does not have unique images, this will be the same as the stack name.
-            run_rootfs_image:
-              type: string
-              description: The name of the stack image associated with running Apps. If a stack does not have unique images, this will be the same as the stack name.
-            default:
-              type: boolean
-              description: Whether the stack is the default stack
-            metadata:
-              $ref: '#/components/schemas/metadata'
-            links:
-              type: object
-              properties:
-                self:
-                  $ref: '#/components/schemas/link'
-      description: A stack is a pre-built root filesystem that can be used to run applications.
-    task:
-      type: object
-      allOf:
-        - $ref: '#/components/schemas/baseSchema'
-        - properties:
-            name:
-              type: string
-              description: The name of the task.
-            command:
-              type: string
-              description: The command to be executed by the task.
-            state:
-              type: string
-              description: The current state of the task.
-              enum:
-                - RUNNING
-                - SUCCEEDED
-                - FAILED
-            memory_in_mb:
-              type: integer
-              description: The amount of memory allocated to the task in megabytes.
-            disk_in_mb:
-              type: integer
-              description: The amount of disk space allocated to the task in megabytes.
-            result:
-              type: object
-              properties:
-                failure_reason:
-                  type: string
-                  description: The reason for task failure, if applicable.
-            metadata:
-              $ref: '#/components/schemas/metadata'
-            links:
-              type: object
-              properties:
-                self:
-                  $ref: '#/components/schemas/link'
-      description: A task is a one-off process that can be run in the Cloud Foundry environment.
     user:
       type: object
       properties:
@@ -2484,79 +2421,79 @@ components:
           properties:
             current:
               type: string
-              default: null
+              default: ""
             previous:
               type: string
-              default: null
+              default: ""
         app:
           type: object
           properties:
             guid:
               type: string
-              default: null
+              default: ""
             name:
               type: string
-              default: null
+              default: ""
         process:
           type: object
           properties:
             guid:
               type: string
-              default: null
+              default: ""
             type:
               type: string
-              default: null
+              default: ""
         space:
           type: object
           properties:
             guid:
               type: string
-              default: null
+              default: ""
             name:
               type: string
-              default: null
+              default: ""
         organization:
           type: object
           properties:
             guid:
               type: string
-              default: null
+              default: ""
         buildpack:
           type: object
           properties:
             guid:
               type: string
-              default: null
+              default: ""
             name:
               type: string
-              default: null
+              default: ""
         task:
           type: object
           properties:
             guid:
               type: string
-              default: null
+              default: ""
             name:
               type: string
-              default: null
+              default: ""
         memory_in_mb_per_instance:
           type: object
           properties:
             current:
               type: integer
-              default: null
+              default: 0
             previous:
               type: integer
-              default: null
+              default: 0
         instance_count:
           type: object
           properties:
             current:
               type: integer
-              default: null
+              default: 0
             previous:
               type: integer
-              default: null
+              default: 0
       description: >-
         App usage events are a record of changes in the usage of apps and tasks. Examples include starting an application, scaling an application (from, say, one to three instances), and stopping an application.
 
@@ -8431,6 +8368,3 @@ tags:
   - name: Users
     description: |-
       Users represent the individuals who have access to the Cloud Foundry environment. They include information such as roles, permissions, and credentials. Users can be managed through endpoints that allow for creation, updating, deletion, and retrieval of user details.
-  - name: Routes
-    description: |
-      Routes represent the network endpoints used to access apps in the Cloud Foundry environment. They include information such as domain, path, and port. Routes can be managed through endpoints that allow for creation, updating, deletion, and retrieval of route details. By specifying routes, applications can define how they are accessed by end-users, ensuring traffic is directed to the appropriate application instances.

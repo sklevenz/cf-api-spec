@@ -1,0 +1,1297 @@
+x-components:
+  responses:
+    cf-errors:
+      400CFBadRequest: &400CFBadRequest
+        - code: 1004
+          title: CF-BadRequest
+          detail: "Bad request: %s"
+      500CFDatabaseError: &500CFDatabaseError
+        - code: 10011
+          title: CF-DatabaseError
+          detail: "Database error"
+      400CFLockingError: &400CFLockingError
+        - code: 102
+          title: CF-LockingError
+          detail: "Optimistic locking failure"
+      500CFSystemError: &500CFSystemError
+        - code: 111
+          title: CF-SystemError
+          detail: "System Exception Encountered"
+      403CFForbidden: &403CFForbidden
+        - code: 200
+          title: CF-Forbidden
+          detail: "Operation not permitted"
+      403CFUserNotFound: &403CFUserNotFound
+        - code: 201
+          title: CF-UserNotFound
+          detail: "User not found"
+      403CFHttpsRequired: &403CFHttpsRequired
+        - code: 202
+          title: CF-HttpsRequired
+          detail: "HTTPS required"
+      400CFAppInvalid: &400CFAppInvalid
+        - code: 100001
+          title: CF-AppInvalid
+          detail: "The app is invalid: %s"
+      404CFAppNotFound: &404CFAppNotFound
+        - code: 100004
+          title: CF-AppNotFound
+          detail: "The app could not be found: %s"
+      404CFAppNoResources: &404CFAppNoResources
+        - code: 302
+          title: CF-AppNoResources
+          detail: "Couldn't find a place to run an app"
+      404CFAppFileNotFound: &404CFAppFileNotFound
+        - code: 303
+          title: CF-AppFileNotFound
+          detail: "Could not find : '%s'"
+      400CFAppInstanceNotFound: &400CFAppInstanceNotFound
+        - code: 304
+          title: CF-AppInstanceNotFound
+          detail: "Could not find instance: '%s'"
+      400CFAppStopped: &400CFAppStopped
+        - code: 305
+          title: CF-AppStopped
+          detail: "Operation not permitted on a stopped app"
+      500CFAppFileError: &500CFAppFileError
+        - code: 306
+          title: CF-AppFileError
+          detail: "Error retrieving file '%s'"
+      400CFAppInvalidRuntime: &400CFAppInvalidRuntime
+        - code: 307
+          title: CF-AppInvalidRuntime
+          detail: "Invalid runtime specification [%s] for framework: '%s'"
+      400CFAppInvalidFramework: &400CFAppInvalidFramework
+        - code: 308
+          title: CF-AppInvalidFramework
+          detail: "Invalid framework description: '%s'"
+      400CFAppDebugDisallowed: &400CFAppDebugDisallowed
+        - code: 309
+          title: CF-AppDebugDisallowed
+          detail: "Cloud controller has disallowed debugging."
+      500CFAppStagingError: &500CFAppStagingError
+        - code: 310
+          title: CF-AppStagingError
+          detail: "Staging failed: '%s'"
+      400CFResourcesUnknownPackageType: &400CFResourcesUnknownPackageType
+        - code: 400
+          title: CF-ResourcesUnknownPackageType
+          detail: "%"
+      400CFResourcesMissingResource: &400CFResourcesMissingResource
+        - code: 401
+          title: CF-ResourcesMissingResource
+          detail: "Could not find the requested resource"
+      500CFResourcesPackagingFailed: &500CFResourcesPackagingFailed
+        - code: 402
+          title: CF-ResourcesPackagingFailed
+          detail: "App packaging failed: '%s'"
+      404CFServiceNotFound: &404CFServiceNotFound
+        - code: 120003
+          title: CF-ServiceNotFound
+          detail: "The service could not be found: %s"
+      404CFBindingNotFound: &404CFBindingNotFound
+        - code: 501
+          title: CF-BindingNotFound
+          detail: "Binding not found"
+      404CFTokenNotFound: &404CFTokenNotFound
+        - code: 502
+          title: CF-TokenNotFound
+          detail: "Token not found"
+      502CFServiceGatewayError: &502CFServiceGatewayError
+        - code: 503
+          title: CF-ServiceGatewayError
+          detail: "Unexpected response from service gateway"
+      403CFAccountTooManyServices: &403CFAccountTooManyServices
+        - code: 504
+          title: CF-AccountTooManyServices
+          detail: "Too many Services provisioned: %s, you're allowed: %s"
+      501CFExtensionNotImpl: &501CFExtensionNotImpl
+        - code: 505
+          title: CF-ExtensionNotImpl
+          detail: "Service extension %s is not implemented."
+      404CFUnsupportedVersion: &404CFUnsupportedVersion
+        - code: 506
+          title: CF-UnsupportedVersion
+          detail: "Unsupported service version %s."
+      500CFSdsError: &500CFSdsError
+        - code: 507
+          title: CF-SdsError
+          detail: "Get error from serialization_data_server: '%s'"
+      500CFSdsNotFound: &500CFSdsNotFound
+        - code: 508
+          title: CF-SdsNotFound
+          detail: "No available active serialization data server"
+      403CFAccountNotEnoughMemory: &403CFAccountNotEnoughMemory
+        - code: 600
+          title: CF-AccountNotEnoughMemory
+          detail: "Not enough memory capacity, you're allowed: %s"
+      403CFAccountAppsTooMany: &403CFAccountAppsTooMany
+        - code: 601
+          title: CF-AccountAppsTooMany
+          detail: "Too many applications: %s, you're allowed: %s"
+      403CFAccountAppTooManyUris: &403CFAccountAppTooManyUris
+        - code: 602
+          title: CF-AccountAppTooManyUris
+          detail: "Too many URIs: %s, you're allowed: %s"
+      400CFUriInvalid: &400CFUriInvalid
+        - code: 700
+          title: CF-UriInvalid
+          detail: "%s"
+      400CFUriAlreadyTaken: &400CFUriAlreadyTaken
+        - code: 701
+          title: CF-UriAlreadyTaken
+          detail: "%s"
+      403CFUriNotAllowed: &403CFUriNotAllowed
+        - code: 702
+          title: CF-UriNotAllowed
+          detail: "External URIs are not enabled for this account"
+      500CFStagingTimedOut: &500CFStagingTimedOut
+        - code: 800
+          title: CF-StagingTimedOut
+          detail: "Timed out waiting for staging to complete"
+      500CFStagingFailed: &500CFStagingFailed
+        - code: 801
+          title: CF-StagingFailed
+          detail: "Staging failed"
+      422CFUniquenessError: &422CFUniquenessError
+        - code: 10016
+          title: CF-UniquenessError
+          detail: "%s"
+      401CFInvalidAuthToken: &401CFInvalidAuthToken
+        - code: 1000
+          title: CF-InvalidAuthToken
+          detail: "Invalid Auth Token"
+      400CFMessageParseError: &400CFMessageParseError
+        - code: 1001
+          title: CF-MessageParseError
+          detail: "Request invalid due to parse error: %s"
+      400CFInvalidRelation: &400CFInvalidRelation
+        - code: 1002
+          title: CF-InvalidRelation
+          detail: "%s"
+      400CFInvalidContentType: &400CFInvalidContentType
+        - code: 1003
+          title: CF-InvalidContentType
+          detail: "Invalid content type, expected: %s"
+      404CFNotFound: &404CFNotFound
+        - code: 10000
+          title: CF-NotFound
+          detail: "Unknown request"
+      500CFServerError: &500CFServerError
+        - code: 10001
+          title: CF-ServerError
+          detail: "Server error"
+      401CFNotAuthenticated: &401CFNotAuthenticated
+        - code: 10002
+          title: CF-NotAuthenticated
+          detail: "Authentication error"
+      403CFNotAuthorized: &403CFNotAuthorized
+        - code: 10003
+          title: CF-NotAuthorized
+          detail: "You are not authorized to perform the requested action"
+      400CFInvalidRequest: &400CFInvalidRequest
+        - code: 10004
+          title: CF-InvalidRequest
+          detail: "The request is invalid"
+      400CFBadQueryParameter: &400CFBadQueryParameter
+        - code: 10005
+          title: CF-BadQueryParameter
+          detail: "The query parameter is invalid: %s"
+      400CFAssociationNotEmpty: &400CFAssociationNotEmpty
+        - code: 10006
+          title: CF-AssociationNotEmpty
+          detail: "Please delete the %s associations for your %s."
+      403CFInsufficientScope: &403CFInsufficientScope
+        - code: 10007
+          title: CF-InsufficientScope
+          detail: "Your token lacks the necessary scopes to access this resource."
+      422CFUnprocessableEntity: &422CFUnprocessableEntity
+        - code: 10008
+          title: CF-UnprocessableEntity
+          detail: "%s"
+      400CFUnableToPerform: &400CFUnableToPerform
+        - code: 10009
+          title: CF-UnableToPerform
+          detail: "%s could not be completed: %s"
+      404CFResourceNotFound: &404CFResourceNotFound
+        - code: 10010
+          title: CF-ResourceNotFound
+          detail: "%s"
+      500CFOrderByParameterInvalid: &500CFOrderByParameterInvalid
+        - code: 10012
+          title: CF-OrderByParameterInvalid
+          detail: "Cannot order by: %s"
+      429CFRateLimitExceeded: &429CFRateLimitExceeded
+        - code: 10013
+          title: CF-RateLimitExceeded
+          detail: "Rate Limit Exceeded"
+      429CFIPBasedRateLimitExceeded: &429CFIPBasedRateLimitExceeded
+        - code: 10014
+          title: CF-IPBasedRateLimitExceeded
+          detail: "Rate Limit Exceeded: Unauthenticated requests from this IP address have exceeded the limit. Please log in."
+      503CFServiceUnavailable: &503CFServiceUnavailable
+        - code: 10015
+          title: CF-ServiceUnavailable
+          detail: "%s"
+      429CFServiceBrokerRateLimitExceeded: &429CFServiceBrokerRateLimitExceeded
+        - code: 10016
+          title: CF-ServiceBrokerRateLimitExceeded
+          detail: "Service broker concurrent request limit exceeded"
+      403CFOrgSuspended: &403CFOrgSuspended
+        - code: 10017
+          title: CF-OrgSuspended
+          detail: "The organization is suspended"
+      429CFRateLimitV2APIExceeded: &429CFRateLimitV2APIExceeded
+        - code: 10018
+          title: CF-RateLimitV2APIExceeded
+          detail: "Rate Limit of V2 API Exceeded. Please consider using the V3 API"
+      400CFUserInvalid: &400CFUserInvalid
+        - code: 20001
+          title: CF-UserInvalid
+          detail: "The user info is invalid: %s"
+      400CFUaaIdTaken: &400CFUaaIdTaken
+        - code: 20002
+          title: CF-UaaIdTaken
+          detail: "The UAA ID is taken: %s"
+      404CFUserNotFound: &404CFUserNotFound
+        - code: 20003
+          title: CF-UserNotFound
+          detail: "The user could not be found: %s"
+      503CFUaaUnavailable: &503CFUaaUnavailable
+        - code: 20004
+          title: CF-UaaUnavailable
+          detail: "The UAA service is currently unavailable"
+      400CFUserIsInMultipleOrigins: &400CFUserIsInMultipleOrigins
+        - code: 20006
+          title: CF-UserIsInMultipleOrigins
+          detail: "The user exists in multiple origins. Specify an origin for the requested user from: %s"
+      404CFUserWithOriginNotFound: &404CFUserWithOriginNotFound
+        - code: 20007
+          title: CF-UserWithOriginNotFound
+          detail: "The user could not be found, %s"
+      400CFOrganizationInvalid: &400CFOrganizationInvalid
+        - code: 30001
+          title: CF-OrganizationInvalid
+          detail: "The organization info is invalid: %s"
+      400CFOrganizationNameTaken: &400CFOrganizationNameTaken
+        - code: 30002
+          title: CF-OrganizationNameTaken
+          detail: "The organization name is taken: %s"
+      404CFOrganizationNotFound: &404CFOrganizationNotFound
+        - code: 30003
+          title: CF-OrganizationNotFound
+          detail: "The organization could not be found: %s"
+      403CFLastManagerInOrg: &403CFLastManagerInOrg
+        - code: 30004
+          title: CF-LastManagerInOrg
+          detail: "Cannot remove last Org Manager in org"
+      403CFLastBillingManagerInOrg: &403CFLastBillingManagerInOrg
+        - code: 30005
+          title: CF-LastBillingManagerInOrg
+          detail: "Cannot remove last Billing Manager in org"
+      403CFLastUserInOrg: &403CFLastUserInOrg
+        - code: 30006
+          title: CF-LastUserInOrg
+          detail: "Cannot remove last User in org"
+      400CFOrganizationAlreadySet: &400CFOrganizationAlreadySet
+        - code: 30007
+          title: CF-OrganizationAlreadySet
+          detail: "Cannot change organization"
+      400CFSpaceInvalid: &400CFSpaceInvalid
+        - code: 40001
+          title: CF-SpaceInvalid
+          detail: "The app space info is invalid: %s"
+      400CFSpaceNameTaken: &400CFSpaceNameTaken
+        - code: 40002
+          title: CF-SpaceNameTaken
+          detail: "The app space name is taken: %s"
+      400CFSpaceUserNotInOrg: &400CFSpaceUserNotInOrg
+        - code: 40003
+          title: CF-SpaceUserNotInOrg
+          detail: "The app space and the user are not in the same org: %s"
+      404CFSpaceNotFound: &404CFSpaceNotFound
+        - code: 40004
+          title: CF-SpaceNotFound
+          detail: "The app space could not be found: %s"
+      400CFServiceInstanceNameEmpty: &400CFServiceInstanceNameEmpty
+        - code: 60001
+          title: CF-ServiceInstanceNameEmpty
+          detail: "Service instance name is required."
+      400CFServiceInstanceNameTaken: &400CFServiceInstanceNameTaken
+        - code: 60002
+          title: CF-ServiceInstanceNameTaken
+          detail: "The service instance name is taken: %s"
+      400CFServiceInstanceServiceBindingWrongSpace: &400CFServiceInstanceServiceBindingWrongSpace
+        - code: 60003
+          title: CF-ServiceInstanceServiceBindingWrongSpace
+          detail: "The service instance and the service binding are in different app spaces: %s"
+      400CFServiceInstanceInvalid: &400CFServiceInstanceInvalid
+        - code: 60003
+          title: CF-ServiceInstanceInvalid
+          detail: "The service instance is invalid: %s"
+      404CFServiceInstanceNotFound: &404CFServiceInstanceNotFound
+        - code: 60004
+          title: CF-ServiceInstanceNotFound
+          detail: "The service instance could not be found: %s"
+      400CFServiceInstanceQuotaExceeded: &400CFServiceInstanceQuotaExceeded
+        - code: 60005
+          title: CF-ServiceInstanceQuotaExceeded
+          detail: "You have exceeded your organization's services limit."
+      400CFPreviouslyUsedAs_ServiceInstancePaidQuotaExceeded: &400CFPreviouslyUsedAs_ServiceInstancePaidQuotaExceeded
+        - code: 60006
+          title: CF-PreviouslyUsedAs_ServiceInstancePaidQuotaExceeded
+          detail: "You have exceeded your organization's services limit."
+      400CFServiceInstanceServicePlanNotAllowed: &400CFServiceInstanceServicePlanNotAllowed
+        - code: 60007
+          title: CF-ServiceInstanceServicePlanNotAllowed
+          detail: "The service instance cannot be created because paid service plans are not allowed."
+      400CFServiceInstanceDuplicateNotAllowed: &400CFServiceInstanceDuplicateNotAllowed
+        - code: 60008
+          title: CF-ServiceInstanceDuplicateNotAllowed
+          detail: "An instance of this service is already present in this space. Some services only support one instance per space."
+      400CFServiceInstanceNameTooLong: &400CFServiceInstanceNameTooLong
+        - code: 60009
+          title: CF-ServiceInstanceNameTooLong
+          detail: "You have requested an invalid service instance name. Names are limited to 255 characters."
+      403CFServiceInstanceOrganizationNotAuthorized: &403CFServiceInstanceOrganizationNotAuthorized
+        - code: 60010
+          title: CF-ServiceInstanceOrganizationNotAuthorized
+          detail: "A service instance for the selected plan cannot be created in this organization. The plan is visible because another organization you belong to has access to it."
+      409CFServiceInstanceDeprovisionFailed: &409CFServiceInstanceDeprovisionFailed
+        - code: 60011
+          title: CF-ServiceInstanceDeprovisionFailed
+          detail: "The service broker reported an error during deprovisioning: %s"
+      400CFServiceInstanceSpaceQuotaExceeded: &400CFServiceInstanceSpaceQuotaExceeded
+        - code: 60012
+          title: CF-ServiceInstanceSpaceQuotaExceeded
+          detail: "You have exceeded your space's services limit."
+      400CFServiceInstanceServicePlanNotAllowedBySpaceQuota: &400CFServiceInstanceServicePlanNotAllowedBySpaceQuota
+        - code: 60013
+          title: CF-ServiceInstanceServicePlanNotAllowedBySpaceQuota
+          detail: "The service instance cannot be created because paid service plans are not allowed for your space."
+      400CFServiceInstanceSpaceChangeNotAllowed: &400CFServiceInstanceSpaceChangeNotAllowed
+        - code: 60014
+          title: CF-ServiceInstanceSpaceChangeNotAllowed
+          detail: "Cannot update space for service instance."
+      400CFServiceInstanceTagsTooLong: &400CFServiceInstanceTagsTooLong
+        - code: 60015
+          title: CF-ServiceInstanceTagsTooLong
+          detail: "Combined length of tags for service %s must be 2048 characters or less."
+      409CFAsyncServiceInstanceOperationInProgress: &409CFAsyncServiceInstanceOperationInProgress
+        - code: 60016
+          title: CF-AsyncServiceInstanceOperationInProgress
+          detail: "An operation for service instance %s is in progress."
+      400CFServiceInstanceRouteBindingSpaceMismatch: &400CFServiceInstanceRouteBindingSpaceMismatch
+        - code: 60017
+          title: CF-ServiceInstanceRouteBindingSpaceMismatch
+          detail: "The service instance and the route are in different spaces."
+      403CFServiceInstanceSpaceNotAuthorized: &403CFServiceInstanceSpaceNotAuthorized
+        - code: 60018
+          title: CF-ServiceInstanceSpaceNotAuthorized
+          detail: "A service instance for the selected plan cannot be created in this space."
+      400CFServiceInstanceRouteServiceURLInvalid: &400CFServiceInstanceRouteServiceURLInvalid
+        - code: 60019
+          title: CF-ServiceInstanceRouteServiceURLInvalid
+          detail: "The route service URL is invalid: %s"
+      400CFServiceInstanceRouteServiceRequiresDiego: &400CFServiceInstanceRouteServiceRequiresDiego
+        - code: 60020
+          title: CF-ServiceInstanceRouteServiceRequiresDiego
+          detail: "Route services are only supported for apps on Diego. Unbind the service instance from the route or enable Diego for the app."
+      403CFServiceInstanceRouteServiceDisabled: &403CFServiceInstanceRouteServiceDisabled
+        - code: 60021
+          title: CF-ServiceInstanceRouteServiceDisabled
+          detail: "Support for route services is disabled"
+      400CFAppPortMappingRequiresDiego: &400CFAppPortMappingRequiresDiego
+        - code: 60022
+          title: CF-AppPortMappingRequiresDiego
+          detail: "App ports are supported for Diego apps only."
+      400CFRoutePortNotEnabledOnApp: &400CFRoutePortNotEnabledOnApp
+        - code: 60023
+          title: CF-RoutePortNotEnabledOnApp
+          detail: "Routes can only be mapped to ports already enabled for the application."
+      400CFMultipleAppPortsMappedDiegoToDea: &400CFMultipleAppPortsMappedDiegoToDea
+        - code: 60024
+          title: CF-MultipleAppPortsMappedDiegoToDea
+          detail: "The app has routes mapped to multiple ports. Multiple ports are supported for Diego only. Please unmap routes from all but one app port. Multiple routes can be mapped to the same port if desired."
+      403CFVolumeMountServiceDisabled: &403CFVolumeMountServiceDisabled
+        - code: 60025
+          title: CF-VolumeMountServiceDisabled
+          detail: "Support for volume mount services is disabled"
+      400CFDockerAppToDea: &400CFDockerAppToDea
+        - code: 60026
+          title: CF-DockerAppToDea
+          detail: "Docker apps cannot run on DEAs"
+      502CFServiceInstanceRecursiveDeleteFailed: &502CFServiceInstanceRecursiveDeleteFailed
+        - code: 60027
+          title: CF-ServiceInstanceRecursiveDeleteFailed
+          detail: "Deletion of service instance %s failed because one or more associated resources could not be deleted.\n\n%s"
+        - code: 60027
+          title: CF-ServiceInstanceRecursiveDeleteFailed
+          detail: "Deletion of service instance %s failed because one or more associated resources could not be deleted.\n%s"
+        - code: 60027
+          title: CF-ServiceInstanceRecursiveDeleteFailed
+          detail: "Deletion of service instance %s failed because one or more associated resources could not be deleted. %s"
+      404CFManagedServiceInstanceNotFound: &404CFManagedServiceInstanceNotFound
+        - code: 60028
+          title: CF-ManagedServiceInstanceNotFound
+          detail: "The service instance could not be found: %s"
+      403CFServiceInstanceWithInaccessiblePlanNotUpdateable: &403CFServiceInstanceWithInaccessiblePlanNotUpdateable
+        - code: 60029
+          title: CF-ServiceInstanceWithInaccessiblePlanNotUpdateable
+          detail: "Cannot update %s of a service instance that belongs to inaccessible plan"
+      400CFServiceInstanceProvisionFailed: &400CFServiceInstanceProvisionFailed
+        - code: 60030
+          title: CF-ServiceInstanceProvisionFailed
+          detail: "The service broker reported an error during provisioning: %s"
+      400CFRuntimeInvalid: &400CFRuntimeInvalid
+        - code: 70001
+          title: CF-RuntimeInvalid
+          detail: "The runtime is invalid: %s"
+      400CFRuntimeNameTaken: &400CFRuntimeNameTaken
+        - code: 70002
+          title: CF-RuntimeNameTaken
+          detail: "The runtime name is taken: %s"
+      404CFRuntimeNotFound: &404CFRuntimeNotFound
+        - code: 70003
+          title: CF-RuntimeNotFound
+          detail: "The runtime could not be found: %s"
+      400CFFrameworkInvalid: &400CFFrameworkInvalid
+        - code: 80001
+          title: CF-FrameworkInvalid
+          detail: "The framework is invalid: %s"
+      400CFFrameworkNameTaken: &400CFFrameworkNameTaken
+        - code: 80002
+          title: CF-FrameworkNameTaken
+          detail: "The framework name is taken: %s"
+      404CFFrameworkNotFound: &404CFFrameworkNotFound
+        - code: 80003
+          title: CF-FrameworkNotFound
+          detail: "The framework could not be found: %s"
+      400CFServiceBindingInvalid: &400CFServiceBindingInvalid
+        - code: 90001
+          title: CF-ServiceBindingInvalid
+          detail: "The service binding is invalid: %s"
+      400CFServiceBindingDifferentSpaces: &400CFServiceBindingDifferentSpaces
+        - code: 90002
+          title: CF-ServiceBindingDifferentSpaces
+          detail: "The app and the service are not in the same app space: %s"
+      400CFServiceBindingAppServiceTaken: &400CFServiceBindingAppServiceTaken
+        - code: 90003
+          title: CF-ServiceBindingAppServiceTaken
+          detail: "%s"
+      404CFServiceBindingNotFound: &404CFServiceBindingNotFound
+        - code: 90004
+          title: CF-ServiceBindingNotFound
+          detail: "The service binding could not be found: %s"
+      400CFUnbindableService: &400CFUnbindableService
+        - code: 90005
+          title: CF-UnbindableService
+          detail: "The service instance doesn't support binding."
+      502CFInvalidLoggingServiceBinding: &502CFInvalidLoggingServiceBinding
+        - code: 90006
+          title: CF-InvalidLoggingServiceBinding
+          detail: "The service is attempting to stream logs from your application, but is not registered as a logging service. Please contact the service provider."
+      400CFServiceFetchBindingParametersNotSupported: &400CFServiceFetchBindingParametersNotSupported
+        - code: 90007
+          title: CF-ServiceFetchBindingParametersNotSupported
+          detail: "This service does not support fetching service binding parameters."
+      409CFAsyncServiceBindingOperationInProgress: &409CFAsyncServiceBindingOperationInProgress
+        - code: 90008
+          title: CF-AsyncServiceBindingOperationInProgress
+          detail: "An operation for the service binding between app %s and service instance %s is in progress."
+      400CFAppNameTaken: &400CFAppNameTaken
+        - code: 100002
+          title: CF-AppNameTaken
+          detail: "The app name is taken: %s"
+      400CFAppMemoryQuotaExceeded: &400CFAppMemoryQuotaExceeded
+        - code: 100005
+          title: CF-AppMemoryQuotaExceeded
+          detail: "You have exceeded your organization's memory limit: %s"
+      400CFAppMemoryInvalid: &400CFAppMemoryInvalid
+        - code: 100006
+          title: CF-AppMemoryInvalid
+          detail: "You have specified an invalid amount of memory for your application."
+      400CFQuotaInstanceMemoryLimitExceeded: &400CFQuotaInstanceMemoryLimitExceeded
+        - code: 100007
+          title: CF-QuotaInstanceMemoryLimitExceeded
+          detail: "You have exceeded the instance memory limit for your organization's quota."
+      400CFQuotaInstanceLimitExceeded: &400CFQuotaInstanceLimitExceeded
+        - code: 100008
+          title: CF-QuotaInstanceLimitExceeded
+          detail: "You have exceeded the instance limit for your organization's quota."
+      400CFAppMemoryInsufficientForSidecars: &400CFAppMemoryInsufficientForSidecars
+        - code: 100009
+          title: CF-AppMemoryInsufficientForSidecars
+          detail: "The requested memory allocation is not large enough to run all of your sidecar processes."
+      400CFOrgQuotaLogRateLimitExceeded: &400CFOrgQuotaLogRateLimitExceeded
+        - code: 100010
+          title: CF-OrgQuotaLogRateLimitExceeded
+          detail: "You have exceeded your organization's log rate limit: %s"
+      400CFServicePlanInvalid: &400CFServicePlanInvalid
+        - code: 110001
+          title: CF-ServicePlanInvalid
+          detail: "The service plan is invalid: %s"
+      400CFServicePlanNameTaken: &400CFServicePlanNameTaken
+        - code: 110002
+          title: CF-ServicePlanNameTaken
+          detail: "The service plan name is taken: %s"
+      404CFServicePlanNotFound: &404CFServicePlanNotFound
+        - code: 110003
+          title: CF-ServicePlanNotFound
+          detail: "The service plan could not be found: %s"
+      400CFServicePlanNotUpdateable: &400CFServicePlanNotUpdateable
+        - code: 110004
+          title: CF-ServicePlanNotUpdateable
+          detail: "The service does not support changing plans."
+      400CFServiceInvalid: &400CFServiceInvalid
+        - code: 120001
+          title: CF-ServiceInvalid
+          detail: "The service is invalid: %s"
+      400CFServiceLabelTaken: &400CFServiceLabelTaken
+        - code: 120002
+          title: CF-ServiceLabelTaken
+          detail: "The service label is taken: %s"
+      400CFServiceFetchInstanceParametersNotSupported: &400CFServiceFetchInstanceParametersNotSupported
+        - code: 120004
+          title: CF-ServiceFetchInstanceParametersNotSupported
+          detail: "This service does not support fetching service instance parameters."
+      400CFDomainInvalid: &400CFDomainInvalid
+        - code: 130001
+          title: CF-DomainInvalid
+          detail: "The domain is invalid: %s"
+      404CFDomainNotFound: &404CFDomainNotFound
+        - code: 130002
+          title: CF-DomainNotFound
+          detail: "The domain could not be found: %s"
+      400CFDomainNameTaken: &400CFDomainNameTaken
+        - code: 130003
+          title: CF-DomainNameTaken
+          detail: "The domain name is taken: %s"
+      400CFPathInvalid: &400CFPathInvalid
+        - code: 130004
+          title: CF-PathInvalid
+          detail: "The path is invalid: %s"
+      400CFTotalPrivateDomainsExceeded: &400CFTotalPrivateDomainsExceeded
+        - code: 130005
+          title: CF-TotalPrivateDomainsExceeded
+          detail: "The number of private domains exceeds the quota for organization: %s"
+      400CFServiceDoesNotSupportRoutes: &400CFServiceDoesNotSupportRoutes
+        - code: 130006
+          title: CF-ServiceDoesNotSupportRoutes
+          detail: "This service does not support route binding."
+      400CFRouteAlreadyBoundToServiceInstance: &400CFRouteAlreadyBoundToServiceInstance
+        - code: 130007
+          title: CF-RouteAlreadyBoundToServiceInstance
+          detail: "A route may only be bound to a single service instance"
+      400CFServiceInstanceAlreadyBoundToSameRoute: &400CFServiceInstanceAlreadyBoundToSameRoute
+        - code: 130008
+          title: CF-ServiceInstanceAlreadyBoundToSameRoute
+          detail: "The route and service instance are already bound."
+      422CFInternalDomainCannotBeDeleted: &422CFInternalDomainCannotBeDeleted
+        - code: 130009
+          title: CF-InternalDomainCannotBeDeleted
+          detail: "The domain '%s' cannot be deleted. It is reserved by the platform."
+      400CFRouteServiceCannotBeBoundToInternalRoute: &400CFRouteServiceCannotBeBoundToInternalRoute
+        - code: 130010
+          title: CF-RouteServiceCannotBeBoundToInternalRoute
+          detail: "Route services cannot be bound to internal routes."
+      400CFLegacyApiWithoutDefaultSpace: &400CFLegacyApiWithoutDefaultSpace
+        - code: 140001
+          title: CF-LegacyApiWithoutDefaultSpace
+          detail: "A legacy api call requiring a default app space was called, but no default app space is set for the user."
+      400CFAppPackageInvalid: &400CFAppPackageInvalid
+        - code: 150001
+          title: CF-AppPackageInvalid
+          detail: "The app package is invalid: %s"
+      404CFAppPackageNotFound: &404CFAppPackageNotFound
+        - code: 150002
+          title: CF-AppPackageNotFound
+          detail: "The app package could not be found: %s"
+      503CFInsufficientRunningResourcesAvailable: &503CFInsufficientRunningResourcesAvailable
+        - code: 150003
+          title: CF-InsufficientRunningResourcesAvailable
+          detail: "One or more instances could not be started because of insufficient running resources."
+      400CFPackageBitsAlreadyUploaded: &400CFPackageBitsAlreadyUploaded
+        - code: 150004
+          title: CF-PackageBitsAlreadyUploaded
+          detail: "Bits may be uploaded only once. Create a new package to upload different bits."
+      400CFBlobstoreNotLocal: &400CFBlobstoreNotLocal
+        - code: 150005
+          title: CF-BlobstoreNotLocal
+          detail: "Downloading blobs can only be done directly to the blobstore."
+      502CFBlobstoreUnavailable: &502CFBlobstoreUnavailable
+        - code: 150006
+          title: CF-BlobstoreUnavailable
+          detail: "Failed to perform operation due to blobstore unavailability."
+      500CFBlobstoreError: &500CFBlobstoreError
+        - code: 150007
+          title: CF-BlobstoreError
+          detail: "Failed to perform blobstore operation after three retries."
+      400CFDockerImageMissing: &400CFDockerImageMissing
+        - code: 150008
+          title: CF-DockerImageMissing
+          detail: "Docker credentials can only be supplied for apps with a 'docker_image'"
+      502CFAppRecursiveDeleteFailed: &502CFAppRecursiveDeleteFailed
+        - code: 150009
+          title: CF-AppRecursiveDeleteFailed
+          detail: "Deletion of app %s failed because one or more associated resources could not be deleted.\n\n%s"
+        - code: 150009
+          title: CF-AppRecursiveDeleteFailed
+          detail: "Deletion of app %s failed because one or more associated resources could not be deleted.\n%s"
+        - code: 150009
+          title: CF-AppRecursiveDeleteFailed
+          detail: "Deletion of app %s failed because one or more associated resources could not be deleted. %s"
+      400CFAppBitsUploadInvalid: &400CFAppBitsUploadInvalid
+        - code: 160001
+          title: CF-AppBitsUploadInvalid
+          detail: "The app upload is invalid: %s"
+      400CFAppBitsCopyInvalid: &400CFAppBitsCopyInvalid
+        - code: 160002
+          title: CF-AppBitsCopyInvalid
+          detail: "The app copy is invalid: %s"
+      400CFAppResourcesFileModeInvalid: &400CFAppResourcesFileModeInvalid
+        - code: 160003
+          title: CF-AppResourcesFileModeInvalid
+          detail: "The resource file mode is invalid: %s"
+      400CFAppResourcesFilePathInvalid: &400CFAppResourcesFilePathInvalid
+        - code: 160004
+          title: CF-AppResourcesFilePathInvalid
+          detail: "The resource file path is invalid: %s"
+      400CFStagingError: &400CFStagingError
+        - code: 170001
+          title: CF-StagingError
+          detail: "Staging error: %s"
+      400CFNotStaged: &400CFNotStaged
+        - code: 170002
+          title: CF-NotStaged
+          detail: "App has not finished staging"
+      400CFNoAppDetectedError: &400CFNoAppDetectedError
+        - code: 170003
+          title: CF-NoAppDetectedError
+          detail: "An app was not successfully detected by any available buildpack"
+      400CFBuildpackCompileFailed: &400CFBuildpackCompileFailed
+        - code: 170004
+          title: CF-BuildpackCompileFailed
+          detail: "App staging failed in the buildpack compile phase"
+      400CFBuildpackReleaseFailed: &400CFBuildpackReleaseFailed
+        - code: 170005
+          title: CF-BuildpackReleaseFailed
+          detail: "App staging failed in the buildpack release phase"
+      400CFNoBuildpacksFound: &400CFNoBuildpacksFound
+        - code: 170006
+          title: CF-NoBuildpacksFound
+          detail: "There are no buildpacks available"
+      504CFStagingTimeExpired: &504CFStagingTimeExpired
+        - code: 170007
+          title: CF-StagingTimeExpired
+          detail: "Staging time expired: %s"
+      400CFInsufficientResources: &400CFInsufficientResources
+        - code: 170008
+          title: CF-InsufficientResources
+          detail: "Insufficient resources"
+      400CFNoCompatibleCell: &400CFNoCompatibleCell
+        - code: 170009
+          title: CF-NoCompatibleCell
+          detail: "Found no compatible cell"
+      503CFStagerUnavailable: &503CFStagerUnavailable
+        - code: 170010
+          title: CF-StagerUnavailable
+          detail: "Stager is unavailable: %s"
+      500CFStagerError: &500CFStagerError
+        - code: 170011
+          title: CF-StagerError
+          detail: "Stager error: %s"
+      500CFRunnerInvalidRequest: &500CFRunnerInvalidRequest
+        - code: 170014
+          title: CF-RunnerInvalidRequest
+          detail: "Runner invalid request: %s"
+      503CFRunnerUnavailable: &503CFRunnerUnavailable
+        - code: 170015
+          title: CF-RunnerUnavailable
+          detail: "Runner is unavailable: %s"
+      500CFRunnerError: &500CFRunnerError
+        - code: 170016
+          title: CF-RunnerError
+          detail: "Runner error: %s"
+      422CFStagingInProgress: &422CFStagingInProgress
+        - code: 170017
+          title: CF-StagingInProgress
+          detail: "Only one build can be STAGING at a time per application."
+      500CFInvalidTaskAddress: &500CFInvalidTaskAddress
+        - code: 170018
+          title: CF-InvalidTaskAddress
+          detail: "Invalid config: %s"
+      500CFTaskError: &500CFTaskError
+        - code: 170019
+          title: CF-TaskError
+          detail: "Task failed: %s"
+      503CFTaskWorkersUnavailable: &503CFTaskWorkersUnavailable
+        - code: 170020
+          title: CF-TaskWorkersUnavailable
+          detail: "Task workers are unavailable: %s"
+      422CFInvalidTaskRequest: &422CFInvalidTaskRequest
+        - code: 170021
+          title: CF-InvalidTaskRequest
+          detail: "The task request is invalid: %s"
+      503CFServiceGatewayError: &503CFServiceGatewayError
+        - code: 180002
+          title: CF-ServiceGatewayError
+          detail: "Service gateway internal error: %s"
+      501CFServiceNotImplemented: &501CFServiceNotImplemented
+        - code: 180003
+          title: CF-ServiceNotImplemented
+          detail: "Operation not supported for service"
+      501CFSDSNotAvailable: &501CFSDSNotAvailable
+        - code: 180004
+          title: CF-SDSNotAvailable
+          detail: "No serialization service backends available"
+      400CFFileError: &400CFFileError
+        - code: 190001
+          title: CF-FileError
+          detail: "File error: %s"
+      400CFStatsError: &400CFStatsError
+        - code: 200001
+          title: CF-StatsError
+          detail: "Stats error: %s"
+      503CFStatsUnavailable: &503CFStatsUnavailable
+        - code: 200002
+          title: CF-StatsUnavailable
+          detail: "Stats unavailable: %s"
+      400CFAppStoppedStatsError: &400CFAppStoppedStatsError
+        - code: 200003
+          title: CF-AppStoppedStatsError
+          detail: "Could not fetch stats for stopped app: %s"
+      400CFRouteInvalid: &400CFRouteInvalid
+        - code: 210001
+          title: CF-RouteInvalid
+          detail: "The route is invalid: %s"
+      404CFRouteNotFound: &404CFRouteNotFound
+        - code: 210002
+          title: CF-RouteNotFound
+          detail: "The route could not be found: %s"
+      400CFRouteHostTaken: &400CFRouteHostTaken
+        - code: 210003
+          title: CF-RouteHostTaken
+          detail: "The host is taken: %s"
+      400CFRoutePathTaken: &400CFRoutePathTaken
+        - code: 210004
+          title: CF-RoutePathTaken
+          detail: "The path is taken: %s"
+      400CFRoutePortTaken: &400CFRoutePortTaken
+        - code: 210005
+          title: CF-RoutePortTaken
+          detail: "The port is taken: %s"
+      400CFRouteMappingTaken: &400CFRouteMappingTaken
+        - code: 210006
+          title: CF-RouteMappingTaken
+          detail: "The route mapping is taken: %s"
+      404CFRouteMappingNotFound: &404CFRouteMappingNotFound
+        - code: 210007
+          title: CF-RouteMappingNotFound
+          detail: "The route mapping could not be found: %s"
+      403CFOutOfRouterGroupPorts: &403CFOutOfRouterGroupPorts
+        - code: 21008
+          title: CF-OutOfRouterGroupPorts
+          detail: "There are no more ports available for router group: %s. Please contact your administrator for more information."
+      404CFRouterGroupNotFound: &404CFRouterGroupNotFound
+        - code: 210009
+          title: CF-RouterGroupNotFound
+          detail: "The router group could not be found: %s"
+      400CFInstancesError: &400CFInstancesError
+        - code: 220001
+          title: CF-InstancesError
+          detail: "Instances error: %s"
+      503CFInstancesUnavailable: &503CFInstancesUnavailable
+        - code: 220002
+          title: CF-InstancesUnavailable
+          detail: "Instances information unavailable: %s"
+      404CFEventNotFound: &404CFEventNotFound
+        - code: 230002
+          title: CF-EventNotFound
+          detail: "Event could not be found: %s"
+      404CFQuotaDefinitionNotFound: &404CFQuotaDefinitionNotFound
+        - code: 240001
+          title: CF-QuotaDefinitionNotFound
+          detail: "Quota Definition could not be found: %s"
+      400CFQuotaDefinitionNameTaken: &400CFQuotaDefinitionNameTaken
+        - code: 240002
+          title: CF-QuotaDefinitionNameTaken
+          detail: "Quota Definition is taken: %s"
+      400CFQuotaDefinitionInvalid: &400CFQuotaDefinitionInvalid
+        - code: 240003
+          title: CF-QuotaDefinitionInvalid
+          detail: "Quota Definition is invalid: %s"
+      400CFQuotaDefinitionMemoryLimitInvalid: &400CFQuotaDefinitionMemoryLimitInvalid
+        - code: 240004
+          title: CF-QuotaDefinitionMemoryLimitInvalid
+          detail: "Quota Definition memory limit cannot be less than -1"
+      400CFStackInvalid: &400CFStackInvalid
+        - code: 250001
+          title: CF-StackInvalid
+          detail: "The stack is invalid: %s"
+      400CFStackNameTaken: &400CFStackNameTaken
+        - code: 250002
+          title: CF-StackNameTaken
+          detail: "The stack name is taken: %s"
+      404CFStackNotFound: &404CFStackNotFound
+        - code: 250003
+          title: CF-StackNotFound
+          detail: "The stack could not be found: %s"
+      400CFServicePlanVisibilityInvalid: &400CFServicePlanVisibilityInvalid
+        - code: 260001
+          title: CF-ServicePlanVisibilityInvalid
+          detail: "Service Plan Visibility is invalid: %s"
+      400CFServicePlanVisibilityAlreadyExists: &400CFServicePlanVisibilityAlreadyExists
+        - code: 260002
+          title: CF-ServicePlanVisibilityAlreadyExists
+          detail: "This combination of ServicePlan and Organization is already taken: %s"
+      404CFServicePlanVisibilityNotFound: &404CFServicePlanVisibilityNotFound
+        - code: 260003
+          title: CF-ServicePlanVisibilityNotFound
+          detail: "The service plan visibility could not be found: %s"
+      400CFServiceBrokerInvalid: &400CFServiceBrokerInvalid
+        - code: 270001
+          title: CF-ServiceBrokerInvalid
+          detail: "Service broker is invalid: %s"
+      400CFServiceBrokerNameTaken: &400CFServiceBrokerNameTaken
+        - code: 270002
+          title: CF-ServiceBrokerNameTaken
+          detail: "The service broker name is taken"
+      400CFServiceBrokerUrlTaken: &400CFServiceBrokerUrlTaken
+        - code: 270003
+          title: CF-ServiceBrokerUrlTaken
+          detail: "The service broker url is taken: %s"
+      404CFServiceBrokerNotFound: &404CFServiceBrokerNotFound
+        - code: 270004
+          title: CF-ServiceBrokerNotFound
+          detail: "The service broker was not found: %s"
+      400CFServiceBrokerNotRemovable: &400CFServiceBrokerNotRemovable
+        - code: 270010
+          title: CF-ServiceBrokerNotRemovable
+          detail: "Can not remove brokers that have associated service instances: %s"
+      400CFServiceBrokerUrlInvalid: &400CFServiceBrokerUrlInvalid
+        - code: 270011
+          title: CF-ServiceBrokerUrlInvalid
+          detail: "%s is not a valid URL"
+      502CFServiceBrokerCatalogInvalid: &502CFServiceBrokerCatalogInvalid
+        - code: 270012
+          title: CF-ServiceBrokerCatalogInvalid
+          detail: "Service broker catalog is invalid: %s"
+      502CFServiceBrokerDashboardClientFailure: &502CFServiceBrokerDashboardClientFailure
+        - code: 270013
+          title: CF-ServiceBrokerDashboardClientFailure
+          detail: "Service broker dashboard clients could not be modified: %s"
+      400CFServiceBrokerAsyncRequired: &400CFServiceBrokerAsyncRequired
+        - code: 270014
+          title: CF-ServiceBrokerAsyncRequired
+          detail: "This service plan requires client support for asynchronous service operations."
+      502CFServiceDashboardClientMissingUrl: &502CFServiceDashboardClientMissingUrl
+        - code: 270015
+          title: CF-ServiceDashboardClientMissingUrl
+          detail: "Service broker returned dashboard client configuration without a dashboard URL"
+      400CFServiceBrokerUrlBasicAuthNotSupported: &400CFServiceBrokerUrlBasicAuthNotSupported
+        - code: 270016
+          title: CF-ServiceBrokerUrlBasicAuthNotSupported
+          detail: "User name and password fields in the broker URI are not supported"
+      502CFServiceBrokerRespondedAsyncWhenNotAllowed: &502CFServiceBrokerRespondedAsyncWhenNotAllowed
+        - code: 270017
+          title: CF-ServiceBrokerRespondedAsyncWhenNotAllowed
+          detail: "The service broker responded asynchronously to a request, but the accepts_incomplete query parameter was false or not given."
+      422CFServiceBrokerConcurrencyError: &422CFServiceBrokerConcurrencyError
+        - code: 270018
+          title: CF-ServiceBrokerConcurrencyError
+          detail: "The service broker could not perform this operation in parallel with other running operations"
+      502CFServiceBrokerCatalogIncompatible: &502CFServiceBrokerCatalogIncompatible
+        - code: 270019
+          title: CF-ServiceBrokerCatalogIncompatible
+          detail: "Service broker catalog is incompatible: %s"
+      502CFServiceBrokerRequestRejected: &502CFServiceBrokerRequestRejected
+        - code: 270020
+          title: CF-ServiceBrokerRequestRejected
+          detail: "The service broker rejected the request. Status Code: %s. Please check that the URL points to a valid service broker."
+      502CFServiceBrokerRequestMalformed: &502CFServiceBrokerRequestMalformed
+        - code: 270021
+          title: CF-ServiceBrokerRequestMalformed
+          detail: "The service broker returned an invalid response: expected valid JSON object in body. Please check that the URL points to a valid service broker."
+      502CFServiceBrokerSyncFailed: &502CFServiceBrokerSyncFailed
+        - code: 270022
+          title: CF-ServiceBrokerSyncFailed
+          detail: "Encountered an error while attempting to sync cloud controller with the service broker's catalog: %s"
+      422CFBuildpackNameStackTaken: &422CFBuildpackNameStackTaken
+        - code: 290000
+          title: CF-BuildpackNameStackTaken
+          detail: "The buildpack name %s is already in use for the stack %s"
+      400CFBuildpackNameTaken: &400CFBuildpackNameTaken
+        - code: 290001
+          title: CF-BuildpackNameTaken
+          detail: "The buildpack name is already in use: %s"
+      400CFBuildpackBitsUploadInvalid: &400CFBuildpackBitsUploadInvalid
+        - code: 290002
+          title: CF-BuildpackBitsUploadInvalid
+          detail: "The buildpack upload is invalid: %s"
+      400CFBuildpackInvalid: &400CFBuildpackInvalid
+        - code: 290003
+          title: CF-BuildpackInvalid
+          detail: "Buildpack is invalid: %s"
+      400CFCustomBuildpacksDisabled: &400CFCustomBuildpacksDisabled
+        - code: 290004
+          title: CF-CustomBuildpacksDisabled
+          detail: "Custom buildpacks are disabled"
+      409CFBuildpackLocked: &409CFBuildpackLocked
+        - code: 290005
+          title: CF-BuildpackLocked
+          detail: "The buildpack is locked"
+      524CFJobTimeout: &524CFJobTimeout
+        - code: 290006
+          title: CF-JobTimeout
+          detail: "The job execution has timed out."
+      524CFSpaceDeleteTimeout: &524CFSpaceDeleteTimeout
+        - code: 290007
+          title: CF-SpaceDeleteTimeout
+          detail: "Deletion of space %s timed out before all resources within could be deleted"
+      502CFSpaceDeletionFailed: &502CFSpaceDeletionFailed
+        - code: 290008
+          title: CF-SpaceDeletionFailed
+          detail: "Deletion of space %s failed because one or more resources within could not be deleted.\n\n%s"
+        - code: 290008
+          title: CF-SpaceDeletionFailed
+          detail: "Deletion of space %s failed because one or more resources within could not be deleted.\n%s"
+        - code: 290008
+          title: CF-SpaceDeletionFailed
+          detail: "Deletion of space %s failed because one or more resources within could not be deleted. %s"
+      524CFOrganizationDeleteTimeout: &524CFOrganizationDeleteTimeout
+        - code: 290009
+          title: CF-OrganizationDeleteTimeout
+          detail: "Delete of organization %s timed out before all resources within could be deleted"
+      502CFOrganizationDeletionFailed: &502CFOrganizationDeletionFailed
+        - code: 290010
+          title: CF-OrganizationDeletionFailed
+          detail: "Deletion of organization %s failed because one or more resources within could not be deleted.\n\n%s"
+        - code: 290010
+          title: CF-OrganizationDeletionFailed
+          detail: "Deletion of organization %s failed because one or more resources within could not be deleted.\n%s"
+        - code: 290010
+          title: CF-OrganizationDeletionFailed
+          detail: "Deletion of organization %s failed because one or more resources within could not be deleted. %s"
+      400CFNonrecursiveSpaceDeletionFailed: &400CFNonrecursiveSpaceDeletionFailed
+        - code: 290011
+          title: CF-NonrecursiveSpaceDeletionFailed
+          detail: "Resource inside space %s must first be deleted, or specify recursive delete."
+      524CFOrganizationRolesDeletionTimeout: &524CFOrganizationRolesDeletionTimeout
+        - code: 290013
+          title: CF-OrganizationRolesDeletionTimeout
+          detail: "Deletion of roles for organization %s timed out before all roles could be deleted"
+      502CFOrganizationRolesDeletionFailed: &502CFOrganizationRolesDeletionFailed
+        - code: 290014
+          title: CF-OrganizationRolesDeletionFailed
+          detail: "Failed to delete one or more roles for organization %s"
+      524CFSpaceRolesDeletionTimeout: &524CFSpaceRolesDeletionTimeout
+        - code: 290013
+          title: CF-SpaceRolesDeletionTimeout
+          detail: "Deletion of roles for space %s timed out before all roles could be deleted"
+      502CFSpaceRolesDeletionFailed: &502CFSpaceRolesDeletionFailed
+        - code: 290016
+          title: CF-SpaceRolesDeletionFailed
+          detail: "Failed to delete one or more roles for space %s"
+      400CFSecurityGroupInvalid: &400CFSecurityGroupInvalid
+        - code: 300001
+          title: CF-SecurityGroupInvalid
+          detail: "The security group is invalid: %s"
+      404CFSecurityGroupNotFound: &404CFSecurityGroupNotFound
+        - code: 300002
+          title: CF-SecurityGroupNotFound
+          detail: "The security group could not be found: %s"
+      400CFSecurityGroupStagingDefaultInvalid: &400CFSecurityGroupStagingDefaultInvalid
+        - code: 300003
+          title: CF-SecurityGroupStagingDefaultInvalid
+          detail: "The security group could not be found: %s"
+      400CFSecurityGroupRunningDefaultInvalid: &400CFSecurityGroupRunningDefaultInvalid
+        - code: 300004
+          title: CF-SecurityGroupRunningDefaultInvalid
+          detail: "The security group could not be found: %s"
+      400CFSecurityGroupNameTaken: &400CFSecurityGroupNameTaken
+        - code: 300005
+          title: CF-SecurityGroupNameTaken
+          detail: "The security group name is taken: %s"
+      400CFSpaceQuotaDefinitionInvalid: &400CFSpaceQuotaDefinitionInvalid
+        - code: 310001
+          title: CF-SpaceQuotaDefinitionInvalid
+          detail: "Space Quota Definition is invalid: %s"
+      400CFSpaceQuotaDefinitionNameTaken: &400CFSpaceQuotaDefinitionNameTaken
+        - code: 310002
+          title: CF-SpaceQuotaDefinitionNameTaken
+          detail: "The space quota definition name is taken: %s"
+      400CFSpaceQuotaMemoryLimitExceeded: &400CFSpaceQuotaMemoryLimitExceeded
+        - code: 310003
+          title: CF-SpaceQuotaMemoryLimitExceeded
+          detail: "You have exceeded your space's memory limit: %s"
+      400CFSpaceQuotaInstanceMemoryLimitExceeded: &400CFSpaceQuotaInstanceMemoryLimitExceeded
+        - code: 310004
+          title: CF-SpaceQuotaInstanceMemoryLimitExceeded
+          detail: "You have exceeded the instance memory limit for your space's quota."
+      400CFSpaceQuotaTotalRoutesExceeded: &400CFSpaceQuotaTotalRoutesExceeded
+        - code: 310005
+          title: CF-SpaceQuotaTotalRoutesExceeded
+          detail: "You have exceeded the total routes for your space's quota."
+      400CFOrgQuotaTotalRoutesExceeded: &400CFOrgQuotaTotalRoutesExceeded
+        - code: 310006
+          title: CF-OrgQuotaTotalRoutesExceeded
+          detail: "You have exceeded the total routes for your organization's quota."
+      404CFSpaceQuotaDefinitionNotFound: &404CFSpaceQuotaDefinitionNotFound
+        - code: 310007
+          title: CF-SpaceQuotaDefinitionNotFound
+          detail: "Space Quota Definition could not be found: %s"
+      400CFSpaceQuotaInstanceLimitExceeded: &400CFSpaceQuotaInstanceLimitExceeded
+        - code: 310008
+          title: CF-SpaceQuotaInstanceLimitExceeded
+          detail: "You have exceeded the instance limit for your space's quota."
+      400CFOrgQuotaTotalReservedRoutePortsExceeded: &400CFOrgQuotaTotalReservedRoutePortsExceeded
+        - code: 310009
+          title: CF-OrgQuotaTotalReservedRoutePortsExceeded
+          detail: "You have exceeded the total reserved route ports for your organization's quota."
+      400CFSpaceQuotaTotalReservedRoutePortsExceeded: &400CFSpaceQuotaTotalReservedRoutePortsExceeded
+        - code: 310010
+          title: CF-SpaceQuotaTotalReservedRoutePortsExceeded
+          detail: "You have exceeded the total reserved route ports for your space's quota."
+      400CFSpaceQuotaLogRateLimitExceeded: &400CFSpaceQuotaLogRateLimitExceeded
+        - code: 310011
+          title: CF-SpaceQuotaLogRateLimitExceeded
+          detail: "You have exceeded your space's log rate limit: %s"
+      400CFDiegoDisabled: &400CFDiegoDisabled
+        - code: 320001
+          title: CF-DiegoDisabled
+          detail: "Diego has not been enabled."
+      400CFDiegoDockerBuildpackConflict: &400CFDiegoDockerBuildpackConflict
+        - code: 320002
+          title: CF-DiegoDockerBuildpackConflict
+          detail: "You cannot specify a custom buildpack and a docker image at the same time."
+      400CFDockerDisabled: &400CFDockerDisabled
+        - code: 320003
+          title: CF-DockerDisabled
+          detail: "Docker support has not been enabled."
+      403CFStagingBackendInvalid: &403CFStagingBackendInvalid
+        - code: 320004
+          title: CF-StagingBackendInvalid
+          detail: "The request staging completion endpoint only handles apps desired to stage on the Diego backend."
+      403CFBackendSelectionNotAuthorized: &403CFBackendSelectionNotAuthorized
+        - code: 320005
+          title: CF-BackendSelectionNotAuthorized
+          detail: "You cannot select the backend on which to run this application"
+      400CFRevisionsEnabled: &400CFRevisionsEnabled
+        - code: 320006
+          title: CF-RevisionsEnabled
+          detail: "V2 restaging is disabled when your app has revisions enabled"
+      400CFCNBDisabled: &400CFCNBDisabled
+        - code: 320007
+          title: CF-CNBDisabled
+          detail: "Cloud Native Buildpacks support has not been enabled."
+      404CFFeatureFlagNotFound: &404CFFeatureFlagNotFound
+        - code: 330000
+          title: CF-FeatureFlagNotFound
+          detail: "The feature flag could not be found: %s"
+      400CFFeatureFlagInvalid: &400CFFeatureFlagInvalid
+        - code: 330001
+          title: CF-FeatureFlagInvalid
+          detail: "The feature flag is invalid: %s"
+      403CFFeatureDisabled: &403CFFeatureDisabled
+        - code: 330002
+          title: CF-FeatureDisabled
+          detail: "Feature Disabled: %s"
+      404CFUserProvidedServiceInstanceNotFound: &404CFUserProvidedServiceInstanceNotFound
+        - code: 340001
+          title: CF-UserProvidedServiceInstanceNotFound
+          detail: "The service instance could not be found: %s"
+      400CFUserProvidedServiceInstanceHandlerNeeded: &400CFUserProvidedServiceInstanceHandlerNeeded
+        - code: 340002
+          title: CF-UserProvidedServiceInstanceHandlerNeeded
+          detail: "Please use the User Provided Services API to manage this resource."
+      400CFProcessInvalid: &400CFProcessInvalid
+        - code: 350001
+          title: CF-ProcessInvalid
+          detail: "The process is invalid: %s"
+      400CFUnableToDelete: &400CFUnableToDelete
+        - code: 350002
+          title: CF-UnableToDelete
+          detail: "Unable to perform delete action: %s"
+      404CFProcessNotFound: &404CFProcessNotFound
+        - code: 350003
+          title: CF-ProcessNotFound
+          detail: "The process could not be found: %s"
+      400CFServiceKeyNameTaken: &400CFServiceKeyNameTaken
+        - code: 360001
+          title: CF-ServiceKeyNameTaken
+          detail: "The service key name is taken: %s"
+      400CFServiceKeyInvalid: &400CFServiceKeyInvalid
+        - code: 360002
+          title: CF-ServiceKeyInvalid
+          detail: "The service key is invalid: %s"
+      404CFServiceKeyNotFound: &404CFServiceKeyNotFound
+        - code: 360003
+          title: CF-ServiceKeyNotFound
+          detail: "The service key could not be found: %s"
+      400CFServiceKeyNotSupported: &400CFServiceKeyNotSupported
+        - code: 360004
+          title: CF-ServiceKeyNotSupported
+          detail: "%s"
+      503CFServiceKeyCredentialStoreUnavailable: &503CFServiceKeyCredentialStoreUnavailable
+        - code: 360005
+          title: CF-ServiceKeyCredentialStoreUnavailable
+          detail: "Credential store is unavailable"
+      503CFRoutingApiUnavailable: &503CFRoutingApiUnavailable
+        - code: 370001
+          title: CF-RoutingApiUnavailable
+          detail: "The Routing API is currently unavailable"
+      403CFRoutingApiDisabled: &403CFRoutingApiDisabled
+        - code: 370003
+          title: CF-RoutingApiDisabled
+          detail: "Routing API is disabled"
+      400CFEnvironmentVariableGroupInvalid: &400CFEnvironmentVariableGroupInvalid
+        - code: 380001
+          title: CF-EnvironmentVariableGroupInvalid
+          detail: "The Environment Variable Group is invalid: %s"
+      400CFDropletUploadInvalid: &400CFDropletUploadInvalid
+        - code: 380002
+          title: CF-DropletUploadInvalid
+          detail: "The droplet upload is invalid: %s"
+      502CFServiceInstanceUnshareFailed: &502CFServiceInstanceUnshareFailed
+        - code: 390001
+          title: CF-ServiceInstanceUnshareFailed
+          detail: "Unshare of service instance failed: \n\n%s"
+        - code: 390001
+          title: CF-ServiceInstanceUnshareFailed
+          detail: "Unshare of service instance failed:\n%s"
+        - code: 390001
+          title: CF-ServiceInstanceUnshareFailed
+          detail: "Unshare of service instance failed: %s"
+      422CFServiceInstanceDeletionSharesExists: &422CFServiceInstanceDeletionSharesExists
+        - code: 390002
+          title: CF-ServiceInstanceDeletionSharesExists
+          detail: "Service instances must be unshared before they can be deleted. Unsharing %s will automatically delete any bindings that have been made to applications in other spaces."
+      422CFSharedServiceInstanceCannotBeRenamed: &422CFSharedServiceInstanceCannotBeRenamed
+        - code: 390003
+          title: CF-SharedServiceInstanceCannotBeRenamed
+          detail: "message: 'Service instances that have been shared cannot be renamed'"
+      403CFSharedServiceInstanceNotUpdatableInTargetSpace: &403CFSharedServiceInstanceNotUpdatableInTargetSpace
+        - code: 390004
+          title: CF-SharedServiceInstanceNotUpdatableInTargetSpace
+          detail: "message: 'You cannot update service instances that have been shared with you'"
+      403CFSharedServiceInstanceNotDeletableInTargetSpace: &403CFSharedServiceInstanceNotDeletableInTargetSpace
+        - code: 390005
+          title: CF-SharedServiceInstanceNotDeletableInTargetSpace
+          detail: "message: 'You cannot delete service instances that have been shared with you'"
+      422CFMaintenanceInfoNotSupported: &422CFMaintenanceInfoNotSupported
+        - code: 390006
+          title: CF-MaintenanceInfoNotSupported
+          detail: "The service broker does not support upgrades for service instances created from this plan."
+      422CFMaintenanceInfoNotSemver: &422CFMaintenanceInfoNotSemver
+        - code: 390007
+          title: CF-MaintenanceInfoNotSemver
+          detail: "maintenance_info.version should be a semantic version."
+      422CFMaintenanceInfoNotUpdatableWhenChangingPlan: &422CFMaintenanceInfoNotUpdatableWhenChangingPlan
+        - code: 390008
+          title: CF-MaintenanceInfoNotUpdatableWhenChangingPlan
+          detail: "maintenance_info should not be changed when switching to different plan."
+      422CFMaintenanceInfoConflict: &422CFMaintenanceInfoConflict
+        - code: 390009
+          title: CF-MaintenanceInfoConflict
+          detail: "maintenance_info.version requested is invalid. Please ensure the catalog is up to date and you are providing a version supported by this service plan."
+      422CFBuildpackStacksDontMatch: &422CFBuildpackStacksDontMatch
+        - code: 390011
+          title: CF-BuildpackStacksDontMatch
+          detail: "message: 'Uploaded buildpack stack (%s) does not match %s'"
+      422CFBuildpackStackDoesNotExist: &422CFBuildpackStackDoesNotExist
+        - code: 390012
+          title: CF-BuildpackStackDoesNotExist
+          detail: "message: 'Uploaded buildpack stack (%s) does not exist'"
+      422CFBuildpackZipError: &422CFBuildpackZipError
+        - code: 390013
+          title: CF-BuildpackZipError
+          detail: "message: 'Buildpack zip error: %s'"
+      403CFDeploymentsDisabled: &403CFDeploymentsDisabled
+        - code: 390014
+          title: CF-DeploymentsDisabled
+          detail: "Deployments cannot be created due to manifest property 'temporary_disable_deployments'"
+      422CFNoCurrentEncryptionKey: &422CFNoCurrentEncryptionKey
+        - code: 390015
+          title: CF-NoCurrentEncryptionKey
+          detail: "Please set the desired encryption key in the manifest at ‘cc.database_encryption.current_key_label’"
+      422CFScaleDisabledDuringDeployment: &422CFScaleDisabledDuringDeployment
+        - code: 390016
+          title: CF-ScaleDisabledDuringDeployment
+          detail: "Cannot scale this process while a deployment is in flight."
+      422CFProcessUpdateDisabledDuringDeployment: &422CFProcessUpdateDisabledDuringDeployment
+        - code: 390017
+          title: CF-ProcessUpdateDisabledDuringDeployment
+          detail: "Cannot update this process while a deployment is in flight."
+      422CFLabelLimitExceeded: &422CFLabelLimitExceeded
+        - code: 390020
+          title: CF-LabelLimitExceeded
+          detail: "Failed to add %d labels because it would exceed maximum of %d"
+      422CFAnnotationLimitExceeded: &422CFAnnotationLimitExceeded
+        - code: 390023
+          title: CF-AnnotationLimitExceeded
+          detail: "Failed to add %d annotations because it would exceed maximum of %d"
+      422CFStopDisabledDuringDeployment: &422CFStopDisabledDuringDeployment
+        - code: 390024
+          title: CF-StopDisabledDuringDeployment
+          detail: "Cannot stop the app while it is deploying, please cancel the deployment before stopping the app."
+      422CFKubernetesRouteResourceError: &422CFKubernetesRouteResourceError
+        - code: 400001
+          title: CF-KubernetesRouteResourceError
+          detail: "Failed to create/update/delete Route resource with guid '%s' on Kubernetes"
+      422CFKpackImageError: &422CFKpackImageError
+        - code: 400002
+          title: CF-KpackImageError
+          detail: "Failed to %s Image resource for staging: '%s'"
+      422CFKpackBuilderError: &422CFKpackBuilderError
+        - code: 400003
+          title: CF-KpackBuilderError
+          detail: "Failed to %s Builder resource: '%s'"
+      422CFEiriniLRPError: &422CFEiriniLRPError
+        - code: 410001
+          title: CF-EiriniLRPError
+          detail: "Failed to %s LRP resource: '%s'"
+      500CFKorifiError: &500CFKorifiError
+        - code: 420000
+          title: CF-KorifiError
+          detail: "%s"
+      500CFDeserializationError: &500CFDeserializationError
+        - code: 420001
+          title: CF-DeserializationError
+          detail: "%s"
+      400CFCNBGenericBuildFailed: &400CFCNBGenericBuildFailed
+        - code: 430001
+          title: CF-CNBGenericBuildFailed
+          detail: "cnb: generic build failure"
+      400CFCNBDownloadBuildpackFailed: &400CFCNBDownloadBuildpackFailed
+        - code: 430002
+          title: CF-CNBDownloadBuildpackFailed
+          detail: "cnb: downloading buildpacks failed"
+      400CFCNBDetectFailed: &400CFCNBDetectFailed
+        - code: 430003
+          title: CF-CNBDetectFailed
+          detail: "cnb: detecting failed"
+      400CFCNBBuildFailed: &400CFCNBBuildFailed
+        - code: 430004
+          title: CF-CNBBuildFailed
+          detail: "cnb: building failed"
+      400CFCNBExportFailed: &400CFCNBExportFailed
+        - code: 430005
+          title: CF-CNBExportFailed
+          detail: "cnb: exporting failed"
+      400CFCNBLaunchFailed: &400CFCNBLaunchFailed
+        - code: 430006
+          title: CF-CNBLaunchFailed
+          detail: "cnb: launching failed"
+      400CFCNBRestoreFailed: &400CFCNBRestoreFailed
+        - code: 430007
+          title: CF-CNBRestoreFailed
+          detail: "cnb: restore failed"
+      422CFServiceBrokerNotRemovable: &422CFServiceBrokerNotRemovable
+        - code: 270010
+          title: CF-ServiceBrokerNotRemovable
+          detail: "Can not remove brokers that have associated service instances: %s"
+      422CFServiceBrokerGone: &422CFServiceBrokerGone
+        - code: 270011
+          title: CF-ServiceBrokerGone
+          detail: "The service broker was removed before the synchronization completed"
