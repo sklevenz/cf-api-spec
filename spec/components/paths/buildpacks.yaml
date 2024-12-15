@@ -8,7 +8,7 @@
         $ref: './../../openapi.yaml#/components/requestBodies/buildpackCreateRequestBody'
       responses:
         "201":
-          $ref: './../../openapi.yaml#/components/responses/buildpackCreateResponse'
+          $ref: './../responses/buildpack.yaml#/buildpackCreateResponse'
         "400":
           description: Bad request
           content:
@@ -60,8 +60,8 @@
               schema:
                 $ref: './../../openapi.yaml#/components/schemas/buildpackList'
         "401":
-          $ref: './../../openapi.yaml#/components/responses/401Unauthorized'
+          $ref: './../responses/error.yaml#/401'
         "403":
-          $ref: './../../openapi.yaml#/components/responses/403Forbidden'
+          $ref: './../responses/error.yaml#/403'
         "500":
-          $ref: './../../openapi.yaml#/components/responses/500Unauthorized'
+          $ref: './../responses/error.yaml#/500'

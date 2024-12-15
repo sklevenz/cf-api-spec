@@ -62,9 +62,9 @@
                 errors:
                   $ref: './../cf-errors.yaml#/cf-errors/400CFBadQueryParameter'
         "401":
-          $ref: './../../openapi.yaml#/components/responses/401Unauthorized'
+          $ref: './../responses/error.yaml#/401'
         "403":
-          $ref: './../../openapi.yaml#/components/responses/403Forbidden'
+          $ref: './../responses/error.yaml#/403'
         "404":
           description: Not Found
           content:
@@ -84,7 +84,7 @@
                 errors:
                   $ref: './../cf-errors.yaml#/cf-errors/422CFUnprocessableEntity'
         "500":
-          $ref: './../../openapi.yaml#/components/responses/500Unauthorized'
+          $ref: './../responses/error.yaml#/500'
       security:
         - oauth:
             - cloud_controller.write
