@@ -18,7 +18,6 @@
               example:
                 errors:
                   $ref: './../cf-errors.yaml#/cf-errors/400CFUserInvalid'
-                  # - <<: *400CFUserInvalid
       security:
         - oauth:
             - cloud_controller.write
@@ -29,12 +28,12 @@
       description: Retrieve a list of buildpacks available in the system.
       operationId: listBuildpacks
       parameters:
-        - $ref: './../../openapi.yaml#/components/parameters/page'
-        - $ref: './../../openapi.yaml#/components/parameters/perPage'
-        - $ref: './../../openapi.yaml#/components/parameters/orderBy'
-        - $ref: './../../openapi.yaml#/components/parameters/createdAts'
-        - $ref: './../../openapi.yaml#/components/parameters/updatedAts'
-        - $ref: './../../openapi.yaml#/components/parameters/labelSelector'
+        - $ref: './../parameters/page.yaml' 
+        - $ref: './../parameters/perPage.yaml' 
+        - $ref: './../parameters/orderBy.yaml' 
+        - $ref: './../parameters/createdAts.yaml' 
+        - $ref: './../parameters/updatedAts.yaml' 
+        - $ref: './../parameters/labelSelector.yaml' 
         - name: name
           in: query
           schema:

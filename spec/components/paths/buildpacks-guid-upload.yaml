@@ -5,7 +5,7 @@
       description: Upload a buildpack file for a specific buildpack by its GUID.
       operationId: uploadBuildpack
       parameters:
-        - $ref: './../../openapi.yaml#/components/parameters/guid'
+        - $ref: './../parameters/guid.yaml'
       requestBody:
         description: The buildpack file to be uploaded
         required: true
