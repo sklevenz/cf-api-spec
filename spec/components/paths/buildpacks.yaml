@@ -1,0 +1,68 @@
+    post:
+      tags:
+        - Buildpacks
+      summary: Create a buildpack
+      description: Create a new buildpack
+      operationId: createBuildpack
+      requestBody:
+        $ref: './../../openapi.yaml#/components/requestBodies/buildpackCreateRequestBody'
+      responses:
+        "201":
+          $ref: './../../openapi.yaml#/components/responses/buildpackCreateResponse'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: './../../openapi.yaml#/components/schemas/errors'
+              example:
+                errors:
+                  $ref: './../cf-errors.yaml#/cf-errors/400CFUserInvalid'
+                  # - <<: *400CFUserInvalid
+      security:
+        - oauth:
+            - cloud_controller.write
+    get:
+      tags:
+        - Buildpacks
+      summary: List buildpacks
+      description: Retrieve a list of buildpacks available in the system.
+      operationId: listBuildpacks
+      parameters:
+        - $ref: './../../openapi.yaml#/components/parameters/page'
+        - $ref: './../../openapi.yaml#/components/parameters/perPage'
+        - $ref: './../../openapi.yaml#/components/parameters/orderBy'
+        - $ref: './../../openapi.yaml#/components/parameters/createdAts'
+        - $ref: './../../openapi.yaml#/components/parameters/updatedAts'
+        - $ref: './../../openapi.yaml#/components/parameters/labelSelector'
+        - name: name
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+          description: >
+            Comma-delimited list of buildpack names to filter by
+
+        - name: stacks
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+          description: >
+            Comma-delimited list of stacks to filter by
+
+      responses:
+        "200":
+          description: List of buildpacks
+          content:
+            application/json:
+              schema:
+                $ref: './../../openapi.yaml#/components/schemas/buildpackList'
+        "401":
+          $ref: './../../openapi.yaml#/components/responses/401Unauthorized'
+        "403":
+          $ref: './../../openapi.yaml#/components/responses/403Forbidden'
+        "500":
+          $ref: './../../openapi.yaml#/components/responses/500Unauthorized'

@@ -1,5 +1,3 @@
-x-components:
-  responses:
     cf-errors:
       400CFBadRequest: &400CFBadRequest
         - code: 1004
