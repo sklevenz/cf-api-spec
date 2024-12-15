@@ -5,7 +5,7 @@ export NODE_NO_WARNINGS=1
 
 # Set variables
 SPEC_FILE="spec/openapi.yaml"
-OUTPUT_DIR="docs"
+OUTPUT_DIR="gen/docs"
 OUTPUT_FILE="$OUTPUT_DIR/index.html"
 
 # Function to print messages
@@ -46,6 +46,7 @@ npx @redocly/cli build-docs "$SPEC_FILE" --output "$OUTPUT_FILE"
 # Check if the generation was successful
 if [ $? -eq 0 ]; then
   print_success "Documentation generated successfully: $OUTPUT_FILE"
+  open $OUTPUT_FILE
 else
   print_error "Failed to generate documentation."
   exit 1
