@@ -1,7 +1,7 @@
-      name: guid
+      name: droplet_guid
       in: path
       required: true
       schema:
         type: string
         format: uuid
-      description: The GUID of the resource
+      description: The GUID of the droplet
