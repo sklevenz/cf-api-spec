@@ -3,7 +3,7 @@ buildpackCreateResponse:
   content:
     application/json:
       schema:
-        $ref: './../../openapi.yaml#/components/schemas/buildpack'
+        $ref: './../schemas//buildpack.yaml#/buildpack'
       examples:
         buildpack:
           summary: A sample buildpack
@@ -34,7 +34,7 @@ buildpackGetResponse:
   content:
     application/json:
       schema:
-        $ref: './../../openapi.yaml#/components/schemas/buildpack'
+        $ref: './../schemas//buildpack.yaml#/buildpack'
       examples:
         buildpack:
           summary: A sample buildpack

@@ -27,7 +27,7 @@
           content:
             application/json:
               schema:
-                $ref: './../../openapi.yaml#/components/schemas/buildpack'
+                $ref: './../schemas//buildpack.yaml#/buildpackList'
               examples:
                 buildpack:
                   summary: A sample buildpack
@@ -57,7 +57,7 @@
           content:
             application/json:
               schema:
-                $ref: './../../openapi.yaml#/components/schemas/errors'
+                $ref: './../schemas/error.yaml'
               example:
                 errors:
                   $ref: './../cf-errors.yaml#/cf-errors/400CFBadQueryParameter'
@@ -70,7 +70,7 @@
           content:
             application/json:
               schema:
-                $ref: './../../openapi.yaml#/components/schemas/errors'
+                $ref: './../schemas/error.yaml'
               example:
                 errors:
                   $ref: './../cf-errors.yaml#/cf-errors/404CFResourceNotFound'
@@ -79,7 +79,7 @@
           content:
             application/json:
               schema:
-                $ref: './../../openapi.yaml#/components/schemas/errors'
+                $ref: './../schemas/error.yaml'
               example:
                 errors:
                   $ref: './../cf-errors.yaml#/cf-errors/422CFUnprocessableEntity'

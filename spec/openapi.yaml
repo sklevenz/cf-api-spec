@@ -1563,53 +1563,6 @@ components:
         Roles represent a set of permissions that can be granted to users. Roles are represented as a JSON object.
         A role consists of several required role fields and other attributes specific to the role.
         See Roles for specific roles.
-    buildpack:
-      type: object
-      allOf:
-        - $ref: '#/components/schemas/baseSchema'
-        - properties:
-            name:
-              type: string
-              description: The name of the buildpack
-            stack:
-              type: string
-              description: The stack the buildpack is compatible with
-            position:
-              type: integer
-              description: The position of the buildpack in the order of execution
-            enabled:
-              type: boolean
-              description: Whether the buildpack is enabled
-            locked:
-              type: boolean
-              description: Whether the buildpack is locked
-            filename:
-              type: string
-              description: The filename of the buildpack
-            metadata:
-              $ref: '#/components/schemas/metadata'
-            links:
-              allOf:
-                - $ref: '#/components/schemas/links'
-              properties:
-                self:
-                  allOf:
-                    - $ref: '#/components/schemas/link'
-                    - description: The URL of the buildpack
-                upload:
-                  allOf:
-                    - $ref: '#/components/schemas/link'
-                    - description: The URL to upload the buildpack
-      description: A buildpack represents a set of scripts used to prepare an application for launch.
-    buildpackList:
-      type: object
-      properties:
-        pagination:
-          $ref: '#/components/schemas/pagination'
-        resources:
-          type: array
-          items:
-            $ref: '#/components/schemas/buildpack'
     user:
       type: object
       properties:
@@ -2657,52 +2610,6 @@ components:
                 items:
                   $ref: '#/components/schemas/role'
   requestBodies:
-    buildpackCreateRequestBody:
-      description: Buildpack object that needs to be added
-      required: true
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              name:
-                type: string
-                description: The name of the buildpack
-              stack:
-                type: string
-                description: The stack the buildpack is compatible with
-              position:
-                type: integer
-                description: The position of the buildpack in the order of execution
-              state:
-                type: string
-                description: The state of the buildpack
-                enum:
-                  - AWAITING_UPLOAD
-                  - READY
-              enabled:
-                type: boolean
-                description: Whether the buildpack is enabled
-              locked:
-                type: boolean
-                description: Whether the buildpack is locked
-              filename:
-                type: string
-                description: The filename of the buildpack
-            required:
-              - name
-            description: Request schema for creating a buildpack
-          examples:
-            buildpack:
-              summary: A sample buildpack
-              value:
-                name: ruby_buildpack
-                stack: cflinuxfs3
-                position: 1
-                enabled: true
-                state: AWAITING_UPLOAD
-                locked: false
-                filename: ruby_buildpack-cflinuxfs3-v1.0.0.zip
     userCreate:
       description: User to create
       content:

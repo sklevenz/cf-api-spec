@@ -5,7 +5,7 @@
       description: Create a new buildpack
       operationId: createBuildpack
       requestBody:
-        $ref: './../../openapi.yaml#/components/requestBodies/buildpackCreateRequestBody'
+        $ref: './../requests/buildpack.yaml#/buildpackCreateRequestBody'
       responses:
         "201":
           $ref: './../responses/buildpack.yaml#/buildpackCreateResponse'
@@ -14,7 +14,7 @@
           content:
             application/json:
               schema:
-                $ref: './../../openapi.yaml#/components/schemas/errors'
+                $ref: './../schemas/error.yaml'
               example:
                 errors:
                   $ref: './../cf-errors.yaml#/cf-errors/400CFUserInvalid'
@@ -58,7 +58,8 @@
           content:
             application/json:
               schema:
-                $ref: './../../openapi.yaml#/components/schemas/buildpackList'
+               $ref: './../schemas//buildpack.yaml#/buildpackList'
+
         "401":
           $ref: './../responses/error.yaml#/401'
         "403":
