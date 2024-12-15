@@ -5,20 +5,19 @@
       description: Retrieve details of a specific buildpack by its GUID.
       operationId: getBuildpack
       parameters:
-        - $ref: './../../openapi.yaml#/components/parameters/guid'
+        - $ref: './../parameters/guid.yaml'
       responses:
         "200":
-          $ref: './../../openapi.yaml#/components/responses/buildpackGetResponse'
+          $ref: './../responses/buildpack.yaml#/buildpackGetResponse'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: './../../openapi.yaml#/components/schemas/errors'
+                $ref: './../schemas/error.yaml'
               example:
                 errors:
                   $ref: './../cf-errors.yaml#/cf-errors/400CFBadQueryParameter'
-                  # - <<: *400CFBadQueryParameter
       security:
         - oauth:
             - cloud_controller.read
@@ -29,7 +28,7 @@
       description: Update attributes of a specific buildpack by its GUID.
       operationId: ppdateBuildpack
       parameters:
-        - $ref: './../../openapi.yaml#/components/parameters/guid'
+        - $ref: './../parameters/guid.yaml'
       requestBody:
         description: Buildpack object that needs to be updated
         required: true
@@ -75,7 +74,7 @@
           content:
             application/json:
               schema:
-                $ref: './../../openapi.yaml#/components/schemas/buildpack'
+                $ref: './../schemas//buildpack.yaml#/buildpack'
               examples:
                 buildpack:
                   summary: A sample buildpack
@@ -105,37 +104,34 @@
           content:
             application/json:
               schema:
-                $ref: './../../openapi.yaml#/components/schemas/errors'
+                $ref: './../schemas/error.yaml'
               example:
                 errors:
                   $ref: './../cf-errors.yaml#/cf-errors/400CFUserInvalid'
-                  # - <<: *400CFUserInvalid
         "401":
-          $ref: './../../openapi.yaml#/components/responses/401Unauthorized'
+          $ref: './../responses/error.yaml#/401'
         "403":
-          $ref: './../../openapi.yaml#/components/responses/403Forbidden'
+          $ref: './../responses/error.yaml#/403'
         "404":
           description: Not Found
           content:
             application/json:
               schema:
-                $ref: './../../openapi.yaml#/components/schemas/errors'
+                $ref: './../schemas/error.yaml'
               example:
                 errors:
                   $ref: './../cf-errors.yaml#/cf-errors/404CFResourceNotFound'
-                 # - <<: *404CFResourceNotFound
         "422":
           description: Unprocessable Entity
           content:
             application/json:
               schema:
-                $ref: './../../openapi.yaml#/components/schemas/errors'
+                $ref: './../schemas/error.yaml'
               example:
                 errors:
                   $ref: './../cf-errors.yaml#/cf-errors/422CFUnprocessableEntity'
-                  # - <<: *422CFUnprocessableEntity
         "500":
-          $ref: './../../openapi.yaml#/components/responses/500Unauthorized'
+          $ref: './../responses/error.yaml#/500'
       security:
         - oauth:
             - cloud_controller.write
@@ -146,7 +142,7 @@
       description: Delete a specific buildpack by its GUID.
       operationId: deleteBuildpack
       parameters:
-        - $ref: './../../openapi.yaml#/components/parameters/guid'
+        - $ref: './../parameters/guid.yaml'
       responses:
         "204":
           description: Successfully deleted buildpack
@@ -155,27 +151,25 @@
           content:
             application/json:
               schema:
-                $ref: './../../openapi.yaml#/components/schemas/errors'
+                $ref: './../schemas/error.yaml'
               example:
                 errors:
                   $ref: './../cf-errors.yaml#/cf-errors/400CFBadQueryParameter'
-                  # - <<: *400CFBadQueryParameter
         "401":
-          $ref: './../../openapi.yaml#/components/responses/401Unauthorized'
+          $ref: './../responses/error.yaml#/401'
         "403":
-          $ref: './../../openapi.yaml#/components/responses/403Forbidden'
+          $ref: './../responses/error.yaml#/403'
         "404":
           description: Not Found
           content:
             application/json:
               schema:
-                $ref: './../../openapi.yaml#/components/schemas/errors'
+                $ref: './../schemas/error.yaml'
               example:
                 errors:
                   $ref: './../cf-errors.yaml#/cf-errors/400CFBadQueryParameter'
-                  # - <<: *400CFBadQueryParameter
         "500":
-          $ref: './../../openapi.yaml#/components/responses/500Unauthorized'
+          $ref: './../responses/error.yaml#/500'
       security:
         - oauth:
             - cloud_controller.write

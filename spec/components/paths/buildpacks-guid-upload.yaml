@@ -5,7 +5,7 @@
       description: Upload a buildpack file for a specific buildpack by its GUID.
       operationId: uploadBuildpack
       parameters:
-        - $ref: './../../openapi.yaml#/components/parameters/guid'
+        - $ref: './../parameters/guid.yaml'
       requestBody:
         description: The buildpack file to be uploaded
         required: true
@@ -27,7 +27,7 @@
           content:
             application/json:
               schema:
-                $ref: './../../openapi.yaml#/components/schemas/buildpack'
+                $ref: './../schemas//buildpack.yaml#/buildpackList'
               examples:
                 buildpack:
                   summary: A sample buildpack
@@ -57,20 +57,20 @@
           content:
             application/json:
               schema:
-                $ref: './../../openapi.yaml#/components/schemas/errors'
+                $ref: './../schemas/error.yaml'
               example:
                 errors:
                   $ref: './../cf-errors.yaml#/cf-errors/400CFBadQueryParameter'
         "401":
-          $ref: './../../openapi.yaml#/components/responses/401Unauthorized'
+          $ref: './../responses/error.yaml#/401'
         "403":
-          $ref: './../../openapi.yaml#/components/responses/403Forbidden'
+          $ref: './../responses/error.yaml#/403'
         "404":
           description: Not Found
           content:
             application/json:
               schema:
-                $ref: './../../openapi.yaml#/components/schemas/errors'
+                $ref: './../schemas/error.yaml'
               example:
                 errors:
                   $ref: './../cf-errors.yaml#/cf-errors/404CFResourceNotFound'
@@ -79,12 +79,12 @@
           content:
             application/json:
               schema:
-                $ref: './../../openapi.yaml#/components/schemas/errors'
+                $ref: './../schemas/error.yaml'
               example:
                 errors:
                   $ref: './../cf-errors.yaml#/cf-errors/422CFUnprocessableEntity'
         "500":
-          $ref: './../../openapi.yaml#/components/responses/500Unauthorized'
+          $ref: './../responses/error.yaml#/500'
       security:
         - oauth:
             - cloud_controller.write
