@@ -2557,94 +2557,23 @@ components:
       description: Bearer JWT token authentication
   parameters:
     guid:
-      name: guid
-      in: path
-      required: true
-      schema:
-        type: string
-        format: uuid
-      description: The GUID of the resource
+      $ref: './components/parameters/guid.yaml'
     page:
-      name: page
-      in: query
-      required: false
-      schema:
-        type: integer
-      description: Page to display; valid values are integers >= 1
+      $ref: './components/parameters/page.yaml'
     perPage:
-      name: perPage
-      in: query
-      required: false
-      schema:
-        type: integer
-      description: Number of results per page, valid values are 1 through 5000
+      $ref: './components/parameters/perPage.yaml'
     orderBy:
-      name: order_by
-      in: query
-      required: false
-      schema:
-        type: string
-      description: |
-        Order results by a specific field. Prepend with - to sort descending.
+      $ref: './components/parameters/orderBy.yaml'
     createdAts:
-      name: created_ats
-      in: query
-      required: false
-      schema:
-        type: string
-      description: |
-        Timestamp to filter by. When filtering on equality, several comma-delimited timestamps may be passed.
+      $ref: './components/parameters/createdAts.yaml'
     updatedAts:
-      name: updated_ats
-      in: query
-      required: false
-      schema:
-        type: string
-      description: |
-        Timestamp to filter by. When filtering on equality, several comma-delimited timestamps may be passed.
+      $ref: './components/parameters/updatedAts.yaml'
     labelSelector:
-      name: label_selector
-      in: query
-      description: |
-        Selectors allow users to filter and group API resources by the labels applied to them. A selector consists of one or more requirements in a comma-delimited list. The maximum number of requirements in a single selector is 50.
-
-        Example label selector:
-        `cf curl /v3/apps?label_selector=env=dev,%21chargeback-code,tier%20in%20%28backend,worker%29`
-
-        Selectors can be used to filter and group resources using the query parameter `label_selector` on list endpoints.
-
-        When included in a URL, the selector must be appropriately escaped.
-
-        A requirement consists of a key, an operator, and optional value(s).
-
-        | Requirement    | Format                        | Description                                                                 |
-        |----------------|-------------------------------|-----------------------------------------------------------------------------|
-        | existence      | `key`                         | Returns all resources that have been assigned a label with the given key (with any value) |
-        | non-existence  | `!key`                        | Returns all resources that have not been assigned a label with the given key (with any value) |
-        | equality       | `key=value` or `key==value`   | Returns all resources that have been assigned a label with the given key and value |
-        | inequality     | `key!=value`                  | Returns all resources that either have not been assigned a label with the given key or have a label with the given key but a different value |
-        | set inclusion  | `key in (value1,value2…)`     | Returns all resources that have been assigned a label with the given key with one of the specified value(s) |
-        | set exclusion  | `key notin (value1,value2…)`  | Returns all resources that either have not been assigned a label with the given key or have a label with the given key but none of the specified value(s) |
-      required: false
-      schema:
-        type: string
+      $ref: './components/parameters/labelSelector.yaml'
     dropletGuid:
-      name: droplet_guid
-      in: path
-      required: true
-      schema:
-        type: string
-        format: uuid
-      description: The GUID of the droplet
+      $ref: './components/parameters/dropletGuid.yaml'
     entityType:
-      name: entity_type
-      in: query
-      required: false
-      schema:
-        type: string
-      description: >
-        The type of the entity involved in the audit event. This can be used to filter audit events by the entity involved. For example, filtering by `type` can return audit events involving only apps, spaces, or organizations.
-
+      $ref: './components/parameters/entityType.yaml'
   responses:
     401Unauthorized:
       description: Unauthorized
@@ -3075,250 +3004,15 @@ components:
             required:
               - name
 paths:
+
+
+
   /v3/buildpacks:
-    post:
-      tags:
-        - Buildpacks
-      summary: Create a buildpack
-      description: Create a new buildpack
-      operationId: createBuildpack
-      requestBody:
-        $ref: '#/components/requestBodies/buildpackCreateRequestBody'
-      responses:
-        "201":
-          $ref: '#/components/responses/buildpackCreateResponse'
-        "400":
-          description: Bad request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errors'
-              example:
-                errors:
-                  - <<: *400CFUserInvalid
-      security:
-        - oauth:
-            - cloud_controller.write
-    get:
-      tags:
-        - Buildpacks
-      summary: List buildpacks
-      description: Retrieve a list of buildpacks available in the system.
-      operationId: listBuildpacks
-      parameters:
-        - $ref: '#/components/parameters/page'
-        - $ref: '#/components/parameters/perPage'
-        - $ref: '#/components/parameters/orderBy'
-        - $ref: '#/components/parameters/createdAts'
-        - $ref: '#/components/parameters/updatedAts'
-        - $ref: '#/components/parameters/labelSelector'
-        - name: name
-          in: query
-          schema:
-            type: array
-            items:
-              type: string
-          description: >
-            Comma-delimited list of buildpack names to filter by
-
-        - name: stacks
-          in: query
-          schema:
-            type: array
-            items:
-              type: string
-          description: >
-            Comma-delimited list of stacks to filter by
-
-      responses:
-        "200":
-          description: List of buildpacks
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/buildpackList'
-        "401":
-          $ref: '#/components/responses/401Unauthorized'
-        "403":
-          $ref: '#/components/responses/403Forbidden'
-        "500":
-          $ref: '#/components/responses/500Unauthorized'
+    $ref: './components/paths/buildpacks.yaml'
   /v3/buildpacks/{guid}:
-    get:
-      tags:
-        - Buildpacks
-      summary: Retrieve a buildpack
-      description: Retrieve details of a specific buildpack by its GUID.
-      operationId: getBuildpack
-      parameters:
-        - $ref: '#/components/parameters/guid'
-      responses:
-        "200":
-          $ref: '#/components/responses/buildpackGetResponse'
-        "400":
-          description: Bad request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errors'
-              example:
-                errors:
-                  - <<: *400CFBadQueryParameter
-      security:
-        - oauth:
-            - cloud_controller.read
-    patch:
-      tags:
-        - Buildpacks
-      summary: Update a buildpack
-      description: Update attributes of a specific buildpack by its GUID.
-      operationId: ppdateBuildpack
-      parameters:
-        - $ref: '#/components/parameters/guid'
-      requestBody:
-        description: Buildpack object that needs to be updated
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                  description: The name of the buildpack
-                stack:
-                  type: string
-                  description: The stack the buildpack is compatible with
-                position:
-                  type: integer
-                  description: The position of the buildpack in the order of execution
-                enabled:
-                  type: boolean
-                  description: Whether the buildpack is enabled
-                locked:
-                  type: boolean
-                  description: Whether the buildpack is locked
-                filename:
-                  type: string
-                  description: The filename of the buildpack
-              required:
-                - name
-              description: Request schema for updating a buildpack
-            examples:
-              buildpack:
-                summary: A sample buildpack
-                value:
-                  name: ruby_buildpack
-                  stack: cflinuxfs3
-                  position: 1
-                  enabled: true
-                  locked: false
-                  filename: ruby_buildpack-cflinuxfs3-v1.0.0.zip
-      responses:
-        "200":
-          description: Successfully updated buildpack
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/buildpack'
-              examples:
-                buildpack:
-                  summary: A sample buildpack
-                  value:
-                    guid: d5ccf6b2-3b8e-4b8e-8b8e-8b8e8b8e8b8e
-                    created_at: "2023-10-01T12:00:00Z"
-                    updated_at: "2023-10-01T12:00:00Z"
-                    name: ruby_buildpack
-                    stack: cflinuxfs3
-                    position: 1
-                    enabled: true
-                    locked: false
-                    filename: ruby_buildpack-cflinuxfs3-v1.0.0.zip
-                    links:
-                      self:
-                        href: https://api.example.local/v3/buildpacks/d5ccf6b2-3b8e-4b8e-8b8e-8b8e8b8e8b8e
-                      upload:
-                        href: https://api.example.local/v3/buildpacks/d5ccf6b2-3b8e-4b8e-8b8e-8b8e8b8e8b8e/upload
-                        method: POST
-                    metadata:
-                      labels:
-                        some: label
-                      annotations:
-                        some: annotation
-        "400":
-          description: Bad request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errors'
-              example:
-                errors:
-                  - <<: *400CFUserInvalid
-        "401":
-          $ref: '#/components/responses/401Unauthorized'
-        "403":
-          $ref: '#/components/responses/403Forbidden'
-        "404":
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errors'
-              example:
-                errors:
-                  - <<: *404CFResourceNotFound
-        "422":
-          description: Unprocessable Entity
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errors'
-              example:
-                errors:
-                  - <<: *422CFUnprocessableEntity
-        "500":
-          $ref: '#/components/responses/500Unauthorized'
-      security:
-        - oauth:
-            - cloud_controller.write
-    delete:
-      tags:
-        - Buildpacks
-      summary: Delete a buildpack
-      description: Delete a specific buildpack by its GUID.
-      operationId: deleteBuildpack
-      parameters:
-        - $ref: '#/components/parameters/guid'
-      responses:
-        "204":
-          description: Successfully deleted buildpack
-        "400":
-          description: Bad request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errors'
-              example:
-                errors:
-                  - <<: *400CFBadQueryParameter
-        "401":
-          $ref: '#/components/responses/401Unauthorized'
-        "403":
-          $ref: '#/components/responses/403Forbidden'
-        "404":
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errors'
-              example:
-                errors:
-                  - <<: *400CFBadQueryParameter
-        "500":
-          $ref: '#/components/responses/500Unauthorized'
-      security:
-        - oauth:
-            - cloud_controller.write
+    $ref: './components/paths/buildpacks-guid.yaml'
+
+
   /v3/buildpacks/{guid}/upload:
     post:
       tags:
