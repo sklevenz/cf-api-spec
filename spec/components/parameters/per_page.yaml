@@ -1,7 +1,0 @@
-name: per_page
-in: query
-description: Number of results per page.
-required: false
-schema:
-  type: integer
-  default: 50
