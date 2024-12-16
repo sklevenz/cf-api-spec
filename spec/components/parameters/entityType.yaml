@@ -1,0 +1,7 @@
+      name: entity_type
+      in: query
+      required: false
+      schema:
+        type: string
+      description: >
+        The type of the entity involved in the audit event. This can be used to filter audit events by the entity involved. For example, filtering by `type` can return audit events involving only apps, spaces, or organizations.
