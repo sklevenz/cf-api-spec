@@ -20,6 +20,10 @@ The repository serves as a foundation for:
 
 Through this effort, the project contributes to the Cloud Foundry ecosystem by promoting greater accessibility, transparency, and interoperability for its APIs.
 
+## API Documentation
+
+https://sklevenz.github.io/cf-api-spec
+
 ## Folder Structure
 
 The directory structure of this repository is organized to separate concerns and improve clarity. Each folder serves a specific purpose, from storing the OpenAPI specification and its components to providing tools and scripts for validation, documentation generation, and testing.
@@ -34,6 +38,7 @@ The directory structure of this repository is organized to separate concerns and
 │   │   ├── parameters  # Reusable parameter definitions (e.g., query strings, headers)
 │   │   ├── paths       # Reusable path definitions (e.g. get, post ...)
 │   │   ├── responses   # Reusable response definitions (e.g., 200 OK, 404 Not Found)
+│   │   ├── requests    # Reusable request definitions (e.g., JSON objects)
 │   │   └── schemas     # Data model definitions (e.g., JSON objects)
 │   └── openapi.yaml    # Main OpenAPI specification file (defines paths, operations, and components)
 └── tests               # Test scripts/files for API validation (functionality, integration, etc.)

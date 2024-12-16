@@ -5,7 +5,7 @@ export NODE_NO_WARNINGS=1
 
 # Set variables
 SPEC_FILE="spec/openapi.yaml"
-OUTPUT_DIR="gen/docs"
+OUTPUT_DIR="docs"
 OUTPUT_FILE="$OUTPUT_DIR/index.html"
 
 # Function to print messages
