@@ -1,0 +1,11 @@
+    paginated_users:
+      allOf:
+        - $ref: './../schemas/baseSchema.yaml'
+        - type: object
+          properties:
+            pagination:
+              $ref: './../schemas/pagination.yaml'
+            resources:
+              type: array
+              items:
+                $ref: './../schemas/user.yaml'

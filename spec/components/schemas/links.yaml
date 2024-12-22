@@ -1,0 +1,3 @@
+    links:
+      type: object
+      description: Links provide URLs to relationships and actions for a resource. Links are represented as a JSON object and always contain a self link.

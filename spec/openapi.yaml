@@ -1590,46 +1590,6 @@ components:
           $ref: '#/components/schemas/metadata'
         links:
           $ref: '#/components/schemas/links'
-    paginated_users:
-      allOf:
-        - $ref: '#/components/schemas/baseSchema'
-        - type: object
-          properties:
-            pagination:
-              $ref: '#/components/schemas/pagination'
-            resources:
-              type: array
-              items:
-                $ref: '#/components/schemas/user'
-    userCreate:
-      type: object
-      properties:
-        guid:
-          type: string
-          description: Unique identifier for the user
-        created_at:
-          type: string
-          format: date-time
-          description: The time with zone when the object was created
-        updated_at:
-          type: string
-          format: date-time
-          description: The time with zone when the object was last updated
-        username:
-          type: string
-          description: The username of the user
-        presentation_name:
-          type: string
-          description: The presentation name of the user
-        origin:
-          type: string
-          description: The origin of the user
-        metadata:
-          $ref: '#/components/schemas/metadata'
-        links:
-          $ref: '#/components/schemas/links'
-      required:
-        - guid
     userUpdate:
       type: object
       properties:
@@ -2535,12 +2495,6 @@ components:
     500Unauthorized:
       description: Internal Server Error
 
-    userCreateResponse:
-      description: User created
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/user'
     userUpdateResponse:
       description: User updated
       content:
@@ -2610,12 +2564,6 @@ components:
                 items:
                   $ref: '#/components/schemas/role'
   requestBodies:
-    userCreate:
-      description: User to create
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/userCreate'
     userUpdate:
       description: User to update
       content:
@@ -2859,100 +2807,10 @@ paths:
     $ref: './components/paths/buildpacks-guid.yaml'
   /v3/buildpacks/{guid}/upload:
     $ref: './components/paths/buildpacks-guid-upload.yaml'
-
-  
   
   /v3/users:
-    get:
-      tags: [Users]
-      summary: List users
-      description: Retrieve all users the user has access to.
-      parameters:
-        - $ref: '#/components/parameters/page'
-        - $ref: '#/components/parameters/perPage'
-        - $ref: '#/components/parameters/orderBy'
-        - $ref: '#/components/parameters/createdAts'
-        - $ref: '#/components/parameters/updatedAts'
-        - name: guids
-          in: query
-          description: Comma-delimited list of user guids to filter by
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-        - name: usernames
-          in: query
-          description: Comma-delimited list of usernames to filter by
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-        - name: origins
-          in: query
-          description: Comma-delimited list of user origins to filter by
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/paginated_users'
-        "400":
-          description: Bad request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errors'
-              example:
-                errors:
-                  - <<: *400CFBadQueryParameter
-        "401":
-          $ref: '#/components/responses/401Unauthorized'
-        "403":
-          $ref: '#/components/responses/403Forbidden'
-        "500":
-          description: Server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errors'
-              example:
-                errors:
-                  - <<: *500CFServerError
-      operationId: listUsers
-    post:
-      tags:
-        - Users
-      summary: Create a user
-      description: Create a new user.
-      operationId: createUser
-      requestBody:
-        $ref: '#/components/requestBodies/userCreate'
-      responses:
-        "201":
-          $ref: '#/components/responses/userCreateResponse'
-        "400":
-          description: Bad request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errors'
-              example:
-                errors:
-                  - <<: *400CFUserInvalid
-        "401":
-          $ref: '#/components/responses/401Unauthorized'
-        "403":
-          $ref: '#/components/responses/403Forbidden'
-        "500":
-          $ref: '#/components/responses/500Unauthorized'
+    $ref: './components/paths/users.yaml'
+
   /v3/users/{guid}:
     get:
       tags: [Users]
