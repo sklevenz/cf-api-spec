@@ -3161,6 +3161,9 @@ paths:
         - oauth:
             - cloud_controller.write
     get:
+      security:
+        - oauth:
+            - cloud_controller.read
       tags:
         - Buildpacks
       summary: List buildpacks
@@ -3473,6 +3476,9 @@ paths:
             - cloud_controller.write
   /v3/users:
     get:
+      security:
+        - oauth:
+            - cloud_controller.read
       tags: [Users]
       summary: List users
       description: Retrieve all users the user has access to.
@@ -3537,6 +3543,9 @@ paths:
                   - <<: *500CFServerError
       operationId: listUsers
     post:
+      security:
+        - oauth:
+            - cloud_controller.write
       tags:
         - Users
       summary: Create a user
@@ -3728,6 +3737,9 @@ paths:
         - oauth:
             - cloud_controller.write
     get:
+      security:
+        - oauth:
+            - cloud_controller.read
       tags:
         - Droplets
       summary: List droplets
@@ -3920,6 +3932,8 @@ paths:
       parameters:
         - $ref: '#/components/parameters/dropletGuid'
       responses:
+        "200":
+          $ref: '#/components/responses/dropletGetResponse'
         "302":
           description: Redirect to download location
         "401":
@@ -4005,6 +4019,9 @@ paths:
             - cloud_controller.write
   /v3/domains:
     get:
+      security:
+        - oauth:
+            - cloud_controller.read
       tags:
         - Domains
       summary: List domains
@@ -4578,6 +4595,9 @@ paths:
             - cloud_controller.write
   /v3/deployments:
     get:
+      security:
+        - oauth:
+            - cloud_controller.read
       tags:
         - Deployments
       summary: List deployments
@@ -4894,6 +4914,9 @@ paths:
             - cloud_controller.write
   /v3/feature_flags:
     get:
+      security:
+        - oauth:
+            - cloud_controller.read
       tags:
         - FeatureFlags
       summary: List feature flags
@@ -5078,6 +5101,9 @@ paths:
             - cloud_controller.write
   /v3/builds:
     get:
+      security:
+        - oauth:
+            - cloud_controller.read
       tags:
         - Builds
       summary: List builds
@@ -5348,6 +5374,9 @@ paths:
             - cloud_controller.read
   /v3/audit_events:
     get:
+      security:
+        - oauth:
+            - cloud_controller.read
       tags:
         - AuditEvents
       summary: List audit events
@@ -5557,6 +5586,9 @@ paths:
             - cloud_controller.read
   /v3/apps:
     get:
+      security:
+        - oauth:
+            - cloud_controller.read
       tags:
         - Apps
       summary: List apps
@@ -7424,6 +7456,12 @@ paths:
       parameters:
         - $ref: '#/components/parameters/guid'
       responses:
+        "200":
+          description: Successfully downloaded package bits
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/package'
         "302":
           description: Redirect to download location
         "401":
