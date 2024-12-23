@@ -1,6 +1,5 @@
-    userCreateResponse:
-      description: User created
-      content:
-        application/json:
-          schema:
-            $ref: './../schemas/user.yaml'
+description: User created
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/user.yaml

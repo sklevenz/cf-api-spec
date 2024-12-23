@@ -2,10 +2,9 @@
 
 OpenAPI Specification of Cloud Foundry API
 
-[![Validation Status](https://github.com/sklevenz/cf-api-spec/actions/workflows/validate-spec.yaml/badge.svg)](https://github.com/sklevenz/cf-api-spec/actions)
-[![Lint Status](https://github.com/sklevenz/cf-api-spec/actions/workflows/lint-spec.yaml/badge.svg)](https://github.com/sklevenz/cf-api-spec/actions)
-[![Generate Status](https://github.com/sklevenz/cf-api-spec/actions/workflows/generate-spec.yaml/badge.svg)](https://github.com/sklevenz/cf-api-spec/actions)
-[![Documentation Status](https://github.com/sklevenz/cf-api-spec/actions/workflows/pages.yaml/badge.svg)](https://github.com/sklevenz/cf-api-spec/actions)
+[![Lint Status](https://github.com/sklevenz/cf-api-spec/actions/workflows/lint.yaml/badge.svg)](https://github.com/sklevenz/cf-api-spec/actions)
+[![Bundle Status](https://github.com/sklevenz/cf-api-spec/actions/workflows/bundle.yaml/badge.svg)](https://github.com/sklevenz/cf-api-spec/actions)
+[![Documentation Status](https://github.com/sklevenz/cf-api-spec/actions/workflows/docs.yaml/badge.svg)](https://github.com/sklevenz/cf-api-spec/actions)
 
 ## Abstract
 
@@ -34,15 +33,9 @@ The directory structure of this repository is organized to separate concerns and
 ├── docs                # Documentation files for the project (e.g., guides, references)
 ├── scripts             # Utility scripts for automation, setup, or deployment
 ├── spec                # OpenAPI specification and its components
-│   ├── components      # Reusable elements for the OpenAPI spec
-│   │   ├── examples    # Example data for API requests/responses
-│   │   ├── parameters  # Reusable parameter definitions (e.g., query strings, headers)
-│   │   ├── paths       # Reusable path definitions (e.g. get, post ...)
-│   │   ├── responses   # Reusable response definitions (e.g., 200 OK, 404 Not Found)
-│   │   ├── requests    # Reusable request definitions (e.g., JSON objects)
-│   │   └── schemas     # Data model definitions (e.g., JSON objects)
-│   └── openapi.yaml    # Main OpenAPI specification file (defines paths, operations, and components)
-└── tests               # Test scripts/files for API validation (functionality, integration, etc.)
+|   ├-- paths           # Path elements of the OpenAPI spec
+│   ├── components      # Reusable elements (parameters, responses, schemas ...) for the OpenAPI spec
+    └── openapi.yaml    # Main OpenAPI specification file (defines paths, operations, and components)
 ```
 ---
 
@@ -65,43 +58,6 @@ Redoc CLI is used to generate an interactive HTML documentation page from the Op
   npx @redocly/cli build-docs spec/openapi.yaml --output docs/index.html
   ```
 
----
-
-### [Swagger CLI](https://github.com/APIDevTools/swagger-cli)
-Swagger CLI is used for validating the OpenAPI specification to ensure it adheres to the standard.
-
-- **Installation**:
-  ```bash
-  npm install -g @apidevtools/swagger-cli
-  ```
-
-- **Usage**:
-  Run the following command to validate your OpenAPI spec:
-  ```bash
-  swagger-cli validate spec/openapi.yaml
-  ```
-
-  Run the following command to bundle your OpenAPI spec:
-  ```bash
-  swagger-cli bundle spec/openapi.yaml
-  ```
-
-### 3. [Spectral CLI](https://meta.stoplight.io/docs/spectral)
-Spectral is a flexible linter for JSON/YAML files, designed to enforce best practices and validate OpenAPI specifications. It ensures your OpenAPI spec adheres to the standard and best practices.
-
-- **Installation**:
-  Install Spectral globally via npm:
-  ```bash
-  npm install -g @stoplight/spectral-cli
-  ```
-
-- **Usage**:
-  ```bash
-  spectral lint --ruleset script/cfg/spectral-ruleset.yaml spec/openapi.yaml
-  spectral lint --ruleset script/cfg/spectral-ruleset-simple.yaml spec/openapi.yaml
-  ```
----
-
 ### Additional Requirements
 Ensure you have Node.js installed to use `npm`. You can download it from the [official Node.js website](https://nodejs.org/).
 
@@ -116,37 +72,31 @@ npm -v
 ## Usage
 
 **Upgrade Node.js Tools**:
-   Use the `upgrade-nodes-packages.sh` script to update Node.js tools like `@redocly/cli`, `swagger-cli`, and `spectral-cli` to their latest versions.
+   Use the `upgrade-nodes-packages.sh` script to update Node.js tools like `@redocly/cli` to their latest versions.
 
    **Usage**:
    ```bash
-   bash scripts/upgrade-nodes-packages.sh
-   ```
-
-**Validate the OpenAPI Specification**:
-   Use the `validate.sh` script to ensure the OpenAPI spec is valid:
-   ```bash
-   bash scripts/validate.sh
+   bash ./scripts/upgrade-nodes-packages.sh
    ```
 
 **Lint the OpenAPI Specification**:
    Use the `lint.sh` script to ensure the OpenAPI spec is valid:
    ```bash
-   bash scripts/lint.sh
+   bash ./scripts/lint.sh
    ```
 
-**Generate Documentation**:
-   Generate interactive API documentation using the `generate-docs.sh` script:
+**Build Documentation**:
+   Build interactive API documentation using the `docs.sh` script:
    ```bash
-   bash scripts/generate-docs.sh
+   bash ./scripts/docs.sh
    ```
 
    The generated documentation will be available at `docs/index.html`.
 
-**Generate Specificationn**:
-   Generate API bundle `generate-spec.sh` script:
+**Bundle Specificationn**:
+   Generate API bundle `bundle.sh` script:
    ```bash
-   bash scripts/generate-spec.sh
+   bash scripts/bundle.sh
    ```
 
    The generated documentation will be available at `gen/docs/index.html`.
@@ -156,7 +106,5 @@ npm -v
    open gen/docs/index.html
    ```
 
-
-
-
 [1] https://v3-apidocs.cloudfoundry.org/version/3.181.0/index.html
+[2] https://sklevenz.github.io/cf-api-spec

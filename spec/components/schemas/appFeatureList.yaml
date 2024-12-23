@@ -1,0 +1,8 @@
+type: object
+properties:
+  pagination:
+    $ref: ./pagination.yaml
+  resources:
+    type: array
+    items:
+      $ref: ./appFeature.yaml

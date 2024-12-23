@@ -1,7 +1,8 @@
-      name: created_ats
-      in: query
-      required: false
-      schema:
-        type: string
-      description: |
-        Timestamp to filter by. When filtering on equality, several comma-delimited timestamps may be passed.
+name: created_ats
+in: query
+required: false
+schema:
+  type: string
+description: >
+  Timestamp to filter by. When filtering on equality, several comma-delimited
+  timestamps may be passed.

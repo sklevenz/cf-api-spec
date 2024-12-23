@@ -1,0 +1,106 @@
+post:
+  tags:
+    - IsolationSegments
+  summary: Entitle organizations for isolation segment
+  description: >-
+    This endpoint entitles the specified organizations for the isolation
+    segment. In the case where the specified isolation segment is the
+    system-wide shared segment, and if an organization is not already entitled
+    for any other isolation segment, then the shared isolation segment
+    automatically gets assigned as the default for that organization.
+  operationId: entitleOrganizationsForIsolationSegment
+  parameters:
+    - $ref: ../components/parameters/guid.yaml
+  requestBody:
+    description: List of organizations to entitle
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/relationshipToMany.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/relationshipToMany.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 10005
+                title: CF-BadQueryParameter
+                detail: 'The query parameter is invalid: %s'
+    '401':
+      $ref: ../components/responses/401Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/403Forbidden.yaml
+    '404':
+      description: Isolation segment not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 10010
+                title: CF-ResourceNotFound
+                detail: '%s'
+    '500':
+      $ref: ../components/responses/500Unauthorized.yaml
+  security:
+    - oauth:
+        - cloud_controller.admin
+get:
+  tags:
+    - IsolationSegments
+  summary: List organizations
+  description: List all organizations entitled to the isolation segment.
+  operationId: listOrganizationsForIsolationSegment
+  parameters:
+    - $ref: ../components/parameters/guid.yaml
+    - $ref: ../components/parameters/page.yaml
+    - $ref: ../components/parameters/perPage.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/relationshipToMany.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 10005
+                title: CF-BadQueryParameter
+                detail: 'The query parameter is invalid: %s'
+    '401':
+      $ref: ../components/responses/401Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/403Forbidden.yaml
+    '404':
+      description: Isolation segment not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 10010
+                title: CF-ResourceNotFound
+                detail: '%s'
+    '500':
+      $ref: ../components/responses/500Unauthorized.yaml
+  security:
+    - oauth:
+        - cloud_controller.read
