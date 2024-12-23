@@ -7,7 +7,7 @@ export NODE_NO_WARNINGS=1
 
 # Define the OpenAPI specification file path
 SPEC_FILE="spec/openapi.yaml"
-SPECTRAL_RULESET="./scripts/cfg/spectral-ruleset.yaml"
+SPECTRAL_RULESET="./scripts/spectral-ruleset.yaml"
 
 # Check if the file exists
 if [ ! -f "$SPEC_FILE" ]; then

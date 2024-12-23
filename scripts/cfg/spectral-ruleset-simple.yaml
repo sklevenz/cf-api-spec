@@ -6,10 +6,11 @@
 # OpenAPI documents are applied.
 # Additionally, you can define custom rules or modify (disable, adjust) existing ones here.
 extends: 
-  - "spectral:oas"
+- spectral:oas
 
 rules:
-  oas3-schema: off # doesn't work for $ref and throws unevaluated propoerties error 
+  oas3-schema: 
+    severity: off # doesn't work for $ref and throws unevaluated propoerties error 
   # oas3-schema: 
   #   description: Validates OpenAPI 3.x schemas
   #   severity: error

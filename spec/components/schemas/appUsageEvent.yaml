@@ -7,79 +7,79 @@ properties:
     properties:
       current:
         type: string
-        default: null
+        default: ""
       previous:
         type: string
-        default: null
+        default: ""
   app:
     type: object
     properties:
       guid:
         type: string
-        default: null
+        default: ""
       name:
         type: string
-        default: null
+        default: ""
   process:
     type: object
     properties:
       guid:
         type: string
-        default: null
+        default: ""
       type:
         type: string
-        default: null
+        default: ""
   space:
     type: object
     properties:
       guid:
         type: string
-        default: null
+        default: ""
       name:
         type: string
-        default: null
+        default: ""
   organization:
     type: object
     properties:
       guid:
         type: string
-        default: null
+        default: ""
   buildpack:
     type: object
     properties:
       guid:
         type: string
-        default: null
+        default: ""
       name:
         type: string
-        default: null
+        default: ""
   task:
     type: object
     properties:
       guid:
         type: string
-        default: null
+        default: ""
       name:
         type: string
-        default: null
+        default: ""
   memory_in_mb_per_instance:
     type: object
     properties:
       current:
         type: integer
-        default: null
+        default: 0
       previous:
         type: integer
-        default: null
+        default: 0
   instance_count:
     type: object
     properties:
       current:
         type: integer
-        default: null
+        default: 0
       previous:
         type: integer
-        default: null
+        default: 0
 description: >-
   App usage events are a record of changes in the usage of apps and tasks.
   Examples include starting an application, scaling an application (from, say,

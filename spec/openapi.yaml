@@ -37,6 +37,9 @@ info:
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
+  contact:
+    name: Cloud Foundry CAPI Team
+    url: https://cloudfoundry.slack.com/archives/C07C04W4Q
 servers:
   - url: https://api.example.local
     description: Cloud Foundry V3 API server
@@ -1817,12 +1820,6 @@ tags:
       includes links to all the available resources and endpoints. The Root
       endpoint can be accessed to retrieve detailed information about the Cloud
       Foundry API and its capabilities.
-  - name: Routes
-    description: >
-      Routes represent the network endpoints used to access apps in the Cloud
-      Foundry environment. They include information such as domain, path, and
-      port. Routes can be managed through endpoints that allow for creation,
-      updating, deletion, and retrieval of route details.
   - name: SecurityGroups
     description: >
       SecurityGroups define the network access rules for apps in the Cloud
