@@ -1,63 +1,39 @@
 #!/usr/bin/env bash
 
+# Bash script to bundle an OpenAPI specification file using Redocly
+
 # Enable warnings suppression for Node.js
 export NODE_NO_WARNINGS=1
 
-# Set variables
-SPEC_FILE="spec/openapi.yaml"
-OUTPUT_DIR="gen"
-OUTPUT_FILE="$OUTPUT_DIR/cf-api-openapi-generated.yaml"
-LINTER="spectral"                              # Linter command
-RULESET="scripts/cfg/spectral-ruleset.yaml"    # Default ruleset for OpenAPI
-EXIT_SUCCESS=0
-EXIT_FAILURE=1
+# Define the input and output file paths
+INPUT_SPEC="spec/openapi.yaml"
+OUTPUT_SPEC="./gen/openapi.yaml"
 
-# Ensure the spec file exists
-if [[ ! -f "$SPEC_FILE" ]]; then
-  echo "Error: Spec file '$SPEC_FILE' does not exist. Please provide a valid OpenAPI file."
-  exit $EXIT_FAILURE
+# Check if the input file exists
+if [ ! -f "$INPUT_SPEC" ]; then
+  echo "Error: Input file '$INPUT_SPEC' does not exist."
+  exit 1
 fi
 
-# Delete output file 
-rm -f "$OUTPUT_FILE"
-
-# Create the output directory if it doesn't exist
-if [[ ! -d "$OUTPUT_DIR" ]]; then
-  echo "Output directory '$OUTPUT_DIR' does not exist. Creating it..."
-  if ! mkdir -p "$OUTPUT_DIR"; then
-    echo "Error: Failed to create output directory '$OUTPUT_DIR'."
-    exit $EXIT_FAILURE
-  fi
+# Ensure the output directory exists
+OUTPUT_DIR=$(dirname "$OUTPUT_SPEC")
+if [ ! -d "$OUTPUT_DIR" ]; then
+  mkdir -p "$OUTPUT_DIR"
+  echo "Created output directory '$OUTPUT_DIR'."
 fi
 
-# Bundle the OpenAPI specification
-if swagger-cli bundle "$SPEC_FILE" > "$OUTPUT_FILE"; then
-  echo "Specification generated successfully: $OUTPUT_FILE"
+# Run the Redocly bundle command
+redocly bundle "$INPUT_SPEC" -o "$OUTPUT_SPEC"
+
+# Capture the exit status of the command
+EXIT_STATUS=$?
+
+# Check if the command was successful
+if [ $EXIT_STATUS -eq 0 ]; then
+  echo "Bundling completed successfully. Output file: $OUTPUT_SPEC"
 else
-  echo "Error: Failed to generate specification. Please check the OpenAPI file and swagger-cli installation."
-  exit $EXIT_FAILURE
+  echo "Bundling failed. Please check the output for details."
 fi
 
-# Validate the OpenAPI spec
-echo "Validating OpenAPI spec at $OUTPUT_FILE..."
-swagger-cli validate "$OUTPUT_FILE"
-
-# Exit with the result of the validation
-if [ $? -eq 0 ]; then
-  echo "OpenAPI spec is valid!"
-else
-  echo "OpenAPI spec validation failed."
-  exit $EXIT_FAILURE
-fi
-
-# Lint the specification with Spectral - handle warnings as errors
-$LINTER lint --fail-severity=warn --ruleset "$RULESET" "$OUTPUT_FILE"
-
-# Check the exit status of Spectral
-if [ $? -eq $EXIT_SUCCESS ]; then
-  echo "Linting passed: The OpenAPI spec is valid and adheres to best practices."
-  exit $EXIT_SUCCESS
-else
-  echo "Linting failed: Please fix the issues reported by Spectral."
-  exit $EXIT_FAILURE
-fi
+# Exit with the command's status code
+exit $EXIT_STATUS

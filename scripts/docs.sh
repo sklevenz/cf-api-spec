@@ -1,52 +1,39 @@
 #!/usr/bin/env bash
 
+# Bash script to build OpenAPI documentation using Redocly
+
 # Enable warnings suppression for Node.js
 export NODE_NO_WARNINGS=1
 
-# Set variables
-SPEC_FILE="spec/openapi.yaml"
-OUTPUT_DIR="docs"
-OUTPUT_FILE="$OUTPUT_DIR/index.html"
+# Define the input specification file and output file path
+INPUT_SPEC="./spec/openapi.yaml"
+OUTPUT_DOC="./docs/index.html"
 
-# Function to print messages
-print_error() {
-  echo "Error: $1"
-}
-
-print_success() {
-  echo "Success: $1"
-}
-
-print_info() {
-  echo "Info: $1"
-}
-
-# Check if redocly/cli is installed
-if ! command -v redocly &> /dev/null; then
-  print_error "redocly/cli is not installed. Please install it with 'npm install -g @redocly/cli'."
+# Check if the input file exists
+if [ ! -f "$INPUT_SPEC" ]; then
+  echo "Error: Input file '$INPUT_SPEC' does not exist."
   exit 1
 fi
 
-# Ensure the spec file exists
-if [ ! -f "$SPEC_FILE" ]; then
-  print_error "Spec file '$SPEC_FILE' does not exist. Please provide a valid OpenAPI file."
-  exit 1
-fi
-
-# Create the output directory if it doesn't exist
+# Ensure the output directory exists
+OUTPUT_DIR=$(dirname "$OUTPUT_DOC")
 if [ ! -d "$OUTPUT_DIR" ]; then
-  print_info "Output directory '$OUTPUT_DIR' does not exist. Creating it..."
-  mkdir -p "$OUTPUT_DIR" || { print_error "Failed to create output directory '$OUTPUT_DIR'."; exit 1; }
+  mkdir -p "$OUTPUT_DIR"
+  echo "Created output directory '$OUTPUT_DIR'."
 fi
 
-# Generate the documentation
-print_info "Generating API documentation from '$SPEC_FILE' to '$OUTPUT_FILE'..."
-npx @redocly/cli build-docs "$SPEC_FILE" --output "$OUTPUT_FILE"
+# Run the Redocly build-docs command
+redocly build-docs "$INPUT_SPEC" -o "$OUTPUT_DOC"
 
-# Check if the generation was successful
-if [ $? -eq 0 ]; then
-  print_success "Documentation generated successfully: $OUTPUT_FILE"
+# Capture the exit status of the command
+EXIT_STATUS=$?
+
+# Check if the command was successful
+if [ $EXIT_STATUS -eq 0 ]; then
+  echo "Documentation built successfully. Output file: $OUTPUT_DOC"
 else
-  print_error "Failed to generate documentation."
-  exit 1
+  echo "Documentation build failed. Please check the output for details."
 fi
+
+# Exit with the command's status code
+exit $EXIT_STATUS
