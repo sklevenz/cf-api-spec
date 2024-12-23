@@ -14,6 +14,7 @@ npm -g update || { echo "Failed to update global npm packages"; exit 1; }
 # Define packages to update
 packages=(
   "@redocly/cli"
+  "@stoplight/spectral-cli"  
 )
 
 # Install or update packages

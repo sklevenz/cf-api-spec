@@ -55,7 +55,21 @@ Redoc CLI is used to generate an interactive HTML documentation page from the Op
 - **Usage**:
   Run the following command to generate documentation:
   ```bash
-  npx @redocly/cli build-docs spec/openapi.yaml --output docs/index.html
+  redocly build-docs spec/openapi.yaml --output docs/index.html
+  ```
+
+### [Spectral CLI](https://github.com/stoplightio/spectral)
+
+Spectral CLI is used to lint and validate OpenAPI specifications against predefined rulesets or custom rules.
+
+- **Installation**:
+  ```bash
+  npm install -g @stoplight/spectral-cli
+
+- **Usage**:
+  Run the following command to generate documentation:
+  ```bash
+  spectral lint spec/openapi.yaml --ruleset ./script/cfg/spectral-ruleset.yaml
   ```
 
 ### Additional Requirements
@@ -99,11 +113,11 @@ npm -v
    bash scripts/bundle.sh
    ```
 
-   The generated documentation will be available at `gen/docs/index.html`.
+   The generated documentation will be available at `./docs/index.html`.
 **View the Documentation**:
    Open the generated documentation in a browser:
    ```bash
-   open gen/docs/index.html
+   open ./docs/index.html
    ```
 
 [1] https://v3-apidocs.cloudfoundry.org/version/3.181.0/index.html
