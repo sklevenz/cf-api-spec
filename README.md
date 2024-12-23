@@ -69,7 +69,7 @@ Spectral CLI is used to lint and validate OpenAPI specifications against predefi
 - **Usage**:
   Run the following command to generate documentation:
   ```bash
-  spectral lint spec/openapi.yaml --ruleset ./script/cfg/spectral-ruleset.yaml
+  spectral lint spec/openapi.yaml --ruleset ./script/spectral-ruleset.yaml
   ```
 
 ### Additional Requirements
