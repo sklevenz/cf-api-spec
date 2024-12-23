@@ -13,8 +13,6 @@ npm -g update || { echo "Failed to update global npm packages"; exit 1; }
 
 # Define packages to update
 packages=(
-  "@stoplight/spectral-cli"
-  "@apidevtools/swagger-cli"
   "@redocly/cli"
 )
 
