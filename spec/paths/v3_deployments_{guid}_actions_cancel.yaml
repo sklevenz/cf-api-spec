@@ -1,0 +1,46 @@
+post:
+  tags:
+    - Deployments
+  summary: Cancel a deployment
+  description: Cancel a deployment in progress.
+  operationId: cancelDeployment
+  parameters:
+    - $ref: ../components/parameters/guid.yaml
+  responses:
+    '200':
+      description: Successfully canceled deployment
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/deployment.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 100001
+                title: CF-AppInvalid
+                detail: 'The app is invalid: %s'
+    '401':
+      $ref: ../components/responses/401Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/403Forbidden.yaml
+    '404':
+      description: Deployment not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 390014
+                title: CF-DeploymentsDisabled
+                detail: >-
+                  Deployments cannot be created due to manifest property
+                  'temporary_disable_deployments'
+  security:
+    - oauth:
+        - cloud_controller.write

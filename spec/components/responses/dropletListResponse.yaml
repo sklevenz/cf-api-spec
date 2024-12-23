@@ -1,0 +1,5 @@
+description: Successfully retrieved list of droplets
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/dropletList.yaml

@@ -1,0 +1,68 @@
+post:
+  tags:
+    - Droplets
+  summary: Upload a droplet
+  description: Upload a droplet file for a specific droplet by its GUID.
+  operationId: uploadDroplet
+  parameters:
+    - $ref: ../components/parameters/dropletGuid.yaml
+  requestBody:
+    description: The droplet file to be uploaded
+    required: true
+    content:
+      multipart/form-data:
+        schema:
+          type: object
+          properties:
+            bits:
+              type: string
+              format: binary
+              description: The droplet file to be uploaded
+          required:
+            - bits
+          description: Request schema for uploading a droplet
+  responses:
+    '200':
+      $ref: ../components/responses/dropletGetResponse.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 100001
+                title: CF-AppInvalid
+                detail: 'The app is invalid: %s'
+    '401':
+      $ref: ../components/responses/401Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/403Forbidden.yaml
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 10010
+                title: CF-ResourceNotFound
+                detail: '%s'
+    '422':
+      description: Unprocessable Entity
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 10008
+                title: CF-UnprocessableEntity
+                detail: '%s'
+    '500':
+      $ref: ../components/responses/500Unauthorized.yaml
+  security:
+    - oauth:
+        - cloud_controller.write

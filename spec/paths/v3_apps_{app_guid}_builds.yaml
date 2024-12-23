@@ -1,0 +1,47 @@
+get:
+  tags:
+    - Builds
+  summary: List builds for an app
+  description: Retrieve a list of builds for a specific app.
+  operationId: listBuildsForApp
+  parameters:
+    - name: app_guid
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    - $ref: ../components/parameters/page.yaml
+    - $ref: ../components/parameters/perPage.yaml
+    - $ref: ../components/parameters/orderBy.yaml
+    - $ref: ../components/parameters/createdAts.yaml
+    - $ref: ../components/parameters/updatedAts.yaml
+    - $ref: ../components/parameters/labelSelector.yaml
+    - name: app_guids
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of app GUIDs to filter by
+    - name: package_guids
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of package GUIDs to filter by
+  responses:
+    '200':
+      description: List of builds for the app
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/buildList.yaml
+    '401':
+      $ref: ../components/responses/401Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/403Forbidden.yaml
+  security:
+    - oauth:
+        - cloud_controller.read

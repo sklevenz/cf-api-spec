@@ -1,0 +1,139 @@
+get:
+  tags:
+    - Builds
+  summary: Retrieve a build
+  description: Retrieve details of a specific build by its GUID.
+  operationId: getBuild
+  parameters:
+    - $ref: ../components/parameters/guid.yaml
+  responses:
+    '200':
+      description: Successfully retrieved build
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/build.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 100001
+                title: CF-AppInvalid
+                detail: 'The app is invalid: %s'
+    '401':
+      $ref: ../components/responses/401Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/403Forbidden.yaml
+    '404':
+      description: Build not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 10008
+                title: CF-UnprocessableEntity
+                detail: '%s'
+  security:
+    - oauth:
+        - cloud_controller.read
+patch:
+  tags:
+    - Builds
+  summary: Update a build
+  description: Update attributes of a specific build by its GUID.
+  operationId: updateBuild
+  parameters:
+    - $ref: ../components/parameters/guid.yaml
+  requestBody:
+    description: Build object that needs to be updated
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            metadata:
+              $ref: ../components/schemas/metadata.yaml
+          description: Request schema for updating a build
+  responses:
+    '200':
+      description: Successfully updated build
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/build.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 100001
+                title: CF-AppInvalid
+                detail: 'The app is invalid: %s'
+    '401':
+      $ref: ../components/responses/401Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/403Forbidden.yaml
+    '404':
+      description: Build not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 10008
+                title: CF-UnprocessableEntity
+                detail: '%s'
+  security:
+    - oauth:
+        - cloud_controller.write
+delete:
+  tags:
+    - Builds
+  summary: Delete a build
+  description: Delete a specific build by its GUID.
+  operationId: deleteBuild
+  parameters:
+    - $ref: ../components/parameters/guid.yaml
+  responses:
+    '204':
+      description: Successfully deleted build
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 100001
+                title: CF-AppInvalid
+                detail: 'The app is invalid: %s'
+    '401':
+      $ref: ../components/responses/401Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/403Forbidden.yaml
+    '404':
+      description: Build not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 10008
+                title: CF-UnprocessableEntity
+                detail: '%s'
+  security:
+    - oauth:
+        - cloud_controller.write

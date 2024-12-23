@@ -1,0 +1,189 @@
+get:
+  tags:
+    - Buildpacks
+  summary: Retrieve a buildpack
+  description: Retrieve details of a specific buildpack by its GUID.
+  operationId: getBuildpack
+  parameters:
+    - $ref: ../components/parameters/guid.yaml
+  responses:
+    '200':
+      $ref: ../components/responses/buildpackGetResponse.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 10005
+                title: CF-BadQueryParameter
+                detail: 'The query parameter is invalid: %s'
+  security:
+    - oauth:
+        - cloud_controller.read
+patch:
+  tags:
+    - Buildpacks
+  summary: Update a buildpack
+  description: Update attributes of a specific buildpack by its GUID.
+  operationId: ppdateBuildpack
+  parameters:
+    - $ref: ../components/parameters/guid.yaml
+  requestBody:
+    description: Buildpack object that needs to be updated
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name of the buildpack
+            stack:
+              type: string
+              description: The stack the buildpack is compatible with
+            position:
+              type: integer
+              description: The position of the buildpack in the order of execution
+            enabled:
+              type: boolean
+              description: Whether the buildpack is enabled
+            locked:
+              type: boolean
+              description: Whether the buildpack is locked
+            filename:
+              type: string
+              description: The filename of the buildpack
+          required:
+            - name
+          description: Request schema for updating a buildpack
+        examples:
+          buildpack:
+            summary: A sample buildpack
+            value:
+              name: ruby_buildpack
+              stack: cflinuxfs3
+              position: 1
+              enabled: true
+              locked: false
+              filename: ruby_buildpack-cflinuxfs3-v1.0.0.zip
+  responses:
+    '200':
+      description: Successfully updated buildpack
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/buildpack.yaml
+          examples:
+            buildpack:
+              summary: A sample buildpack
+              value:
+                guid: d5ccf6b2-3b8e-4b8e-8b8e-8b8e8b8e8b8e
+                created_at: '2023-10-01T12:00:00Z'
+                updated_at: '2023-10-01T12:00:00Z'
+                name: ruby_buildpack
+                stack: cflinuxfs3
+                position: 1
+                enabled: true
+                locked: false
+                filename: ruby_buildpack-cflinuxfs3-v1.0.0.zip
+                links:
+                  self:
+                    href: >-
+                      https://api.example.local/v3/buildpacks/d5ccf6b2-3b8e-4b8e-8b8e-8b8e8b8e8b8e
+                  upload:
+                    href: >-
+                      https://api.example.local/v3/buildpacks/d5ccf6b2-3b8e-4b8e-8b8e-8b8e8b8e8b8e/upload
+                    method: POST
+                metadata:
+                  labels:
+                    some: label
+                  annotations:
+                    some: annotation
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 20001
+                title: CF-UserInvalid
+                detail: 'The user info is invalid: %s'
+    '401':
+      $ref: ../components/responses/401Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/403Forbidden.yaml
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 10010
+                title: CF-ResourceNotFound
+                detail: '%s'
+    '422':
+      description: Unprocessable Entity
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 10008
+                title: CF-UnprocessableEntity
+                detail: '%s'
+    '500':
+      $ref: ../components/responses/500Unauthorized.yaml
+  security:
+    - oauth:
+        - cloud_controller.write
+delete:
+  tags:
+    - Buildpacks
+  summary: Delete a buildpack
+  description: Delete a specific buildpack by its GUID.
+  operationId: deleteBuildpack
+  parameters:
+    - $ref: ../components/parameters/guid.yaml
+  responses:
+    '204':
+      description: Successfully deleted buildpack
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 10005
+                title: CF-BadQueryParameter
+                detail: 'The query parameter is invalid: %s'
+    '401':
+      $ref: ../components/responses/401Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/403Forbidden.yaml
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 10005
+                title: CF-BadQueryParameter
+                detail: 'The query parameter is invalid: %s'
+    '500':
+      $ref: ../components/responses/500Unauthorized.yaml
+  security:
+    - oauth:
+        - cloud_controller.write

@@ -1,0 +1,63 @@
+post:
+  tags:
+    - Packages
+  summary: Copy a package
+  description: Copy a package to a different app.
+  operationId: copyPackage
+  parameters:
+    - name: source_guid
+      in: query
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: The GUID of the package to copy from
+  requestBody:
+    description: Destination app for the copied package
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            relationships:
+              $ref: ../components/schemas/relationships.yaml
+          required:
+            - relationships
+          description: Request schema for copying a package
+  responses:
+    '201':
+      description: Successfully copied package
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/package.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 160002
+                title: CF-AppBitsCopyInvalid
+                detail: 'The app copy is invalid: %s'
+    '401':
+      $ref: ../components/responses/401Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/403Forbidden.yaml
+    '404':
+      description: Package or app not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 150002
+                title: CF-AppPackageNotFound
+                detail: 'The app package could not be found: %s'
+  security:
+    - oauth:
+        - cloud_controller.write

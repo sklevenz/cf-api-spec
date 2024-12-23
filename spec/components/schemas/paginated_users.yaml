@@ -1,0 +1,10 @@
+allOf:
+  - $ref: ./baseSchema.yaml
+  - type: object
+    properties:
+      pagination:
+        $ref: ./pagination.yaml
+      resources:
+        type: array
+        items:
+          $ref: ./user.yaml
