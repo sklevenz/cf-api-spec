@@ -1,19 +1,11 @@
 type: object
 properties:
-  errors:
-    type: array
-    items:
-      type: object
-      properties:
-        code:
-          type: integer
-          description: A numeric code for this error
-        detail:
-          type: string
-          description: Detailed description of the error
-        title:
-          type: string
-          description: Name of the error
-description: |
-  An error response will always return a list of error objects. Errors appear on the job resource for asynchronous operations.
-  Clients should use the code and title fields for programmatically handling specific errors. The message in the detail field is subject to change over time.
+  code:
+    type: integer
+    description: A numeric code for this error
+  detail:
+    type: string
+    description: Detailed description of the error
+  title:
+    type: string
+    description: Name of the error

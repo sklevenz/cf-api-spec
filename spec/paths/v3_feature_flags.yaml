@@ -1,0 +1,82 @@
+get:
+  tags:
+    - FeatureFlags
+  summary: List feature flags
+  description: Retrieve a list of all feature flags.
+  operationId: listFeatureFlags
+  parameters:
+    - $ref: ../components/parameters/page.yaml
+    - $ref: ../components/parameters/perPage.yaml
+    - $ref: ../components/parameters/orderBy.yaml
+    - name: updated_ats
+      in: query
+      required: false
+      schema:
+        type: string
+      description: >
+        Timestamp to filter by. When filtering on equality, several
+        comma-delimited timestamps may be passed.
+  responses:
+    '200':
+      description: List of feature flags
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/featureFlagList.yaml
+    '401':
+      $ref: ../components/responses/401Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/403Forbidden.yaml
+post:
+  tags:
+    - FeatureFlags
+  summary: Create a feature flag
+  description: Create a new feature flag.
+  operationId: createFeatureFlag
+  requestBody:
+    description: Feature flag object that needs to be created
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name of the feature flag
+            enabled:
+              type: boolean
+              description: Whether the feature flag is enabled
+            custom_error_message:
+              type: string
+              description: >-
+                The error string returned by the API when a client performs an
+                action disabled by the feature flag
+          required:
+            - name
+            - enabled
+  responses:
+    '201':
+      description: Successfully created feature flag
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/featureFlag.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 330001
+                title: CF-FeatureFlagInvalid
+                detail: 'The feature flag is invalid: %s'
+    '401':
+      $ref: ../components/responses/401Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/403Forbidden.yaml
+  security:
+    - oauth:
+        - cloud_controller.write

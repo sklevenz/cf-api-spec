@@ -1,0 +1,286 @@
+get:
+  tags:
+    - Users
+  summary: List users
+  description: Retrieve all users the user has access to.
+  parameters:
+    - $ref: ../components/parameters/page.yaml
+    - $ref: ../components/parameters/perPage.yaml
+    - $ref: ../components/parameters/orderBy.yaml
+    - $ref: ../components/parameters/createdAts.yaml
+    - $ref: ../components/parameters/updatedAts.yaml
+    - name: guids
+      in: query
+      description: Comma-delimited list of user guids to filter by
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    - name: usernames
+      in: query
+      description: Comma-delimited list of usernames to filter by
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    - name: origins
+      in: query
+      description: Comma-delimited list of user origins to filter by
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            paginated_users:
+              allOf:
+                - baseSchema:
+                    type: object
+                    properties:
+                      guid:
+                        type: string
+                        format: uuid
+                        description: The GUID of the resource
+                      created_at:
+                        type: string
+                        format: date-time
+                        description: >
+                          The time the resource was created. 
+
+                          Timestamps generally appear in created_at and
+                          updated_at fields on resources. 
+
+                          Precision beyond seconds is not supported, even if the
+                          underlying database supports it (e.g. Postgres). 
+
+                          As a result, filtering on sub-second timestamps is not
+                          allowed.
+
+                          All v3 timestamps have the following format
+                          YYYY-MM-DDThh:mm:ssZ.
+
+                          Example timestamp (June 30, 2020 at 11:49:04 PM UTC):
+                          2020-06-30T23:49:04Z
+                      updated_at:
+                        type: string
+                        format: date-time
+                        description: >
+                          The time the resource was last updated
+
+                          Timestamps generally appear in created_at and
+                          updated_at fields on resources. 
+
+                          Precision beyond seconds is not supported, even if the
+                          underlying database supports it (e.g. Postgres). 
+
+                          As a result, filtering on sub-second timestamps is not
+                          allowed.
+
+                          All v3 timestamps have the following format
+                          YYYY-MM-DDThh:mm:ssZ.
+
+                          Example timestamp (June 30, 2020 at 11:49:04 PM UTC):
+                          2020-06-30T23:49:04Z
+                      links:
+                        type: object
+                        additionalProperties:
+                          type: object
+                          properties:
+                            href:
+                              type: string
+                              description: The URL of the link
+                            method:
+                              type: string
+                              description: >-
+                                An optional field containing the HTTP method to
+                                be used when following the URL
+                          required:
+                            - href
+                          description: >
+                            Each link is keyed by its type and will include a
+                            href for the URL and an optional method for links
+                            that cannot be followed using GET.
+                    description: >
+                      A resource represents an individual object within the
+                      system, such as an app or a service. It is represented as
+                      a JSON object.
+
+                      A resource consists of several required resource fields
+                      and other attributes specific to the resource.
+
+                      See Resources and Experimental Resources for specific
+                      resources.
+                - type: object
+                  properties:
+                    pagination:
+                      pagination:
+                        type: object
+                        properties:
+                          total_results:
+                            type: integer
+                            description: The total number of results available
+                          total_pages:
+                            type: integer
+                            description: The total number of pages available
+                          first:
+                            allOf:
+                              - $ref: >-
+                                  #/paths/~1v3~1users/get/responses/200/content/application~1json/schema/paginated_users/allOf/0/baseSchema/properties/links/additionalProperties
+                              - description: The first page of results
+                          last:
+                            allOf:
+                              - $ref: >-
+                                  #/paths/~1v3~1users/get/responses/200/content/application~1json/schema/paginated_users/allOf/0/baseSchema/properties/links/additionalProperties
+                              - description: The last page of results
+                          next:
+                            allOf:
+                              - $ref: >-
+                                  #/paths/~1v3~1users/get/responses/200/content/application~1json/schema/paginated_users/allOf/0/baseSchema/properties/links/additionalProperties
+                              - description: The next page of results
+                          previous:
+                            allOf:
+                              - $ref: >-
+                                  #/paths/~1v3~1users/get/responses/200/content/application~1json/schema/paginated_users/allOf/0/baseSchema/properties/links/additionalProperties
+                              - description: The previous page of results
+                        description: >
+                          Pagination is a technique used to divide a large set
+                          of results into smaller, more manageable sets. This
+                          allows clients to retrieve results in smaller chunks,
+                          reducing the amount of data transferred and improving
+                          performance.
+
+                          The pagination object is a JSON object that contains
+                          information about the pagination state of the results.
+                          It includes the total number of results available, the
+                          total number of pages available, and links to the
+                          first, last, next, and previous pages of results.
+                    resources:
+                      type: array
+                      items:
+                        $ref: >-
+                          #/paths/~1v3~1users~1%7Bguid%7D/get/responses/200/content/application~1json/schema
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    code:
+                      type: integer
+                      description: A numeric code for this error
+                    detail:
+                      type: string
+                      description: Detailed description of the error
+                    title:
+                      type: string
+                      description: Name of the error
+            description: >
+              An error response will always return a list of error objects.
+              Errors appear on the job resource for asynchronous operations.
+
+              Clients should use the code and title fields for programmatically
+              handling specific errors. The message in the detail field is
+              subject to change over time.
+          example:
+            errors:
+              - code: 10005
+                title: CF-BadQueryParameter
+                detail: 'The query parameter is invalid: %s'
+    '401':
+      description: Unauthorized
+    '403':
+      description: Forbidden
+    '500':
+      description: Server error
+      content:
+        application/json:
+          schema:
+            $ref: >-
+              #/paths/~1v3~1users/get/responses/400/content/application~1json/schema
+          example:
+            errors:
+              - code: 10001
+                title: CF-ServerError
+                detail: Server error
+  operationId: listUsers
+post:
+  tags:
+    - Users
+  summary: Create a user
+  description: Create a new user.
+  operationId: createUser
+  requestBody:
+    description: User to create
+    content:
+      application/json:
+        schema:
+          userCreate:
+            type: object
+            properties:
+              guid:
+                type: string
+                description: Unique identifier for the user
+              created_at:
+                type: string
+                format: date-time
+                description: The time with zone when the object was created
+              updated_at:
+                type: string
+                format: date-time
+                description: The time with zone when the object was last updated
+              username:
+                type: string
+                description: The username of the user
+              presentation_name:
+                type: string
+                description: The presentation name of the user
+              origin:
+                type: string
+                description: The origin of the user
+              metadata:
+                $ref: >-
+                  #/paths/~1v3~1users~1%7Bguid%7D/get/responses/200/content/application~1json/schema/user/properties/metadata
+              links:
+                $ref: >-
+                  #/paths/~1v3~1users~1%7Bguid%7D/get/responses/200/content/application~1json/schema/user/properties/links
+            required:
+              - guid
+  responses:
+    '201':
+      description: User created
+      content:
+        application/json:
+          schema:
+            $ref: >-
+              #/paths/~1v3~1users~1%7Bguid%7D/get/responses/200/content/application~1json/schema
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: >-
+              #/paths/~1v3~1users/get/responses/400/content/application~1json/schema
+          example:
+            errors:
+              - code: 20001
+                title: CF-UserInvalid
+                detail: 'The user info is invalid: %s'
+    '401':
+      $ref: '#/paths/~1v3~1users/get/responses/401'
+    '403':
+      $ref: '#/paths/~1v3~1users/get/responses/403'
+    '500':
+      description: Internal Server Error

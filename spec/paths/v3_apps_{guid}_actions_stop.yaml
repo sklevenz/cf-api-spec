@@ -1,0 +1,46 @@
+post:
+  tags:
+    - Apps
+  summary: Stop an app
+  description: Stop a specific app by its GUID.
+  operationId: stopApp
+  parameters:
+    - $ref: ../components/parameters/guid.yaml
+  responses:
+    '200':
+      description: Successfully stopped app
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/app.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 100001
+                title: CF-AppInvalid
+                detail: 'The app is invalid: %s'
+    '401':
+      $ref: ../components/responses/401Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/403Forbidden.yaml
+    '404':
+      description: App not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 100004
+                title: CF-AppNotFound
+                detail: 'The app could not be found: %s'
+    '500':
+      $ref: ../components/responses/500Unauthorized.yaml
+  security:
+    - oauth:
+        - cloud_controller.write

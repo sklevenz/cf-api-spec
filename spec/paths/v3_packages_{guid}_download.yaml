@@ -1,0 +1,29 @@
+get:
+  tags:
+    - Packages
+  summary: Download package bits
+  description: Download the bits for a specific package by its GUID.
+  operationId: downloadPackageBits
+  parameters:
+    - $ref: ../components/parameters/guid.yaml
+  responses:
+    '302':
+      description: Redirect to download location
+    '401':
+      $ref: ../components/responses/401Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/403Forbidden.yaml
+    '404':
+      description: Package not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 150002
+                title: CF-AppPackageNotFound
+                detail: 'The app package could not be found: %s'
+  security:
+    - oauth:
+        - cloud_controller.read

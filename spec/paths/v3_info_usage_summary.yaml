@@ -1,0 +1,58 @@
+get:
+  tags:
+    - Info
+  summary: Get platform usage summary
+  description: >-
+    This endpoint retrieves a high-level summary of usage across the entire
+    Cloud Foundry installation.
+  operationId: getPlatformUsageSummary
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              usage_summary:
+                type: object
+                description: >-
+                  Usage summary object
+
+
+                  Name                    Type     Description
+
+                  started_instances        integer Total number of process
+                  instances in the STARTED state
+
+                  memory_in_mb            integer Sum of memory usage of all
+                  tasks in the RUNNING state and all process instances in the
+                  STARTED state
+                properties:
+                  started_instances:
+                    type: integer
+                    description: Total number of process instances in the STARTED state
+                  memory_in_mb:
+                    type: integer
+                    description: >-
+                      Sum of memory usage of all tasks in the RUNNING state and
+                      all process instances in the STARTED state
+              links:
+                type: object
+                description: Links to related resources
+                properties:
+                  self:
+                    allOf:
+                      - $ref: ../components/schemas/link.yaml
+                      - description: Link to the current endpoint
+    '401':
+      $ref: ../components/responses/401Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/403Forbidden.yaml
+    '500':
+      $ref: ../components/responses/500Unauthorized.yaml
+  security:
+    - oauth:
+        - cloud_controller.admin
+        - cloud_controller.admin_read_only
+        - cloud_controller.global_auditor
