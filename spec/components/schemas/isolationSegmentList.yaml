@@ -1,8 +1,0 @@
-type: object
-properties:
-  pagination:
-    $ref: ./pagination.yaml
-  resources:
-    type: array
-    items:
-      $ref: ./isolationSegment.yaml

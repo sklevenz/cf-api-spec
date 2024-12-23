@@ -1,7 +1,0 @@
-name: guid
-in: path
-required: true
-schema:
-  type: string
-  format: uuid
-description: The GUID of the resource
