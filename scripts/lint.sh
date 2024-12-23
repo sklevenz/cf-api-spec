@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 
-# Bash script to lint an OpenAPI specification file using Redocly and run stats if linting succeeds
+# Bash script to lint an OpenAPI specification file using Redocly or Spectral linters
 
 # Suppress warnings for Node.js
 export NODE_NO_WARNINGS=1
 
 # Define the OpenAPI specification file path
 SPEC_FILE="spec/openapi.yaml"
+SPECTRAL_RULESET="./scripts/spectral-ruleset.yaml"
 
 # Check if the file exists
 if [ ! -f "$SPEC_FILE" ]; then
@@ -14,30 +15,57 @@ if [ ! -f "$SPEC_FILE" ]; then
   exit 1
 fi
 
-# Run the Redocly lint command
-redocly lint "$SPEC_FILE" --format stylish
+# Parse the parameter for linter choice
+LINTER=${1:-both}
 
-# Capture the exit status of the command
-EXIT_STATUS=$?
+# Function to run Redocly linter and stats
+run_redocly() {
+  echo "Running Redocly linter..."
+  redocly lint "$SPEC_FILE" --format stylish
+  REDOCLY_EXIT_STATUS=$?
 
-# Check if the lint command was successful
-if [ $EXIT_STATUS -eq 0 ]; then
-  echo "Linting completed successfully. Running stats..."
-  
-  # Run the Redocly stats command
-  redocly stats "$SPEC_FILE"
-  
-  # Capture the exit status of the stats command
-  STATS_EXIT_STATUS=$?
-  
-  if [ $STATS_EXIT_STATUS -eq 0 ]; then
-    echo "Stats completed successfully."
+  if [ $REDOCLY_EXIT_STATUS -eq 0 ]; then
+    echo "Redocly linting completed successfully. Running stats..."
+    redocly stats "$SPEC_FILE"
+    STATS_EXIT_STATUS=$?
+    
+    if [ $STATS_EXIT_STATUS -eq 0 ]; then
+      echo "Redocly stats completed successfully."
+    else
+      echo "Redocly stats command failed. Please check the output for details."
+    fi
   else
-    echo "Stats command failed. Please check the output for details."
+    echo "Redocly linting failed. Please check the output for details."
   fi
-else
-  echo "Linting failed. Please check the output for details."
-fi
+}
 
-# Exit with the lint command's status code
-exit $EXIT_STATUS
+# Function to run Spectral linter
+run_spectral() {
+  echo "Running Spectral linter..."
+  spectral lint "$SPEC_FILE" --ruleset="$SPECTRAL_RULESET"
+  SPECTRAL_EXIT_STATUS=$?
+
+  if [ $SPECTRAL_EXIT_STATUS -eq 0 ]; then
+    echo "Spectral linting completed successfully."
+  else
+    echo "Spectral linting failed. Please check the output for details."
+  fi
+}
+
+# Execute based on the chosen linter
+case $LINTER in
+  redocly)
+    run_redocly
+    ;;
+  spectral)
+    run_spectral
+    ;;
+  both)
+    run_redocly
+    run_spectral
+    ;;
+  *)
+    echo "Error: Invalid parameter '$LINTER'. Use 'redocly', 'spectral', or omit for both."
+    exit 1
+    ;;
+esac

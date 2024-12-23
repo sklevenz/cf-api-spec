@@ -8,6 +8,9 @@
 extends: 
 - spectral:oas
 
+rules:
+  oas3-schema: off # doesn't work for $ref and throws unevaluated properties error 
+
 formats:
   - oas3.0
   - oas3.1

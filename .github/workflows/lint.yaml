@@ -20,5 +20,8 @@ jobs:
       - name: Install Redocly CLI
         run: npm install -g "@redocly/cli"
 
+      - name: Install Spectral CLI
+        run: npm install -g @stoplight/spectral-cli
+        
       - name: Lint OpenAPI Spec
         run: bash scripts/lint.sh
