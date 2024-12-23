@@ -1,0 +1,103 @@
+get:
+  security:
+    - oauth:
+        - cloud_controller.read
+  tags:
+    - Users
+  summary: List users
+  description: Retrieve all users the user has access to.
+  parameters:
+    - $ref: ../components/parameters/page.yaml
+    - $ref: ../components/parameters/perPage.yaml
+    - $ref: ../components/parameters/orderBy.yaml
+    - $ref: ../components/parameters/createdAts.yaml
+    - $ref: ../components/parameters/updatedAts.yaml
+    - name: guids
+      in: query
+      description: Comma-delimited list of user guids to filter by
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    - name: usernames
+      in: query
+      description: Comma-delimited list of usernames to filter by
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    - name: origins
+      in: query
+      description: Comma-delimited list of user origins to filter by
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/paginated_users.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 10005
+                title: CF-BadQueryParameter
+                detail: 'The query parameter is invalid: %s'
+    '401':
+      $ref: ../components/responses/401Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/403Forbidden.yaml
+    '500':
+      description: Server error
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 10001
+                title: CF-ServerError
+                detail: Server error
+  operationId: listUsers
+post:
+  security:
+    - oauth:
+        - cloud_controller.write
+  tags:
+    - Users
+  summary: Create a user
+  description: Create a new user.
+  operationId: createUser
+  requestBody:
+    $ref: ../components/requestBodies/userCreate.yaml
+  responses:
+    '201':
+      $ref: ../components/responses/userCreateResponse.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 20001
+                title: CF-UserInvalid
+                detail: 'The user info is invalid: %s'
+    '401':
+      $ref: ../components/responses/401Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/403Forbidden.yaml
+    '500':
+      $ref: ../components/responses/500Unauthorized.yaml

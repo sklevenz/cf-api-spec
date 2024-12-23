@@ -1,0 +1,94 @@
+post:
+  tags:
+    - Routes
+  summary: Create a route
+  description: Create a new route
+  operationId: createRoute
+  requestBody:
+    $ref: ../components/requestBodies/routeCreateRequestBody.yaml
+  responses:
+    '201':
+      $ref: ../components/responses/routeCreateResponse.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 210001
+                title: CF-RouteInvalid
+                detail: 'The route is invalid: [detailed message]'
+    '401':
+      $ref: ../components/responses/401Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/403Forbidden.yaml
+  security:
+    - oauth:
+        - cloud_controller.write
+get:
+  tags:
+    - Routes
+  summary: List routes
+  description: Retrieve a list of routes available in the system.
+  operationId: listRoutes
+  security:
+    - oauth:
+        - cloud_controller.read
+  parameters:
+    - $ref: ../components/parameters/page.yaml
+    - $ref: ../components/parameters/perPage.yaml
+    - $ref: ../components/parameters/orderBy.yaml
+    - $ref: ../components/parameters/createdAts.yaml
+    - $ref: ../components/parameters/updatedAts.yaml
+    - $ref: ../components/parameters/labelSelector.yaml
+    - name: protocols
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of protocols to filter by
+    - name: hosts
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of hosts to filter by
+    - name: paths
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of paths to filter by
+    - name: ports
+      in: query
+      schema:
+        type: array
+        items:
+          type: integer
+      description: Comma-delimited list of ports to filter by
+    - name: domain_guids
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of domain GUIDs to filter by
+    - name: space_guids
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of space GUIDs to filter by
+  responses:
+    '200':
+      $ref: ../components/responses/routeListResponse.yaml
+    '401':
+      $ref: ../components/responses/401Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/403Forbidden.yaml

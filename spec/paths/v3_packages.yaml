@@ -1,0 +1,115 @@
+get:
+  tags:
+    - Packages
+  summary: List packages
+  description: Retrieve a list of all packages the user has access to.
+  operationId: listPackages
+  security:
+    - oauth:
+        - cloud_controller.read
+  parameters:
+    - $ref: ../components/parameters/page.yaml
+    - $ref: ../components/parameters/perPage.yaml
+    - $ref: ../components/parameters/orderBy.yaml
+    - $ref: ../components/parameters/createdAts.yaml
+    - $ref: ../components/parameters/updatedAts.yaml
+    - $ref: ../components/parameters/labelSelector.yaml
+    - name: guids
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of package guids to filter by
+    - name: states
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of package states to filter by
+    - name: types
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of package types to filter by
+    - name: app_guids
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of app guids to filter by
+    - name: space_guids
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of space guids to filter by
+    - name: organization_guids
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of organization guids to filter by
+  responses:
+    '200':
+      description: List of packages
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/packageList.yaml
+    '401':
+      $ref: ../components/responses/401Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/403Forbidden.yaml
+    '500':
+      $ref: ../components/responses/500Unauthorized.yaml
+post:
+  tags:
+    - Packages
+  summary: Create a package
+  description: Create a new package.
+  operationId: createPackage
+  requestBody:
+    $ref: ../components/requestBodies/packageCreateRequestBody.yaml
+  responses:
+    '201':
+      description: Successfully created package
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/package.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 150001
+                title: CF-AppPackageInvalid
+                detail: 'The app package is invalid: %s'
+    '401':
+      $ref: ../components/responses/401Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/403Forbidden.yaml
+    '422':
+      description: Unprocessable Entity
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 10008
+                title: CF-UnprocessableEntity
+                detail: '%s'
+  security:
+    - oauth:
+        - cloud_controller.write

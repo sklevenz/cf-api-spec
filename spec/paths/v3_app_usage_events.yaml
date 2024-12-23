@@ -1,0 +1,41 @@
+get:
+  tags:
+    - AppUsageEvents
+  summary: List app usage events
+  description: Retrieve all app usage events the user has access to.
+  operationId: listAppUsageEvents
+  parameters:
+    - $ref: ../components/parameters/page.yaml
+    - $ref: ../components/parameters/perPage.yaml
+    - $ref: ../components/parameters/orderBy.yaml
+    - $ref: ../components/parameters/createdAts.yaml
+    - name: after_guid
+      in: query
+      description: Filters out events before and including the event with the given guid.
+      schema:
+        type: string
+    - name: guids
+      in: query
+      description: Comma-delimited list of usage event guids to filter by.
+      schema:
+        type: array
+        items:
+          type: string
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/appUsageEventList.yaml
+    '401':
+      $ref: ../components/responses/401Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/403Forbidden.yaml
+    '500':
+      $ref: ../components/responses/500Unauthorized.yaml
+  security:
+    - oauth:
+        - cloud_controller.admin
+        - cloud_controller.admin_read_only
+        - cloud_controller.global_auditor
