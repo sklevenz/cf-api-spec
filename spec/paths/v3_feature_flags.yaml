@@ -20,15 +20,15 @@ get:
         Timestamp to filter by. When filtering on equality, several
         comma-delimited timestamps may be passed.
   responses:
-    '200':
+    "200":
       description: List of feature flags
       content:
         application/json:
           schema:
             $ref: ../components/schemas/featureFlagList.yaml
-    '401':
+    "401":
       $ref: ../components/responses/401Unauthorized.yaml
-    '403':
+    "403":
       $ref: ../components/responses/403Forbidden.yaml
 post:
   tags:
@@ -59,13 +59,13 @@ post:
             - name
             - enabled
   responses:
-    '201':
+    "201":
       description: Successfully created feature flag
       content:
         application/json:
           schema:
             $ref: ../components/schemas/featureFlag.yaml
-    '400':
+    "400":
       description: Bad request
       content:
         application/json:
@@ -75,10 +75,10 @@ post:
             errors:
               - code: 330001
                 title: CF-FeatureFlagInvalid
-                detail: 'The feature flag is invalid: %s'
-    '401':
+                detail: "The feature flag is invalid: %s"
+    "401":
       $ref: ../components/responses/401Unauthorized.yaml
-    '403':
+    "403":
       $ref: ../components/responses/403Forbidden.yaml
   security:
     - oauth:

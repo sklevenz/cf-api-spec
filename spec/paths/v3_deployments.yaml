@@ -47,15 +47,15 @@ get:
         Comma-delimited list of status values to filter by; valid values include
         ACTIVE and FINALIZED
   responses:
-    '200':
+    "200":
       description: List of deployments
       content:
         application/json:
           schema:
             $ref: ../components/schemas/deploymentList.yaml
-    '401':
+    "401":
       $ref: ../components/responses/401Unauthorized.yaml
-    '403':
+    "403":
       $ref: ../components/responses/403Forbidden.yaml
 post:
   tags:
@@ -88,13 +88,13 @@ post:
             metadata:
               $ref: ../components/schemas/metadata.yaml
   responses:
-    '201':
+    "201":
       description: Successfully created deployment
       content:
         application/json:
           schema:
             $ref: ../components/schemas/deployment.yaml
-    '400':
+    "400":
       description: Bad request
       content:
         application/json:
@@ -104,10 +104,10 @@ post:
             errors:
               - code: 100001
                 title: CF-AppInvalid
-                detail: 'The app is invalid: %s'
-    '401':
+                detail: "The app is invalid: %s"
+    "401":
       $ref: ../components/responses/401Unauthorized.yaml
-    '403':
+    "403":
       $ref: ../components/responses/403Forbidden.yaml
   security:
     - oauth:

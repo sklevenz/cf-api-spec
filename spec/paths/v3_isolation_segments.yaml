@@ -39,13 +39,13 @@ get:
         items:
           type: string
   responses:
-    '200':
+    "200":
       description: OK
       content:
         application/json:
           schema:
             $ref: ../components/schemas/isolationSegmentList.yaml
-    '400':
+    "400":
       description: Bad request
       content:
         application/json:
@@ -55,12 +55,12 @@ get:
             errors:
               - code: 10005
                 title: CF-BadQueryParameter
-                detail: 'The query parameter is invalid: %s'
-    '401':
+                detail: "The query parameter is invalid: %s"
+    "401":
       $ref: ../components/responses/401Unauthorized.yaml
-    '403':
+    "403":
       $ref: ../components/responses/403Forbidden.yaml
-    '500':
+    "500":
       $ref: ../components/responses/500Unauthorized.yaml
 post:
   tags:
@@ -74,13 +74,13 @@ post:
   requestBody:
     $ref: ../components/requestBodies/isolationSegmentCreate.yaml
   responses:
-    '201':
+    "201":
       description: Created
       content:
         application/json:
           schema:
             $ref: ../components/schemas/isolationSegment.yaml
-    '400':
+    "400":
       description: Bad request
       content:
         application/json:
@@ -90,10 +90,10 @@ post:
             errors:
               - code: 10005
                 title: CF-BadQueryParameter
-                detail: 'The query parameter is invalid: %s'
-    '401':
+                detail: "The query parameter is invalid: %s"
+    "401":
       $ref: ../components/responses/401Unauthorized.yaml
-    '403':
+    "403":
       $ref: ../components/responses/403Forbidden.yaml
-    '500':
+    "500":
       $ref: ../components/responses/500Unauthorized.yaml

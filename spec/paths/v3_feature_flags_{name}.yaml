@@ -12,13 +12,13 @@ get:
         type: string
       description: The name of the feature flag
   responses:
-    '200':
+    "200":
       description: Successfully retrieved feature flag
       content:
         application/json:
           schema:
             $ref: ../components/schemas/featureFlag.yaml
-    '400':
+    "400":
       description: Bad request
       content:
         application/json:
@@ -28,12 +28,12 @@ get:
             errors:
               - code: 330001
                 title: CF-FeatureFlagInvalid
-                detail: 'The feature flag is invalid: %s'
-    '401':
+                detail: "The feature flag is invalid: %s"
+    "401":
       $ref: ../components/responses/401Unauthorized.yaml
-    '403':
+    "403":
       $ref: ../components/responses/403Forbidden.yaml
-    '404':
+    "404":
       description: Feature flag not found
       content:
         application/json:
@@ -43,7 +43,7 @@ get:
             errors:
               - code: 330000
                 title: CF-FeatureFlagNotFound
-                detail: 'The feature flag could not be found: %s'
+                detail: "The feature flag could not be found: %s"
   security:
     - oauth:
         - cloud_controller.read
@@ -77,13 +77,13 @@ patch:
                 The error string returned by the API when a client performs an
                 action disabled by the feature flag
   responses:
-    '200':
+    "200":
       description: Successfully updated feature flag
       content:
         application/json:
           schema:
             $ref: ../components/schemas/featureFlag.yaml
-    '400':
+    "400":
       description: Bad request
       content:
         application/json:
@@ -93,12 +93,12 @@ patch:
             errors:
               - code: 330001
                 title: CF-FeatureFlagInvalid
-                detail: 'The feature flag is invalid: %s'
-    '401':
+                detail: "The feature flag is invalid: %s"
+    "401":
       $ref: ../components/responses/401Unauthorized.yaml
-    '403':
+    "403":
       $ref: ../components/responses/403Forbidden.yaml
-    '404':
+    "404":
       description: Feature flag not found
       content:
         application/json:
@@ -108,7 +108,7 @@ patch:
             errors:
               - code: 330000
                 title: CF-FeatureFlagNotFound
-                detail: 'The feature flag could not be found: %s'
+                detail: "The feature flag could not be found: %s"
   security:
     - oauth:
         - cloud_controller.write

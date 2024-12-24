@@ -29,13 +29,13 @@ patch:
               type: boolean
               description: Whether the app feature should be enabled
   responses:
-    '200':
+    "200":
       description: Successfully updated app feature
       content:
         application/json:
           schema:
             $ref: ../components/schemas/appFeature.yaml
-    '400':
+    "400":
       description: Bad request
       content:
         application/json:
@@ -46,11 +46,11 @@ patch:
               - code: 302
                 title: CF-AppNoResources
                 detail: Couldn't find a place to run an app
-    '401':
+    "401":
       $ref: ../components/responses/401Unauthorized.yaml
-    '403':
+    "403":
       $ref: ../components/responses/403Forbidden.yaml
-    '404':
+    "404":
       description: App feature not found
       content:
         application/json:
@@ -61,7 +61,7 @@ patch:
               - code: 302
                 title: CF-AppNoResources
                 detail: Couldn't find a place to run an app
-    '422':
+    "422":
       description: Unprocessable Entity
       content:
         application/json:
@@ -71,7 +71,7 @@ patch:
             errors:
               - code: 10008
                 title: CF-UnprocessableEntity
-                detail: '%s'
+                detail: "%s"
   security:
     - oauth:
         - cloud_controller.write

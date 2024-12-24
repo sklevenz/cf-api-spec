@@ -24,7 +24,7 @@ post:
             Organization relationships; each organization will be entitled to
             manage this isolation segment
   responses:
-    '200':
+    "200":
       description: Successfully shared domain
       content:
         application/json:
@@ -35,7 +35,7 @@ post:
                 type: array
                 items:
                   $ref: ../components/schemas/relationship.yaml
-    '400':
+    "400":
       description: Bad request
       content:
         application/json:
@@ -45,12 +45,12 @@ post:
             errors:
               - code: 130001
                 title: CF-DomainInvalid
-                detail: 'The domain is invalid: %s'
-    '401':
+                detail: "The domain is invalid: %s"
+    "401":
       $ref: ../components/responses/401Unauthorized.yaml
-    '403':
+    "403":
       $ref: ../components/responses/403Forbidden.yaml
-    '404':
+    "404":
       description: Domain not found
       content:
         application/json:
@@ -60,8 +60,8 @@ post:
             errors:
               - code: 130002
                 title: CF-DomainNotFound
-                detail: 'The domain could not be found: %s'
-    '422':
+                detail: "The domain could not be found: %s"
+    "422":
       description: Unprocessable Entity
       content:
         application/json:
@@ -71,7 +71,7 @@ post:
             errors:
               - code: 10008
                 title: CF-UnprocessableEntity
-                detail: '%s'
+                detail: "%s"
   security:
     - oauth:
         - cloud_controller.write

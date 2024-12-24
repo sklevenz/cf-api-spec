@@ -10,13 +10,13 @@ post:
     will have the same guid as the app.
   operationId: purgeAndSeedAppUsageEvents
   responses:
-    '202':
+    "202":
       description: Accepted
-    '401':
+    "401":
       $ref: ../components/responses/401Unauthorized.yaml
-    '403':
+    "403":
       $ref: ../components/responses/403Forbidden.yaml
-    '500':
+    "500":
       $ref: ../components/responses/500Unauthorized.yaml
   security:
     - oauth:

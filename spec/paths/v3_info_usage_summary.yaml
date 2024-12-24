@@ -7,7 +7,7 @@ get:
     Cloud Foundry installation.
   operationId: getPlatformUsageSummary
   responses:
-    '200':
+    "200":
       description: OK
       content:
         application/json:
@@ -45,11 +45,11 @@ get:
                     allOf:
                       - $ref: ../components/schemas/link.yaml
                       - description: Link to the current endpoint
-    '401':
+    "401":
       $ref: ../components/responses/401Unauthorized.yaml
-    '403':
+    "403":
       $ref: ../components/responses/403Forbidden.yaml
-    '500':
+    "500":
       $ref: ../components/responses/500Unauthorized.yaml
   security:
     - oauth:

@@ -50,17 +50,17 @@ get:
           type: string
       description: Comma-delimited list of stack names to filter by
   responses:
-    '200':
+    "200":
       description: List of apps
       content:
         application/json:
           schema:
             $ref: ../components/schemas/appList.yaml
-    '401':
+    "401":
       $ref: ../components/responses/401Unauthorized.yaml
-    '403':
+    "403":
       $ref: ../components/responses/403Forbidden.yaml
-    '500':
+    "500":
       $ref: ../components/responses/500Unauthorized.yaml
 post:
   tags:
@@ -90,13 +90,13 @@ post:
             - relationships
           description: Request schema for creating an app
   responses:
-    '201':
+    "201":
       description: Successfully created app
       content:
         application/json:
           schema:
             $ref: ../components/schemas/app.yaml
-    '400':
+    "400":
       description: Bad request
       content:
         application/json:
@@ -106,12 +106,12 @@ post:
             errors:
               - code: 100001
                 title: CF-AppInvalid
-                detail: 'The app is invalid: %s'
-    '401':
+                detail: "The app is invalid: %s"
+    "401":
       $ref: ../components/responses/401Unauthorized.yaml
-    '403':
+    "403":
       $ref: ../components/responses/403Forbidden.yaml
-    '422':
+    "422":
       description: Unprocessable Entity
       content:
         application/json:
@@ -121,7 +121,7 @@ post:
             errors:
               - code: 10008
                 title: CF-UnprocessableEntity
-                detail: '%s'
+                detail: "%s"
   security:
     - oauth:
         - cloud_controller.write

@@ -32,15 +32,15 @@ get:
           type: string
       description: Comma-delimited list of package GUIDs to filter by
   responses:
-    '200':
+    "200":
       description: List of builds for the app
       content:
         application/json:
           schema:
             $ref: ../components/schemas/buildList.yaml
-    '401':
+    "401":
       $ref: ../components/responses/401Unauthorized.yaml
-    '403':
+    "403":
       $ref: ../components/responses/403Forbidden.yaml
   security:
     - oauth:
