@@ -20,13 +20,13 @@ get:
           type: integer
       description: Filter by revision versions
   responses:
-    '200':
+    "200":
       description: List of revisions for the app
       content:
         application/json:
           schema:
             $ref: ../components/schemas/revisionList.yaml
-    '400':
+    "400":
       description: Bad request
       content:
         application/json:
@@ -36,12 +36,12 @@ get:
             errors:
               - code: 100001
                 title: CF-AppInvalid
-                detail: 'The app is invalid: %s'
-    '401':
+                detail: "The app is invalid: %s"
+    "401":
       $ref: ../components/responses/401Unauthorized.yaml
-    '403':
+    "403":
       $ref: ../components/responses/403Forbidden.yaml
-    '404':
+    "404":
       description: App not found
       content:
         application/json:
@@ -51,7 +51,7 @@ get:
             errors:
               - code: 100004
                 title: CF-AppNotFound
-                detail: 'The app could not be found: %s'
+                detail: "The app could not be found: %s"
   security:
     - oauth:
         - cloud_controller.read

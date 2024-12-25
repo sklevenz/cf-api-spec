@@ -7,9 +7,9 @@ post:
   requestBody:
     $ref: ../components/requestBodies/buildpackCreateRequestBody.yaml
   responses:
-    '201':
+    "201":
       $ref: ../components/responses/buildpackCreateResponse.yaml
-    '400':
+    "400":
       description: Bad request
       content:
         application/json:
@@ -19,7 +19,7 @@ post:
             errors:
               - code: 20001
                 title: CF-UserInvalid
-                detail: 'The user info is invalid: %s'
+                detail: "The user info is invalid: %s"
   security:
     - oauth:
         - cloud_controller.write
@@ -56,15 +56,15 @@ get:
       description: |
         Comma-delimited list of stacks to filter by
   responses:
-    '200':
+    "200":
       description: List of buildpacks
       content:
         application/json:
           schema:
             $ref: ../components/schemas/buildpackList.yaml
-    '401':
+    "401":
       $ref: ../components/responses/401Unauthorized.yaml
-    '403':
+    "403":
       $ref: ../components/responses/403Forbidden.yaml
-    '500':
+    "500":
       $ref: ../components/responses/500Unauthorized.yaml

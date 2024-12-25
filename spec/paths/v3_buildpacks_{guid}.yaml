@@ -7,9 +7,9 @@ get:
   parameters:
     - $ref: ../components/parameters/guid.yaml
   responses:
-    '200':
+    "200":
       $ref: ../components/responses/buildpackGetResponse.yaml
-    '400':
+    "400":
       description: Bad request
       content:
         application/json:
@@ -19,7 +19,7 @@ get:
             errors:
               - code: 10005
                 title: CF-BadQueryParameter
-                detail: 'The query parameter is invalid: %s'
+                detail: "The query parameter is invalid: %s"
   security:
     - oauth:
         - cloud_controller.read
@@ -71,7 +71,7 @@ patch:
               locked: false
               filename: ruby_buildpack-cflinuxfs3-v1.0.0.zip
   responses:
-    '200':
+    "200":
       description: Successfully updated buildpack
       content:
         application/json:
@@ -82,8 +82,8 @@ patch:
               summary: A sample buildpack
               value:
                 guid: d5ccf6b2-3b8e-4b8e-8b8e-8b8e8b8e8b8e
-                created_at: '2023-10-01T12:00:00Z'
-                updated_at: '2023-10-01T12:00:00Z'
+                created_at: "2023-10-01T12:00:00Z"
+                updated_at: "2023-10-01T12:00:00Z"
                 name: ruby_buildpack
                 stack: cflinuxfs3
                 position: 1
@@ -103,7 +103,7 @@ patch:
                     some: label
                   annotations:
                     some: annotation
-    '400':
+    "400":
       description: Bad request
       content:
         application/json:
@@ -113,12 +113,12 @@ patch:
             errors:
               - code: 20001
                 title: CF-UserInvalid
-                detail: 'The user info is invalid: %s'
-    '401':
+                detail: "The user info is invalid: %s"
+    "401":
       $ref: ../components/responses/401Unauthorized.yaml
-    '403':
+    "403":
       $ref: ../components/responses/403Forbidden.yaml
-    '404':
+    "404":
       description: Not Found
       content:
         application/json:
@@ -128,8 +128,8 @@ patch:
             errors:
               - code: 10010
                 title: CF-ResourceNotFound
-                detail: '%s'
-    '422':
+                detail: "%s"
+    "422":
       description: Unprocessable Entity
       content:
         application/json:
@@ -139,8 +139,8 @@ patch:
             errors:
               - code: 10008
                 title: CF-UnprocessableEntity
-                detail: '%s'
-    '500':
+                detail: "%s"
+    "500":
       $ref: ../components/responses/500Unauthorized.yaml
   security:
     - oauth:
@@ -154,9 +154,9 @@ delete:
   parameters:
     - $ref: ../components/parameters/guid.yaml
   responses:
-    '204':
+    "204":
       description: Successfully deleted buildpack
-    '400':
+    "400":
       description: Bad request
       content:
         application/json:
@@ -166,12 +166,12 @@ delete:
             errors:
               - code: 10005
                 title: CF-BadQueryParameter
-                detail: 'The query parameter is invalid: %s'
-    '401':
+                detail: "The query parameter is invalid: %s"
+    "401":
       $ref: ../components/responses/401Unauthorized.yaml
-    '403':
+    "403":
       $ref: ../components/responses/403Forbidden.yaml
-    '404':
+    "404":
       description: Not Found
       content:
         application/json:
@@ -181,8 +181,8 @@ delete:
             errors:
               - code: 10005
                 title: CF-BadQueryParameter
-                detail: 'The query parameter is invalid: %s'
-    '500':
+                detail: "The query parameter is invalid: %s"
+    "500":
       $ref: ../components/responses/500Unauthorized.yaml
   security:
     - oauth:

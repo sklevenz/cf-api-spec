@@ -7,9 +7,9 @@ post:
   requestBody:
     $ref: ../components/requestBodies/dropletCreateRequestBody.yaml
   responses:
-    '201':
+    "201":
       $ref: ../components/responses/dropletCreateResponse.yaml
-    '400':
+    "400":
       description: Bad request
       content:
         application/json:
@@ -19,7 +19,7 @@ post:
             errors:
               - code: 100001
                 title: CF-AppInvalid
-                detail: 'The app is invalid: %s'
+                detail: "The app is invalid: %s"
   security:
     - oauth:
         - cloud_controller.write
@@ -80,11 +80,11 @@ get:
       description: |
         Comma-delimited list of organization GUIDs to filter by
   responses:
-    '200':
+    "200":
       $ref: ../components/responses/dropletListResponse.yaml
-    '401':
+    "401":
       $ref: ../components/responses/401Unauthorized.yaml
-    '403':
+    "403":
       $ref: ../components/responses/403Forbidden.yaml
-    '500':
+    "500":
       $ref: ../components/responses/500Unauthorized.yaml

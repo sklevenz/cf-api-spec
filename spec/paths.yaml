@@ -10,7 +10,7 @@ get:
     - oauth:
         - cloud_controller.read
   responses:
-    '200':
+    "200":
       description: OK
       content:
         application/json:
@@ -22,144 +22,143 @@ get:
                 properties:
                   self:
                     allOf:
-                      - $ref: './components/schemas/link.yaml'
+                      - $ref: "./components/schemas/link.yaml"
                       - description: Link to the current endpoint
                   apps:
                     allOf:
-                      - $ref: './components/schemas/link.yaml'
+                      - $ref: "./components/schemas/link.yaml"
                       - description: Link to the Apps endpoint
                   buildpacks:
                     allOf:
-                      - $ref: './components/schemas/link.yaml'
+                      - $ref: "./components/schemas/link.yaml"
                       - description: Link to the Buildpacks endpoint
                   builds:
                     allOf:
-                      - $ref: './components/schemas/link.yaml'
+                      - $ref: "./components/schemas/link.yaml"
                       - description: Link to the Builds endpoint
                   deployments:
                     allOf:
-                      - $ref: './components/schemas/link.yaml'
+                      - $ref: "./components/schemas/link.yaml"
                       - description: Link to the Deployments endpoint
                   domains:
                     allOf:
-                      - $ref: './components/schemas/link.yaml'
+                      - $ref: "./components/schemas/link.yaml"
                       - description: Link to the Domains endpoint
                   droplets:
                     allOf:
-                      - $ref: './components/schemas/link.yaml'
+                      - $ref: "./components/schemas/link.yaml"
                       - description: Link to the Droplets endpoint
                   environment_variable_groups:
                     allOf:
-                      - $ref: './components/schemas/link.yaml'
+                      - $ref: "./components/schemas/link.yaml"
                       - description: Link to the Environment Variable Groups endpoint
                   feature_flags:
                     allOf:
-                      - $ref: './components/schemas/link.yaml'
+                      - $ref: "./components/schemas/link.yaml"
                       - description: Link to the Feature Flags endpoint
                   info:
                     allOf:
-                      - $ref: './components/schemas/link.yaml'
+                      - $ref: "./components/schemas/link.yaml"
                       - description: Link to the Info endpoint
                   isolation_segments:
                     allOf:
-                      - $ref: './components/schemas/link.yaml'
+                      - $ref: "./components/schemas/link.yaml"
                       - description: Link to the Isolation Segments endpoint
                   jobs:
                     allOf:
-                      - $ref: './components/schemas/link.yaml'
+                      - $ref: "./components/schemas/link.yaml"
                       - description: Link to the Jobs endpoint
                   organization_quotas:
                     allOf:
-                      - $ref: './components/schemas/link.yaml'
+                      - $ref: "./components/schemas/link.yaml"
                       - description: Link to the Organization Quotas endpoint
                   organizations:
                     allOf:
-                      - $ref: './components/schemas/link.yaml'
+                      - $ref: "./components/schemas/link.yaml"
                       - description: Link to the Organizations endpoint
                   packages:
                     allOf:
-                      - $ref: './components/schemas/link.yaml'
+                      - $ref: "./components/schemas/link.yaml"
                       - description: Link to the Packages endpoint
                   processes:
                     allOf:
-                      - $ref: './components/schemas/link.yaml'
+                      - $ref: "./components/schemas/link.yaml"
                       - description: Link to the Processes endpoint
                   resource_matches:
                     allOf:
-                      - $ref: './components/schemas/link.yaml'
+                      - $ref: "./components/schemas/link.yaml"
                       - description: Link to the Resource Matches endpoint
                   roles:
                     allOf:
-                      - $ref: './components/schemas/link.yaml'
+                      - $ref: "./components/schemas/link.yaml"
                       - description: Link to the Roles endpoint
                   routes:
                     allOf:
-                      - $ref: './components/schemas/link.yaml'
+                      - $ref: "./components/schemas/link.yaml"
                       - description: Link to the Routes endpoint
                   security_groups:
                     allOf:
-                      - $ref: './components/schemas/link.yaml'
+                      - $ref: "./components/schemas/link.yaml"
                       - description: Link to the Security Groups endpoint
                   service_brokers:
                     allOf:
-                      - $ref: './components/schemas/link.yaml'
+                      - $ref: "./components/schemas/link.yaml"
                       - description: Link to the Service Brokers endpoint
                   service_credential_bindings:
                     allOf:
-                      - $ref: './components/schemas/link.yaml'
+                      - $ref: "./components/schemas/link.yaml"
                       - description: Link to the Service Credential Bindings endpoint
                   service_instances:
                     allOf:
-                      - $ref: './components/schemas/link.yaml'
+                      - $ref: "./components/schemas/link.yaml"
                       - description: Link to the Service Instances endpoint
                   service_offerings:
                     allOf:
-                      - $ref: './components/schemas/link.yaml'
+                      - $ref: "./components/schemas/link.yaml"
                       - description: Link to the Service Offerings endpoint
                   service_plans:
                     allOf:
-                      - $ref: './components/schemas/link.yaml'
+                      - $ref: "./components/schemas/link.yaml"
                       - description: Link to the Service Plans endpoint
                   service_plan_visibilities:
                     allOf:
-                      - $ref: './components/schemas/link.yaml'
+                      - $ref: "./components/schemas/link.yaml"
                       - description: Link to the Service Plan Visibilities endpoint
                   service_route_bindings:
                     allOf:
-                      - $ref: './components/schemas/link.yaml'
+                      - $ref: "./components/schemas/link.yaml"
                       - description: Link to the Service Route Bindings endpoint
                   service_usage_events:
                     allOf:
-                      - $ref: './components/schemas/link.yaml'
+                      - $ref: "./components/schemas/link.yaml"
                       - description: Link to the Service Usage Events endpoint
                   sidecars:
                     allOf:
-                      - $ref: './components/schemas/link.yaml'
+                      - $ref: "./components/schemas/link.yaml"
                       - description: Link to the Sidecars endpoint
                   space_quotas:
                     allOf:
-                      - $ref: './components/schemas/link.yaml'
+                      - $ref: "./components/schemas/link.yaml"
                       - description: Link to the Space Quotas endpoint
                   spaces:
                     allOf:
-                      - $ref: './components/schemas/link.yaml'
+                      - $ref: "./components/schemas/link.yaml"
                       - description: Link to the Spaces endpoint
                   stacks:
                     allOf:
-                      - $ref: './components/schemas/link.yaml'
+                      - $ref: "./components/schemas/link.yaml"
                       - description: Link to the Stacks endpoint
                   tasks:
                     allOf:
-                      - $ref: './components/schemas/link.yaml'
+                      - $ref: "./components/schemas/link.yaml"
                       - description: Link to the Tasks endpoint
                   users:
                     allOf:
-                      - $ref: './components/schemas/link.yaml'
+                      - $ref: "./components/schemas/link.yaml"
                       - description: Link to the Users endpoint
-    '401':
-      $ref: './components/responses/401Unauthorized.yaml'
-    '403':
-      $ref: './components/responses/403Forbidden.yaml'
-    '500':
-      $ref: './components/responses/500Unauthorized.yaml'
-
+    "401":
+      $ref: "./components/responses/401Unauthorized.yaml"
+    "403":
+      $ref: "./components/responses/403Forbidden.yaml"
+    "500":
+      $ref: "./components/responses/500Unauthorized.yaml"

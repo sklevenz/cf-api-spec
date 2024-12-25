@@ -4,13 +4,9 @@ get:
   summary: Get platform info
   description: Returns information about the platform.
   operationId: getPlatformInfo
-  security:
-    - oauth:
-        - cloud_controller.admin
-        - cloud_controller.admin_read_only
-        - cloud_controller.global_auditor
+  security: []
   responses:
-    '200':
+    "200":
       description: OK
       content:
         application/json:
@@ -56,9 +52,9 @@ get:
                     allOf:
                       - $ref: ../components/schemas/link.yaml
                       - description: Link to the support website for the platform
-    '401':
+    "401":
       $ref: ../components/responses/401Unauthorized.yaml
-    '403':
+    "403":
       $ref: ../components/responses/403Forbidden.yaml
-    '500':
+    "500":
       $ref: ../components/responses/500Unauthorized.yaml

@@ -5,17 +5,17 @@ get:
   description: Retrieve the environment variable group for staging applications.
   operationId: getStagingEnvironmentVariableGroup
   responses:
-    '200':
+    "200":
       description: Successfully retrieved staging environment variable group
       content:
         application/json:
           schema:
             $ref: ../components/schemas/environmentVariableGroup.yaml
-    '401':
+    "401":
       $ref: ../components/responses/401Unauthorized.yaml
-    '403':
+    "403":
       $ref: ../components/responses/403Forbidden.yaml
-    '500':
+    "500":
       $ref: ../components/responses/500Unauthorized.yaml
   security:
     - oauth:
@@ -40,13 +40,13 @@ patch:
                 type: string
               description: Environment variables to inject; keys and values must be strings
   responses:
-    '200':
+    "200":
       description: Successfully updated staging environment variable group
       content:
         application/json:
           schema:
             $ref: ../components/schemas/environmentVariableGroup.yaml
-    '400':
+    "400":
       description: Bad request
       content:
         application/json:
@@ -56,12 +56,12 @@ patch:
             errors:
               - code: 380001
                 title: CF-EnvironmentVariableGroupInvalid
-                detail: 'The Environment Variable Group is invalid: %s'
-    '401':
+                detail: "The Environment Variable Group is invalid: %s"
+    "401":
       $ref: ../components/responses/401Unauthorized.yaml
-    '403':
+    "403":
       $ref: ../components/responses/403Forbidden.yaml
-    '500':
+    "500":
       $ref: ../components/responses/500Unauthorized.yaml
   security:
     - oauth:

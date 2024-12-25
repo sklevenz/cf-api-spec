@@ -22,9 +22,9 @@ post:
             - bits
           description: Request schema for uploading a droplet
   responses:
-    '200':
+    "200":
       $ref: ../components/responses/dropletGetResponse.yaml
-    '400':
+    "400":
       description: Bad request
       content:
         application/json:
@@ -34,12 +34,12 @@ post:
             errors:
               - code: 100001
                 title: CF-AppInvalid
-                detail: 'The app is invalid: %s'
-    '401':
+                detail: "The app is invalid: %s"
+    "401":
       $ref: ../components/responses/401Unauthorized.yaml
-    '403':
+    "403":
       $ref: ../components/responses/403Forbidden.yaml
-    '404':
+    "404":
       description: Not Found
       content:
         application/json:
@@ -49,8 +49,8 @@ post:
             errors:
               - code: 10010
                 title: CF-ResourceNotFound
-                detail: '%s'
-    '422':
+                detail: "%s"
+    "422":
       description: Unprocessable Entity
       content:
         application/json:
@@ -60,8 +60,8 @@ post:
             errors:
               - code: 10008
                 title: CF-UnprocessableEntity
-                detail: '%s'
-    '500':
+                detail: "%s"
+    "500":
       $ref: ../components/responses/500Unauthorized.yaml
   security:
     - oauth:

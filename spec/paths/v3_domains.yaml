@@ -36,15 +36,15 @@ get:
           type: string
       description: Comma-delimited list of owning organization GUIDs to filter by
   responses:
-    '200':
+    "200":
       description: List of domains
       content:
         application/json:
           schema:
             $ref: ../components/schemas/domainList.yaml
-    '401':
+    "401":
       $ref: ../components/responses/401Unauthorized.yaml
-    '403':
+    "403":
       $ref: ../components/responses/403Forbidden.yaml
 post:
   tags:
@@ -85,13 +85,13 @@ post:
             - name
             - internal
   responses:
-    '201':
+    "201":
       description: Successfully created domain
       content:
         application/json:
           schema:
             $ref: ../components/schemas/domain.yaml
-    '400':
+    "400":
       description: Bad request
       content:
         application/json:
@@ -101,10 +101,10 @@ post:
             errors:
               - code: 130001
                 title: CF-DomainInvalid
-                detail: 'The domain is invalid: %s'
-    '401':
+                detail: "The domain is invalid: %s"
+    "401":
       $ref: ../components/responses/401Unauthorized.yaml
-    '403':
+    "403":
       $ref: ../components/responses/403Forbidden.yaml
   security:
     - oauth:

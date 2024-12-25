@@ -9,13 +9,13 @@ get:
     - $ref: ../components/parameters/page.yaml
     - $ref: ../components/parameters/perPage.yaml
   responses:
-    '200':
+    "200":
       description: OK
       content:
         application/json:
           schema:
             $ref: ../components/schemas/relationshipToMany.yaml
-    '400':
+    "400":
       description: Bad request
       content:
         application/json:
@@ -25,12 +25,12 @@ get:
             errors:
               - code: 10005
                 title: CF-BadQueryParameter
-                detail: 'The query parameter is invalid: %s'
-    '401':
+                detail: "The query parameter is invalid: %s"
+    "401":
       $ref: ../components/responses/401Unauthorized.yaml
-    '403':
+    "403":
       $ref: ../components/responses/403Forbidden.yaml
-    '404':
+    "404":
       description: Isolation segment not found
       content:
         application/json:
@@ -40,8 +40,8 @@ get:
             errors:
               - code: 10010
                 title: CF-ResourceNotFound
-                detail: '%s'
-    '500':
+                detail: "%s"
+    "500":
       $ref: ../components/responses/500Unauthorized.yaml
   security:
     - oauth:

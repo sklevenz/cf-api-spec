@@ -7,17 +7,17 @@ get:
   parameters:
     - $ref: ../components/parameters/guid.yaml
   responses:
-    '200':
+    "200":
       description: Successfully retrieved job
       content:
         application/json:
           schema:
             $ref: ../components/schemas/job.yaml
-    '401':
+    "401":
       $ref: ../components/responses/401Unauthorized.yaml
-    '403':
+    "403":
       $ref: ../components/responses/403Forbidden.yaml
-    '404':
+    "404":
       description: Job not found
       content:
         application/json:
@@ -27,7 +27,7 @@ get:
             errors:
               - code: 10010
                 title: CF-ResourceNotFound
-                detail: '%s'
+                detail: "%s"
   security:
     - oauth:
         - cloud_controller.read

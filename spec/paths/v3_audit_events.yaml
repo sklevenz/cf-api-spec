@@ -45,15 +45,15 @@ get:
       description: |
         Comma-delimited list of organization GUIDs to filter by.
   responses:
-    '200':
+    "200":
       description: List of audit events
       content:
         application/json:
           schema:
             $ref: ../components/schemas/auditEventList.yaml
-    '401':
+    "401":
       $ref: ../components/responses/401Unauthorized.yaml
-    '403':
+    "403":
       $ref: ../components/responses/403Forbidden.yaml
 post:
   tags:
@@ -114,13 +114,13 @@ post:
             metadata:
               $ref: ../components/schemas/metadata.yaml
   responses:
-    '201':
+    "201":
       description: Successfully created audit event
       content:
         application/json:
           schema:
             $ref: ../components/schemas/auditEvent.yaml
-    '400':
+    "400":
       description: Bad request
       content:
         application/json:
@@ -131,9 +131,9 @@ post:
               - code: 170009
                 title: CF-NoCompatibleCell
                 detail: Found no compatible cell
-    '401':
+    "401":
       $ref: ../components/responses/401Unauthorized.yaml
-    '403':
+    "403":
       $ref: ../components/responses/403Forbidden.yaml
   security:
     - oauth:

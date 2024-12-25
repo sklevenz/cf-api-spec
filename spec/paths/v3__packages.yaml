@@ -26,13 +26,13 @@ post:
             - relationships
           description: Request schema for copying a package
   responses:
-    '201':
+    "201":
       description: Successfully copied package
       content:
         application/json:
           schema:
             $ref: ../components/schemas/package.yaml
-    '400':
+    "400":
       description: Bad request
       content:
         application/json:
@@ -42,12 +42,12 @@ post:
             errors:
               - code: 160002
                 title: CF-AppBitsCopyInvalid
-                detail: 'The app copy is invalid: %s'
-    '401':
+                detail: "The app copy is invalid: %s"
+    "401":
       $ref: ../components/responses/401Unauthorized.yaml
-    '403':
+    "403":
       $ref: ../components/responses/403Forbidden.yaml
-    '404':
+    "404":
       description: Package or app not found
       content:
         application/json:
@@ -57,7 +57,7 @@ post:
             errors:
               - code: 150002
                 title: CF-AppPackageNotFound
-                detail: 'The app package could not be found: %s'
+                detail: "The app package could not be found: %s"
   security:
     - oauth:
         - cloud_controller.write
