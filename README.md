@@ -72,6 +72,15 @@ Spectral CLI is used to lint and validate OpenAPI specifications against predefi
   spectral lint spec/openapi.yaml --ruleset ./script/spectral-ruleset.yaml
   ```
 
+### [Prism CLI](https://github.com/stoplightio/prism)
+
+The Prism CLI is a powerful tool for mocking APIs defined by OpenAPI specifications, enabling you to simulate real server behavior during development.
+
+#### **Installation**
+Install the Prism CLI globally using npm:
+```bash
+npm install -g @stoplight/prism-cli
+
 ### Additional Requirements
 Ensure you have Node.js installed to use `npm`. You can download it from the [official Node.js website](https://nodejs.org/).
 
@@ -114,11 +123,35 @@ npm -v
    ```
 
    The generated documentation will be available at `./docs/index.html`.
+
 **View the Documentation**:
    Open the generated documentation in a browser:
    ```bash
    open ./docs/index.html
    ```
+
+## Mock Server
+
+You can start the mock server using the `mock.sh` script. This script launches a Prism mock server based on your OpenAPI specification.
+
+#### **Start the Mock Server**
+Run the following command to start the mock server:
+```bash
+bash scripts/mock.sh
+```
+
+Once started, the mock server will be available at:
+[http://localhost:4010/v3/info](http://localhost:4010/v3/info)
+
+#### **Example API Call**
+You can test the mock server with a `curl` command. For example, to send a GET request with an Authorization header:
+
+```bash
+curl -X GET http://localhost:4010/v3/info \
+  -H "Authorization: Bearer MOCK_ACCESS_TOKEN"
+```
+
+Replace `MOCK_ACCESS_TOKEN` with your desired token value to simulate authenticated requests.
 
 [1] https://v3-apidocs.cloudfoundry.org/version/3.181.0/index.html
 [2] https://sklevenz.github.io/cf-api-spec
