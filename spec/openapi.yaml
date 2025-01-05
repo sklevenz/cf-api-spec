@@ -42,6 +42,8 @@ info:
     name: Cloud Foundry CAPI Team
     url: https://cloudfoundry.slack.com/archives/C07C04W4Q
 servers:
+  - url: http://localhost:4010
+    description: Prism mock server
   - url: https://api.example.local
     description: Cloud Foundry V3 API server
 components:
