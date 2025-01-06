@@ -44,8 +44,6 @@ info:
 servers:
   - url: http://127.0.0.1:4010
     description: Prism mock server
-  - url: https://api.example.local
-    description: Cloud Foundry V3 API server
 components:
   securitySchemes:
     oauth:

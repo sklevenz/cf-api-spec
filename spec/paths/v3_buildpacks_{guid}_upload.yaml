@@ -44,10 +44,10 @@ post:
                 links:
                   self:
                     href: >-
-                      https://api.example.local/v3/buildpacks/d5ccf6b2-3b8e-4b8e-8b8e-8b8e8b8e8b8e
+                      http://127.0.0.1:4010/v3/buildpacks/d5ccf6b2-3b8e-4b8e-8b8e-8b8e8b8e8b8e
                   upload:
                     href: >-
-                      https://api.example.local/v3/buildpacks/d5ccf6b2-3b8e-4b8e-8b8e-8b8e8b8e8b8e/upload
+                      http://127.0.0.1:4010/v3/buildpacks/d5ccf6b2-3b8e-4b8e-8b8e-8b8e8b8e8b8e/upload
                     method: POST
                 metadata:
                   labels:
