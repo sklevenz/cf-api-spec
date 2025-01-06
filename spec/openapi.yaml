@@ -156,7 +156,7 @@ paths:
   /v3/roles/{guid}:
     $ref: paths/v3_roles_{guid}.yaml
   /:
-    $ref: paths.yaml
+    $ref: paths/root.yaml
   /v3/apps/{guid}/revisions:
     $ref: paths/v3_apps_{guid}_revisions.yaml
   /v3/apps/{guid}/revisions/deployed:
