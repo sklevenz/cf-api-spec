@@ -2,6 +2,7 @@ type: object
 properties:
   href:
     type: string
+    format: uri
     description: The URL of the link
   method:
     type: string

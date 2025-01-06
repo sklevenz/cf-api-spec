@@ -6,9 +6,7 @@ get:
     The Root endpoint provides the entry point for the Cloud Foundry API. It
     includes links to all the available resources and endpoints.
   operationId: getRoot
-  security:
-    - oauth:
-        - cloud_controller.read
+  security: []
   responses:
     "200":
       description: OK
