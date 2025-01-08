@@ -175,8 +175,6 @@ paths:
     $ref: paths/v3_packages_{guid}_download.yaml
   /v3/apps/{guid}/packages:
     $ref: paths/v3_apps_{guid}_packages.yaml
-  /v3//packages:
-    $ref: paths/v3__packages.yaml
   /v3/jobs/{guid}:
     $ref: paths/v3_jobs_{guid}.yaml
   /v3/jobs:
