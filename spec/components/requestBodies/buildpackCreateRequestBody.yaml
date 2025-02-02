@@ -15,11 +15,7 @@ content:
           type: integer
           description: The position of the buildpack in the order of execution
         state:
-          type: string
-          description: The state of the buildpack
-          enum:
-            - AWAITING_UPLOAD
-            - READY
+          $ref: "../schemas/buildpackStateType.yaml"
         enabled:
           type: boolean
           description: Whether the buildpack is enabled

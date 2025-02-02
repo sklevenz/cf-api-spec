@@ -1,0 +1,5 @@
+type: string
+description: "Possible states of a buildpack"
+enum:
+  - AWAITING_UPLOAD
+  - READY
