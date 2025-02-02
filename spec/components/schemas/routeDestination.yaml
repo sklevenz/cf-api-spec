@@ -31,13 +31,7 @@ properties:
     type: integer
     description: Port of the destination that receives traffic.
   protocol:
-    type: string
-    description: >-
-      Protocol of the destination that receives traffic. Defaults to 'http1'
-      when not specified for HTTP routes, and is ignored for TCP routes.
-    enum:
-      - http1
-      - http2
+    $ref: "./routeDestinationsProtocol.yaml"
   created_at:
     type: string
     format: date-time

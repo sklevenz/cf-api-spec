@@ -3,35 +3,7 @@ allOf:
 type: object
 properties:
   type:
-    type: string
-    description: >-
-      Role type. Possible values are:
-
-      - `organization_user`: A user in the organization
-
-      - `organization_auditor`: An auditor in the organization
-
-      - `organization_manager`: A manager in the organization
-
-      - `organization_billing_manager`: A billing manager in the organization
-
-      - `space_auditor`: An auditor in the space
-
-      - `space_developer`: A developer in the space
-
-      - `space_manager`: A manager in the space
-
-      - `space_supporter`: A supporter in the space (not authorized to use the
-      V2 API)
-    enum:
-      - organization_user
-      - organization_auditor
-      - organization_manager
-      - organization_billing_manager
-      - space_auditor
-      - space_developer
-      - space_manager
-      - space_supporter
+    $ref: "./roleCreateType.yaml"
   relationships:
     allOf:
       - $ref: ./relationships.yaml
@@ -61,3 +33,5 @@ description: >
   to the role.
 
   See Roles for specific roles.
+
+
