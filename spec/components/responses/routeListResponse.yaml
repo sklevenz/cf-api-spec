@@ -1,0 +1,12 @@
+description: Successfully retrieved list of routes
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        pagination:
+          $ref: ../schemas/pagination.yaml
+        resources:
+          type: array
+          items:
+            $ref: ../schemas/route.yaml

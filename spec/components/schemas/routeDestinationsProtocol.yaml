@@ -1,0 +1,5 @@
+type: string
+description: "Valid protocols for route destinations"
+enum:
+  - http1
+  - http2

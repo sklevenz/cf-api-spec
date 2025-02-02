@@ -1,0 +1,160 @@
+get:
+  tags:
+    - Root
+  summary: Get v3 root
+  description: >-
+    The v3 Root endpoint provides the entry point for the Cloud Foundry API. It
+    includes links to all the available resources and endpoints.
+  operationId: getRootV3
+  security: []
+  responses:
+    "200":
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              links:
+                type: object
+                properties:
+                  self:
+                    $ref: "../components/schemas/link.yaml"
+                  app_usage_events:
+                    $ref: "../components/schemas/link.yaml"
+                  apps:
+                    $ref: "../components/schemas/link.yaml"
+                  audit_events:
+                    $ref: "../components/schemas/link.yaml"
+                  buildpacks:
+                    $ref: "../components/schemas/link.yaml"
+                  builds:
+                    $ref: "../components/schemas/link.yaml"
+                  deployments:
+                    $ref: "../components/schemas/link.yaml"
+                  domains:
+                    $ref: "../components/schemas/link.yaml"
+                  droplets:
+                    $ref: "../components/schemas/link.yaml"
+                  environment_variable_groups:
+                    $ref: "../components/schemas/link.yaml"
+                  feature_flags:
+                    $ref: "../components/schemas/link.yaml"
+                  info:
+                    $ref: "../components/schemas/link.yaml"
+                  isolation_segments:
+                    $ref: "../components/schemas/link.yaml"
+                  organizations:
+                    $ref: "../components/schemas/link.yaml"
+                  organization_quotas:
+                    $ref: "../components/schemas/link.yaml"
+                  packages:
+                    $ref: "../components/schemas/link.yaml"
+                  processes:
+                    $ref: "../components/schemas/link.yaml"
+                  resource_matches:
+                    $ref: "../components/schemas/link.yaml"
+                  roles:
+                    $ref: "../components/schemas/link.yaml"
+                  routes:
+                    $ref: "../components/schemas/link.yaml"
+                  security_groups:
+                    $ref: "../components/schemas/link.yaml"
+                  service_brokers:
+                    $ref: "../components/schemas/link.yaml"
+                  service_instances:
+                    $ref: "../components/schemas/link.yaml"
+                  service_credential_bindings:
+                    $ref: "../components/schemas/link.yaml"
+                  service_offerings:
+                    $ref: "../components/schemas/link.yaml"
+                  service_plans:
+                    $ref: "../components/schemas/link.yaml"
+                  service_route_bindings:
+                    $ref: "../components/schemas/link.yaml"
+                  service_usage_events:
+                    $ref: "../components/schemas/link.yaml"
+                  spaces:
+                    $ref: "../components/schemas/link.yaml"
+                  space_quotas:
+                    $ref: "../components/schemas/link.yaml"
+                  stacks:
+                    $ref: "../components/schemas/link.yaml"
+                  tasks:
+                    $ref: "../components/schemas/link.yaml"
+                  users:
+                    $ref: "../components/schemas/link.yaml"
+          example:
+            links:
+              self:
+                href: "http://127.0.0.1:4010/v3"
+              app_usage_events:
+                href: "http://127.0.0.1:4010/v3/app_usage_events"
+              apps:
+                href: "http://127.0.0.1:4010/v3/apps"
+              audit_events:
+                href: "http://127.0.0.1:4010/v3/audit_events"
+              buildpacks:
+                href: "http://127.0.0.1:4010/v3/buildpacks"
+              builds:
+                href: "http://127.0.0.1:4010/v3/builds"
+              deployments:
+                href: "http://127.0.0.1:4010/v3/deployments"
+              domains:
+                href: "http://127.0.0.1:4010/v3/domains"
+              droplets:
+                href: "http://127.0.0.1:4010/v3/droplets"
+              environment_variable_groups:
+                href: "http://127.0.0.1:4010/v3/environment_variable_groups"
+              feature_flags:
+                href: "http://127.0.0.1:4010/v3/feature_flags"
+              info:
+                href: "http://127.0.0.1:4010/v3/info"
+              isolation_segments:
+                href: "http://127.0.0.1:4010/v3/isolation_segments"
+              organizations:
+                href: "http://127.0.0.1:4010/v3/organizations"
+              organization_quotas:
+                href: "http://127.0.0.1:4010/v3/organization_quotas"
+              packages:
+                href: "http://127.0.0.1:4010/v3/packages"
+              processes:
+                href: "http://127.0.0.1:4010/v3/processes"
+              resource_matches:
+                href: "http://127.0.0.1:4010/v3/resource_matches"
+              roles:
+                href: "http://127.0.0.1:4010/v3/roles"
+              routes:
+                href: "http://127.0.0.1:4010/v3/routes"
+              security_groups:
+                href: "http://127.0.0.1:4010/v3/security_groups"
+              service_brokers:
+                href: "http://127.0.0.1:4010/v3/service_brokers"
+              service_instances:
+                href: "http://127.0.0.1:4010/v3/service_instances"
+              service_credential_bindings:
+                href: "http://127.0.0.1:4010/v3/service_credential_bindings"
+              service_offerings:
+                href: "http://127.0.0.1:4010/v3/service_offerings"
+              service_plans:
+                href: "http://127.0.0.1:4010/v3/service_plans"
+              service_route_bindings:
+                href: "http://127.0.0.1:4010/v3/service_route_bindings"
+              service_usage_events:
+                href: "http://127.0.0.1:4010/v3/service_usage_events"
+              spaces:
+                href: "http://127.0.0.1:4010/v3/spaces"
+              space_quotas:
+                href: "http://127.0.0.1:4010/v3/space_quotas"
+              stacks:
+                href: "http://127.0.0.1:4010/v3/stacks"
+              tasks:
+                href: "http://127.0.0.1:4010/v3/tasks"
+              users:
+                href: "http://127.0.0.1:4010/v3/users"    
+    "401":
+      $ref: "../components/responses/401Unauthorized.yaml"
+    "403":
+      $ref: "../components/responses/403Forbidden.yaml"
+    "500":
+      $ref: "../components/responses/500Unauthorized.yaml"

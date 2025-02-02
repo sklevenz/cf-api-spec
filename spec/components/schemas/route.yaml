@@ -1,0 +1,30 @@
+type: object
+allOf:
+  - $ref: ./baseSchema.yaml
+  - properties:
+      protocol:
+        type: string
+        description: Protocol used by the route; valid values are http1, http2, and tcp
+      host:
+        type: string
+        description: The hostname for the route; can be null for TCP routes
+      path:
+        type: string
+        description: >-
+          The path for the route; must start with a slash / and be less than 128
+          characters
+      port:
+        type: integer
+        description: The port for the route; can be null if not specified
+      url:
+        type: string
+        description: Fully qualified path or address where the route directs traffic
+      relationships:
+        $ref: ./relationships.yaml
+      metadata:
+        $ref: ./metadata.yaml
+      links:
+        $ref: ./links.yaml
+  - description: >-
+      A route in Cloud Foundry is used to direct traffic from a URL to an
+      application.
