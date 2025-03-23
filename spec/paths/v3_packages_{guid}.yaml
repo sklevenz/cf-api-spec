@@ -1,0 +1,134 @@
+get:
+  tags:
+    - Packages
+  summary: Get a package
+  description: Retrieve a specific package by its GUID.
+  operationId: getPackage
+  parameters:
+    - $ref: ../components/parameters/guid.yaml
+  responses:
+    '200':
+      description: Successfully retrieved package
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/package.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 10005
+                title: CF-BadQueryParameter
+                detail: 'The query parameter is invalid: %s'
+    '401':
+      $ref: ../components/responses/401Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/403Forbidden.yaml
+    '404':
+      description: Package not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 150002
+                title: CF-AppPackageNotFound
+                detail: 'The app package could not be found: %s'
+  security:
+    - oauth:
+        - cloud_controller.read
+patch:
+  tags:
+    - Packages
+  summary: Update a package
+  description: Update attributes of a specific package by its GUID.
+  operationId: updatePackage
+  parameters:
+    - $ref: ../components/parameters/guid.yaml
+  requestBody:
+    $ref: ../components/requestBodies/packageUpdateRequestBody.yaml
+  responses:
+    '200':
+      description: Successfully updated package
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/package.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 150001
+                title: CF-AppPackageInvalid
+                detail: 'The app package is invalid: %s'
+    '401':
+      $ref: ../components/responses/401Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/403Forbidden.yaml
+    '404':
+      description: Package not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 150002
+                title: CF-AppPackageNotFound
+                detail: 'The app package could not be found: %s'
+  security:
+    - oauth:
+        - cloud_controller.write
+delete:
+  tags:
+    - Packages
+  summary: Delete a package
+  description: Delete a specific package by its GUID.
+  operationId: deletePackage
+  parameters:
+    - $ref: ../components/parameters/guid.yaml
+  responses:
+    '202':
+      description: Successfully deleted package
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/job.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 150001
+                title: CF-AppPackageInvalid
+                detail: 'The app package is invalid: %s'
+    '401':
+      $ref: ../components/responses/401Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/403Forbidden.yaml
+    '404':
+      description: Package not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 150002
+                title: CF-AppPackageNotFound
+                detail: 'The app package could not be found: %s'
+  security:
+    - oauth:
+        - cloud_controller.write

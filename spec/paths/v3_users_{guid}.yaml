@@ -1,0 +1,159 @@
+get:
+  tags:
+    - Users
+  summary: Get a user
+  description: Retrieve a user by its GUID.
+  operationId: getUser
+  security:
+    - oauth:
+        - cloud_controller.read
+  parameters:
+    - $ref: ../components/parameters/guid.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/user.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 10005
+                title: CF-BadQueryParameter
+                detail: 'The query parameter is invalid: %s'
+    '401':
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 10002
+                title: CF-NotAuthenticated
+                detail: Authentication error
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 10003
+                title: CF-NotAuthorized
+                detail: You are not authorized to perform the requested action
+    '404':
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 10010
+                title: CF-ResourceNotFound
+                detail: '%s'
+    '500':
+      description: Server error
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 10001
+                title: CF-ServerError
+                detail: Server error
+patch:
+  tags:
+    - Users
+  summary: Update a user
+  description: Update an existing user.
+  operationId: updateUser
+  security:
+    - oauth:
+        - cloud_controller.write
+  parameters:
+    - $ref: ../components/parameters/guid.yaml
+  requestBody:
+    $ref: ../components/requestBodies/userUpdate.yaml
+  responses:
+    '200':
+      $ref: ../components/responses/userUpdateResponse.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 20001
+                title: CF-UserInvalid
+                detail: 'The user info is invalid: %s'
+    '401':
+      $ref: ../components/responses/401Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/403Forbidden.yaml
+    '404':
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 10010
+                title: CF-ResourceNotFound
+                detail: '%s'
+    '500':
+      $ref: ../components/responses/500Unauthorized.yaml
+delete:
+  tags:
+    - Users
+  summary: Delete a user
+  description: Delete a user by its GUID.
+  operationId: deleteUser
+  security:
+    - oauth:
+        - cloud_controller.write
+  parameters:
+    - $ref: ../components/parameters/guid.yaml
+  responses:
+    '204':
+      description: No Content
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 10005
+                title: CF-BadQueryParameter
+                detail: 'The query parameter is invalid: %s'
+    '401':
+      $ref: ../components/responses/401Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/403Forbidden.yaml
+    '404':
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors.yaml
+          example:
+            errors:
+              - code: 10010
+                title: CF-ResourceNotFound
+                detail: '%s'
+    '500':
+      $ref: ../components/responses/500Unauthorized.yaml
