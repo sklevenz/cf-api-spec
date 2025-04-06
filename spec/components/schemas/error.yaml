@@ -1,0 +1,22 @@
+type: object
+properties:
+  code:
+    type: integer
+    description: Application-specific error code
+    example: 10001
+  message:
+    type: string
+    description: Error message describing what went wrong
+    example: "An unexpected error occurred."
+  timestamp:
+    type: string
+    format: date-time
+    description: Time the error occurred
+    example: "2025-04-06T14:00:00Z"
+  traceId:
+    type: string
+    description: Trace identifier to correlate logs and errors
+    example: "abc123xyz"
+required:
+  - code
+  - message

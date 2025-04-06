@@ -1,1 +1,13 @@
 description: Unauthorized
+content:
+  application/json:
+    schema:
+      $ref: "../schemas/Error.yaml"
+    examples:
+      unauthorizedError:
+        summary: Unauthorized access
+        value:
+          code: 10002
+          message: "Authentication credentials were missing or invalid."
+          timestamp: "2025-04-06T14:15:00Z"
+          traceId: "unauth-trace-456"

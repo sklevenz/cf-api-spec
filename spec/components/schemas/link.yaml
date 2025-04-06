@@ -3,14 +3,18 @@ properties:
   href:
     type: string
     format: uri
-    description: The URL of the link
+    description: The URL of the link.
   method:
     type: string
-    description: >-
-      An optional field containing the HTTP method to be used when following the
-      URL
+    description: >
+      An optional field specifying the HTTP method to use when following the URL.
+  meta:
+    type: object
+    description: >
+      An optional field containing metadata about the link, such as its title,
+      the type of content it points to, and more.
 required:
   - href
 description: >
-  Each link is keyed by its type and will include a href for the URL and an
-  optional method for links that cannot be followed using GET.
+  Each link is keyed by its type and includes an `href` for the URL, an optional
+  HTTP method for non-GET requests, and optional metadata.

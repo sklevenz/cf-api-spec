@@ -1,1 +1,13 @@
 description: Internal Server Error
+content:
+  application/json:
+    schema:
+      $ref: "../schemas/error.yaml"
+    examples:
+      unexpectedError:
+        summary: Unexpected error
+        value:
+          code: 10001
+          message: "An unexpected error occurred."
+          timestamp: "2025-04-06T14:00:00Z"
+          traceId: "abc123xyz"
