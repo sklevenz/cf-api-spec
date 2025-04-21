@@ -1,5 +1,0 @@
-description: Successfully created route
-content:
-  application/json:
-    schema:
-      $ref: ../schemas/route.yaml

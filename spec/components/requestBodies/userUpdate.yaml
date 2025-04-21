@@ -1,5 +1,0 @@
-description: User to update
-content:
-  application/json:
-    schema:
-      $ref: ../schemas/userUpdate.yaml

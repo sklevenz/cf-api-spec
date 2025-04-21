@@ -1,5 +1,0 @@
-type: string
-description: "Valid package types"
-enum:
-  - bits
-  - docker
