@@ -1,18 +1,16 @@
 get:
+  summary: Get API root metadata
+  description: >
+    Returns the root-level metadata of the API, including links to all major service components. 
+    This endpoint serves as the main entry point for API discovery and navigation.
+  operationId: getApiRoot
+  security: []
   tags:
     - Root
-  summary: Get root
-  description: >-
-    The Root endpoint provides the entry point for the Cloud Foundry API. It
-    includes links to all the available resources and endpoints.
-  operationId: getRoot
-  security: []
   responses:
-    "200":
-      $ref: "../components/responses/200Root.yaml"
-    "401":
-      $ref: "../components/responses/401Unauthorized.yaml"
-    "403":
-      $ref: "../components/responses/403Forbidden.yaml"
-    "500":
-      $ref: "../components/responses/500InternalServerError.yaml"
+    '200':
+      $ref: ../components/responses/root.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
+    '500':
+      $ref: ../components/responses/500.yaml

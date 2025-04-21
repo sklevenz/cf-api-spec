@@ -1,20 +1,21 @@
 type: object
+required:
+  - href
 properties:
   href:
     type: string
     format: uri
-    description: The URL of the link.
-  method:
-    type: string
-    description: >
-      An optional field specifying the HTTP method to use when following the URL.
+    description: The URI reference to the resource.
   meta:
     type: object
-    description: >
-      An optional field containing metadata about the link, such as its title,
-      the type of content it points to, and more.
-required:
-  - href
-description: >
-  Each link is keyed by its type and includes an `href` for the URL, an optional
-  HTTP method for non-GET requests, and optional metadata.
+    description: Metadata related to the resource.
+    properties:
+      version:
+        type: string
+        description: The version identifier of the referenced resource.
+      host_key_fingerprint:
+        type: string
+        description: The fingerprint of the host's public key, used for security verification.
+      oauth_client:
+        type: string
+        description: The OAuth client identifier used for authentication purposes.

@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.0.3
 info:
   title: Cloud Foundry V3 API
   description: "Welcome to the Cloud Foundry V3 API documentation. Version 3 introduces\
@@ -23,33 +23,15 @@ info:
 servers:
 - url: http://127.0.0.1:4010
   description: Prism mock server
-- url: https://api.example.com
-  description: Example server
-components:
-  securitySchemes:
-    oauth:
-      type: oauth2
-      flows:
-        implicit:
-          authorizationUrl: https://uaa.cloudfoundry.local/api-oauth/dialog
-          scopes:
-            cloud_controller.admin: Grants read and write access to all resources.
-            cloud_controller.admin_read_only: Grants read-only access to all resources.
-            cloud_controller.global_auditor: Grants read access to all resources.
-            cloud_controller.read: Grants read access to the Cloud Controller.
-            cloud_controller.write: Grants write access to the Cloud Controller.
-            cloud_controller.update_build_state: Allows the token bearer to update
-              the state of a build. This is currently used only when updating builds.
-            cloud_controller_service_permissions.read: Grants read-only access to
-              service instance permissions.
-    bearer:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-      description: Authentication using a bearer token formatted as a JWT.
+  
 paths:
   /:
-    $ref: paths/root.yaml
+    $ref: ./paths/root.yaml
+
+components:
+  securitySchemes: 
+    $ref: './components/schemas/security.yaml'
+    
 tags:
 - name: Apps
   description: 'Apps represent the core entities in the Cloud Foundry environment.
