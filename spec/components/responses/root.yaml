@@ -49,3 +49,10 @@ content:
             app_ssh:
               $ref: ../schemas/link.yaml
               description: Endpoint for SSH access to running application instances.
+            version:
+              $ref: ../schemas/link.yaml
+              description: Endpoint for server version information.              
+            health:
+              $ref: ../schemas/link.yaml
+              description: Health endpoint.              
+                    
