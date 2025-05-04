@@ -10,6 +10,9 @@ properties:
     type: object
     description: Metadata related to the resource.
     properties:
+      experimental:
+        type: boolean
+        description: Indicates whether the linked API is experimental.
       version:
         type: string
         description: The version identifier of the referenced resource.
@@ -19,3 +22,4 @@ properties:
       oauth_client:
         type: string
         description: The OAuth client identifier used for authentication purposes.
+    additionalProperties: true
