@@ -6,22 +6,29 @@ BUNDLE_OUTPUT := ./gen/openapi.yaml
 BUNDLE_OUTPUT_DIR := $(dir $(BUNDLE_OUTPUT))
 MOCK_SERVER_PORT := 4010
 
-.PHONY: help all lint lint-redocly lint-spectral docs bundle mock upgrade-packages upgrade-packages-local
-
+.PHONY: help all lint lint-redocly lint-spectral docs bundle mock upgrade
 
 help:
 	@echo "Available targets:"
-	@echo "  make all                     - Upgrade tools, bundle spec, lint, and build docs"
-	@echo "  make lint                    - Run both Redocly and Spectral linters"
-	@echo "  make lint-redocly            - Run Redocly linter and stats"
-	@echo "  make lint-spectral           - Run Spectral linter"
-	@echo "  make docs                    - Generate HTML documentation using Redocly"
-	@echo "  make bundle                  - Bundle OpenAPI spec using Redocly"
-	@echo "  make mock                    - Start local mock server with Prism"
-	@echo "  make upgrade-packages        - Upgrade npm and globally used OpenAPI CLI tools"
-	@echo "  make upgrade-packages-local  - Install CLI tools locally (CI-safe, no sudo)"
-	@echo "  make help                    - Show this help message"
+	@echo "  make all            - Install tools, bundle spec, lint, and build docs"
+	@echo "  make lint           - Run both Redocly and Spectral linters"
+	@echo "  make lint-redocly   - Run Redocly linter and stats"
+	@echo "  make lint-spectral  - Run Spectral linter"
+	@echo "  make docs           - Generate HTML documentation using Redocly"
+	@echo "  make bundle         - Bundle OpenAPI spec using Redocly"
+	@echo "  make mock           - Start local mock server with Prism"
+	@echo "  make upgrade        - Install CLI tools locally (CI-safe, no sudo)"
+	@echo "  make help           - Show this help message"
 
+all: upgrade lint bundle docs
+
+upgrade:
+	@echo "Installing/updating required CLI tools locally..."
+	@npm install --no-save @redocly/cli @stoplight/spectral-cli @stoplight/prism-cli
+	@echo "Installed tool versions:"
+	@npx redocly --version
+	@npx spectral --version
+	@npx prism --version
 
 lint: lint-redocly lint-spectral
 
@@ -31,9 +38,9 @@ lint-redocly:
 		echo "Error: File '$(SPEC_FILE)' does not exist."; \
 		exit 1; \
 	fi
-	@if redocly lint "$(SPEC_FILE)" --format stylish; then \
+	@if npx redocly lint "$(SPEC_FILE)" --format stylish; then \
 		echo "Redocly linting completed successfully. Running stats..."; \
-		if redocly stats "$(SPEC_FILE)"; then \
+		if npx redocly stats "$(SPEC_FILE)"; then \
 			echo "Redocly stats completed successfully."; \
 		else \
 			echo "Redocly stats command failed. Please check the output for details."; \
@@ -48,7 +55,7 @@ lint-spectral:
 		echo "Error: File '$(SPEC_FILE)' does not exist."; \
 		exit 1; \
 	fi
-	@if spectral lint "$(SPEC_FILE)" --ruleset="$(SPECTRAL_RULESET)"; then \
+	@if npx spectral lint "$(SPEC_FILE)" --ruleset="$(SPECTRAL_RULESET)"; then \
 		echo "Spectral linting completed successfully."; \
 	else \
 		echo "Spectral linting failed. Please check the output for details."; \
@@ -61,7 +68,7 @@ docs:
 		exit 1; \
 	fi
 	@mkdir -p "$(OUTPUT_DIR)"
-	@redocly build-docs "$(SPEC_FILE)" -o "$(OUTPUT_DOC)"
+	@npx redocly build-docs "$(SPEC_FILE)" -o "$(OUTPUT_DOC)"
 	@STATUS=$$?; \
 	if [ $$STATUS -eq 0 ]; then \
 		echo "Documentation built successfully. Output file: $(OUTPUT_DOC)"; \
@@ -77,7 +84,7 @@ bundle:
 		exit 1; \
 	fi
 	@mkdir -p "$(BUNDLE_OUTPUT_DIR)"
-	@redocly bundle "$(SPEC_FILE)" -o "$(BUNDLE_OUTPUT)"
+	@npx redocly bundle "$(SPEC_FILE)" -o "$(BUNDLE_OUTPUT)"
 	@STATUS=$$?; \
 	if [ $$STATUS -eq 0 ]; then \
 		echo "Bundling completed successfully. Output file: $(BUNDLE_OUTPUT)"; \
@@ -92,25 +99,4 @@ mock:
 		echo "Error: Input file '$(SPEC_FILE)' does not exist."; \
 		exit 1; \
 	fi
-	@prism mock "$(SPEC_FILE)" --port $(MOCK_SERVER_PORT)
-
-upgrade-packages:
-	@echo "Upgrading npm and OpenAPI CLI tools..."
-	@npm install -g npm || { echo "Failed to update npm"; exit 1; }
-	@npm -g update || { echo "Failed to update global npm packages"; exit 1; }
-	@for pkg in @redocly/cli @stoplight/spectral-cli @stoplight/prism-cli; do \
-		echo "Installing or updating $$pkg..."; \
-		npm install -g $$pkg || { echo "Failed to install/update $$pkg"; exit 1; }; \
-	done
-	@echo "All packages have been successfully updated!"
-
-all: upgrade-packages lint bundle docs
-
-upgrade-packages-local:
-	@echo "Skipping global npm upgrades in CI (permissions issue)."
-	@echo "Installing/updating required CLI tools locally..."
-	@npm install --no-save @redocly/cli @stoplight/spectral-cli @stoplight/prism-cli
-	@echo "Installed tool versions:"
-	@npx redocly --version
-	@npx spectral --version
-	@npx prism --version
+	@npx prism mock "$(SPEC_FILE)" --port $(MOCK_SERVER_PORT)

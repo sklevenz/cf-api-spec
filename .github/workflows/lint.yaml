@@ -18,9 +18,6 @@ jobs:
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
-
-      - name: Install packages
-        run: make upgrade-packages-local
         
       - name: Lint OpenAPI Spec
-        run: make lint
+        run: make upgrade lint
