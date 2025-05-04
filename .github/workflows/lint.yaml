@@ -26,4 +26,4 @@ jobs:
         run: npm install -g @stoplight/spectral-cli
         
       - name: Lint OpenAPI Spec
-        run: bash scripts/lint.sh
+        run: make lint
