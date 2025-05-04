@@ -18,12 +18,6 @@ jobs:
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
-
-      - name: Install Redocly CLI
-        run: npm install -g "@redocly/cli"
-
-      - name: Install Spectral CLI
-        run: npm install -g @stoplight/spectral-cli
         
       - name: Lint OpenAPI Spec
-        run: bash scripts/lint.sh
+        run: make upgrade lint

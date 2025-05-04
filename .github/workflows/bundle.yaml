@@ -19,8 +19,5 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
 
-      - name: Install Redocly CLI
-        run: npm install -g "@redocly/cli"
-
       - name: Bundle OpenAPI Spec
-        run: bash scripts/bundle.sh
+        run: make upgrade bundle
