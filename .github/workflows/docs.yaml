@@ -21,7 +21,7 @@ jobs:
               uses: actions/setup-node@v4
 
             - name: Install packages
-              run: make upgrade-packages
+              run: make upgrade-packages-local
             
             - name: Generate OpenAPI Doc
               run: make docs

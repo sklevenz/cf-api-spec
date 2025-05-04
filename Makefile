@@ -6,20 +6,21 @@ BUNDLE_OUTPUT := ./gen/openapi.yaml
 BUNDLE_OUTPUT_DIR := $(dir $(BUNDLE_OUTPUT))
 MOCK_SERVER_PORT := 4010
 
-.PHONY: help all lint lint-redocly lint-spectral docs bundle mock upgrade-packages
+.PHONY: help all lint lint-redocly lint-spectral docs bundle mock upgrade-packages upgrade-packages-local
 
 
 help:
 	@echo "Available targets:"
-	@echo "  make all               - Upgrade tools, bundle spec, lint, and build docs"
-	@echo "  make lint              - Run both Redocly and Spectral linters"
-	@echo "  make lint-redocly      - Run Redocly linter and stats"
-	@echo "  make lint-spectral     - Run Spectral linter"
-	@echo "  make docs              - Generate HTML documentation using Redocly"
-	@echo "  make bundle            - Bundle OpenAPI spec using Redocly"
-	@echo "  make mock              - Start local mock server with Prism"
-	@echo "  make upgrade-packages  - Upgrade npm and globally used OpenAPI CLI tools"
-	@echo "  make help              - Show this help message"
+	@echo "  make all                     - Upgrade tools, bundle spec, lint, and build docs"
+	@echo "  make lint                    - Run both Redocly and Spectral linters"
+	@echo "  make lint-redocly            - Run Redocly linter and stats"
+	@echo "  make lint-spectral           - Run Spectral linter"
+	@echo "  make docs                    - Generate HTML documentation using Redocly"
+	@echo "  make bundle                  - Bundle OpenAPI spec using Redocly"
+	@echo "  make mock                    - Start local mock server with Prism"
+	@echo "  make upgrade-packages        - Upgrade npm and globally used OpenAPI CLI tools"
+	@echo "  make upgrade-packages-local  - Install CLI tools locally (CI-safe, no sudo)"
+	@echo "  make help                    - Show this help message"
 
 
 lint: lint-redocly lint-spectral
@@ -104,3 +105,12 @@ upgrade-packages:
 	@echo "All packages have been successfully updated!"
 
 all: upgrade-packages lint bundle docs
+
+upgrade-packages-local:
+	@echo "Skipping global npm upgrades in CI (permissions issue)."
+	@echo "Installing/updating required CLI tools locally..."
+	@npm install --no-save @redocly/cli @stoplight/spectral-cli @stoplight/prism-cli
+	@echo "Installed tool versions:"
+	@npx redocly --version
+	@npx spectral --version
+	@npx prism --version
