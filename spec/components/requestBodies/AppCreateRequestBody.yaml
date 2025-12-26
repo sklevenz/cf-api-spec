@@ -1,0 +1,32 @@
+description: App object that needs to be created
+required: true
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the app
+        environment_variables:
+          type: object
+          description: Environment variables to be used for the App when running
+          additionalProperties:
+            type: string
+        lifecycle:
+          $ref: '../schemas/Lifecycle.yaml'
+          description: Provides the lifecycle object for the application
+        relationships:
+          type: object
+          properties:
+            space:
+              $ref: '../schemas/RelationshipToOne.yaml'
+              description: A relationship to a space
+          required:
+            - space
+        metadata:
+          $ref: '../schemas/Metadata.yaml'
+      required:
+        - name
+        - relationships
+      description: Request schema for creating an app
