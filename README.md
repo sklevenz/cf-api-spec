@@ -8,9 +8,11 @@ OpenAPI Specification of Cloud Foundry API
 
 ## Abstract
 
-This project provides an OpenAPI Specification for the [Cloud Foundry API](https://v3-apidocs.cloudfoundry.org/version/3.181.0/index.html), covering the Cloud Controller and Korifi APIs. By defining a standardized and machine-readable format, the specification aims to enhance developer productivity, improve API integration, and ensure consistent documentation.
+This project provides an OpenAPI Specification for the [Cloud Foundry API](https://v3-apidocs.cloudfoundry.org/version/3.181.0/index.html), covering the Cloud Controller APIs. By defining a standardized and machine-readable format, the specification aims to enhance developer productivity, improve API integration, and ensure consistent documentation.
 
-The OpenAPI Specification was developed using a combination of tools, including Swagger for API exploration and ChatGPT for collaborative and iterative refinement of schema definitions and documentation. This approach allowed for efficient translation of Cloud Foundry’s comprehensive API documentation into a robust OpenAPI format.
+The OpenAPI Specification was developed using a combination of tools defined in the Makefile. The complete development workflow is driven through the Makefile as the single entry point for the project.
+
+The toolchain includes Redocly CLI for linting, bundling, statistics, and documentation generation, Spectral CLI for rule based OpenAPI validation using a custom ruleset, and Prism CLI for running a local mock server based on the specification. All tasks such as tool installation, validation, linting, bundling, documentation generation, and mock server startup are executed consistently via Makefile targets to ensure reproducible and automated development workflows.
 
 The repository serves as a foundation for:
 
