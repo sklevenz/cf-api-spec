@@ -6,14 +6,15 @@ BUNDLE_OUTPUT := ./gen/openapi.yaml
 BUNDLE_OUTPUT_DIR := $(dir $(BUNDLE_OUTPUT))
 MOCK_SERVER_PORT := 4010
 
-.PHONY: help all lint lint-redocly lint-spectral docs bundle mock upgrade
+.PHONY: help all lint lint-redocly lint-vacuum lint-spectral docs bundle mock upgrade
 
 help:
 	@echo "Available targets:"
 	@echo "  make all            - Install tools, bundle spec, lint, and build docs"
 	@echo "  make lint           - Run both Redocly and Spectral linters"
 	@echo "  make lint-redocly   - Run Redocly linter and stats"
-	@echo "  make lint-spectral  - Run Spectral linter"
+	@echo "  make lint-vacuum    - Run Vakuum linter and stats"
+	@echo "  make lint-spectral  - Run Spectral linter (optional, partial OpenAPI 3.1 support)"
 	@echo "  make docs           - Generate HTML documentation using Redocly"
 	@echo "  make bundle         - Bundle OpenAPI spec using Redocly"
 	@echo "  make mock           - Start local mock server with Prism"
@@ -25,12 +26,14 @@ all: upgrade lint bundle docs
 upgrade:
 	@echo "Installing/updating required CLI tools locally..."
 	@npm install --no-save @redocly/cli @stoplight/spectral-cli @stoplight/prism-cli
+	@go install github.com/daveshanley/vacuum@latest
 	@echo "Installed tool versions:"
 	@npx redocly --version
 	@npx spectral --version
 	@npx prism --version
+	@vacuum version
 
-lint: lint-redocly lint-spectral
+lint: lint-redocly lint-vacuum
 
 lint-redocly:
 	@echo "Running Redocly linter..."
@@ -49,8 +52,16 @@ lint-redocly:
 		echo "Redocly linting failed. Please check the output for details."; \
 	fi
 
+lint-vacuum:
+	@echo "Running Vacuum linter..."
+	@if [ ! -f "$(SPEC_FILE)" ]; then \
+		echo "Error: File '$(SPEC_FILE)' does not exist."; \
+		exit 1; \
+	fi
+	@vacuum lint "$(SPEC_FILE)"
+
 lint-spectral:
-	@echo "Running Spectral linter..."
+	@echo "Run Spectral linter (optional, partial OpenAPI 3.1 support)"
 	@if [ ! -f "$(SPEC_FILE)" ]; then \
 		echo "Error: File '$(SPEC_FILE)' does not exist."; \
 		exit 1; \
