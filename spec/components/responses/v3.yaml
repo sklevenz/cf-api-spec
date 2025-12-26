@@ -11,7 +11,8 @@ content:
           description: A collection of Cloud Controller V3 components and their root endpoints.
           properties:
             self:
-              $ref: ../schemas/link.yaml
+              allOf:
+                - $ref: ../schemas/link.yaml
               description: Link to this API index document.
             apps:
               $ref: ../schemas/link.yaml
