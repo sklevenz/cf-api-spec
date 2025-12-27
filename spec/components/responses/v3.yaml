@@ -1,85 +1,193 @@
 description: List of V3 API components and their endpoints
 content:
   application/json:
+    example:
+      links:
+        self:
+          href: https://api.example.com/v3
+        apps:
+          href: https://api.example.com/v3/apps
+        packages:
+          href: https://api.example.com/v3/packages
+        processes:
+          href: https://api.example.com/v3/processes
+        routes:
+          href: https://api.example.com/v3/routes
+        service_instances:
+          href: https://api.example.com/v3/service_instances
+        spaces:
+          href: https://api.example.com/v3/spaces
+        users:
+          href: https://api.example.com/v3/users
     schema:
       type: object
+      example:
+        links:
+          self:
+            href: https://api.example.com/v3
+          apps:
+            href: https://api.example.com/v3/apps
+          packages:
+            href: https://api.example.com/v3/packages
+          processes:
+            href: https://api.example.com/v3/processes
       required:
         - links
       properties:
         links:
           type: object
           description: A collection of Cloud Controller V3 components and their root endpoints.
+          example:
+            self:
+              href: https://api.example.com/v3
+            apps:
+              href: https://api.example.com/v3/apps
+            packages:
+              href: https://api.example.com/v3/packages
+            processes:
+              href: https://api.example.com/v3/processes
           properties:
             self:
-              $ref: ../schemas/link.yaml
+              allOf:
+                - $ref: ../schemas/link.yaml
               description: Link to this API index document.
             apps:
-              $ref: ../schemas/link.yaml
+              allOf:
+                - $ref: ../schemas/link.yaml
+              description: Link to the apps endpoint.
             builds:
-              $ref: ../schemas/link.yaml
+              allOf:
+                - $ref: ../schemas/link.yaml
+              description: Link to the builds endpoint.
             buildpacks:
-              $ref: ../schemas/link.yaml
+              allOf:
+                - $ref: ../schemas/link.yaml
+              description: Link to the buildpacks endpoint.
             deployments:
-              $ref: ../schemas/link.yaml
+              allOf:
+                - $ref: ../schemas/link.yaml
+              description: Link to the deployments endpoint.
             domains:
-              $ref: ../schemas/link.yaml
+              allOf:
+                - $ref: ../schemas/link.yaml
+              description: Link to the domains endpoint.
             droplets:
-              $ref: ../schemas/link.yaml
+              allOf:
+                - $ref: ../schemas/link.yaml
+              description: Link to the droplets endpoint.
             environment_variable_groups:
-              $ref: ../schemas/link.yaml
+              allOf:
+                - $ref: ../schemas/link.yaml
+              description: Link to the environment variable groups endpoint.
             feature_flags:
-              $ref: ../schemas/link.yaml
+              allOf:
+                - $ref: ../schemas/link.yaml
+              description: Link to the feature flags endpoint.
             info:
-              $ref: ../schemas/link.yaml
+              allOf:
+                - $ref: ../schemas/link.yaml
+              description: Link to the platform info endpoint.
             isolation_segments:
-              $ref: ../schemas/link.yaml
+              allOf:
+                - $ref: ../schemas/link.yaml
+              description: Link to the isolation segments endpoint.
             manifests:
-              $ref: ../schemas/link.yaml
+              allOf:
+                - $ref: ../schemas/link.yaml
+              description: Link to the manifests endpoint.
             organization_quotas:
-              $ref: ../schemas/link.yaml
+              allOf:
+                - $ref: ../schemas/link.yaml
+              description: Link to the organization quotas endpoint.
             organizations:
-              $ref: ../schemas/link.yaml
+              allOf:
+                - $ref: ../schemas/link.yaml
+              description: Link to the organizations endpoint.
             packages:
-              $ref: ../schemas/link.yaml
+              allOf:
+                - $ref: ../schemas/link.yaml
+              description: Link to the packages endpoint.
             private_domains:
-              $ref: ../schemas/link.yaml
+              allOf:
+                - $ref: ../schemas/link.yaml
+              description: Link to the private domains endpoint.
             processes:
-              $ref: ../schemas/link.yaml
+              allOf:
+                - $ref: ../schemas/link.yaml
+              description: Link to the processes endpoint.
             resource_matches:
-              $ref: ../schemas/link.yaml
+              allOf:
+                - $ref: ../schemas/link.yaml
+              description: Link to the resource matches endpoint.
             resources:
-              $ref: ../schemas/link.yaml
+              allOf:
+                - $ref: ../schemas/link.yaml
+              description: Link to the resources endpoint.
             revisions:
-              $ref: ../schemas/link.yaml
+              allOf:
+                - $ref: ../schemas/link.yaml
+              description: Link to the revisions endpoint.
             roles:
-              $ref: ../schemas/link.yaml
+              allOf:
+                - $ref: ../schemas/link.yaml
+              description: Link to the roles endpoint.
             route_mappings:
-              $ref: ../schemas/link.yaml
+              allOf:
+                - $ref: ../schemas/link.yaml
+              description: Link to the route mappings endpoint.
             routes:
-              $ref: ../schemas/link.yaml
+              allOf:
+                - $ref: ../schemas/link.yaml
+              description: Link to the routes endpoint.
             security_groups:
-              $ref: ../schemas/link.yaml
+              allOf:
+                - $ref: ../schemas/link.yaml
+              description: Link to the security groups endpoint.
             service_brokers:
-              $ref: ../schemas/link.yaml
+              allOf:
+                - $ref: ../schemas/link.yaml
+              description: Link to the service brokers endpoint.
             service_credential_bindings:
-              $ref: ../schemas/link.yaml
+              allOf:
+                - $ref: ../schemas/link.yaml
+              description: Link to the service credential bindings endpoint.
             service_instances:
-              $ref: ../schemas/link.yaml
+              allOf:
+                - $ref: ../schemas/link.yaml
+              description: Link to the service instances endpoint.
             service_offerings:
-              $ref: ../schemas/link.yaml
+              allOf:
+                - $ref: ../schemas/link.yaml
+              description: Link to the service offerings endpoint.
             service_plans:
-              $ref: ../schemas/link.yaml
+              allOf:
+                - $ref: ../schemas/link.yaml
+              description: Link to the service plans endpoint.
             shared_domains:
-              $ref: ../schemas/link.yaml
+              allOf:
+                - $ref: ../schemas/link.yaml
+              description: Link to the shared domains endpoint.
             sidecars:
-              $ref: ../schemas/link.yaml
+              allOf:
+                - $ref: ../schemas/link.yaml
+              description: Link to the sidecars endpoint.
             space_quotas:
-              $ref: ../schemas/link.yaml
+              allOf:
+                - $ref: ../schemas/link.yaml
+              description: Link to the space quotas endpoint.
             spaces:
-              $ref: ../schemas/link.yaml
+              allOf:
+                - $ref: ../schemas/link.yaml
+              description: Link to the spaces endpoint.
             stacks:
-              $ref: ../schemas/link.yaml
+              allOf:
+                - $ref: ../schemas/link.yaml
+              description: Link to the stacks endpoint.
             tasks:
-              $ref: ../schemas/link.yaml
+              allOf:
+                - $ref: ../schemas/link.yaml
+              description: Link to the tasks endpoint.
             users:
-              $ref: ../schemas/link.yaml
+              allOf:
+                - $ref: ../schemas/link.yaml
+              description: Link to the users endpoint.

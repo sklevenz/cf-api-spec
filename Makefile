@@ -1,19 +1,19 @@
 SPEC_FILE := spec/openapi.yaml
-SPECTRAL_RULESET := ./cfg/spectral-ruleset.yaml
+VACUUM_RULESET := ./cfg/vacuum-ruleset.yaml
+VACUUM_IGNORE := ./cfg/vacuum-ignore.yaml
 OUTPUT_DOC := ./docs/index.html
 OUTPUT_DIR := $(dir $(OUTPUT_DOC))
 BUNDLE_OUTPUT := ./gen/openapi.yaml
 BUNDLE_OUTPUT_DIR := $(dir $(BUNDLE_OUTPUT))
 MOCK_SERVER_PORT := 4010
 
-.PHONY: help all lint lint-redocly lint-spectral docs bundle mock upgrade
+.PHONY: help all lint lint-vacuum docs bundle mock upgrade
 
 help:
 	@echo "Available targets:"
 	@echo "  make all            - Install tools, bundle spec, lint, and build docs"
-	@echo "  make lint           - Run both Redocly and Spectral linters"
-	@echo "  make lint-redocly   - Run Redocly linter and stats"
-	@echo "  make lint-spectral  - Run Spectral linter"
+	@echo "  make lint           - Run all linters"
+	@echo "  make lint-vacuum    - Run Vakuum linter and stats"
 	@echo "  make docs           - Generate HTML documentation using Redocly"
 	@echo "  make bundle         - Bundle OpenAPI spec using Redocly"
 	@echo "  make mock           - Start local mock server with Prism"
@@ -24,42 +24,21 @@ all: upgrade lint bundle docs
 
 upgrade:
 	@echo "Installing/updating required CLI tools locally..."
-	@npm install --no-save @redocly/cli @stoplight/spectral-cli @stoplight/prism-cli
+	@npm install --no-save @redocly/cli @stoplight/prism-cli
 	@echo "Installed tool versions:"
 	@npx redocly --version
-	@npx spectral --version
 	@npx prism --version
+	@vacuum version
 
-lint: lint-redocly lint-spectral
+lint: lint-vacuum
 
-lint-redocly:
-	@echo "Running Redocly linter..."
+lint-vacuum:
+	@echo "Running Vacuum linter..."
 	@if [ ! -f "$(SPEC_FILE)" ]; then \
 		echo "Error: File '$(SPEC_FILE)' does not exist."; \
 		exit 1; \
 	fi
-	@if npx redocly lint "$(SPEC_FILE)" --format stylish; then \
-		echo "Redocly linting completed successfully. Running stats..."; \
-		if npx redocly stats "$(SPEC_FILE)"; then \
-			echo "Redocly stats completed successfully."; \
-		else \
-			echo "Redocly stats command failed. Please check the output for details."; \
-		fi \
-	else \
-		echo "Redocly linting failed. Please check the output for details."; \
-	fi
-
-lint-spectral:
-	@echo "Running Spectral linter..."
-	@if [ ! -f "$(SPEC_FILE)" ]; then \
-		echo "Error: File '$(SPEC_FILE)' does not exist."; \
-		exit 1; \
-	fi
-	@if npx spectral lint "$(SPEC_FILE)" --ruleset="$(SPECTRAL_RULESET)"; then \
-		echo "Spectral linting completed successfully."; \
-	else \
-		echo "Spectral linting failed. Please check the output for details."; \
-	fi
+	@vacuum lint "$(SPEC_FILE)" --ruleset="$(VACUUM_RULESET)" --ignore-file "$(VACUUM_IGNORE)"
 
 docs:
 	@echo "Building documentation..."

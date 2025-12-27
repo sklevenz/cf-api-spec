@@ -1,4 +1,9 @@
 type: object
+example:
+  href: https://api.example.com/v3/apps
+  meta:
+    version: v3
+    experimental: false
 required:
   - href
 properties:
