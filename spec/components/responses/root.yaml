@@ -1,6 +1,20 @@
 description: List of API components and their endpoints
 content:
   application/json:
+    example:
+      links:
+        self:
+          href: https://api.example.com
+        cloud_controller_v3:
+          href: https://api.example.com/v3
+        login:
+          href: https://login.example.com
+        uaa:
+          href: https://uaa.example.com
+        version:
+          href: https://api.example.com/version
+        health:
+          href: https://api.example.com/health
     schema:
       type: object
       required:
@@ -9,6 +23,19 @@ content:
         links:
           type: object
           description: A collection of API components and their root endpoints.
+          example:
+            self:
+              href: https://api.example.com
+            cloud_controller_v3:
+              href: https://api.example.com/v3
+            login:
+              href: https://login.example.com
+            uaa:
+              href: https://uaa.example.com
+            version:
+              href: https://api.example.com/version
+            health:
+              href: https://api.example.com/health
           properties:
             self:
               allOf:

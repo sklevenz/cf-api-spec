@@ -1,0 +1,21 @@
+extends: [[vacuum:oas, recommended]]
+
+rules:
+  # Path items via $ref are intentional in this repository
+  path-item-refs: off
+
+  # Cloud Foundry uses snake_case extensively
+  camel-case-properties: off
+
+  # Allow prepared but not yet referenced components
+  oas3-unused-component: warn
+
+  # Enforce descriptions on components
+  component-description: warn
+      
+  # Examples are helpful but should not block development
+  oas3-missing-example: warn
+
+  # Strict rule, never allow siblings next to $ref
+  no-$ref-siblings: error
+

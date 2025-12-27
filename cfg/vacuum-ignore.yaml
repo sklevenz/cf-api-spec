@@ -1,0 +1,4 @@
+component-description:
+    - $.components.securitySchemes['$ref']
+oas3-unused-component:
+    - $.components.securitySchemes['$ref']

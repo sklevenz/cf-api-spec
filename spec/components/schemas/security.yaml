@@ -1,5 +1,6 @@
 oauth:
   type: oauth2
+  description: OAuth 2.0 implicit flow used by Cloud Foundry for user authentication and authorization via UAA.
   flows:
     implicit:
       authorizationUrl: https://uaa.cloudfoundry.local/api-oauth/dialog
