@@ -24,11 +24,11 @@ all: upgrade lint bundle docs
 
 upgrade:
 	@echo "Installing/updating required CLI tools locally..."
-	@npm install --no-save @redocly/cli @stoplight/prism-cli
+	@npm install --no-save @redocly/cli @stoplight/prism-cli @quobix/vacuum
 	@echo "Installed tool versions:"
 	@npx redocly --version
 	@npx prism --version
-	@vacuum version
+	@npx vacuum version
 
 lint: lint-vacuum
 
@@ -38,7 +38,7 @@ lint-vacuum:
 		echo "Error: File '$(SPEC_FILE)' does not exist."; \
 		exit 1; \
 	fi
-	@vacuum lint "$(SPEC_FILE)" --ruleset="$(VACUUM_RULESET)" --ignore-file "$(VACUUM_IGNORE)"
+	@npx vacuum lint "$(SPEC_FILE)" --ruleset="$(VACUUM_RULESET)" --ignore-file "$(VACUUM_IGNORE)"
 
 docs:
 	@echo "Building documentation..."
