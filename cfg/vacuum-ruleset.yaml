@@ -24,3 +24,5 @@ rules:
   # Strict rule, allow siblings next to $ref
   no-$ref-siblings: off
 
+  # Allow free form strings without enforcing enum, pattern, format, or const restrictions
+  owasp-string-restricted: off

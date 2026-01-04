@@ -16,8 +16,6 @@ vacuum dashboard gen/openapi.yaml --ruleset cfg/vacuum-ruleset.yaml --ignore-fil
 
 ```bash
 vacuum report gen/openapi.yaml -o > gen/report.yaml -z
-vacuum generate-ignorefile gen/report.yaml gen/ignore.yaml
+vacuum generate-ignorefile gen/report.yaml cfg/vacuum-ignore.yaml
 ```
-
-Copy ignore rules from `./gen/ignore.yaml` to  `./cfg/vacuum-ignore.yaml`
 
