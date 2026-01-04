@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.1.0
 info:
   title: Cloud Foundry V3 API
   description: "Welcome to the Cloud Foundry V3 API documentation. Version 3 introduces\
@@ -23,323 +23,185 @@ info:
 servers:
 - url: http://127.0.0.1:4010
   description: Prism mock server
-  
+
+security:
+  - bearer: []  
+  - oauth: []
+
 paths:
   /:
     $ref: ./paths/root.yaml
   /v3:
     $ref: ./paths/v3.yaml
-  
-components:
-  securitySchemes: 
-    $ref: './components/schemas/security.yaml'
     
+components:
+  securitySchemes:
+    oauth:
+      $ref: ./components/securitySchemes/oauth.yaml
+    bearer:
+      $ref: ./components/securitySchemes/bearer.yaml      
+      
 tags:
-- name: Apps
-  description: 'Apps represent the core entities in the Cloud Foundry environment.
-    They are the deployable units that run your code. Each app can have multiple processes,
-    routes, and services associated with it. Apps can be scaled horizontally by increasing
-    the number of instances. They can also be updated and restarted as needed. The
-    lifecycle of an app includes stages such as staging, starting, running, and stopping.
-    Apps can be managed through various endpoints that allow for creation, updating,
-    deletion, and retrieval of app details.
+  - name: AppFeatures
+    description: |
+      AppFeatures provide additional capabilities and configurations for apps. These features can include things like auto-scaling, health checks, and custom domains. AppFeatures enhance the functionality of apps by allowing developers to enable or disable specific features based on their requirements. They can be managed through endpoints that allow for enabling, disabling, and retrieving the status of app features.
 
-    '
-- name: AppFeatures
-  description: 'AppFeatures provide additional capabilities and configurations for
-    apps. These features can include things like auto-scaling, health checks, and
-    custom domains. AppFeatures enhance the functionality of apps by allowing developers
-    to enable or disable specific features based on their requirements. They can be
-    managed through endpoints that allow for enabling, disabling, and retrieving the
-    status of app features.
+  - name: Apps
+    description: |
+      Apps represent the core entities in the Cloud Foundry environment. They are the deployable units that run your code. Each app can have multiple processes, routes, and services associated with it. Apps can be scaled horizontally by increasing the number of instances. They can also be updated and restarted as needed. The lifecycle of an app includes stages such as staging, starting, running, and stopping. Apps can be managed through various endpoints that allow for creation, updating, deletion, and retrieval of app details.
 
-    '
-- name: AppUsageEvents
-  description: 'AppUsageEvents track the usage and activity of apps within the Cloud
-    Foundry environment. These events provide insights into app lifecycle changes,
-    such as creation, deletion, scaling, and crashes. AppUsageEvents are useful for
-    monitoring and auditing purposes, helping administrators understand how apps are
-    being used and identify any issues. They can be retrieved through endpoints that
-    provide detailed information about each event.
+  - name: AppUsageEvents
+    description: |
+      AppUsageEvents track the usage and activity of apps within the Cloud Foundry environment. These events provide insights into app lifecycle changes, such as creation, deletion, scaling, and crashes. AppUsageEvents are useful for monitoring and auditing purposes, helping administrators understand how apps are being used and identify any issues. They can be retrieved through endpoints that provide detailed information about each event.
 
-    '
-- name: AuditEvents
-  description: 'AuditEvents capture significant actions and changes within the Cloud
-    Foundry environment. These events include actions performed by users, such as
-    creating, updating, or deleting resources. AuditEvents provide a comprehensive
-    audit trail that helps administrators track changes and ensure compliance with
-    organizational policies. They can be retrieved through endpoints that provide
-    detailed information about each event, including the user who performed the action
-    and the affected resources.
+  - name: AuditEvents
+    description: |
+      AuditEvents capture significant actions and changes within the Cloud Foundry environment. These events include actions performed by users, such as creating, updating, or deleting resources. AuditEvents provide a comprehensive audit trail that helps administrators track changes and ensure compliance with organizational policies. They can be retrieved through endpoints that provide detailed information about each event, including the user who performed the action and the affected resources.
 
-    '
-- name: Builds
-  description: 'Builds represent the process of transforming source code into a runnable
-    artifact. In Cloud Foundry, builds are created using buildpacks, which provide
-    the necessary dependencies and configurations for the app. Builds can be triggered
-    manually or automatically as part of the app deployment process. They can be managed
-    through endpoints that allow for creation, updating, deletion, and retrieval of
-    build details.
+  - name: Buildpacks
+    description: |
+      Buildpacks are responsible for detecting, compiling, and packaging apps in the Cloud Foundry environment. They provide the necessary runtime and dependencies for the app to run. Buildpacks can be customized and extended to support different languages and frameworks. They can be managed through endpoints that allow for creation, updating, deletion, and retrieval of buildpack details.
 
-    '
-- name: Buildpacks
-  description: 'Buildpacks are responsible for detecting, compiling, and packaging
-    apps in the Cloud Foundry environment. They provide the necessary runtime and
-    dependencies for the app to run. Buildpacks can be customized and extended to
-    support different languages and frameworks. They can be managed through endpoints
-    that allow for creation, updating, deletion, and retrieval of buildpack details.
+  - name: Builds
+    description: |
+      Builds represent the process of transforming source code into a runnable artifact. In Cloud Foundry, builds are created using buildpacks, which provide the necessary dependencies and configurations for the app. Builds can be triggered manually or automatically as part of the app deployment process. They can be managed through endpoints that allow for creation, updating, deletion, and retrieval of build details.
 
-    '
-- name: Deployments
-  description: 'Deployments represent the process of deploying apps to the Cloud Foundry
-    environment. They include stages such as staging, starting, and running the app.
-    Deployments can be triggered manually or automatically as part of the app lifecycle.
-    They can be managed through endpoints that allow for creation, updating, deletion,
-    and retrieval of deployment details.
+  - name: Deployments
+    description: |
+      Deployments represent the process of deploying apps to the Cloud Foundry environment. They include stages such as staging, starting, and running the app. Deployments can be triggered manually or automatically as part of the app lifecycle. They can be managed through endpoints that allow for creation, updating, deletion, and retrieval of deployment details.
 
-    '
-- name: Domains
-  description: 'Domains represent the DNS domains used to route traffic to apps in
-    the Cloud Foundry environment. They can be shared or private, and can be associated
-    with specific organizations or spaces. Domains can be managed through endpoints
-    that allow for creation, updating, deletion, and retrieval of domain details.
+  - name: Domains
+    description: |
+      Domains represent the DNS domains used to route traffic to apps in the Cloud Foundry environment. They can be shared or private, and can be associated with specific organizations or spaces. Domains can be managed through endpoints that allow for creation, updating, deletion, and retrieval of domain details.
 
-    '
-- name: Droplets
-  description: 'Droplets are the runnable artifacts created from builds in the Cloud
-    Foundry environment. They contain the compiled code and dependencies needed to
-    run the app. Droplets can be managed through endpoints that allow for creation,
-    updating, deletion, and retrieval of droplet details.
+  - name: Droplets
+    description: |
+      Droplets are the runnable artifacts created from builds in the Cloud Foundry environment. They contain the compiled code and dependencies needed to run the app. Droplets can be managed through endpoints that allow for creation, updating, deletion, and retrieval of droplet details.
 
-    '
-- name: EnvironmentVariableGroups
-  description: 'EnvironmentVariableGroups represent collections of environment variables
-    that can be applied to apps in the Cloud Foundry environment. They provide a way
-    to manage and share common configurations across multiple apps. EnvironmentVariableGroups
-    can be managed through endpoints that allow for creation, updating, deletion,
-    and retrieval of environment variable group details.
+  - name: EnvironmentVariableGroups
+    description: |
+      EnvironmentVariableGroups represent collections of environment variables that can be applied to apps in the Cloud Foundry environment. They provide a way to manage and share common configurations across multiple apps. EnvironmentVariableGroups can be managed through endpoints that allow for creation, updating, deletion, and retrieval of environment variable group details.
 
-    '
-- name: FeatureFlags
-  description: 'FeatureFlags provide a way to enable or disable specific features
-    in the Cloud Foundry environment. They allow administrators to control the availability
-    of features based on organizational requirements. FeatureFlags can be managed
-    through endpoints that allow for enabling, disabling, and retrieving the status
-    of feature flags.
+  - name: FeatureFlags
+    description: |
+      FeatureFlags provide a way to enable or disable specific features in the Cloud Foundry environment. They allow administrators to control the availability of features based on organizational requirements. FeatureFlags can be managed through endpoints that allow for enabling, disabling, and retrieving the status of feature flags.
 
-    '
-- name: Info
-  description: 'The Info endpoint provides information about the Cloud Foundry environment,
-    including version details, API endpoints, and other metadata. It is useful for
-    understanding the capabilities and configuration of the environment. The Info
-    endpoint can be accessed to retrieve detailed information about the Cloud Foundry
-    deployment.
+  - name: Info
+    description: |
+      The Info endpoint provides information about the Cloud Foundry environment, including version details, API endpoints, and other metadata. It is useful for understanding the capabilities and configuration of the environment. The Info endpoint can be accessed to retrieve detailed information about the Cloud Foundry deployment.
 
-    '
-- name: IsolationSegments
-  description: 'IsolationSegments provide a way to isolate apps and resources within
-    the Cloud Foundry environment. They allow for the creation of isolated environments
-    with dedicated resources, such as compute, storage, and networking. IsolationSegments
-    can be managed through endpoints that allow for creation, updating, deletion,
-    and retrieval of isolation segment details.
+  - name: IsolationSegments
+    description: |
+      IsolationSegments provide a way to isolate apps and resources within the Cloud Foundry environment. They allow for the creation of isolated environments with dedicated resources, such as compute, storage, and networking. IsolationSegments can be managed through endpoints that allow for creation, updating, deletion, and retrieval of isolation segment details.
 
-    '
-- name: Jobs
-  description: 'Jobs represent asynchronous operations in the Cloud Foundry environment.
-    They are used for tasks that may take a long time to complete, such as app deployments,
-    service provisioning, and data migrations. Jobs can be managed through endpoints
-    that allow for creation, updating, deletion, and retrieval of job details.
+  - name: Jobs
+    description: |
+      Jobs represent asynchronous operations in the Cloud Foundry environment. They are used for tasks that may take a long time to complete, such as app deployments, service provisioning, and data migrations. Jobs can be managed through endpoints that allow for creation, updating, deletion, and retrieval of job details.
 
-    '
-- name: Manifests
-  description: 'Manifests provide a way to define the configuration and deployment
-    details of apps in the Cloud Foundry environment. They include information such
-    as app name, buildpack, environment variables, and services. Manifests can be
-    used to automate the deployment and management of apps. They can be managed through
-    endpoints that allow for creation, updating, deletion, and retrieval of manifest
-    details.
+  - name: Manifests
+    description: |
+      Manifests provide a way to define the configuration and deployment details of apps in the Cloud Foundry environment. They include information such as app name, buildpack, environment variables, and services. Manifests can be used to automate the deployment and management of apps. They can be managed through endpoints that allow for creation, updating, deletion, and retrieval of manifest details.
 
-    '
-- name: Organizations
-  description: 'Organizations represent the top-level entities in the Cloud Foundry
-    environment. They provide a way to group and manage resources, such as apps, spaces,
-    and users. Organizations can be managed through endpoints that allow for creation,
-    updating, deletion, and retrieval of organization details.
+  - name: OrganizationQuotas
+    description: |
+      OrganizationQuotas define the resource limits and constraints for organizations in the Cloud Foundry environment. They include limits on memory, instances, routes, and services. OrganizationQuotas can be managed through endpoints that allow for creation, updating, deletion, and retrieval of organization quota details.
 
-    '
-- name: OrganizationQuotas
-  description: 'OrganizationQuotas define the resource limits and constraints for
-    organizations in the Cloud Foundry environment. They include limits on memory,
-    instances, routes, and services. OrganizationQuotas can be managed through endpoints
-    that allow for creation, updating, deletion, and retrieval of organization quota
-    details.
+  - name: Organizations
+    description: |
+      Organizations represent the top-level entities in the Cloud Foundry environment. They provide a way to group and manage resources, such as apps, spaces, and users. Organizations can be managed through endpoints that allow for creation, updating, deletion, and retrieval of organization details.
 
-    '
-- name: Packages
-  description: 'Packages represent the source code and dependencies of apps in the
-    Cloud Foundry environment. They are used to create builds and droplets. Packages
-    can be managed through endpoints that allow for creation, updating, deletion,
-    and retrieval of package details.
+  - name: Packages
+    description: |
+      Packages represent the source code and dependencies of apps in the Cloud Foundry environment. They are used to create builds and droplets. Packages can be managed through endpoints that allow for creation, updating, deletion, and retrieval of package details.
 
-    '
-- name: Processes
-  description: 'Processes represent the runnable units of apps in the Cloud Foundry
-    environment. They include information such as command, instances, memory, and
-    disk. Processes can be managed through endpoints that allow for creation, updating,
-    deletion, and retrieval of process details.
+  - name: Processes
+    description: |
+      Processes represent the runnable units of apps in the Cloud Foundry environment. They include information such as command, instances, memory, and disk. Processes can be managed through endpoints that allow for creation, updating, deletion, and retrieval of process details.
 
-    '
-- name: ResourceMatches
-  description: 'ResourceMatches provide a way to identify and reuse existing resources
-    in the Cloud Foundry environment. They help optimize resource usage by matching
-    new resources with existing ones. ResourceMatches can be managed through endpoints
-    that allow for creation, updating, deletion, and retrieval of resource match details.
+  - name: ResourceMatches
+    description: |
+      ResourceMatches provide a way to identify and reuse existing resources in the Cloud Foundry environment. They help optimize resource usage by matching new resources with existing ones. ResourceMatches can be managed through endpoints that allow for creation, updating, deletion, and retrieval of resource match details.
 
-    '
-- name: Revisions
-  description: 'Revisions represent the versions of apps in the Cloud Foundry environment.
-    They provide a way to track and manage changes to apps over time. Revisions can
-    be managed through endpoints that allow for creation, updating, deletion, and
-    retrieval of revision details.
+  - name: Revisions
+    description: |
+      Revisions represent the versions of apps in the Cloud Foundry environment. They provide a way to track and manage changes to apps over time. Revisions can be managed through endpoints that allow for creation, updating, deletion, and retrieval of revision details.
 
-    '
-- name: Roles
-  description: 'Roles define the permissions and access levels for users in the Cloud
-    Foundry environment. They include roles such as admin, developer, and auditor.
-    Roles can be managed through endpoints that allow for creation, updating, deletion,
-    and retrieval of role details.
+  - name: Roles
+    description: |
+      Roles define the permissions and access levels for users in the Cloud Foundry environment. They include roles such as admin, developer, and auditor. Roles can be managed through endpoints that allow for creation, updating, deletion, and retrieval of role details.
 
-    '
-- name: Root
-  description: 'The Root endpoint provides the entry point for the Cloud Foundry API.
-    It includes links to all the available resources and endpoints. The Root endpoint
-    can be accessed to retrieve detailed information about the Cloud Foundry API and
-    its capabilities.
+  - name: Root
+    description: |
+      The Root endpoint provides the entry point for the Cloud Foundry API. It includes links to all the available resources and endpoints. The Root endpoint can be accessed to retrieve detailed information about the Cloud Foundry API and its capabilities.
 
-    '
-- name: SecurityGroups
-  description: 'SecurityGroups define the network access rules for apps in the Cloud
-    Foundry environment. They include rules for inbound and outbound traffic. SecurityGroups
-    can be managed through endpoints that allow for creation, updating, deletion,
-    and retrieval of security group details.
+  - name: Routes
+    description: |
+      Routes represent the network endpoints used to access apps in the Cloud Foundry environment. They include information such as domain, path, and port. Routes can be managed through endpoints that allow for creation, updating, deletion, and retrieval of route details. By specifying routes, applications can define how they are accessed by end-users, ensuring traffic is directed to the appropriate application instances.
 
-    '
-- name: ServiceBrokers
-  description: 'ServiceBrokers provide a way to manage and provision services in the
-    Cloud Foundry environment. They include information such as service plans, instances,
-    and bindings. ServiceBrokers can be managed through endpoints that allow for creation,
-    updating, deletion, and retrieval of service broker details.
+  - name: SecurityGroups
+    description: |
+      SecurityGroups define the network access rules for apps in the Cloud Foundry environment. They include rules for inbound and outbound traffic. SecurityGroups can be managed through endpoints that allow for creation, updating, deletion, and retrieval of security group details.
 
-    '
-- name: ServiceOfferings
-  description: 'ServiceOfferings represent the available services in the Cloud Foundry
-    environment. They include information such as service plans, instances, and bindings.
-    ServiceOfferings can be managed through endpoints that allow for creation, updating,
-    deletion, and retrieval of service offering details.
+  - name: ServiceBrokers
+    description: |
+      ServiceBrokers provide a way to manage and provision services in the Cloud Foundry environment. They include information such as service plans, instances, and bindings. ServiceBrokers can be managed through endpoints that allow for creation, updating, deletion, and retrieval of service broker details.
 
-    '
-- name: ServicePlans
-  description: 'ServicePlans define the configurations and pricing for services in
-    the Cloud Foundry environment. They include information such as memory, instances,
-    and routes. ServicePlans can be managed through endpoints that allow for creation,
-    updating, deletion, and retrieval of service plan details.
+  - name: ServiceCredentialBinding
+    description: |
+      ServiceCredentialBinding provides a way to bind service instances to apps in the Cloud Foundry environment. They include information such as credentials and bindings. ServiceCredentialBinding can be managed through endpoints that allow for creation, updating, deletion, and retrieval of service credential binding details.
 
-    '
-- name: ServicePlanVisibility
-  description: 'ServicePlanVisibility defines the visibility and access rules for
-    service plans in the Cloud Foundry environment. They include information such
-    as organization and space access. ServicePlanVisibility can be managed through
-    endpoints that allow for creation, updating, deletion, and retrieval of service
-    plan visibility details.
+  - name: ServiceInstances
+    description: |
+      ServiceInstances represent the instances of services in the Cloud Foundry environment. They include information such as service plans, bindings, and credentials. ServiceInstances can be managed through endpoints that allow for creation, updating, deletion, and retrieval of service instance details.
 
-    '
-- name: ServiceInstances
-  description: 'ServiceInstances represent the instances of services in the Cloud
-    Foundry environment. They include information such as service plans, bindings,
-    and credentials. ServiceInstances can be managed through endpoints that allow
-    for creation, updating, deletion, and retrieval of service instance details.
+  - name: ServiceOfferings
+    description: |
+      ServiceOfferings represent the available services in the Cloud Foundry environment. They include information such as service plans, instances, and bindings. ServiceOfferings can be managed through endpoints that allow for creation, updating, deletion, and retrieval of service offering details.
 
-    '
-- name: ServiceCredentialBinding
-  description: 'ServiceCredentialBinding provides a way to bind service instances
-    to apps in the Cloud Foundry environment. They include information such as credentials
-    and bindings. ServiceCredentialBinding can be managed through endpoints that allow
-    for creation, updating, deletion, and retrieval of service credential binding
-    details.
+  - name: ServicePlans
+    description: |
+      ServicePlans define the configurations and pricing for services in the Cloud Foundry environment. They include information such as memory, instances, and routes. ServicePlans can be managed through endpoints that allow for creation, updating, deletion, and retrieval of service plan details.
 
-    '
-- name: ServiceRouteBinding
-  description: 'ServiceRouteBinding provides a way to bind service instances to routes
-    in the Cloud Foundry environment. They include information such as credentials
-    and bindings. ServiceRouteBinding can be managed through endpoints that allow
-    for creation, updating, deletion, and retrieval of service route binding details.
+  - name: ServicePlanVisibility
+    description: |
+      ServicePlanVisibility defines the visibility and access rules for service plans in the Cloud Foundry environment. They include information such as organization and space access. ServicePlanVisibility can be managed through endpoints that allow for creation, updating, deletion, and retrieval of service plan visibility details.
 
-    '
-- name: ServiceUsageEvents
-  description: 'ServiceUsageEvents track the usage and activity of services in the
-    Cloud Foundry environment. They provide insights into service lifecycle changes,
-    such as creation, deletion, and updates. ServiceUsageEvents are useful for monitoring
-    and auditing purposes, helping administrators understand how services are being
-    used and identify any issues. They can be retrieved through endpoints that provide
-    detailed information about each event.
+  - name: ServiceRouteBinding
+    description: |
+      ServiceRouteBinding provides a way to bind service instances to routes in the Cloud Foundry environment. They include information such as credentials and bindings. ServiceRouteBinding can be managed through endpoints that allow for creation, updating, deletion, and retrieval of service route binding details.
 
-    '
-- name: Sidecars
-  description: 'Sidecars represent additional processes that run alongside the main
-    app processes in the Cloud Foundry environment. They provide additional functionality,
-    such as logging, monitoring, and security. Sidecars can be managed through endpoints
-    that allow for creation, updating, deletion, and retrieval of sidecar details.
+  - name: ServiceUsageEvents
+    description: |
+      ServiceUsageEvents track the usage and activity of services in the Cloud Foundry environment. They provide insights into service lifecycle changes, such as creation, deletion, and updates. ServiceUsageEvents are useful for monitoring and auditing purposes, helping administrators understand how services are being used and identify any issues. They can be retrieved through endpoints that provide detailed information about each event.
 
-    '
-- name: Spaces
-  description: 'Spaces represent the logical grouping of resources within an organization
-    in the Cloud Foundry environment. They provide a way to manage apps, services,
-    and users within a specific context. Spaces can be managed through endpoints that
-    allow for creation, updating, deletion, and retrieval of space details.
+  - name: Sidecars
+    description: |
+      Sidecars represent additional processes that run alongside the main app processes in the Cloud Foundry environment. They provide additional functionality, such as logging, monitoring, and security. Sidecars can be managed through endpoints that allow for creation, updating, deletion, and retrieval of sidecar details.
 
-    '
-- name: SpaceFeatures
-  description: 'SpaceFeatures provide additional capabilities and configurations for
-    spaces in the Cloud Foundry environment. These features can include things like
-    auto-scaling, health checks, and custom domains. SpaceFeatures enhance the functionality
-    of spaces by allowing administrators to enable or disable specific features based
-    on their requirements. They can be managed through endpoints that allow for enabling,
-    disabling, and retrieving the status of space features.
+  - name: SpaceFeatures
+    description: |
+      SpaceFeatures provide additional capabilities and configurations for spaces in the Cloud Foundry environment. These features can include things like auto-scaling, health checks, and custom domains. SpaceFeatures enhance the functionality of spaces by allowing administrators to enable or disable specific features based on their requirements. They can be managed through endpoints that allow for enabling, disabling, and retrieving the status of space features.
 
-    '
-- name: SpaceQuotas
-  description: 'SpaceQuotas define the resource limits and constraints for spaces
-    in the Cloud Foundry environment. They include limits on memory, instances, routes,
-    and services. SpaceQuotas can be managed through endpoints that allow for creation,
-    updating, deletion, and retrieval of space quota details.
+  - name: SpaceQuotas
+    description: |
+      SpaceQuotas define the resource limits and constraints for spaces in the Cloud Foundry environment. They include limits on memory, instances, routes, and services. SpaceQuotas can be managed through endpoints that allow for creation, updating, deletion, and retrieval of space quota details.
 
-    '
-- name: Stacks
-  description: "Stacks are the base operating system and file system that your application\
-    \ will execute in. A stack is how you configure applications to run against different\
-    \ operating systems (like Windows or Linux) and different versions of those operating\
-    \ systems (like Windows 2012 or Windows 2016).\n\nAn application\u2019s lifecycle\
-    \ will specify which stack to execute the application in. Buildpacks can also\
-    \ be associated with a particular stack if they contain stack-specific logic.\
-    \ An application will automatically use buildpacks associated with the application\u2019\
-    s configured stack.\n\nStacks are not used for apps with a Docker lifecycle.\n"
-- name: Tasks
-  description: 'Tasks represent one-off processes that can be run in the Cloud Foundry
-    environment. They provide a way to execute background jobs, data migrations, and
-    other tasks that are not part of the main app processes. Tasks can be managed
-    through endpoints that allow for creation, updating, deletion, and retrieval of
-    task details.
+  - name: Spaces
+    description: |
+      Spaces represent the logical grouping of resources within an organization in the Cloud Foundry environment. They provide a way to manage apps, services, and users within a specific context. Spaces can be managed through endpoints that allow for creation, updating, deletion, and retrieval of space details.
 
-    '
-- name: Users
-  description: Users represent the individuals who have access to the Cloud Foundry
-    environment. They include information such as roles, permissions, and credentials.
-    Users can be managed through endpoints that allow for creation, updating, deletion,
-    and retrieval of user details.
-- name: Routes
-  description: Routes represent the network endpoints used to access apps in the Cloud
-    Foundry environment. They include information such as domain, path, and port.
-    Routes can be managed through endpoints that allow for creation, updating, deletion,
-    and retrieval of route details. By specifying routes, applications can define
-    how they are accessed by end-users, ensuring traffic is directed to the appropriate
-    application instances.
+  - name: Stacks
+    description: |
+      Stacks are the base operating system and file system that your application will execute in. A stack is how you configure applications to run against different operating systems and different versions of those operating systems.
+
+      An application’s lifecycle will specify which stack to execute the application in. Buildpacks can also be associated with a particular stack if they contain stack-specific logic. An application will automatically use buildpacks associated with the application’s configured stack.
+
+      Stacks are not used for apps with a Docker lifecycle.
+
+  - name: Tasks
+    description: |
+      Tasks represent one-off processes that can be run in the Cloud Foundry environment. They provide a way to execute background jobs, data migrations, and other tasks that are not part of the main app processes. Tasks can be managed through endpoints that allow for creation, updating, deletion, and retrieval of task details.
+
+  - name: Users
+    description: |
+      Users represent the individuals who have access to the Cloud Foundry environment. They include information such as roles, permissions, and credentials. Users can be managed through endpoints that allow for creation, updating, deletion, and retrieval of user details.

@@ -1,4 +1,56 @@
-component-description:
-    - $.components.securitySchemes['$ref']
-oas3-unused-component:
-    - $.components.securitySchemes['$ref']
+camel-case-properties:
+    - $.components.schemas['error'].properties['correlation_id']
+    - $.paths['/'].get.responses['200'].content['application/json'].schema.properties['links'].properties['cloud_controller_v2']
+    - $.paths['/'].get.responses['200'].content['application/json'].schema.properties['links'].properties['cloud_controller_v3']
+    - $.paths['/'].get.responses['200'].content['application/json'].schema.properties['links'].properties['network_policy_v0']
+    - $.paths['/'].get.responses['200'].content['application/json'].schema.properties['links'].properties['network_policy_v1']
+    - $.paths['/'].get.responses['200'].content['application/json'].schema.properties['links'].properties['log_cache']
+    - $.paths['/'].get.responses['200'].content['application/json'].schema.properties['links'].properties['log_stream']
+    - $.paths['/'].get.responses['200'].content['application/json'].schema.properties['links'].properties['app_ssh']
+    - $.components.responses['v3'].content['application/json'].schema.properties['links'].properties['environment_variable_groups']
+    - $.components.responses['v3'].content['application/json'].schema.properties['links'].properties['feature_flags']
+    - $.components.responses['v3'].content['application/json'].schema.properties['links'].properties['isolation_segments']
+    - $.components.responses['v3'].content['application/json'].schema.properties['links'].properties['organization_quotas']
+    - $.components.responses['v3'].content['application/json'].schema.properties['links'].properties['private_domains']
+    - $.components.responses['v3'].content['application/json'].schema.properties['links'].properties['resource_matches']
+    - $.components.responses['v3'].content['application/json'].schema.properties['links'].properties['route_mappings']
+    - $.components.responses['v3'].content['application/json'].schema.properties['links'].properties['security_groups']
+    - $.components.responses['v3'].content['application/json'].schema.properties['links'].properties['service_brokers']
+    - $.components.responses['v3'].content['application/json'].schema.properties['links'].properties['service_credential_bindings']
+    - $.components.responses['v3'].content['application/json'].schema.properties['links'].properties['service_instances']
+    - $.components.responses['v3'].content['application/json'].schema.properties['links'].properties['service_offerings']
+    - $.components.responses['v3'].content['application/json'].schema.properties['links'].properties['service_plans']
+    - $.components.responses['v3'].content['application/json'].schema.properties['links'].properties['shared_domains']
+    - $.components.responses['v3'].content['application/json'].schema.properties['links'].properties['space_quotas']
+no-$ref-siblings:
+    - $.components.schemas['link']
+owasp-integer-format:
+    - $.components.responses['401'].headers['RateLimit-Limit'].schema
+    - $.components.responses['401'].headers['RateLimit-Reset'].schema
+    - $.components.responses['429'].headers['RateLimit-Limit'].schema
+    - $.components.responses['429'].headers['RateLimit-Reset'].schema
+    - $.components.responses['429'].headers['Retry-After'].schema
+owasp-integer-limit:
+    - $.components.responses['401'].headers['RateLimit-Limit'].schema
+    - $.components.responses['401'].headers['RateLimit-Reset'].schema
+    - $.components.responses['429'].headers['RateLimit-Limit'].schema
+    - $.components.responses['429'].headers['RateLimit-Reset'].schema
+    - $.components.responses['429'].headers['Retry-After'].schema
+owasp-rate-limit:
+    - $.components.responses['root']
+    - $.components.responses['400']
+    - $.components.responses['v3']
+    - $.components.responses['400']
+owasp-security-hosts-https-oas3:
+    - $.servers[0].url
+owasp-string-limit:
+    - $.components.responses['root'].content['application/json'].schema.properties['links'].properties['app_ssh'].properties['href']
+    - $.components.responses['401'].content['application/json'].schema.properties['error']
+    - $.components.responses['401'].content['application/json'].schema.properties['message']
+    - $.components.responses['401'].content['application/json'].schema.properties['details']
+    - $.components.responses['401'].content['application/json'].schema.properties['correlation_id']
+owasp-string-restricted:
+    - $.components.responses['401'].content['application/json'].schema.properties['error']
+    - $.components.responses['401'].content['application/json'].schema.properties['message']
+    - $.components.responses['401'].content['application/json'].schema.properties['details']
+    - $.components.responses['401'].content['application/json'].schema.properties['correlation_id']

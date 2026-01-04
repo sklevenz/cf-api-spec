@@ -1,4 +1,5 @@
 SPEC_FILE := spec/openapi.yaml
+SPEC_BASE := spec
 VACUUM_RULESET := ./cfg/vacuum-ruleset.yaml
 VACUUM_IGNORE := ./cfg/vacuum-ignore.yaml
 OUTPUT_DOC := ./docs/index.html
@@ -7,7 +8,7 @@ BUNDLE_OUTPUT := ./gen/openapi.yaml
 BUNDLE_OUTPUT_DIR := $(dir $(BUNDLE_OUTPUT))
 MOCK_SERVER_PORT := 4010
 
-.PHONY: help all lint lint-vacuum docs bundle mock upgrade
+.PHONY: help all lint lint-vacuum docs bundle bundle-vacuum bundle-redocly mock dashboard upgrade
 
 help:
 	@echo "Available targets:"
@@ -15,10 +16,14 @@ help:
 	@echo "  make lint           - Run all linters"
 	@echo "  make lint-vacuum    - Run Vakuum linter and stats"
 	@echo "  make docs           - Generate HTML documentation using Redocly"
-	@echo "  make bundle         - Bundle OpenAPI spec using Redocly"
+	@echo "  make bundle         - Bundle OpenAPI spec"
+	@echo "  make bundle-vacuum  - Bundle OpenAPI spec using Vacuum (doesn't render securityScheme correcty (version 0.23.0))"
+	@echo "  make bundle-redockly - Bundle OpenAPI spec using Redocly"
 	@echo "  make mock           - Start local mock server with Prism"
+	@echo "  make dashboard      - Start Vacuum dashboard"
 	@echo "  make upgrade        - Install CLI tools locally (CI-safe, no sudo)"
 	@echo "  make help           - Show this help message"
+
 
 all: upgrade lint bundle docs
 
@@ -56,7 +61,26 @@ docs:
 		exit $$STATUS; \
 	fi
 
-bundle:
+bundle: bundle-redocly # change to vacuum as soon as securitySchemes gets rendered correctly
+
+bundle-vacuum:
+	@echo "Bundling OpenAPI spec..."
+	@if [ ! -f "$(SPEC_FILE)" ]; then \
+		echo "Error: Input file '$(SPEC_FILE)' does not exist."; \
+		exit 1; \
+	fi
+	@mkdir -p "$(BUNDLE_OUTPUT_DIR)"
+	@npx vacuum bundle "$(SPEC_FILE)" "$(BUNDLE_OUTPUT)" --base "$(SPEC_BASE)"
+	@STATUS=$$?; \
+	if [ $$STATUS -eq 0 ]; then \
+		echo "Bundling completed successfully. Output file: $(BUNDLE_OUTPUT)"; \
+	else \
+		echo "Bundling failed. Please check the output for details."; \
+		exit $$STATUS; \
+	fi
+	@echo "!!!ERROR!!! Vacuum doesn't render securitySchemes correctly. Check if the version is newer than 0.23.0"
+	
+bundle-redocly:
 	@echo "Bundling OpenAPI spec..."
 	@if [ ! -f "$(SPEC_FILE)" ]; then \
 		echo "Error: Input file '$(SPEC_FILE)' does not exist."; \
@@ -79,3 +103,11 @@ mock:
 		exit 1; \
 	fi
 	@npx prism mock "$(SPEC_FILE)" --port $(MOCK_SERVER_PORT)
+
+dashboard:
+	@echo "Starting Vacuum dashboard"
+	@if [ ! -f "$(SPEC_FILE)" ]; then \
+		echo "Error: Input file '$(SPEC_FILE)' does not exist."; \
+		exit 1; \
+	fi
+	@npx vacuum dashboard "$(SPEC_FILE)" --ruleset="$(VACUUM_RULESET)" --ignore-file "$(VACUUM_IGNORE)"

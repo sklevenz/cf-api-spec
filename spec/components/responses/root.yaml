@@ -38,63 +38,48 @@ content:
               href: https://api.example.com/health
           properties:
             self:
-              allOf:
-                - $ref: ../schemas/link.yaml
-              description: Link to this API index document.
+              $ref: ../schemas/link.yaml
+              description: Link to root index document.
             cloud_controller_v2:
-              allOf:
-                - $ref: ../schemas/link.yaml
+              $ref: ../schemas/link.yaml
               description: Entry point for the Cloud Controller V2 API.
             cloud_controller_v3:
-              allOf:
-                - $ref: ../schemas/link.yaml
+              $ref: ../schemas/link.yaml
               description: Entry point for the Cloud Controller V3 API.
             network_policy_v0:
-              allOf:
-                - $ref: ../schemas/link.yaml
+              $ref: ../schemas/link.yaml
               description: Entry point for the legacy network policy API (v0).
             network_policy_v1:
-              allOf:
-                - $ref: ../schemas/link.yaml
+              $ref: ../schemas/link.yaml
               description: Entry point for the current network policy API (v1).
             login:
-              allOf:
-                - $ref: ../schemas/link.yaml
+              $ref: ../schemas/link.yaml
               description: Endpoint for user login and authentication services.
             uaa:
-              allOf:
-                - $ref: ../schemas/link.yaml
+              $ref: ../schemas/link.yaml
               description: Endpoint for the UAA (User Account and Authentication) API.
             credhub:
-              allOf:
-                - $ref: ../schemas/link.yaml
+              $ref: ../schemas/link.yaml
               description: Not available — CredHub API is currently not exposed via this endpoint.
             routing:
-              allOf:
-                - $ref: ../schemas/link.yaml
+              $ref: ../schemas/link.yaml
               description: Endpoint for managing routes and route mappings.
             logging:
-              allOf:
-                - $ref: ../schemas/link.yaml
+              $ref: ../schemas/link.yaml
               description: Endpoint for logging-related APIs (deprecated or legacy).
             log_cache:
-              allOf:
-                - $ref: ../schemas/link.yaml
+              $ref: ../schemas/link.yaml
               description: Endpoint for the Log Cache API, used to retrieve recent application logs.
             log_stream:
-              allOf:
-                - $ref: ../schemas/link.yaml
+              $ref: ../schemas/link.yaml
               description: Endpoint for real-time application log streaming.
             app_ssh:
-              allOf:
-                - $ref: ../schemas/link.yaml
+              $ref: ../schemas/link.yaml
               description: Endpoint for SSH access to running application instances.
             version:
-              allOf:
-                - $ref: ../schemas/link.yaml
+              $ref: ../schemas/link.yaml
               description: Endpoint for server version information.              
             health:
-              allOf:
-                - $ref: ../schemas/link.yaml
+              $ref: ../schemas/link.yaml
               description: Health endpoint.              
                     
