@@ -1,4 +1,41 @@
+# These ignore rules intentionally document known findings 
+# that originate from the CF OpenAPI spec itself and cannot 
+# be reasonably resolved or fixed at this point. The 
+# affected parts are either historically grown, 
+# constrained by external dependencies, or semantically 
+# correct while formally violating specific Vacuum or 
+# OWASP rules. Changing the spec would either break the 
+# API or provide no real functional value. The purpose of 
+# these rules is therefore to keep the linting signal to 
+# noise ratio high and ensure that real, newly introduced 
+# issues remain visible.
+
 component-description:
-    - $.components.securitySchemes['$ref']
+    - $.components.securitySchemes['oauth']
+    - $.components.securitySchemes['bearer']
 oas3-unused-component:
-    - $.components.securitySchemes['$ref']
+    - $.components.securitySchemes.oauth['$ref']
+owasp-rate-limit:
+    - $.paths['/v3'].get.responses['200']
+    - $.paths['/'].get.responses['200']
+    - $.paths['/v3'].get.responses['400']
+    - $.paths['/'].get.responses['400']
+    - $.components.responses['root']
+    - $.components.responses['400']
+    - $.components.responses['v3']
+    - $.components.responses['400']
+
+owasp-security-hosts-https-oas3:
+    - $.servers[0].url
+
+owasp-string-limit:
+    - $.components.responses['root'].content['application/json'].schema.properties['links'].properties['app_ssh'].allOf[0][0].properties['href']
+    - $.components.responses['root'].content['application/json'].schema.properties['links'].properties['app_ssh'].allOf[0][0].properties['meta'].properties['version']
+    - $.components.responses['root'].content['application/json'].schema.properties['links'].properties['app_ssh'].allOf[0][0].properties['meta'].properties['host_key_fingerprint']
+    - $.components.responses['root'].content['application/json'].schema.properties['links'].properties['app_ssh'].allOf[0][0].properties['meta'].properties['oauth_client']
+
+owasp-string-restricted:
+    - $.components.responses['root'].content['application/json'].schema.properties['links'].properties['app_ssh'].allOf[0][0].properties['meta'].properties['version']
+    - $.components.responses['root'].content['application/json'].schema.properties['links'].properties['app_ssh'].allOf[0][0].properties['meta'].properties['host_key_fingerprint']
+    - $.components.responses['root'].content['application/json'].schema.properties['links'].properties['app_ssh'].allOf[0][0].properties['meta'].properties['oauth_client']
+

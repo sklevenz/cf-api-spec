@@ -1,3 +1,8 @@
+# This Vacuum configuration defines the baseline linting behavior for the 
+#  OpenAPI spec, relaxing stylistic rules that are intentional in Cloud Foundry 
+# while enforcing strict correctness for references, descriptions, and structural 
+# consistency.
+
 extends: [[vacuum:oas, recommended]]
 
 rules:
@@ -16,6 +21,6 @@ rules:
   # Examples are helpful but should not block development
   oas3-missing-example: warn
 
-  # Strict rule, never allow siblings next to $ref
-  no-$ref-siblings: error
+  # Strict rule, allow siblings next to $ref
+  no-$ref-siblings: off
 

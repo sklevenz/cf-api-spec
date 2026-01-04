@@ -1,3 +1,4 @@
+description: Hypermedia link describing how to navigate to a related Cloud Foundry API resource.
 type: object
 example:
   href: https://api.example.com/v3/apps
@@ -11,20 +12,12 @@ properties:
     type: string
     format: uri
     description: The URI reference to the resource.
+    example: https://api.example.com/v3/apps/1234/ssh
   meta:
     type: object
-    description: Metadata related to the resource.
+    description: Metadata related to the resource
     properties:
       experimental:
         type: boolean
-        description: Indicates whether the linked API is experimental.
-      version:
-        type: string
-        description: The version identifier of the referenced resource.
-      host_key_fingerprint:
-        type: string
-        description: The fingerprint of the host's public key, used for security verification.
-      oauth_client:
-        type: string
-        description: The OAuth client identifier used for authentication purposes.
-    additionalProperties: true
+        description: Indicates whether the feature is experimental
+        example: true

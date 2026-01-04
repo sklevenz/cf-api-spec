@@ -1,0 +1,18 @@
+description: Too Many Requests
+headers:
+  RateLimit-Limit:
+    description: Request limit applied by the API before returning HTTP 429 responses.
+    schema:
+      type: integer
+  RateLimit-Reset:
+    description: Time in seconds after which the API rate limit counter is reset.
+    schema:
+      type: integer
+  Retry-After:
+    description: Seconds to wait before retrying the request.
+    schema:
+      type: integer
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/error.yaml
