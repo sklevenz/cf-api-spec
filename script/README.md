@@ -2,20 +2,13 @@
 
 ## vacuum-dashboard-z.sh
 
-```bash
-vacuum dashboard gen/openapi.yaml --ignore-file cfg/vacuum-ignore.yaml --hard-mode --watch
-```
+Starts the Vacuum dashboard for the bundled OpenAPI spec using the ignore file, enables hard mode, and watches the spec for live updates.
 
 ## vacuum-dashboard.sh
 
-```bash
-vacuum dashboard gen/openapi.yaml --ruleset cfg/vacuum-ruleset.yaml --ignore-file cfg/vacuum-ignore.yaml --watch
-```
+Starts the Vacuum dashboard for the bundled OpenAPI spec using the custom ruleset and ignore file, and watches the spec for live updates.
+
 
 ## vacuum-generate-ignore-rules.sh
 
-```bash
-vacuum report gen/openapi.yaml -o > gen/report.yaml -z
-vacuum generate-ignorefile gen/report.yaml cfg/vacuum-ignore.yaml
-```
-
+Generates a Vacuum lint report from the bundled OpenAPI spec and derives an ignore file from the reported findings.
