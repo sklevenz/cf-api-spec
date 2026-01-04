@@ -1,0 +1,21 @@
+get:
+  summary: Get API root metadata
+  description: >
+    Returns the root-level metadata of the API, including links to all major service components. 
+    This endpoint serves as the main entry point for API discovery and navigation.
+  operationId: getApiRoot
+  security:
+    - oauth: []  
+  tags:
+    - Root
+  responses:
+    '200':
+      $ref: ../components/responses/root.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml

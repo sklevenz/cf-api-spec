@@ -1,0 +1,22 @@
+description: Standard error response returned by the Cloud Foundry API
+type: object
+required:
+  - error
+  - message
+properties:
+  error:
+    type: string
+    description: Short machine readable error identifier.
+    example: unauthorized
+  message:
+    type: string
+    description: Human readable error description.
+    example: Authentication token is missing or invalid.
+  details:
+    type: string
+    description: Optional additional details for debugging.
+    example: Bearer token expired.
+  correlation_id:
+    type: string
+    description: Identifier for request tracing and log correlation.
+    example: 3f6a9c2e7b1a4d5f

@@ -1,0 +1,28 @@
+# This Vacuum configuration defines the baseline linting behavior for the 
+#  OpenAPI spec, relaxing stylistic rules that are intentional in Cloud Foundry 
+# while enforcing strict correctness for references, descriptions, and structural 
+# consistency.
+
+extends: [[vacuum:oas, recommended]]
+
+rules:
+  # Path items via $ref are intentional in this repository
+  path-item-refs: off
+
+  # Cloud Foundry uses snake_case extensively
+  camel-case-properties: off
+
+  # Allow prepared but not yet referenced components
+  oas3-unused-component: warn
+
+  # Enforce descriptions on components
+  component-description: warn
+      
+  # Examples are helpful but should not block development
+  oas3-missing-example: warn
+
+  # Strict rule, allow siblings next to $ref
+  no-$ref-siblings: off
+
+  # Allow free form strings without enforcing enum, pattern, format, or const restrictions
+  owasp-string-restricted: off

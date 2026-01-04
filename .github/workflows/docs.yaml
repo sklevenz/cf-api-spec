@@ -1,0 +1,33 @@
+name: Build Docs and Publish to GitHub Pages
+
+on:
+    push:
+        branches:
+            - main
+
+permissions:
+  contents: write
+
+jobs:
+    publish:
+
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+
+            - name: Generate OpenAPI Doc
+              run: make upgrade docs
+
+            - name: Push to gh-pages branch
+              run: |
+                git config --global user.name "github-actions"
+                git config --global user.email "github-actions@github.com"
+                git checkout --orphan gh-pages
+                git add -f ./docs # Force add the docs folder to the gh-pages branch even if it's in .gitignore file 
+                git commit -m "Publish GitHub Pages"
+                git push origin gh-pages --force

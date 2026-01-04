@@ -1,0 +1,14 @@
+description: Unauthorized
+headers:
+  RateLimit-Limit:
+    description: Maximum number of requests allowed within the current rate limit window.
+    schema:
+      type: integer
+  RateLimit-Reset:
+    description: Number of seconds until the current rate limit window is reset and new requests are accepted.
+    schema:
+      type: integer
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/error.yaml

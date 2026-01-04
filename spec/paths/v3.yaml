@@ -1,0 +1,20 @@
+get:
+  summary: Get API root
+  description: >
+    Global API Root for Cloud Foundry V3.
+  operationId: getApiV3Root
+  security:
+    - oauth: []  
+  tags:
+    - Root
+  responses:
+    '200':
+      $ref: ../components/responses/v3.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
