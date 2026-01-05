@@ -3,7 +3,9 @@ get:
   description: >
     Global API Root for Cloud Foundry V3.
   operationId: getApiV3Root
-  security: []
+  security:
+    - oauth: []
+    - bearer: []
   tags:
     - Root
   responses:

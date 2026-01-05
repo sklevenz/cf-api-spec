@@ -8,7 +8,7 @@ BUNDLE_OUTPUT := ./gen/openapi.yaml
 BUNDLE_OUTPUT_DIR := $(dir $(BUNDLE_OUTPUT))
 MOCK_SERVER_PORT := 4010
 
-.PHONY: help all lint lint-vacuum docs bundle bundle-vacuum bundle-redocly mock dashboard upgrade
+.PHONY: help all lint lint-vacuum docs bundle bundle-vacuum bundle-redocly mock dashboard dashboard-hard generate-ignore-file upgrade
 
 help:
 	@echo "Available targets:"
@@ -20,8 +20,10 @@ help:
 	@echo "  make bundle-vacuum  - Bundle OpenAPI spec using Vacuum (doesn't render securityScheme correcty (version 0.23.0))"
 	@echo "  make bundle-redockly - Bundle OpenAPI spec using Redocly"
 	@echo "  make mock           - Start local mock server with Prism"
-	@echo "  make dashboard      - Start Vacuum dashboard"
+	@echo "  make dashboard      - Start Vacuum dashboard with custom ruleset and ignore set"
+	@echo "  make dashboard-hard - Start Vacuum dashboard with hard ruleset and ignore set"
 	@echo "  make upgrade        - Install CLI tools locally (CI-safe, no sudo)"
+	@echo "  make generate-ignore-file - Generate a ignore file"
 	@echo "  make help           - Show this help message"
 
 
@@ -31,9 +33,9 @@ upgrade:
 	@echo "Installing/updating required CLI tools locally..."
 	@npm install --no-save @redocly/cli @stoplight/prism-cli @quobix/vacuum
 	@echo "Installed tool versions:"
-	@npx redocly --version
-	@npx prism --version
-	@npx vacuum version
+	@echo "redocly $$(npx redocly --version)"
+	@echo "prism   $$(npx prism --version)"
+	@echo "vacuum  $$(npx vacuum version)"
 
 lint: lint-vacuum
 
@@ -110,4 +112,29 @@ dashboard:
 		echo "Error: Input file '$(SPEC_FILE)' does not exist."; \
 		exit 1; \
 	fi
-	@npx vacuum dashboard "$(SPEC_FILE)" --ruleset="$(VACUUM_RULESET)" --ignore-file "$(VACUUM_IGNORE)"
+	@npx vacuum dashboard "$(SPEC_FILE)" --ruleset="$(VACUUM_RULESET)" --ignore-file "$(VACUUM_IGNORE)" --watch
+
+dashboard-hard:
+	@echo "Starting Vacuum dashboard"
+	@if [ ! -f "$(SPEC_FILE)" ]; then \
+		echo "Error: Input file '$(SPEC_FILE)' does not exist."; \
+		exit 1; \
+	fi
+	@npx vacuum dashboard "$(SPEC_FILE)" --ignore-file "$(VACUUM_IGNORE)" --hard-mode --watch
+
+generate-ignore-file:
+	@echo "Generating ignore file"
+	@tmp=$$(mktemp)
+	@echo "$(tmp)"
+#	@vacuum report spec/openapi.yaml --stdout --hard-mode > "$$tmp" 
+#	@cat $$TMP
+#	@echo "Ignore file generated: $(VACUUM_IGNORE)"
+
+generate-ignore-file:
+	@echo "Generating ignore file"
+	@tmp=$$(mktemp); \
+	trap 'rm -f "$$tmp"' EXIT; \
+	vacuum report spec/openapi.yaml --stdout --hard-mode > "$$tmp"; \
+	vacuum generate-ignorefile "$$tmp" "$(VACUUM_IGNORE)"; \
+	rm -f "$$tmp"; 
+	@echo "Ignore file generated: $(VACUUM_IGNORE)"
