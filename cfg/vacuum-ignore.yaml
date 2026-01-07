@@ -35,13 +35,13 @@ oas3-missing-example:
 owasp-constrained-additionalProperties:
     - $.paths['/v3/info'].get.responses['200'].content['application/json'].schema.properties['custom']
 owasp-integer-format:
-    - $.paths['/'].get.responses['401'].headers['RateLimit-Limit'].schema
-    - $.paths['/'].get.responses['401'].headers['RateLimit-Reset'].schema
+    - $.paths['/'].get.responses['429'].headers['RateLimit-Limit'].schema
+    - $.paths['/'].get.responses['429'].headers['RateLimit-Reset'].schema
     - $.paths['/'].get.responses['429'].headers['Retry-After'].schema
     - $.paths['/v3/info'].get.responses['200'].content['application/json'].schema.properties['version']
 owasp-integer-limit:
-    - $.paths['/'].get.responses['401'].headers['RateLimit-Limit'].schema
-    - $.paths['/'].get.responses['401'].headers['RateLimit-Reset'].schema
+    - $.paths['/'].get.responses['429'].headers['RateLimit-Limit'].schema
+    - $.paths['/'].get.responses['429'].headers['RateLimit-Reset'].schema
     - $.paths['/'].get.responses['429'].headers['Retry-After'].schema
     - $.paths['/v3/info'].get.responses['200'].content['application/json'].schema.properties['version']
 owasp-no-additionalProperties:
@@ -76,6 +76,7 @@ owasp-string-limit:
     - $.paths['/v3/info'].get.responses['200'].content['application/json'].schema.properties['custom'].additionalProperties
 owasp-string-restricted:
     - $.paths['/'].get.responses['401'].content['application/json'].schema.properties['error']
+    - $.paths['/'].get.responses['401'].content['application/json'].schema.properties['message']
     - $.paths['/'].get.responses['401'].content['application/json'].schema.properties['details']
     - $.paths['/v3/info'].get.responses['200'].content['application/json'].schema.properties['name']
     - $.paths['/'].get.responses['401'].content['application/json'].schema.properties['correlation_id']
