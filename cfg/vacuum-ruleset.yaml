@@ -15,11 +15,11 @@ rules:
   # Allow prepared but not yet referenced components
   oas3-unused-component: warn
 
-  # Enforce descriptions on components
-  component-description: warn
+  # no overhead because of descriptions on components
+  component-description: off
       
-  # Examples are helpful but should not block development
-  oas3-missing-example: warn
+  # Examples are helpful but they make spec complex
+  oas3-missing-example: off
 
   # Strict rule, allow siblings next to $ref
   no-$ref-siblings: off

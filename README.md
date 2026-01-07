@@ -36,7 +36,6 @@ The directory structure of this repository is organized to separate concerns and
 ├── .github             # GitHub Actions workflows
 │   └── workflows       # CI pipelines, lint, bundle, docs
 ├── cfg                 # Tool configuration, rulesets, ignore files
-├── script              # Helper scripts used by Makefile targets
 ├── spec                # OpenAPI specification and modularized content
 │   ├── openapi.yaml    # Main OpenAPI entry file
 │   ├── paths           # Path items split into separate files
@@ -164,7 +163,7 @@ make mock
 ````
 
 Once started, the mock server is available at
-http://localhost:4010/v3
+http://localhost:4010/
 
 #### Example API Call
 

@@ -1,0 +1,73 @@
+get:
+  summary: Get platform info
+  description: |-
+    Get information about the platform.
+  operationId: getPlatformInfo
+  security: []
+  tags:
+    - Info
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Name of the platform
+              build:
+                type: string
+                description: Build number of the platform
+              version:
+                type: integer
+                description: Version number of the platform
+              description:
+                type: string
+                description: Description of the platform
+              cli_version:
+                type: object
+                description: Minimum and recommended CLI versions
+                properties:
+                  minimum:
+                    type: string
+                    description: Minimum CLI version
+                  recommended:
+                    type: string
+                    description: Recommended CLI version
+              custom:
+                type: object
+                description: Custom information about the platform
+                additionalProperties:
+                  type: string
+              links:
+                type: object
+                description: Links to related resources
+                properties:
+                  self:
+                    $ref: '../components/schemas/link.yaml'
+                    description: Link to the current endpoint
+                  support:
+                    $ref: '../components/schemas/link.yaml'
+                    description: Link to the support website for the platform
+    '401': 
+      $ref: ../components/responses/401.yaml
+    '403': 
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
+    '502':
+      $ref: ../components/responses/502.yaml
+    '503':
+      $ref: ../components/responses/503.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '409':
+      $ref: ../components/responses/409.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
