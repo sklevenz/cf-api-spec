@@ -35,6 +35,8 @@ paths:
     $ref: ./paths/v3.yaml
   /v3/info:
     $ref: './paths/info.yaml'
+  /v3/info/usage_summary:
+    $ref: './paths/info_usage_summary.yaml'
     
 components:
   securitySchemes:
