@@ -1,205 +1,319 @@
-SPEC_FILE := spec/openapi.yaml
-SPEC_BASE := spec
-VACUUM_RULESET := ./cfg/vacuum-ruleset.yaml
-VACUUM_IGNORE := ./cfg/vacuum-ignore.yaml
-OUTPUT_DOC := ./docs/index.html
-OUTPUT_DIR := $(dir $(OUTPUT_DOC))
-BUNDLE_OUTPUT := ./gen/openapi.yaml
-BUNDLE_OUTPUT_DIR := $(dir $(BUNDLE_OUTPUT))
-SPLIT_OUTPUT_DIR := ./gen/spec
 SPEC_DIR := ./spec
-MOCK_SERVER_PORT := 4010
+SPEC_FILE := $(SPEC_DIR)/openapi.yaml
+CFG_DIR := ./cfg
+VACUUM_RULESET := $(CFG_DIR)/vacuum-ruleset.yaml
+VACUUM_IGNORE := $(CFG_DIR)/vacuum-ignore.yaml
+DOC_DIR := ./docs
+DOC_FILE := $(DOC_DIR)/index.html
+GEN_DIR := ./gen
+BUNDLE_FILE := $(GEN_DIR)/openapi.yaml
+SPLIT_DIR := $(GEN_DIR)/spec
+MOCK_PORT := 4010
 
 .PHONY: help all lint lint-hard lint-bundle lint-bundle-hard docs bundle bundle-vacuum bundle-redocly split split-update mock dashboard dashboard-bundle dashboard-hard dashboard-bundle-hard generate-ignore-file upgrade
 
 help:
 	@echo "Available targets:"
-	@echo "  make all            - Install tools, bundle spec, lint, and build docs"
-	@echo "  make lint           - Run all linters"
-	@echo "  make lint-hard      - Run Vakuum linter with hard ruleset and stats"
-	@echo "  make lint-bundle    - Run linter (./gen/openapi.yaml)"
-	@echo "  make lint-bundle-hard - Run Vakuum linter with hard ruleset and stats (./gen/openapi.yaml)"
-	@echo "  make docs           - Generate HTML documentation using Redocly"
-	@echo "  make bundle         - Bundle OpenAPI spec"
-	@echo "  make bundle-vacuum  - Bundle OpenAPI spec using Vacuum (doesn't render securityScheme correcty (version 0.23.0))"
-	@echo "  make bundle-redockly - Bundle OpenAPI spec using Redocly"
-	@echo "  make split          - Split ./gen/openapi.yaml into a spec file structure"
-	@echo "  make split-update   - Split ./gen/openapi.yaml into a spec file structure and copy to ./spec"
-	@echo "  make mock           - Start local mock server with Prism"
-	@echo "  make dashboard      - Start Vacuum dashboard with custom ruleset and ignore set"
-	@echo "  make dashboard-hard - Start Vacuum dashboard with hard ruleset and ignore set"
-	@echo "  make dashboard-bundle - Start Vacuum dashboard with custom ruleset and ignore set (./gen/openapi.yaml)"
-	@echo "  make dashboard-bundle-hard - Start Vacuum dashboard with hard ruleset and ignore set (./gen/openapi.yaml)"
-	@echo "  make upgrade        - Install CLI tools locally (CI-safe, no sudo)"
-	@echo "  make generate-ignore-file - Generate a ignore file"
-	@echo "  make help           - Show this help message"
-
+	@echo ""
+	@echo "General:"
+	@echo "  make all                   - Install tools, bundle spec, lint, and build docs"
+	@echo "  make help                  - Show this help message"
+	@echo ""
+	@echo "Linting:"
+	@echo "  make lint                  - Run Vacuum linter on source spec"
+	@echo "  make lint-hard             - Run Vacuum linter in hard mode on source spec"
+	@echo "  make lint-bundle           - Run Vacuum linter on bundled spec (./gen/openapi.yaml)"
+	@echo "  make lint-bundle-hard      - Run Vacuum linter in hard mode on bundled spec (./gen/openapi.yaml)"
+	@echo ""
+	@echo "Bundling and splitting:"
+	@echo "  make bundle                - Bundle OpenAPI spec using Vacuum"
+	@echo "  make bundle-vacuum         - Bundle OpenAPI spec using Vacuum (known issues with securityScheme)"
+	@echo "  make bundle-redocly        - Bundle OpenAPI spec using Redocly"
+	@echo "  make split                 - Split bundled spec into file structure (./gen/spec)"
+	@echo "  make split-update          - Split bundled spec and update ./spec directory"
+	@echo ""
+	@echo "Documentation:"
+	@echo "  make docs                  - Generate HTML documentation using Redocly (./docs/index.html)"
+	@echo ""
+	@echo "Mock and dashboards:"
+	@echo "  make mock                  - Start local Prism mock server"
+	@echo "  make dashboard             - Start Vacuum dashboard with custom ruleset"
+	@echo "  make dashboard-hard        - Start Vacuum dashboard in hard mode"
+	@echo "  make dashboard-bundle      - Start Vacuum dashboard for bundled spec"
+	@echo "  make dashboard-bundle-hard - Start Vacuum dashboard in hard mode for bundled spec"
+	@echo ""
+	@echo "Maintenance:"
+	@echo "  make upgrade               - Install or update CLI tools locally (CI safe, no sudo)"
+	@echo "  make generate-ignore-file  - Generate Vacuum ignore file from hard mode report"
 
 all: upgrade lint bundle docs
 
 upgrade:
-	@echo "Installing/updating required CLI tools locally..."
+	@echo "Installing CLI tools locally"
 	@npm install --no-save @redocly/cli @stoplight/prism-cli @quobix/vacuum
-	@echo "Installed tool versions:"
-	@echo "redocly $$(npx redocly --version)"
-	@echo "prism   $$(npx prism --version)"
-	@echo "vacuum  $$(npx vacuum version)"
+	@echo ""
+	@echo "Installed tool versions"
+	@printf "  Redocly  %s\n" "$$(npx redocly --version)"
+	@printf "  Prism    %s\n" "$$(npx prism --version)"
+	@printf "  Vacuum   %s\n" "$$(npx vacuum version)"
+	@echo ""
 
 lint:
-	@echo "Running Vacuum linter..."
+	@echo "Running Vacuum linter on source spec"
 	@if [ ! -f "$(SPEC_FILE)" ]; then \
-		echo "Error: File '$(SPEC_FILE)' does not exist."; \
+		echo ""; \
+		echo "Error"; \
+		echo "  Spec file not found"; \
+		echo "  Path: $(SPEC_FILE)"; \
 		exit 1; \
 	fi
 	@npx vacuum lint "$(SPEC_FILE)" --ruleset="$(VACUUM_RULESET)" --ignore-file "$(VACUUM_IGNORE)"
-
+	@echo ""
+	
 lint-hard:
-	@echo "Running Vacuum linter with hard ruleset..."
+	@echo "Running Vacuum linter in hard mode on source spec"
 	@if [ ! -f "$(SPEC_FILE)" ]; then \
-		echo "Error: File '$(SPEC_FILE)' does not exist."; \
+		echo ""; \
+		echo "Error"; \
+		echo "  Spec file not found"; \
+		echo "  Path: $(SPEC_FILE)"; \
 		exit 1; \
 	fi
 	@npx vacuum lint "$(SPEC_FILE)" --hard-mode --ignore-file "$(VACUUM_IGNORE)"
+	@echo ""
 
 lint-bundle:
-	@echo "Running Vacuum linter..."
-	@if [ ! -f "$(BUNDLE_OUTPUT)" ]; then \
-		echo "Error: File '$(BUNDLE_OUTPUT)' does not exist."; \
+	@echo "Running Vacuum linter on bundled spec"
+	@if [ ! -f "$(BUNDLE_FILE)" ]; then \
+		echo ""; \
+		echo "Error"; \
+		echo "  Bundled spec not found"; \
+		echo "  Path: $(BUNDLE_FILE)"; \
 		exit 1; \
 	fi
-	@npx vacuum lint "$(BUNDLE_OUTPUT)" --ruleset="$(VACUUM_RULESET)" --ignore-file "$(VACUUM_IGNORE)"
+	@npx vacuum lint "$(BUNDLE_FILE)" --ruleset="$(VACUUM_RULESET)" --ignore-file "$(VACUUM_IGNORE)"
+	@echo ""
 
 lint-bundle-hard:
-	@echo "Running Vacuum linter with hard ruleset..."
-	@if [ ! -f "$(BUNDLE_OUTPUT)" ]; then \
-		echo "Error: File '$(BUNDLE_OUTPUT)' does not exist."; \
+	@echo "Running Vacuum linter in hard mode on bundled spec"
+	@if [ ! -f "$(BUNDLE_FILE)" ]; then \
+		echo ""; \
+		echo "Error"; \
+		echo "  Bundled spec not found"; \
+		echo "  Path: $(BUNDLE_FILE)"; \
 		exit 1; \
 	fi
-	@npx vacuum lint "$(SPEC_FILE)" --hard-mode --ignore-file "$(VACUUM_IGNORE)"
-
+	@npx vacuum lint "$(BUNDLE_FILE)" --hard-mode --ignore-file "$(VACUUM_IGNORE)"
+	@echo ""
 
 docs:
-	@echo "Building documentation..."
+	@echo "Building HTML documentation"
 	@if [ ! -f "$(SPEC_FILE)" ]; then \
-		echo "Error: Input file '$(SPEC_FILE)' does not exist."; \
+		echo ""; \
+		echo "Error"; \
+		echo "  Spec file not found"; \
+		echo "  Path: $(SPEC_FILE)"; \
 		exit 1; \
 	fi
-	@mkdir -p "$(OUTPUT_DIR)"
-	@npx redocly build-docs "$(SPEC_FILE)" -o "$(OUTPUT_DOC)"
+	@mkdir -p "$(DOC_DIR)"
+	@npx redocly build-docs "$(SPEC_FILE)" -o "$(DOC_FILE)"
 	@STATUS=$$?; \
 	if [ $$STATUS -eq 0 ]; then \
-		echo "Documentation built successfully. Output file: $(OUTPUT_DOC)"; \
+		echo ""; \
+		echo "Documentation generated"; \
+		echo "  Output: $(DOC_FILE)"; \
 	else \
-		echo "Documentation build failed. Please check the output for details."; \
+		echo ""; \
+		echo "Documentation build failed"; \
+		echo "  Please check the output above for details"; \
 		exit $$STATUS; \
 	fi
+	@echo ""
 
 bundle: bundle-redocly # change to vacuum as soon as securitySchemes gets rendered correctly
 
 bundle-vacuum:
-	@echo "Bundling OpenAPI spec..."
+	@echo "Bundling OpenAPI specification using Vacuum"
 	@if [ ! -f "$(SPEC_FILE)" ]; then \
-		echo "Error: Input file '$(SPEC_FILE)' does not exist."; \
+		echo ""; \
+		echo "Error"; \
+		echo "  Spec file not found"; \
+		echo "  Path: $(SPEC_FILE)"; \
 		exit 1; \
 	fi
-	@mkdir -p "$(BUNDLE_OUTPUT_DIR)"
-	@npx vacuum bundle "$(SPEC_FILE)" "$(BUNDLE_OUTPUT)" --base "$(SPEC_BASE)"
+	@mkdir -p "$(GEN_DIR)"
+	@npx vacuum bundle "$(SPEC_FILE)" "$(BUNDLE_FILE)" --base "$(SPEC_DIR)"
 	@STATUS=$$?; \
 	if [ $$STATUS -eq 0 ]; then \
-		echo "Bundling completed successfully. Output file: $(BUNDLE_OUTPUT)"; \
+		echo ""; \
+		echo "Bundling completed"; \
+		echo "  Output: $(BUNDLE_FILE)"; \
+		echo ""; \
+		echo "Warning"; \
+		echo "  Vacuum does not render securitySchemes correctly"; \
+		echo "  Use only if version is newer than 0.23.0"; \
 	else \
-		echo "Bundling failed. Please check the output for details."; \
+		echo ""; \
+		echo "Bundling failed"; \
+		echo "  Please check the output above for details"; \
 		exit $$STATUS; \
 	fi
-	@echo "!!!ERROR!!! Vacuum doesn't render securitySchemes correctly. Check if the version is newer than 0.23.0"
-	
+	@echo ""
+
 bundle-redocly:
-	@echo "Bundling OpenAPI spec..."
+	@echo "Bundling OpenAPI specification using Redocly"
 	@if [ ! -f "$(SPEC_FILE)" ]; then \
-		echo "Error: Input file '$(SPEC_FILE)' does not exist."; \
+		echo ""; \
+		echo "Error"; \
+		echo "  Spec file not found"; \
+		echo "  Path: $(SPEC_FILE)"; \
 		exit 1; \
 	fi
-	@mkdir -p "$(BUNDLE_OUTPUT_DIR)"
-	@npx redocly bundle "$(SPEC_FILE)" -o "$(BUNDLE_OUTPUT)"
+	@mkdir -p "$(GEN_DIR)"
+	@npx redocly bundle "$(SPEC_FILE)" -o "$(BUNDLE_FILE)"
 	@STATUS=$$?; \
 	if [ $$STATUS -eq 0 ]; then \
-		echo "Bundling completed successfully. Output file: $(BUNDLE_OUTPUT)"; \
+		echo ""; \
+		echo "Bundling completed"; \
+		echo "  Output: $(BUNDLE_FILE)"; \
 	else \
-		echo "Bundling failed. Please check the output for details."; \
+		echo ""; \
+		echo "Bundling failed"; \
+		echo "  Please check the output above for details"; \
 		exit $$STATUS; \
 	fi
+	@echo ""
 
 split: bundle
-	@echo "Split OpenAPI spec..."
-	@if [ ! -f "$(BUNDLE_OUTPUT)" ]; then \
-		echo "Error: Input file '$(BUNDLE_OUTPUT)' does not exist."; \
+	@echo "Splitting bundled OpenAPI specification"
+	@if [ ! -f "$(BUNDLE_FILE)" ]; then \
+		echo ""; \
+		echo "Error"; \
+		echo "  Bundled spec not found"; \
+		echo "  Path: $(BUNDLE_FILE)"; \
 		exit 1; \
 	fi
-	@rm -rf "$(SPLIT_OUTPUT_DIR)"
-	@mkdir -p "$(SPLIT_OUTPUT_DIR)"
-	@npx redocly split "$(BUNDLE_OUTPUT)" --outDir "$(SPLIT_OUTPUT_DIR)"
+	@rm -rf "$(SPLIT_DIR)"
+	@npx redocly split "$(BUNDLE_FILE)" --outDir "$(SPLIT_DIR)"
 	@STATUS=$$?; \
 	if [ $$STATUS -eq 0 ]; then \
-		echo "Split completed successfully. Output dir: $(SPLIT_OUTPUT_DIR)"; \
+		echo ""; \
+		echo "Split completed"; \
+		echo "  Output directory: $(SPLIT_DIR)"; \
 	else \
-		echo "Split failed. Please check the output for details."; \
+		echo ""; \
+		echo "Split failed"; \
+		echo "  Please check the output above for details"; \
 		exit $$STATUS; \
 	fi
+	@echo ""
 
 split-update: split
-	@echo "Update OpenAPI spec..."
-	@if [ ! -d "$(SPLIT_OUTPUT_DIR)" ]; then \
-		echo "Error: Input dir '$(SPLIT_OUTPUT_DIR)' does not exist."; \
+	@echo "Updating source spec from split output"
+	@if [ ! -d "$(SPLIT_DIR)" ]; then \
+		echo ""; \
+		echo "Error"; \
+		echo "  Split output directory not found"; \
+		echo "  Path: $(SPLIT_DIR)"; \
 		exit 1; \
 	fi
 	@rm -rf "$(SPEC_DIR)"
-	@mv $(SPLIT_OUTPUT_DIR) .
+	@mv "$(SPLIT_DIR)" .
+	@echo ""; \
+	echo "Spec updated"; \
+	echo "  Target directory: $(SPEC_DIR)"; \
+	echo ""
 
 mock:
-	@echo "Starting Prism mock server on port $(MOCK_SERVER_PORT)..."
+	@echo "Starting Prism mock server"
 	@if [ ! -f "$(SPEC_FILE)" ]; then \
-		echo "Error: Input file '$(SPEC_FILE)' does not exist."; \
+		echo ""; \
+		echo "Error"; \
+		echo "  Spec file not found"; \
+		echo "  Path: $(SPEC_FILE)"; \
 		exit 1; \
 	fi
-	@npx prism mock "$(SPEC_FILE)" --port $(MOCK_SERVER_PORT)
+	@echo "  Port: $(MOCK_PORT)"
+	@echo ""
+	@npx prism mock "$(SPEC_FILE)" --port $(MOCK_PORT)
 
 dashboard:
-	@echo "Starting Vacuum dashboard"
+	@echo "Starting Vacuum dashboard on source spec"
 	@if [ ! -f "$(SPEC_FILE)" ]; then \
-		echo "Error: Input file '$(SPEC_FILE)' does not exist."; \
+		echo ""; \
+		echo "Error"; \
+		echo "  Spec file not found"; \
+		echo "  Path: $(SPEC_FILE)"; \
 		exit 1; \
 	fi
+	@echo "  Mode: standard"
+	@echo ""
 	@npx vacuum dashboard "$(SPEC_FILE)" --ruleset="$(VACUUM_RULESET)" --ignore-file "$(VACUUM_IGNORE)" --watch
 
 dashboard-hard:
-	@echo "Starting Vacuum dashboard"
+	@echo "Starting Vacuum dashboard on source spec"
 	@if [ ! -f "$(SPEC_FILE)" ]; then \
-		echo "Error: Input file '$(SPEC_FILE)' does not exist."; \
+		echo ""; \
+		echo "Error"; \
+		echo "  Spec file not found"; \
+		echo "  Path: $(SPEC_FILE)"; \
 		exit 1; \
 	fi
+	@echo "  Mode: hard"
+	@echo ""
 	@npx vacuum dashboard "$(SPEC_FILE)" --ignore-file "$(VACUUM_IGNORE)" --hard-mode --watch
 
 dashboard-bundle: bundle
-	@echo "Starting Vacuum dashboard"
-	@if [ ! -f "$(BUNDLE_OUTPUT)" ]; then \
-		echo "Error: Input file '$(BUNDLE_OUTPUT)' does not exist."; \
+	@echo "Starting Vacuum dashboard on bundled spec"
+	@if [ ! -f "$(BUNDLE_FILE)" ]; then \
+		echo ""; \
+		echo "Error"; \
+		echo "  Bundled spec not found"; \
+		echo "  Path: $(BUNDLE_FILE)"; \
 		exit 1; \
 	fi
-	@npx vacuum dashboard "$(BUNDLE_OUTPUT)" --ruleset="$(VACUUM_RULESET)" --ignore-file "$(VACUUM_IGNORE)" --watch
+	@echo "  Mode: standard"
+	@echo ""
+	@npx vacuum dashboard "$(BUNDLE_FILE)" --ruleset="$(VACUUM_RULESET)" --ignore-file "$(VACUUM_IGNORE)" --watch
 
 dashboard-bundle-hard: bundle
-	@echo "Starting Vacuum dashboard"
-	@if [ ! -f "$(BUNDLE_OUTPUT)" ]; then \
-		echo "Error: Input file '$(BUNDLE_OUTPUT)' does not exist."; \
+	@echo "Starting Vacuum dashboard on bundled spec"
+	@if [ ! -f "$(BUNDLE_FILE)" ]; then \
+		echo ""; \
+		echo "Error"; \
+		echo "  Bundled spec not found"; \
+		echo "  Path: $(BUNDLE_FILE)"; \
 		exit 1; \
 	fi
-	@npx vacuum dashboard "$(BUNDLE_OUTPUT)" --ignore-file "$(VACUUM_IGNORE)" --hard-mode --watch
+	@echo "  Mode: hard"
+	@echo ""
+	@npx vacuum dashboard "$(BUNDLE_FILE)" --ignore-file "$(VACUUM_IGNORE)" --hard-mode --watch
 
 generate-ignore-file:
 	@echo "Generating ignore file"
 	@tmp=$$(mktemp); \
 	trap 'rm -f "$$tmp"' EXIT; \
-	vacuum report spec/openapi.yaml --stdout --hard-mode > "$$tmp"; \
-	vacuum generate-ignorefile "$$tmp" "$(VACUUM_IGNORE)"; \
+	npx vacuum report "$(SPEC_FILE)" --stdout --hard-mode > "$$tmp"; \
+	npx vacuum generate-ignorefile "$$tmp" "$(VACUUM_IGNORE)"; \
 	rm -f "$$tmp"; 
 	@echo "Ignore file generated: $(VACUUM_IGNORE)"
+
+generate-ignore-file:
+	@echo "Generating Vacuum ignore file"
+	@if [ ! -f "$(SPEC_FILE)" ]; then \
+		echo ""; \
+		echo "Error"; \
+		echo "  Spec file not found"; \
+		echo "  Path: $(SPEC_FILE)"; \
+		exit 1; \
+	fi
+	@echo ""
+	@tmp=$$(mktemp); \
+	trap 'rm -f "$$tmp"' EXIT; \
+	npx vacuum report "$(SPEC_FILE)" --stdout --hard-mode > "$$tmp"; \
+	npx vacuum generate-ignorefile "$$tmp" "$(VACUUM_IGNORE)"
+	@echo ""; \
+	echo "Ignore file generated"; \
+	echo "  Output: $(VACUUM_IGNORE)"; \
+	echo ""
+	
