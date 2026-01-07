@@ -6,23 +6,12 @@
 extends: [[vacuum:oas, recommended]]
 
 rules:
-  # Path items via $ref are intentional in this repository
-  path-item-refs: off
 
-  # Cloud Foundry uses snake_case extensively
-  camel-case-properties: off
-
-  # Allow prepared but not yet referenced components
   oas3-unused-component: warn
 
-  # no overhead because of descriptions on components
+  # Rules are mostly turned off to avoid overcomplicating the spec  path-item-refs: off
+  camel-case-properties: off
   component-description: off
-      
-  # Examples are helpful but they make spec complex
   oas3-missing-example: off
-
-  # Strict rule, allow siblings next to $ref
   no-$ref-siblings: off
-
-  # Allow free form strings without enforcing enum, pattern, format, or const restrictions
   owasp-string-restricted: off
