@@ -1,4 +1,5 @@
 camel-case-properties:
+    - $.paths['/v3/info'].get.responses['200'].content['application/json'].schema.properties['cli_version']
     - $.paths['/'].get.responses['200'].content['application/json'].schema.properties['links'].properties['cloud_controller_v2']
     - $.paths['/'].get.responses['200'].content['application/json'].schema.properties['links'].properties['cloud_controller_v3']
     - $.paths['/'].get.responses['200'].content['application/json'].schema.properties['links'].properties['network_policy_v0']
@@ -23,35 +24,67 @@ camel-case-properties:
     - $.paths['/v3'].get.responses['200'].content['application/json'].schema.properties['links'].properties['space_quotas']
 component-description:
     - $.components.securitySchemes['oauth']
-    - $.components.securitySchemes['bearer']
+    - $.paths['/v3/info'].get.responses['200'].content['application/json'].schema.properties['custom'].additionalProperties
 no-$ref-siblings:
+    - $.components.schemas['Link.yaml']
     - $.schemas['link.yaml']
     - $.schemas['link.yaml']
+oas3-missing-example:
+    - $.paths['/v3/info'].get.responses['200'].content['application/json']
+    - $.paths['/v3/info'].get.responses['200'].content['application/json'].schema.properties['name']
+owasp-constrained-additionalProperties:
+    - $.paths['/v3/info'].get.responses['200'].content['application/json'].schema.properties['custom']
 owasp-integer-format:
-    - $.paths['/'].get.responses['401'].headers['RateLimit-Limit'].schema
-    - $.paths['/'].get.responses['401'].headers['RateLimit-Reset'].schema
+    - $.paths['/'].get.responses['429'].headers['RateLimit-Limit'].schema
+    - $.paths['/'].get.responses['429'].headers['RateLimit-Reset'].schema
     - $.paths['/'].get.responses['429'].headers['Retry-After'].schema
+    - $.paths['/v3/info'].get.responses['200'].content['application/json'].schema.properties['version']
 owasp-integer-limit:
-    - $.paths['/'].get.responses['401'].headers['RateLimit-Limit'].schema
-    - $.paths['/'].get.responses['401'].headers['RateLimit-Reset'].schema
+    - $.paths['/'].get.responses['429'].headers['RateLimit-Limit'].schema
+    - $.paths['/'].get.responses['429'].headers['RateLimit-Reset'].schema
     - $.paths['/'].get.responses['429'].headers['Retry-After'].schema
+    - $.paths['/v3/info'].get.responses['200'].content['application/json'].schema.properties['version']
+owasp-no-additionalProperties:
+    - $.paths['/v3/info'].get.responses['200'].content['application/json'].schema.properties['custom']
+owasp-protection-global-safe:
+    - $.paths['/v3'].get
+    - $.paths['/v3/info'].get
+    - $.paths['/'].get
 owasp-rate-limit:
     - $.paths['/v3'].get.responses['200']
+    - $.paths['/v3/info'].get.responses['200']
     - $.paths['/'].get.responses['200']
     - $.paths['/v3'].get.responses['400']
     - $.paths['/'].get.responses['400']
+    - $.paths['/v3/info'].get.responses['403']
+    - $.paths['/v3/info'].get.responses['404']
+    - $.paths['/v3/info'].get.responses['400']
+    - $.paths['/v3/info'].get.responses['422']
+    - $.paths['/v3/info'].get.responses['409']
 owasp-security-hosts-https-oas3:
     - $.servers[0].url
 owasp-string-limit:
     - $.paths['/'].get.responses['401'].content['application/json'].schema.properties['error']
     - $.paths['/'].get.responses['401'].content['application/json'].schema.properties['message']
     - $.paths['/'].get.responses['401'].content['application/json'].schema.properties['details']
+    - $.paths['/v3/info'].get.responses['200'].content['application/json'].schema.properties['name']
     - $.paths['/'].get.responses['401'].content['application/json'].schema.properties['correlation_id']
+    - $.paths['/v3/info'].get.responses['200'].content['application/json'].schema.properties['build']
+    - $.paths['/v3/info'].get.responses['200'].content['application/json'].schema.properties['description']
+    - $.paths['/v3/info'].get.responses['200'].content['application/json'].schema.properties['cli_version'].properties['minimum']
+    - $.paths['/v3/info'].get.responses['200'].content['application/json'].schema.properties['cli_version'].properties['recommended']
+    - $.paths['/v3/info'].get.responses['200'].content['application/json'].schema.properties['custom'].additionalProperties
 owasp-string-restricted:
     - $.paths['/'].get.responses['401'].content['application/json'].schema.properties['error']
-    - $.paths['/'].get.responses['401'].content['application/json'].schema.properties['message']
     - $.paths['/'].get.responses['401'].content['application/json'].schema.properties['details']
+    - $.paths['/v3/info'].get.responses['200'].content['application/json'].schema.properties['name']
     - $.paths['/'].get.responses['401'].content['application/json'].schema.properties['correlation_id']
+    - $.paths['/v3/info'].get.responses['200'].content['application/json'].schema.properties['build']
+    - $.paths['/v3/info'].get.responses['200'].content['application/json'].schema.properties['description']
+    - $.paths['/v3/info'].get.responses['200'].content['application/json'].schema.properties['cli_version'].properties['minimum']
+    - $.paths['/v3/info'].get.responses['200'].content['application/json'].schema.properties['cli_version'].properties['recommended']
+    - $.paths['/v3/info'].get.responses['200'].content['application/json'].schema.properties['custom'].additionalProperties
 path-item-refs:
     - $.paths['/']
     - $.paths['/v3']
+    - $.paths['/v3/info']

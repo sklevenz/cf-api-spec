@@ -33,6 +33,8 @@ paths:
     $ref: ./paths/root.yaml
   /v3:
     $ref: ./paths/v3.yaml
+  /v3/info:
+    $ref: './paths/info.yaml'
     
 components:
   securitySchemes:

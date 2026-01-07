@@ -4,9 +4,7 @@ get:
     Returns the root-level metadata of the API, including links to all major service components. 
     This endpoint serves as the main entry point for API discovery and navigation.
   operationId: getApiRoot
-  security:
-    - oauth: []
-    - bearer: []
+  security: []
   tags:
     - Root
   responses:
