@@ -26,7 +26,7 @@ component-description:
     - $.components.securitySchemes['oauth']
     - $.paths['/v3/info'].get.responses['200'].content['application/json'].schema.properties['custom'].additionalProperties
 no-$ref-siblings:
-    - $.components.schemas['Link.yaml']
+    - $.components.schemas['link.yaml']
     - $.schemas['link.yaml']
     - $.schemas['link.yaml']
 oas3-missing-example:
@@ -35,24 +35,24 @@ oas3-missing-example:
 owasp-constrained-additionalProperties:
     - $.paths['/v3/info'].get.responses['200'].content['application/json'].schema.properties['custom']
 owasp-integer-format:
-    - $.paths['/'].get.responses['429'].headers['RateLimit-Limit'].schema
-    - $.paths['/'].get.responses['429'].headers['RateLimit-Reset'].schema
+    - $.paths['/'].get.responses['401'].headers['RateLimit-Limit'].schema
+    - $.paths['/'].get.responses['401'].headers['RateLimit-Reset'].schema
     - $.paths['/'].get.responses['429'].headers['Retry-After'].schema
     - $.paths['/v3/info'].get.responses['200'].content['application/json'].schema.properties['version']
 owasp-integer-limit:
-    - $.paths['/'].get.responses['429'].headers['RateLimit-Limit'].schema
-    - $.paths['/'].get.responses['429'].headers['RateLimit-Reset'].schema
+    - $.paths['/'].get.responses['401'].headers['RateLimit-Limit'].schema
+    - $.paths['/'].get.responses['401'].headers['RateLimit-Reset'].schema
     - $.paths['/'].get.responses['429'].headers['Retry-After'].schema
     - $.paths['/v3/info'].get.responses['200'].content['application/json'].schema.properties['version']
 owasp-no-additionalProperties:
     - $.paths['/v3/info'].get.responses['200'].content['application/json'].schema.properties['custom']
 owasp-protection-global-safe:
-    - $.paths['/v3'].get
     - $.paths['/v3/info'].get
     - $.paths['/'].get
+    - $.paths['/v3'].get
 owasp-rate-limit:
-    - $.paths['/v3'].get.responses['200']
     - $.paths['/v3/info'].get.responses['200']
+    - $.paths['/v3'].get.responses['200']
     - $.paths['/'].get.responses['200']
     - $.paths['/v3'].get.responses['400']
     - $.paths['/'].get.responses['400']
