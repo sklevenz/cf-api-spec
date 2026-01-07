@@ -10,13 +10,15 @@ SPLIT_OUTPUT_DIR := ./gen/spec
 SPEC_DIR := ./spec
 MOCK_SERVER_PORT := 4010
 
-.PHONY: help all lint lint-hard docs bundle bundle-vacuum bundle-redocly split split-update mock dashboard dashboard-bundle dashboard-hard dashboard-bundle-hard generate-ignore-file upgrade
+.PHONY: help all lint lint-hard lint-bundle lint-bundle-hard docs bundle bundle-vacuum bundle-redocly split split-update mock dashboard dashboard-bundle dashboard-hard dashboard-bundle-hard generate-ignore-file upgrade
 
 help:
 	@echo "Available targets:"
 	@echo "  make all            - Install tools, bundle spec, lint, and build docs"
 	@echo "  make lint           - Run all linters"
 	@echo "  make lint-hard      - Run Vakuum linter with hard ruleset and stats"
+	@echo "  make lint-bundle    - Run linter (./gen/openapi.yaml)"
+	@echo "  make lint-bundle-hard - Run Vakuum linter with hard ruleset and stats (./gen/openapi.yaml)"
 	@echo "  make docs           - Generate HTML documentation using Redocly"
 	@echo "  make bundle         - Bundle OpenAPI spec"
 	@echo "  make bundle-vacuum  - Bundle OpenAPI spec using Vacuum (doesn't render securityScheme correcty (version 0.23.0))"
@@ -58,6 +60,23 @@ lint-hard:
 		exit 1; \
 	fi
 	@npx vacuum lint "$(SPEC_FILE)" --hard-mode --ignore-file "$(VACUUM_IGNORE)"
+
+lint-bundle:
+	@echo "Running Vacuum linter..."
+	@if [ ! -f "$(BUNDLE_OUTPUT)" ]; then \
+		echo "Error: File '$(BUNDLE_OUTPUT)' does not exist."; \
+		exit 1; \
+	fi
+	@npx vacuum lint "$(BUNDLE_OUTPUT)" --ruleset="$(VACUUM_RULESET)" --ignore-file "$(VACUUM_IGNORE)"
+
+lint-bundle-hard:
+	@echo "Running Vacuum linter with hard ruleset..."
+	@if [ ! -f "$(BUNDLE_OUTPUT)" ]; then \
+		echo "Error: File '$(BUNDLE_OUTPUT)' does not exist."; \
+		exit 1; \
+	fi
+	@npx vacuum lint "$(SPEC_FILE)" --hard-mode --ignore-file "$(VACUUM_IGNORE)"
+
 
 docs:
 	@echo "Building documentation..."
