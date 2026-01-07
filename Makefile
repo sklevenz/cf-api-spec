@@ -6,24 +6,27 @@ OUTPUT_DOC := ./docs/index.html
 OUTPUT_DIR := $(dir $(OUTPUT_DOC))
 BUNDLE_OUTPUT := ./gen/openapi.yaml
 BUNDLE_OUTPUT_DIR := $(dir $(BUNDLE_OUTPUT))
+SPLIT_OUTPUT_DIR := ./gen/spec
+SPEC_DIR := ./spec
 MOCK_SERVER_PORT := 4010
 
-.PHONY: help all lint lint-vacuum lint-vacuum-hard docs bundle bundle-vacuum bundle-redocly mock dashboard dashboard-bundle dashboard-hard dashboard-bundle-hard generate-ignore-file upgrade
+.PHONY: help all lint lint-hard docs bundle bundle-vacuum bundle-redocly split split-update mock dashboard dashboard-bundle dashboard-hard dashboard-bundle-hard generate-ignore-file upgrade
 
 help:
 	@echo "Available targets:"
 	@echo "  make all            - Install tools, bundle spec, lint, and build docs"
 	@echo "  make lint           - Run all linters"
-	@echo "  make lint-vacuum    - Run Vakuum linter and stats"
-	@echo "  make lint-vacuum-hard    - Run Vakuum linter with hard ruleset and stats"
+	@echo "  make lint-hard      - Run Vakuum linter with hard ruleset and stats"
 	@echo "  make docs           - Generate HTML documentation using Redocly"
 	@echo "  make bundle         - Bundle OpenAPI spec"
 	@echo "  make bundle-vacuum  - Bundle OpenAPI spec using Vacuum (doesn't render securityScheme correcty (version 0.23.0))"
 	@echo "  make bundle-redockly - Bundle OpenAPI spec using Redocly"
+	@echo "  make split          - Split ./gen/openapi.yaml into a spec file structure"
+	@echo "  make split-update   - Split ./gen/openapi.yaml into a spec file structure and copy to ./spec"
 	@echo "  make mock           - Start local mock server with Prism"
 	@echo "  make dashboard      - Start Vacuum dashboard with custom ruleset and ignore set"
 	@echo "  make dashboard-hard - Start Vacuum dashboard with hard ruleset and ignore set"
-	@echo "  make dashboard-bundle      - Start Vacuum dashboard with custom ruleset and ignore set (./gen/openapi.yaml)"
+	@echo "  make dashboard-bundle - Start Vacuum dashboard with custom ruleset and ignore set (./gen/openapi.yaml)"
 	@echo "  make dashboard-bundle-hard - Start Vacuum dashboard with hard ruleset and ignore set (./gen/openapi.yaml)"
 	@echo "  make upgrade        - Install CLI tools locally (CI-safe, no sudo)"
 	@echo "  make generate-ignore-file - Generate a ignore file"
@@ -40,9 +43,7 @@ upgrade:
 	@echo "prism   $$(npx prism --version)"
 	@echo "vacuum  $$(npx vacuum version)"
 
-lint: lint-vacuum
-
-lint-vacuum:
+lint:
 	@echo "Running Vacuum linter..."
 	@if [ ! -f "$(SPEC_FILE)" ]; then \
 		echo "Error: File '$(SPEC_FILE)' does not exist."; \
@@ -50,7 +51,7 @@ lint-vacuum:
 	fi
 	@npx vacuum lint "$(SPEC_FILE)" --ruleset="$(VACUUM_RULESET)" --ignore-file "$(VACUUM_IGNORE)"
 
-lint-vacuum-hard:
+lint-hard:
 	@echo "Running Vacuum linter with hard ruleset..."
 	@if [ ! -f "$(SPEC_FILE)" ]; then \
 		echo "Error: File '$(SPEC_FILE)' does not exist."; \
@@ -109,6 +110,32 @@ bundle-redocly:
 		exit $$STATUS; \
 	fi
 
+split: bundle
+	@echo "Split OpenAPI spec..."
+	@if [ ! -f "$(BUNDLE_OUTPUT)" ]; then \
+		echo "Error: Input file '$(BUNDLE_OUTPUT)' does not exist."; \
+		exit 1; \
+	fi
+	@rm -rf "$(SPLIT_OUTPUT_DIR)"
+	@mkdir -p "$(SPLIT_OUTPUT_DIR)"
+	@npx redocly split "$(BUNDLE_OUTPUT)" --outDir "$(SPLIT_OUTPUT_DIR)"
+	@STATUS=$$?; \
+	if [ $$STATUS -eq 0 ]; then \
+		echo "Split completed successfully. Output dir: $(SPLIT_OUTPUT_DIR)"; \
+	else \
+		echo "Split failed. Please check the output for details."; \
+		exit $$STATUS; \
+	fi
+
+split-update: split
+	@echo "Update OpenAPI spec..."
+	@if [ ! -d "$(SPLIT_OUTPUT_DIR)" ]; then \
+		echo "Error: Input dir '$(SPLIT_OUTPUT_DIR)' does not exist."; \
+		exit 1; \
+	fi
+	@rm -rf "$(SPEC_DIR)"
+	@mv $(SPLIT_OUTPUT_DIR) .
+
 mock:
 	@echo "Starting Prism mock server on port $(MOCK_SERVER_PORT)..."
 	@if [ ! -f "$(SPEC_FILE)" ]; then \
@@ -148,14 +175,6 @@ dashboard-bundle-hard: bundle
 		exit 1; \
 	fi
 	@npx vacuum dashboard "$(BUNDLE_OUTPUT)" --ignore-file "$(VACUUM_IGNORE)" --hard-mode --watch
-
-generate-ignore-file:
-	@echo "Generating ignore file"
-	@tmp=$$(mktemp)
-	@echo "$(tmp)"
-#	@vacuum report spec/openapi.yaml --stdout --hard-mode > "$$tmp" 
-#	@cat $$TMP
-#	@echo "Ignore file generated: $(VACUUM_IGNORE)"
 
 generate-ignore-file:
 	@echo "Generating ignore file"
