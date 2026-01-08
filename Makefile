@@ -3,11 +3,11 @@ SPEC_FILE := $(SPEC_DIR)/openapi.yaml
 CFG_DIR := ./cfg
 VACUUM_RULESET := $(CFG_DIR)/vacuum-ruleset.yaml
 VACUUM_IGNORE := $(CFG_DIR)/vacuum-ignore.yaml
-DOC_DIR := ./docs
-DOC_FILE := $(DOC_DIR)/index.html
 GEN_DIR := ./gen
 BUNDLE_FILE := $(GEN_DIR)/openapi.yaml
 SPLIT_DIR := $(GEN_DIR)/spec
+DOC_DIR := $(GEN_DIR)/docs
+DOC_FILE := $(DOC_DIR)/index.html
 MOCK_PORT := 4010
 
 .PHONY: help all lint lint-hard lint-bundle lint-bundle-hard docs bundle bundle-vacuum bundle-redocly split split-update mock dashboard dashboard-bundle dashboard-hard dashboard-bundle-hard generate-ignore-file upgrade
