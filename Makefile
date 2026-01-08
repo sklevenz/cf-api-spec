@@ -290,15 +290,6 @@ dashboard-bundle-hard: bundle
 	@npx vacuum dashboard "$(BUNDLE_FILE)" --ignore-file "$(VACUUM_IGNORE)" --hard-mode --watch
 
 generate-ignore-file:
-	@echo "Generating ignore file"
-	@tmp=$$(mktemp); \
-	trap 'rm -f "$$tmp"' EXIT; \
-	npx vacuum report "$(SPEC_FILE)" --stdout --hard-mode > "$$tmp"; \
-	npx vacuum generate-ignorefile "$$tmp" "$(VACUUM_IGNORE)"; \
-	rm -f "$$tmp"; 
-	@echo "Ignore file generated: $(VACUUM_IGNORE)"
-
-generate-ignore-file:
 	@echo "Generating Vacuum ignore file"
 	@if [ ! -f "$(SPEC_FILE)" ]; then \
 		echo ""; \
@@ -316,4 +307,4 @@ generate-ignore-file:
 	echo "Ignore file generated"; \
 	echo "  Output: $(VACUUM_IGNORE)"; \
 	echo ""
-	
+
