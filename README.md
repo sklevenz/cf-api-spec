@@ -136,7 +136,7 @@ Build the interactive API documentation via:
 make docs
 ```
 
-The generated documentation will be available at `./gen/docs/index.html`.
+The generated documentation will be available at `./docs/index.html`.
 
 ### Bundle the OpenAPI Specification
 
@@ -148,7 +148,7 @@ make bundle
 
 ### View Documentation Locally
 
-Open the generated documentation in your browser at `./gen/docs/index.html`.
+Open the generated documentation in your browser at `./docs/index.html`.
 
 ### Mock Server
 
