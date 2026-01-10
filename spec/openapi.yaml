@@ -357,6 +357,16 @@ paths:
     $ref: paths/v3_apps_{guid}_droplets_current.yaml
   /v3/apps/{guid}/relationships/current_droplet:
     $ref: paths/v3_apps_{guid}_relationships_current_droplet.yaml
+  /v3/app_usage_events:
+    $ref: paths/v3_app_usage_events.yaml
+  /v3/app_usage_events/{guid}:
+    $ref: paths/v3_app_usage_events_{guid}.yaml
+  /v3/app_usage_events/actions/destructively_purge_all_and_reseed:
+    $ref: paths/v3_app_usage_events_actions_destructively_purge_all_and_reseed.yaml
+  /v3/audit_events:
+    $ref: paths/v3_audit_events.yaml
+  /v3/audit_events/{guid}:
+    $ref: paths/v3_audit_events_{guid}.yaml
 components:
   securitySchemes:
     oauth:
