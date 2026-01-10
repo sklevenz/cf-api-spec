@@ -60,7 +60,9 @@ content:
               description: Endpoint for the UAA (User Account and Authentication) API.
             credhub:
               $ref: ../schemas/link.yaml
-              description: Not available — CredHub API is currently not exposed via this endpoint.
+              description: >-
+                Not available — CredHub API is currently not exposed via this
+                endpoint.
             routing:
               $ref: ../schemas/link.yaml
               description: Endpoint for managing routes and route mappings.
@@ -69,7 +71,9 @@ content:
               description: Endpoint for logging-related APIs (deprecated or legacy).
             log_cache:
               $ref: ../schemas/link.yaml
-              description: Endpoint for the Log Cache API, used to retrieve recent application logs.
+              description: >-
+                Endpoint for the Log Cache API, used to retrieve recent
+                application logs.
             log_stream:
               $ref: ../schemas/link.yaml
               description: Endpoint for real-time application log streaming.
@@ -78,8 +82,7 @@ content:
               description: Endpoint for SSH access to running application instances.
             version:
               $ref: ../schemas/link.yaml
-              description: Endpoint for server version information.              
+              description: Endpoint for server version information.
             health:
               $ref: ../schemas/link.yaml
-              description: Health endpoint.              
-                    
+              description: Health endpoint.

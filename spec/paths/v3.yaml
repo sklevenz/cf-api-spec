@@ -1,6 +1,6 @@
 get:
   summary: Get API root
-  description: >
+  description: |
     Global API Root for Cloud Foundry V3.
   operationId: getApiV3Root
   security: []

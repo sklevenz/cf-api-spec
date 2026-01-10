@@ -1,0 +1,113 @@
+get:
+  summary: Get an app
+  description: Retrieve a specific app.
+  operationId: getApp
+  tags:
+    - Apps
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+    - name: include
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - space
+            - space.organization
+      description: Optionally include a list of unique related resources in the response
+  responses:
+    '200':
+      description: Successfully retrieved app
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/App.yaml
+      links:
+        space:
+          operationId: getSpace
+          parameters:
+            guid: $response.body#/relationships/space/data/guid
+          description: Retrieve the space for this app
+        current_droplet:
+          operationId: getDroplet
+          parameters:
+            guid: $response.body#/relationships/current_droplet/data/guid
+          description: Retrieve the current droplet for this app
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+patch:
+  summary: Update an app
+  description: Update an app.
+  operationId: updateApp
+  tags:
+    - Apps
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  requestBody:
+    $ref: ../components/requestBodies/AppUpdateRequestBody.yaml
+  responses:
+    '200':
+      description: Successfully updated app
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/App.yaml
+      links:
+        space:
+          operationId: getSpace
+          parameters:
+            guid: $response.body#/relationships/space/data/guid
+          description: Retrieve the space for this app
+        current_droplet:
+          operationId: getDroplet
+          parameters:
+            guid: $response.body#/relationships/current_droplet/data/guid
+          description: Retrieve the current droplet for this app
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '409':
+      $ref: ../components/responses/409.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+    '503':
+      $ref: ../components/responses/503.yaml
+delete:
+  summary: Delete an app
+  description: Delete an app.
+  operationId: deleteApp
+  tags:
+    - Apps
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '202':
+      description: Successfully deleted app
+      headers:
+        Location:
+          description: URL of the job that is deleting the app
+          schema:
+            type: string
+            format: uri
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
