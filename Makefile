@@ -10,7 +10,7 @@ BUNDLE_FILE := $(GEN_DIR)/openapi.yaml
 SPLIT_DIR := $(GEN_DIR)/spec
 MOCK_PORT := 4010
 
-.PHONY: help all lint lint-hard lint-bundle lint-bundle-hard docs bundle bundle-vacuum bundle-redocly split split-update mock dashboard dashboard-bundle dashboard-hard dashboard-bundle-hard generate-ignore-file upgrade
+.PHONY: help all lint lint-hard lint-bundle lint-bundle-hard docs bundle bundle-vacuum bundle-redocly split-bundle split-bundle-update mock dashboard dashboard-bundle dashboard-hard dashboard-bundle-hard generate-ignore-file upgrade
 
 help:
 	@echo "Available targets:"
@@ -184,7 +184,7 @@ bundle-redocly:
 	fi
 	@echo ""
 
-split: bundle
+split-bundle:
 	@echo "Splitting bundled OpenAPI specification"
 	@if [ ! -f "$(BUNDLE_FILE)" ]; then \
 		echo ""; \
@@ -208,7 +208,7 @@ split: bundle
 	fi
 	@echo ""
 
-split-update: split
+split-bundle-update: split-bundle
 	@echo "Updating source spec from split output"
 	@if [ ! -d "$(SPLIT_DIR)" ]; then \
 		echo ""; \
