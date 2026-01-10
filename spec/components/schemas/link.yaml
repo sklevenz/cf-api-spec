@@ -1,23 +1,12 @@
-description: Hypermedia link describing how to navigate to a related Cloud Foundry API resource.
 type: object
-example:
-  href: https://api.example.com/v3/apps
-  meta:
-    version: v3
-    experimental: false
-required:
-  - href
 properties:
   href:
     type: string
-    format: uri
-    description: The URI reference to the resource.
-    example: https://api.example.com/v3/apps/1234/ssh
-  meta:
-    type: object
-    description: Metadata related to the resource
-    properties:
-      experimental:
-        type: boolean
-        description: Indicates whether the feature is experimental
-        example: true
+    description: The URL of the link
+  method:
+    type: string
+    description: An optional field containing the HTTP method to be used when following the URL
+required:
+  - href
+description: |
+  Each link is keyed by its type and will include a href for the URL and an optional method for links that cannot be followed using GET.

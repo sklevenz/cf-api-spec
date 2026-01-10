@@ -37,6 +37,22 @@ paths:
     $ref: './paths/info.yaml'
   /v3/info/usage_summary:
     $ref: './paths/info_usage_summary.yaml'
+  /v3/apps:
+    $ref: './paths/Apps.yaml#/~1v3~1apps'
+  /v3/apps/{guid}:
+    $ref: './paths/Apps.yaml#/~1v3~1apps~1{guid}'
+  /v3/apps/{guid}/actions/start:
+    $ref: './paths/Apps.yaml#/~1v3~1apps~1{guid}~1actions~1start'
+  /v3/apps/{guid}/actions/stop:
+    $ref: './paths/Apps.yaml#/~1v3~1apps~1{guid}~1actions~1stop'
+  /v3/apps/{guid}/actions/restart:
+    $ref: './paths/Apps.yaml#/~1v3~1apps~1{guid}~1actions~1restart'
+  /v3/apps/{guid}/droplets:
+    $ref: './paths/Apps.yaml#/~1v3~1apps~1{guid}~1droplets'
+  /v3/apps/{guid}/droplets/current:
+    $ref: './paths/Apps.yaml#/~1v3~1apps~1{guid}~1droplets~1current'
+  /v3/apps/{guid}/relationships/current_droplet:
+    $ref: './paths/Apps.yaml#/~1v3~1apps~1{guid}~1relationships~1current_droplet'
     
 components:
   securitySchemes:
