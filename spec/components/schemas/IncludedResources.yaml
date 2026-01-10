@@ -6,7 +6,7 @@ properties:
   spaces:
     type: array
     items:
-      $ref: ./Space.yaml
+      $ref: ./IncludedSpace.yaml
     description: Array of included space resources
   organizations:
     type: array
@@ -47,7 +47,7 @@ properties:
   apps:
     type: array
     items:
-      $ref: ./App.yaml
+      $ref: ./IncludedApp.yaml
     description: Array of included app resources
   routes:
     type: array
@@ -57,6 +57,6 @@ properties:
   users:
     type: array
     items:
-      $ref: ./User.yaml
+      $ref: ./IncludedUser.yaml
     description: Array of included user resources
 additionalProperties: false

@@ -1,7 +1,11 @@
 type: object
+description: >-
+  Shallow representation of a User used inside IncludedResources to avoid
+  circular references
 allOf:
   - $ref: ./BaseSchema.yaml
-  - properties:
+  - type: object
+    properties:
       username:
         type:
           - string
@@ -15,11 +19,8 @@ allOf:
           - string
           - 'null'
         description: The origin of the user
-      metadata:
-        $ref: ./Metadata.yaml
       links:
         type: object
         properties:
           self:
             $ref: ./Link.yaml
-            description: The URL to get this user
