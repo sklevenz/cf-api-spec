@@ -38,51 +38,51 @@ content:
               href: https://api.example.com/health
           properties:
             self:
-              $ref: ../schemas/link.yaml
+              $ref: ../schemas/Link.yaml
               description: Link to root index document.
             cloud_controller_v2:
-              $ref: ../schemas/link.yaml
+              $ref: ../schemas/Link.yaml
               description: Entry point for the Cloud Controller V2 API.
             cloud_controller_v3:
-              $ref: ../schemas/link.yaml
+              $ref: ../schemas/Link.yaml
               description: Entry point for the Cloud Controller V3 API.
             network_policy_v0:
-              $ref: ../schemas/link.yaml
+              $ref: ../schemas/Link.yaml
               description: Entry point for the legacy network policy API (v0).
             network_policy_v1:
-              $ref: ../schemas/link.yaml
+              $ref: ../schemas/Link.yaml
               description: Entry point for the current network policy API (v1).
             login:
-              $ref: ../schemas/link.yaml
+              $ref: ../schemas/Link.yaml
               description: Endpoint for user login and authentication services.
             uaa:
-              $ref: ../schemas/link.yaml
+              $ref: ../schemas/Link.yaml
               description: Endpoint for the UAA (User Account and Authentication) API.
             credhub:
-              $ref: ../schemas/link.yaml
+              $ref: ../schemas/Link.yaml
               description: >-
                 Not available — CredHub API is currently not exposed via this
                 endpoint.
             routing:
-              $ref: ../schemas/link.yaml
+              $ref: ../schemas/Link.yaml
               description: Endpoint for managing routes and route mappings.
             logging:
-              $ref: ../schemas/link.yaml
+              $ref: ../schemas/Link.yaml
               description: Endpoint for logging-related APIs (deprecated or legacy).
             log_cache:
-              $ref: ../schemas/link.yaml
+              $ref: ../schemas/Link.yaml
               description: >-
                 Endpoint for the Log Cache API, used to retrieve recent
                 application logs.
             log_stream:
-              $ref: ../schemas/link.yaml
+              $ref: ../schemas/Link.yaml
               description: Endpoint for real-time application log streaming.
             app_ssh:
-              $ref: ../schemas/link.yaml
+              $ref: ../schemas/Link.yaml
               description: Endpoint for SSH access to running application instances.
             version:
-              $ref: ../schemas/link.yaml
+              $ref: ../schemas/Link.yaml
               description: Endpoint for server version information.
             health:
-              $ref: ../schemas/link.yaml
+              $ref: ../schemas/Link.yaml
               description: Health endpoint.

@@ -45,10 +45,10 @@ get:
                 description: Links to related resources
                 properties:
                   self:
-                    $ref: ../components/schemas/link.yaml
+                    $ref: ../components/schemas/Link.yaml
                     description: Link to the current endpoint
                   support:
-                    $ref: ../components/schemas/link.yaml
+                    $ref: ../components/schemas/Link.yaml
                     description: Link to the support website for the platform
     '400':
       $ref: ../components/responses/400.yaml

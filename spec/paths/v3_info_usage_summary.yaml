@@ -49,7 +49,7 @@ get:
                 description: Links to related resources
                 properties:
                   self:
-                    $ref: ../components/schemas/link.yaml
+                    $ref: ../components/schemas/Link.yaml
                     description: Link to the current endpoint
     '401':
       $ref: ../components/responses/401.yaml
