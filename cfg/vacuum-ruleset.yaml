@@ -15,3 +15,4 @@ rules:
   oas3-missing-example: off
   no-$ref-siblings: off
   owasp-string-restricted: off
+  description-duplication: off
