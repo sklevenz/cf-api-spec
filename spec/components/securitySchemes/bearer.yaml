@@ -1,4 +1,0 @@
-type: http
-scheme: bearer
-bearerFormat: JWT
-description: Bearer JWT token authentication using JWTs compliant with RFC8725.

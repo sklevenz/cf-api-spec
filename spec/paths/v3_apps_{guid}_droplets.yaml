@@ -1,0 +1,47 @@
+get:
+  summary: List droplets for an app
+  description: Retrieve all droplets belonging to an app.
+  operationId: listAppDroplets
+  tags:
+    - Apps
+    - Droplets
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+    - $ref: ../components/parameters/Page.yaml
+    - $ref: ../components/parameters/PerPage.yaml
+    - $ref: ../components/parameters/OrderBy.yaml
+    - $ref: ../components/parameters/LabelSelector.yaml
+    - name: guids
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of droplet guids to filter by
+    - name: states
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - AWAITING_UPLOAD
+            - PROCESSING_UPLOAD
+            - STAGED
+            - COPYING
+            - FAILED
+            - EXPIRED
+      description: Comma-delimited list of droplet states to filter by
+  responses:
+    '200':
+      description: List of droplets for the app
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/DropletList.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml

@@ -1,0 +1,23 @@
+post:
+  summary: Start an app
+  description: Start an app.
+  operationId: startApp
+  tags:
+    - Apps
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '200':
+      description: Successfully started app
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/App.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '422':
+      $ref: ../components/responses/422.yaml

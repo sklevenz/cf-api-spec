@@ -1,7 +1,6 @@
 get:
   summary: Get platform info
-  description: |-
-    Get information about the platform.
+  description: Get information about the platform.
   operationId: getPlatformInfo
   security: []
   tags:
@@ -46,28 +45,28 @@ get:
                 description: Links to related resources
                 properties:
                   self:
-                    $ref: '../components/schemas/link.yaml'
+                    $ref: ../components/schemas/Link.yaml
                     description: Link to the current endpoint
                   support:
-                    $ref: '../components/schemas/link.yaml'
+                    $ref: ../components/schemas/Link.yaml
                     description: Link to the support website for the platform
-    '401': 
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
       $ref: ../components/responses/401.yaml
-    '403': 
+    '403':
       $ref: ../components/responses/403.yaml
     '404':
       $ref: ../components/responses/404.yaml
+    '409':
+      $ref: ../components/responses/409.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
     '500':
       $ref: ../components/responses/500.yaml
-    '400':
-      $ref: ../components/responses/400.yaml
     '502':
       $ref: ../components/responses/502.yaml
     '503':
       $ref: ../components/responses/503.yaml
-    '422':
-      $ref: ../components/responses/422.yaml
-    '409':
-      $ref: ../components/responses/409.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
