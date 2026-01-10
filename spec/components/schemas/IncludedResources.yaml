@@ -26,6 +26,15 @@ properties:
   service_instances:
     type: array
     items:
+      type: object
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          enum:
+            - managed
+            - user-provided
       oneOf:
         - $ref: ./ManagedServiceInstance.yaml
         - $ref: ./UserProvidedServiceInstance.yaml
@@ -34,7 +43,7 @@ properties:
         mapping:
           managed: ./ManagedServiceInstance.yaml
           user-provided: ./UserProvidedServiceInstance.yaml
-    description: Array of included service instance resources
+      description: Array of included service instance resources
   apps:
     type: array
     items:
