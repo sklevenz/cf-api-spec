@@ -1,0 +1,29 @@
+delete:
+  summary: Unshare a domain
+  description: >-
+    This endpoint removes an organization from the list of organizations an
+    organization-scoped domain is shared with. This prevents the organization
+    from using the organization-scoped domain.
+  operationId: unshareDomain
+  tags:
+    - Domains
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+    - name: org_guid
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: The GUID of the organization to unshare the domain from
+  responses:
+    '204':
+      description: Successfully unshared domain
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '422':
+      $ref: ../components/responses/422.yaml

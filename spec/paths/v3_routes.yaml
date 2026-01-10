@@ -1,0 +1,149 @@
+get:
+  summary: List routes
+  description: Retrieve all routes the user has access to.
+  operationId: listRoutes
+  tags:
+    - Routes
+  parameters:
+    - $ref: ../components/parameters/Page.yaml
+    - $ref: ../components/parameters/PerPage.yaml
+    - $ref: ../components/parameters/OrderBy.yaml
+    - $ref: ../components/parameters/CreatedAts.yaml
+    - $ref: ../components/parameters/UpdatedAts.yaml
+    - $ref: ../components/parameters/LabelSelector.yaml
+    - name: protocols
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - http
+            - tcp
+      description: Comma-delimited list of protocols to filter by
+    - name: hosts
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of hosts to filter by
+    - name: paths
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of paths to filter by
+    - name: ports
+      in: query
+      schema:
+        type: array
+        items:
+          type: integer
+      description: Comma-delimited list of ports to filter by
+    - name: domain_guids
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of domain GUIDs to filter by
+    - name: space_guids
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of space GUIDs to filter by
+    - name: app_guids
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of app GUIDs to filter by
+    - name: organization_guids
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of organization GUIDs to filter by
+    - name: service_instance_guids
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of service instance GUIDs to filter by
+    - name: include
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - domain
+            - space.organization
+            - space
+      description: Optionally include a list of unique related resources in the response
+  responses:
+    '200':
+      $ref: ../components/responses/RouteListResponse.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '409':
+      $ref: ../components/responses/409.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+    '502':
+      $ref: ../components/responses/BadGateway.yaml
+    '503':
+      $ref: ../components/responses/503.yaml
+post:
+  summary: Create a route
+  description: Create a route.
+  operationId: createRoute
+  tags:
+    - Routes
+  requestBody:
+    $ref: ../components/requestBodies/RouteCreateRequestBody.yaml
+  responses:
+    '201':
+      description: Route created
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Route.yaml
+      links:
+        space:
+          operationId: getSpace
+          parameters:
+            guid: $response.body#/relationships/space/data/guid
+          description: Retrieve the space for this route
+        domain:
+          operationId: getDomain
+          parameters:
+            guid: $response.body#/relationships/domain/data/guid
+          description: Retrieve the domain for this route
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '409':
+      $ref: ../components/responses/409.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+    '503':
+      $ref: ../components/responses/503.yaml

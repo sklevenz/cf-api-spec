@@ -1,0 +1,122 @@
+get:
+  summary: List droplets
+  description: Retrieve all droplets.
+  operationId: listDroplets
+  tags:
+    - Droplets
+  parameters:
+    - $ref: ../components/parameters/Page.yaml
+    - $ref: ../components/parameters/PerPage.yaml
+    - $ref: ../components/parameters/OrderBy.yaml
+    - $ref: ../components/parameters/CreatedAts.yaml
+    - $ref: ../components/parameters/UpdatedAts.yaml
+    - $ref: ../components/parameters/LabelSelector.yaml
+    - name: guids
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: |
+        Comma-delimited list of droplet GUIDs to filter by
+    - name: states
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - AWAITING_UPLOAD
+            - PROCESSING_UPLOAD
+            - STAGED
+            - COPYING
+            - FAILED
+            - EXPIRED
+      description: |
+        Comma-delimited list of droplet states to filter by
+    - name: app_guids
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: |
+        Comma-delimited list of app GUIDs to filter by
+    - name: space_guids
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: |
+        Comma-delimited list of space GUIDs to filter by
+    - name: organization_guids
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: |
+        Comma-delimited list of organization GUIDs to filter by
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/DropletList.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '409':
+      $ref: ../components/responses/409.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+    '502':
+      $ref: ../components/responses/502.yaml
+    '503':
+      $ref: ../components/responses/503.yaml
+post:
+  summary: Create a droplet
+  description: >-
+    This endpoint is only for creating a droplet without a package. To create a
+    droplet based on a package, see [Create a build](#create-a-build).
+  operationId: createDroplet
+  tags:
+    - Droplets
+  requestBody:
+    $ref: ../components/requestBodies/DropletCreateRequestBody.yaml
+  responses:
+    '201':
+      description: Droplet created
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Droplet.yaml
+      links:
+        app:
+          operationId: getApp
+          parameters:
+            guid: $response.body#/relationships/app/data/guid
+          description: Retrieve the app for this droplet
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '409':
+      $ref: ../components/responses/409.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+    '503':
+      $ref: ../components/responses/503.yaml

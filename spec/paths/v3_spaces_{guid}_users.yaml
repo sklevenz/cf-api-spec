@@ -1,0 +1,21 @@
+get:
+  summary: List users for a space
+  description: Retrieve all users with a role in the specified space.
+  operationId: listUsersForSpace
+  tags:
+    - Spaces
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/UserList.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml

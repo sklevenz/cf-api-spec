@@ -1,0 +1,87 @@
+get:
+  summary: Get a revision
+  description: Retrieve a revision.
+  operationId: getRevision
+  tags:
+    - Revisions
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '200':
+      description: Successfully retrieved revision
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Revision.yaml
+      links:
+        app:
+          operationId: getApp
+          parameters:
+            guid: $response.body#/relationships/app/data/guid
+          description: Retrieve the app for this revision
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '409':
+      $ref: ../components/responses/409.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+    '502':
+      $ref: ../components/responses/BadGateway.yaml
+    '503':
+      $ref: ../components/responses/503.yaml
+patch:
+  summary: Update a revision
+  description: Update a revision.
+  operationId: updateRevision
+  tags:
+    - Revisions
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  requestBody:
+    description: Revision object that needs to be updated
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            metadata:
+              $ref: ../components/schemas/Metadata.yaml
+          description: Request schema for updating a revision
+  responses:
+    '200':
+      description: Successfully updated revision
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Revision.yaml
+      links:
+        app:
+          operationId: getApp
+          parameters:
+            guid: $response.body#/relationships/app/data/guid
+          description: Retrieve the app for this revision
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '409':
+      $ref: ../components/responses/409.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+    '503':
+      $ref: ../components/responses/503.yaml

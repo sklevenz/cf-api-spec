@@ -263,7 +263,7 @@ dashboard-hard:
 	@echo ""
 	@npx vacuum dashboard "$(SPEC_FILE)" --ignore-file "$(VACUUM_IGNORE)" --hard-mode --watch
 
-dashboard-bundle: bundle
+dashboard-bundle:
 	@echo "Starting Vacuum dashboard on bundled spec"
 	@if [ ! -f "$(BUNDLE_FILE)" ]; then \
 		echo ""; \
@@ -276,7 +276,7 @@ dashboard-bundle: bundle
 	@echo ""
 	@npx vacuum dashboard "$(BUNDLE_FILE)" --ruleset="$(VACUUM_RULESET)" --ignore-file "$(VACUUM_IGNORE)" --watch
 
-dashboard-bundle-hard: bundle
+dashboard-bundle-hard:
 	@echo "Starting Vacuum dashboard on bundled spec"
 	@if [ ! -f "$(BUNDLE_FILE)" ]; then \
 		echo ""; \

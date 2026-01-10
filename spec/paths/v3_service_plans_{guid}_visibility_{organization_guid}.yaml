@@ -1,0 +1,29 @@
+delete:
+  summary: Remove organization from a service plan visibility
+  description: >-
+    This endpoint removes an organization from a service plan visibility list of
+    organizations. It is only defined for service plans which are
+    org-restricted. It will fail with a HTTP status code of 422 for any other
+    visibility type (e.g. Public).
+  operationId: removeOrganizationFromServicePlanVisibility
+  tags:
+    - ServicePlans
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+    - name: organization_guid
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+  responses:
+    '204':
+      description: No Content
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '422':
+      $ref: ../components/responses/422.yaml

@@ -1,0 +1,56 @@
+get:
+  summary: Get assigned isolation segment
+  description: Get assigned isolation segment
+  operationId: getAssignedIsolationSegmentForSpace
+  tags:
+    - Spaces
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/RelationshipToOne.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+patch:
+  summary: Manage isolation segment
+  description: >-
+    This endpoint assigns an isolation segment to the space. The isolation
+    segment must be [entitled](#entitle-organizations-for-an-isolation-segment)
+    to the space’s parent organization.
+
+
+    Apps will not run in the newly assigned isolation segment until they are
+    restarted.
+  operationId: manageIsolationSegmentForSpace
+  tags:
+    - Spaces
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/RelationshipToOne.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/RelationshipToOne.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '422':
+      $ref: ../components/responses/422.yaml

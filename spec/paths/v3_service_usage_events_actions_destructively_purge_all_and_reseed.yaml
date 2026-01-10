@@ -1,0 +1,30 @@
+post:
+  summary: Purge and seed service usage events
+  description: >-
+    Destroys all existing events. Populates new usage events, one for each
+    existing service instance. All populated events will have a `created_at`
+    value of current time. There is the potential race condition if service
+    instances are currently being created or deleted. The seeded usage events
+    will have the same guid as the service instance.
+  operationId: purgeAndSeedServiceUsageEvents
+  tags:
+    - ServiceUsageEvents
+  responses:
+    '200':
+      description: OK
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '409':
+      $ref: ../components/responses/409.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+    '503':
+      $ref: ../components/responses/503.yaml

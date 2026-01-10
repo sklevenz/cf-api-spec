@@ -1,0 +1,43 @@
+get:
+  summary: Download droplet bits
+  description: >-
+    Download a gzip compressed tarball file containing a Cloud Foundry
+    compatible droplet.
+
+    When using a remote blobstore, such as AWS, the response is a redirect to
+    the actual location of the bits. If the client is automatically following
+    redirects, then the OAuth token that was used to communicate with Cloud
+    Controller will be relayed on the new redirect request. Some blobstores may
+    reject the request in that case. Clients may need to follow the redirect
+    without including the OAuth token.
+
+    Only droplets that are in the `STAGED` state and have lifecycle type
+    `buildpack` can be downloaded.
+  operationId: downloadDroplet
+  tags:
+    - Droplets
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/octet-stream:
+          schema:
+            type: string
+            format: binary
+        text/html:
+          schema:
+            type: string
+    '302':
+      description: Redirect to download location
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '502':
+      $ref: ../components/responses/502.yaml
