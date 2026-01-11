@@ -1,0 +1,21 @@
+get:
+  summary: Get a service usage event
+  description: Retrieve a service usage event.
+  operationId: getServiceUsageEvent
+  tags:
+    - ServiceUsageEvents
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ServiceUsageEvent.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml

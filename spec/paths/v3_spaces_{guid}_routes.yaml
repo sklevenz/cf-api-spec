@@ -1,0 +1,35 @@
+delete:
+  summary: Delete unmapped routes for a space
+  description: >-
+    Deletes all routes in a space that are not mapped to any applications and
+    not bound to any service instances.
+  operationId: deleteUnmappedRoutesForSpace
+  tags:
+    - Spaces
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+    - name: unmapped
+      in: query
+      required: true
+      schema:
+        type: boolean
+        enum:
+          - true
+      description: Filter to only delete unmapped routes
+  responses:
+    '202':
+      description: Accepted
+      headers:
+        Location:
+          description: URL of the job that is deleting unmapped routes
+          schema:
+            type: string
+            format: uri
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '422':
+      $ref: ../components/responses/422.yaml

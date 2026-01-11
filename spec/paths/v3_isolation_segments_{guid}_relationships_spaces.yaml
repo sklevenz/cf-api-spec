@@ -1,0 +1,28 @@
+get:
+  summary: List spaces relationship
+  description: >-
+    This endpoint lists the spaces to which the isolation segment is assigned.
+    For an Admin, this will list all associated spaces in the system. For an org
+    manager, this will list only those associated spaces belonging to orgs for
+    which the user is a manager. For any other user, this will list only those
+    associated spaces to which the user has access.
+  operationId: listSpacesForIsolationSegment
+  tags:
+    - IsolationSegments
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+    - $ref: ../components/parameters/Page.yaml
+    - $ref: ../components/parameters/PerPage.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/RelationshipToMany.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml

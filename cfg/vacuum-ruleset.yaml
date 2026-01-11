@@ -7,12 +7,13 @@ extends: [[vacuum:oas, recommended]]
 
 rules:
 
-  oas3-unused-component: warn
-
-  # Rules are mostly turned off to avoid overcomplicating the spec  path-item-refs: off
+  # Rules are mostly turned off to avoid overcomplicating the spec  
+  owasp-string-restricted: off
+  
+  oas3-missing-example: off
+  
   camel-case-properties: off
   component-description: off
-  oas3-missing-example: off
   no-$ref-siblings: off
-  owasp-string-restricted: off
   description-duplication: off
+  paths-kebab-case: off

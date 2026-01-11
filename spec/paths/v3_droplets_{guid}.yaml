@@ -1,0 +1,105 @@
+get:
+  summary: Get a droplet
+  description: Retrieve a droplet.
+  operationId: getDroplet
+  tags:
+    - Droplets
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '200':
+      description: Droplet retrieved
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Droplet.yaml
+      links:
+        app:
+          operationId: getApp
+          parameters:
+            guid: $response.body#/relationships/app/data/guid
+          description: Retrieve the app for this droplet
+    '400':
+      $ref: ../components/responses/400.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+patch:
+  summary: Update a droplet
+  description: Update a droplet.
+  operationId: updateDroplet
+  tags:
+    - Droplets
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  requestBody:
+    description: Droplet object that needs to be updated
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            metadata:
+              $ref: ../components/schemas/Metadata.yaml
+            image:
+              type: string
+              description: Image reference where the built complete image was stored
+          required:
+            - image
+          description: Request schema for updating a droplet
+  responses:
+    '200':
+      $ref: ../components/responses/DropletGetResponse.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '409':
+      $ref: ../components/responses/409.yaml
+    '422':
+      description: Unprocessable Entity
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Error.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+    '503':
+      $ref: ../components/responses/503.yaml
+delete:
+  summary: Delete a droplet
+  description: Delete a droplet.
+  operationId: deleteDroplet
+  tags:
+    - Droplets
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '202':
+      description: Accepted
+      headers:
+        Location:
+          description: URL of the job that is deleting the droplet
+          schema:
+            type: string
+            format: uri
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Job.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '500':
+      $ref: ../components/responses/500.yaml

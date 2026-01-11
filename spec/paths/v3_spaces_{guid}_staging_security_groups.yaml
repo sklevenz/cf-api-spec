@@ -1,0 +1,23 @@
+get:
+  summary: List staging security groups for a space
+  description: >-
+    This endpoint returns security groups that are enabled for staging globally
+    or at the space level for the given space.
+  operationId: listStagingSecurityGroupsForSpace
+  tags:
+    - Spaces
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/SecurityGroupList.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml

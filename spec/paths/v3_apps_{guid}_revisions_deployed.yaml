@@ -1,0 +1,26 @@
+get:
+  summary: List deployed revisions for an app
+  description: >-
+    Retrieve deployed revisions for an app the user has access to. Deployed
+    revisions are revisions that are linked to started processes in the app.
+  operationId: listDeployedRevisionsForApp
+  tags:
+    - Revisions
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+    - $ref: ../components/parameters/Page.yaml
+    - $ref: ../components/parameters/PerPage.yaml
+    - $ref: ../components/parameters/OrderBy.yaml
+  responses:
+    '200':
+      description: Successfully retrieved deployed revisions for app
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/RevisionList.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml

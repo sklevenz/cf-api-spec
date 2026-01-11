@@ -1,0 +1,66 @@
+get:
+  summary: List service usage events
+  description: Retrieve all service usage events the user has access to.
+  operationId: listServiceUsageEvents
+  tags:
+    - ServiceUsageEvents
+  parameters:
+    - $ref: ../components/parameters/Page.yaml
+    - $ref: ../components/parameters/PerPage.yaml
+    - $ref: ../components/parameters/OrderBy.yaml
+    - $ref: ../components/parameters/CreatedAts.yaml
+    - name: after_guid
+      in: query
+      description: Filters out events before and including the event with the given guid.
+      schema:
+        type: string
+    - name: guids
+      in: query
+      description: Comma-delimited list of usage event guids to filter by.
+      schema:
+        type: array
+        items:
+          type: string
+    - name: service_instance_types
+      in: query
+      description: >-
+        Comma-delimited list of service instance types to filter by; valid
+        values are `managed_service_instance` and
+        `user_provided_service_instance`
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - managed_service_instance
+            - user_provided_service_instance
+    - name: service_offering_guids
+      in: query
+      description: Comma-delimited list of service offering guids to filter by
+      schema:
+        type: array
+        items:
+          type: string
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ServiceUsageEventList.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '409':
+      $ref: ../components/responses/409.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+    '502':
+      $ref: ../components/responses/BadGateway.yaml
+    '503':
+      $ref: ../components/responses/503.yaml

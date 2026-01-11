@@ -1,0 +1,74 @@
+patch:
+  summary: Update a destination protocol for a route
+  description: >-
+    This endpoint updates the protocol of a route destination (app, port and
+    weight cannot be updated)
+  operationId: updateDestinationProtocolForRoute
+  tags:
+    - Routes
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+    - name: destination_guid
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: The GUID of the route destination
+  requestBody:
+    description: Protocol of the destination
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            protocol:
+              type: string
+              description: Protocol of the destination
+              enum:
+                - http1
+                - http2
+          required:
+            - protocol
+  responses:
+    '200':
+      description: Successfully updated protocol of the destination
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/RouteDestination.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+delete:
+  summary: Remove destination for a route
+  description: Remove a destination from a route.
+  operationId: removeDestinationForRoute
+  tags:
+    - Routes
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+    - name: destination_guid
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: The GUID of the route destination to remove
+  responses:
+    '204':
+      description: Successfully removed destination from the route
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
