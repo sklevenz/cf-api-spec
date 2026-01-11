@@ -24,6 +24,8 @@ get:
       $ref: ../components/responses/403.yaml
     '404':
       $ref: ../components/responses/404.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
 patch:
   summary: Update a process for an app
   description: Update a specific process for an app.
@@ -56,3 +58,5 @@ patch:
       $ref: ../components/responses/404.yaml
     '422':
       $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml

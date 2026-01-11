@@ -19,5 +19,7 @@ get:
       $ref: ../components/responses/403.yaml
     '404':
       $ref: ../components/responses/404.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
     '503':
       $ref: ../components/responses/503.yaml

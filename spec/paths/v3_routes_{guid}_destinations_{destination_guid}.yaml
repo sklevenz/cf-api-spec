@@ -46,6 +46,8 @@ patch:
       $ref: ../components/responses/404.yaml
     '422':
       $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
 delete:
   summary: Remove destination for a route
   description: Remove a destination from a route.
@@ -72,3 +74,5 @@ delete:
       $ref: ../components/responses/404.yaml
     '422':
       $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml

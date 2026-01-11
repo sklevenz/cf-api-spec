@@ -82,6 +82,8 @@ get:
       $ref: ../components/responses/409.yaml
     '422':
       $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
     '500':
       $ref: ../components/responses/500.yaml
     '502':
@@ -143,6 +145,8 @@ post:
                     detail: >-
                       Some feature flag must be enabled by the Cloud Foundry
                       admin in order to push the app as is.
+    '429':
+      $ref: ../components/responses/429.yaml
     '500':
       $ref: ../components/responses/500.yaml
     '503':
