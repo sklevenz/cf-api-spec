@@ -50,6 +50,9 @@ post:
               description: List of resources to check for in the resource cache
           required:
             - resources
+    description: >-
+      Provide resource descriptors to check which resources already exist on the
+      Cloud Foundry blobstore.
   responses:
     '201':
       description: Created

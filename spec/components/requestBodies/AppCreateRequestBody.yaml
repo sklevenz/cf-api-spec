@@ -13,11 +13,6 @@ content:
           description: Environment variables to be used for the App when running
           additionalProperties:
             type: string
-            maxLength: 8192
-          propertyNames:
-            type: string
-            pattern: ^[A-Za-z_][A-Za-z0-9_]*$
-          maxProperties: 512
         lifecycle:
           $ref: ../schemas/Lifecycle.yaml
           description: Provides the lifecycle object for the application

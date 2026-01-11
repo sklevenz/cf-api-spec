@@ -16,12 +16,12 @@ post:
       schema:
         type: string
         format: uuid
-      description: Unique identifier of the quota.
   requestBody:
     content:
       application/json:
         schema:
           $ref: ../components/schemas/RelationshipToMany.yaml
+    description: Apply the space quota to the given spaces.
   responses:
     '200':
       description: OK

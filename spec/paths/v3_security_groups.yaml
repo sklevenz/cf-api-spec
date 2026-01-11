@@ -84,6 +84,7 @@ post:
       application/json:
         schema:
           $ref: ../components/schemas/SecurityGroupCreate.yaml
+    description: Create a new security group with the provided rules.
   responses:
     '201':
       description: Created

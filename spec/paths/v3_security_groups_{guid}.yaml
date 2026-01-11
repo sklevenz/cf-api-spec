@@ -38,6 +38,7 @@ patch:
       application/json:
         schema:
           $ref: ../components/schemas/SecurityGroupUpdate.yaml
+    description: Update the security group properties such as name and rules.
   responses:
     '200':
       description: OK

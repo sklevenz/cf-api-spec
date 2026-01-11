@@ -98,6 +98,7 @@ post:
       application/json:
         schema:
           $ref: ../components/schemas/ServiceRouteBindingCreate.yaml
+    description: Create a new service route binding between a service instance and a route.
   responses:
     '201':
       description: Created

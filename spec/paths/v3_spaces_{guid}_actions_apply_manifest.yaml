@@ -20,6 +20,7 @@ post:
       application/x-yaml:
         schema:
           type: string
+    description: Provide an application manifest to apply to apps in the given space.
   responses:
     '202':
       description: Accepted

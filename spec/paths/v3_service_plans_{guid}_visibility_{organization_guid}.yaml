@@ -16,7 +16,6 @@ delete:
       schema:
         type: string
         format: uuid
-      description: Unique identifier of the organization.
   responses:
     '204':
       description: No Content

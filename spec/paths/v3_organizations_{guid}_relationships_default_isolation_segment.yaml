@@ -45,6 +45,9 @@ patch:
       application/json:
         schema:
           $ref: ../components/schemas/RelationshipToOne.yaml
+    description: >-
+      Set or clear the default isolation segment relationship for the
+      organization.
   responses:
     '200':
       description: OK

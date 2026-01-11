@@ -49,6 +49,7 @@ patch:
       application/json:
         schema:
           $ref: ../components/schemas/BuildUpdate.yaml
+    description: Update build properties such as metadata.
   responses:
     '200':
       description: OK

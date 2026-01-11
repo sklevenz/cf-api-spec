@@ -13,7 +13,6 @@ get:
         type: string
         enum:
           - ssh
-      description: The name of the feature.
   responses:
     '200':
       description: OK
@@ -48,7 +47,6 @@ patch:
         type: string
         enum:
           - ssh
-      description: The name of the feature.
   requestBody:
     content:
       application/json:
@@ -56,6 +54,7 @@ patch:
           properties:
             enabled:
               type: boolean
+    description: Update the named space feature, enabling or disabling it.
   responses:
     '200':
       description: OK

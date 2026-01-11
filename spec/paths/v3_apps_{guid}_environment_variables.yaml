@@ -52,12 +52,8 @@ patch:
               type: object
               additionalProperties:
                 type: string
-                maxLength: 8192
               description: Environment variables to inject; keys and values must be strings
-              propertyNames:
-                type: string
-                pattern: ^[A-Za-z_][A-Za-z0-9_]*$
-              maxProperties: 512
+    description: Update environment variables for the app.
   responses:
     '200':
       description: OK

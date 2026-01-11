@@ -36,5 +36,4 @@ properties:
         description: >-
           The endpoint called to determine if the app is healthy; this key is
           only present for http health checks
-    additionalProperties: false
 description: Health check configuration for a process

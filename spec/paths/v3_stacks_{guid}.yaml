@@ -40,6 +40,7 @@ patch:
           properties:
             metadata:
               $ref: ../components/schemas/Metadata.yaml
+    description: Update stack metadata such as name and description.
   responses:
     '200':
       description: OK

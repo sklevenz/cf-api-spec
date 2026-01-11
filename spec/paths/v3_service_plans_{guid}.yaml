@@ -50,6 +50,7 @@ patch:
           properties:
             metadata:
               $ref: ../components/schemas/Metadata.yaml
+    description: Update service plan properties such as metadata and maintenance info.
   responses:
     '200':
       description: OK

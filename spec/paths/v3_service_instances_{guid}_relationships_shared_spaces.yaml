@@ -46,6 +46,7 @@ post:
       application/json:
         schema:
           $ref: ../components/schemas/RelationshipToMany.yaml
+    description: Share a service instance with additional spaces.
   responses:
     '200':
       description: OK

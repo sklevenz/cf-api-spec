@@ -31,6 +31,7 @@ post:
                 - integer
                 - 'null'
                 - string
+    description: Scale a process by updating instance count and or resource limits.
   responses:
     '202':
       description: Accepted

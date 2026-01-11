@@ -18,6 +18,7 @@ post:
       application/json:
         schema:
           $ref: ../components/schemas/RelationshipToMany.yaml
+    description: Associate the security group with the given staging spaces.
   responses:
     '200':
       description: OK

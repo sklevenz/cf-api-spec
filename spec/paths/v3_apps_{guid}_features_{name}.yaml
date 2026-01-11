@@ -16,7 +16,6 @@ get:
           - revisions
           - service-binding-k8s
           - file-based-vcap-services
-      description: The name of the feature.
   responses:
     '200':
       description: OK
@@ -50,7 +49,6 @@ patch:
           - revisions
           - service-binding-k8s
           - file-based-vcap-services
-      description: The name of the feature.
   requestBody:
     content:
       application/json:
@@ -58,6 +56,7 @@ patch:
           properties:
             enabled:
               type: boolean
+    description: Update the named app feature, enabling or disabling it.
   responses:
     '200':
       description: OK

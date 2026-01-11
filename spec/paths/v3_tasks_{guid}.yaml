@@ -53,6 +53,7 @@ patch:
           properties:
             metadata:
               $ref: ../components/schemas/Metadata.yaml
+    description: Update a task, for example to change its name or metadata.
   responses:
     '200':
       description: OK

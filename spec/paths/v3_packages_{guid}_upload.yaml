@@ -53,6 +53,7 @@ post:
                     properties:
                       value:
                         type: string
+    description: Upload package bits as a multipart form to stage the package content.
   responses:
     '200':
       description: Successfully uploaded package bits

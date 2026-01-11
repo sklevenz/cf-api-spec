@@ -61,6 +61,7 @@ patch:
           properties:
             metadata:
               $ref: ../components/schemas/Metadata.yaml
+    description: Update a service route binding, for example to change metadata.
   responses:
     '200':
       description: OK
