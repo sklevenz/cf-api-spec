@@ -5,7 +5,7 @@ properties:
     description: Type of the lifecycle; valid values are buildpack, cnb, docker
   data:
     type: object
-    additionalProperties: true
+    additionalProperties: false
     description: Data specific to the lifecycle
     properties:
       buildpacks:
@@ -25,19 +25,7 @@ properties:
           (applicable for buildpack lifecycle)
       credentials:
         type: object
-        additionalProperties:
-          type: object
-          properties:
-            username:
-              type:
-                - string
-                - 'null'
-            password:
-              type:
-                - string
-                - 'null'
-            token:
-              type: string
+        additionalProperties: false
         description: >-
           Credentials used to download the configured buildpacks (applicable for
           cnb lifecycle)
