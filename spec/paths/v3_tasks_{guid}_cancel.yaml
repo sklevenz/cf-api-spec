@@ -1,0 +1,23 @@
+put:
+  summary: DEPRECATED - Cancel a task (short path)
+  description: DEPRECATED - Use /v3/tasks/{guid}/actions/cancel instead.
+  operationId: cancelTaskShort
+  tags:
+    - Tasks
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '202':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Task.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '422':
+      $ref: ../components/responses/422.yaml

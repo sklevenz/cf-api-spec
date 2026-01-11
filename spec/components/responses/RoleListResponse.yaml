@@ -9,7 +9,7 @@ content:
         resources:
           type: array
           items:
-            $ref: ../schemas/Role.yaml
+            $ref: ../schemas/BaseSchema.yaml
         included:
           $ref: ../schemas/IncludedResources.yaml
           description: >-

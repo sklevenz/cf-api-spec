@@ -1,0 +1,42 @@
+get:
+  summary: Check reserved routes for a domain
+  description: >-
+    Check if a specific route for a domain exists, regardless of the user’s
+    visibility for the route in case the route belongs to a space the user does
+    not belong to.
+  operationId: checkReservedRoutesForDomain
+  tags:
+    - Domains
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+    - name: host
+      in: query
+      schema:
+        type: string
+      description: Hostname to filter by
+    - name: path
+      in: query
+      schema:
+        type: string
+      description: Path to filter by
+    - name: port
+      in: query
+      schema:
+        type: integer
+      description: Port to filter by
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              matching_route:
+                type: boolean
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml

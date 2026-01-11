@@ -529,6 +529,124 @@ paths:
     $ref: paths/v3_space_quotas_{quota_guid}_relationships_spaces.yaml
   /v3/space_quotas/{guid}/relationships/spaces/{space_guid}:
     $ref: paths/v3_space_quotas_{guid}_relationships_spaces_{space_guid}.yaml
+  /v3/stacks:
+    $ref: paths/v3_stacks.yaml
+  /v3/stacks/{guid}:
+    $ref: paths/v3_stacks_{guid}.yaml
+  /v3/stacks/{guid}/apps:
+    $ref: paths/v3_stacks_{guid}_apps.yaml
+  /v3/tasks:
+    $ref: paths/v3_tasks.yaml
+  /v3/tasks/{guid}:
+    $ref: paths/v3_tasks_{guid}.yaml
+  /v3/tasks/{guid}/actions/cancel:
+    $ref: paths/v3_tasks_{guid}_actions_cancel.yaml
+  /v3/tasks/{guid}/cancel:
+    $ref: paths/v3_tasks_{guid}_cancel.yaml
+  /v3/users:
+    $ref: paths/v3_users.yaml
+  /v3/users/{guid}:
+    $ref: paths/v3_users_{guid}.yaml
+  /v3/organizations:
+    $ref: paths/v3_organizations.yaml
+  /v3/organizations/{guid}:
+    $ref: paths/v3_organizations_{guid}.yaml
+  /v3/organizations/{guid}/domains/default:
+    $ref: paths/v3_organizations_{guid}_domains_default.yaml
+  /v3/organizations/{guid}/usage_summary:
+    $ref: paths/v3_organizations_{guid}_usage_summary.yaml
+  /v3/organizations/{guid}/users:
+    $ref: paths/v3_organizations_{guid}_users.yaml
+  /v3/organizations/{guid}/relationships/default_isolation_segment:
+    $ref: paths/v3_organizations_{guid}_relationships_default_isolation_segment.yaml
+  /v3/organization_quotas:
+    $ref: paths/v3_organization_quotas.yaml
+  /v3/organization_quotas/{guid}:
+    $ref: paths/v3_organization_quotas_{guid}.yaml
+  /v3/organization_quotas/{quota_guid}/relationships/organizations:
+    $ref: paths/v3_organization_quotas_{quota_guid}_relationships_organizations.yaml
+  /v3/packages:
+    $ref: paths/v3_packages.yaml
+  /v3/packages/{guid}:
+    $ref: paths/v3_packages_{guid}.yaml
+  /v3/packages/{guid}/droplets:
+    $ref: paths/v3_packages_{guid}_droplets.yaml
+  /v3/apps/{guid}/packages:
+    $ref: paths/v3_apps_{guid}_packages.yaml
+  /v3/packages/{guid}/upload:
+    $ref: paths/v3_packages_{guid}_upload.yaml
+  /v3/packages/{guid}/download:
+    $ref: paths/v3_packages_{guid}_download.yaml
+  /v3/processes:
+    $ref: paths/v3_processes.yaml
+  /v3/processes/{guid}:
+    $ref: paths/v3_processes_{guid}.yaml
+  /v3/processes/{guid}/stats:
+    $ref: paths/v3_processes_{guid}_stats.yaml
+  /v3/processes/{guid}/actions/scale:
+    $ref: paths/v3_processes_{guid}_actions_scale.yaml
+  /v3/processes/{guid}/instances/{index}:
+    $ref: paths/v3_processes_{guid}_instances_{index}.yaml
+  /v3/apps/{guid}/processes:
+    $ref: paths/v3_apps_{guid}_processes.yaml
+  /v3/apps/{guid}/processes/{type}:
+    $ref: paths/v3_apps_{guid}_processes_{type}.yaml
+  /v3/apps/{guid}/processes/{type}/stats:
+    $ref: paths/v3_apps_{guid}_processes_{type}_stats.yaml
+  /v3/apps/{guid}/processes/{type}/actions/scale:
+    $ref: paths/v3_apps_{guid}_processes_{type}_actions_scale.yaml
+  /v3/apps/{guid}/processes/{type}/instances/{index}:
+    $ref: paths/v3_apps_{guid}_processes_{type}_instances_{index}.yaml
+  /v3/apps/{guid}/manifest:
+    $ref: paths/v3_apps_{guid}_manifest.yaml
+  /v3/apps/{guid}/builds:
+    $ref: paths/v3_apps_{guid}_builds.yaml
+  /v3/apps/{guid}/tasks:
+    $ref: paths/v3_apps_{guid}_tasks.yaml
+  /v3/apps/{guid}/actions/clear_buildpack_cache:
+    $ref: paths/v3_apps_{guid}_actions_clear_buildpack_cache.yaml
+  /v3/apps/{guid}/env:
+    $ref: paths/v3_apps_{guid}_env.yaml
+  /v3/apps/{guid}/environment_variables:
+    $ref: paths/v3_apps_{guid}_environment_variables.yaml
+  /v3/apps/{guid}/features:
+    $ref: paths/v3_apps_{guid}_features.yaml
+  /v3/apps/{guid}/features/{name}:
+    $ref: paths/v3_apps_{guid}_features_{name}.yaml
+  /v3/apps/{guid}/permissions:
+    $ref: paths/v3_apps_{guid}_permissions.yaml
+  /v3/apps/{guid}/routes:
+    $ref: paths/v3_apps_{guid}_routes.yaml
+  /v3/apps/{guid}/ssh_enabled:
+    $ref: paths/v3_apps_{guid}_ssh_enabled.yaml
+  /v3/domains/{guid}/route_reservations:
+    $ref: paths/v3_domains_{guid}_route_reservations.yaml
+  /v3/organizations/{guid}/domains:
+    $ref: paths/v3_organizations_{guid}_domains.yaml
+  /v3/processes/{guid}/sidecars:
+    $ref: paths/v3_processes_{guid}_sidecars.yaml
+  /v3/routes/{guid}:
+    $ref: paths/v3_routes_{guid}.yaml
+  /v3/routes/{guid}/relationships/shared_spaces:
+    $ref: paths/v3_routes_{guid}_relationships_shared_spaces.yaml
+  /v3/routes/{guid}/relationships/shared_spaces/{space_guid}:
+    $ref: paths/v3_routes_{guid}_relationships_shared_spaces_{space_guid}.yaml
+  /v3/routes/{guid}/relationships/space:
+    $ref: paths/v3_routes_{guid}_relationships_space.yaml
+  /v3/service_instances/{guid}/credentials:
+    $ref: paths/v3_service_instances_{guid}_credentials.yaml
+  /v3/service_instances/{guid}/parameters:
+    $ref: paths/v3_service_instances_{guid}_parameters.yaml
+  /v3/service_instances/{guid}/permissions:
+    $ref: paths/v3_service_instances_{guid}_permissions.yaml
+  /v3/service_instances/{guid}/relationships/shared_spaces:
+    $ref: paths/v3_service_instances_{guid}_relationships_shared_spaces.yaml
+  /v3/service_instances/{guid}/relationships/shared_spaces/usage_summary:
+    $ref: >-
+      paths/v3_service_instances_{guid}_relationships_shared_spaces_usage_summary.yaml
+  /v3/service_instances/{guid}/relationships/shared_spaces/{space_guid}:
+    $ref: >-
+      paths/v3_service_instances_{guid}_relationships_shared_spaces_{space_guid}.yaml
 components:
   securitySchemes:
     oauth:

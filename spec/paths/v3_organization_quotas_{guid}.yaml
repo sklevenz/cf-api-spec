@@ -1,0 +1,83 @@
+get:
+  summary: Get an organization quota
+  description: This endpoint gets an individual organization quota resource.
+  operationId: getOrganizationQuota
+  tags:
+    - OrganizationQuotas
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/OrganizationQuota.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+patch:
+  summary: Update an organization quota
+  description: >-
+    This endpoint will only update the parameters specified in the request body.
+    Any unspecified parameters will retain their existing values.
+  operationId: updateOrganizationQuota
+  tags:
+    - OrganizationQuotas
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  requestBody:
+    $ref: ../components/requestBodies/OrganizationQuotaUpdateRequestBody.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/OrganizationQuota.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '409':
+      $ref: ../components/responses/409.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+    '503':
+      $ref: ../components/responses/503.yaml
+delete:
+  summary: Delete an organization quota
+  description: Organization quotas cannot be deleted when applied to any organizations.
+  operationId: deleteOrganizationQuota
+  tags:
+    - OrganizationQuotas
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '202':
+      description: Accepted
+      headers:
+        Location:
+          description: URL of the job that is deleting the organization quota
+          schema:
+            type: string
+            format: uri
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '500':
+      $ref: ../components/responses/500.yaml

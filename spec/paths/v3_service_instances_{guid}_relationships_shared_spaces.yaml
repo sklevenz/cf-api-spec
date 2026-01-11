@@ -1,0 +1,57 @@
+get:
+  summary: List shared spaces relationship
+  description: This endpoint lists the spaces that the service instance has been shared to.
+  operationId: listServiceInstanceSharedSpaces
+  tags:
+    - ServiceInstances
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+    - name: fields
+      in: query
+      schema:
+        type: object
+      description: Fields to include in the response
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/RelationshipToMany.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+post:
+  summary: Share a service instance to other spaces
+  description: >-
+    This endpoint shares the service instance with the specified spaces. In
+    order to share into a space the requesting user must be a space developer in
+    the target space.
+  operationId: shareServiceInstance
+  tags:
+    - ServiceInstances
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/RelationshipToMany.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/RelationshipToMany.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '422':
+      $ref: ../components/responses/422.yaml

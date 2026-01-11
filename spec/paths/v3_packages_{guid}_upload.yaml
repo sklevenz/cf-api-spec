@@ -1,0 +1,81 @@
+post:
+  summary: Upload package bits
+  description: >-
+    This upload endpoint takes a multi-part form requests for packages of type
+    `bits`. The request requires either a [.zip
+    file](https://en.wikipedia.org/wiki/Zip_(file_format)) uploaded under the
+    `bits` field or a list of [resource match
+    objects](#the-resource-match-object) under the `resources` field. These
+    field may be used together.
+  operationId: uploadPackageBits
+  tags:
+    - Packages
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  requestBody:
+    content:
+      multipart/form-data:
+        schema:
+          type: object
+          properties:
+            bits:
+              type: string
+              format: binary
+            resources:
+              type: array
+              items:
+                type: object
+                properties:
+                  path:
+                    type: string
+                  size_in_bytes:
+                    type: integer
+                  checksum:
+                    type: object
+                    properties:
+                      value:
+                        type: string
+      application/json:
+        schema:
+          type: object
+          properties:
+            resources:
+              type: array
+              items:
+                type: object
+                properties:
+                  path:
+                    type: string
+                  size_in_bytes:
+                    type: integer
+                  checksum:
+                    type: object
+                    properties:
+                      value:
+                        type: string
+  responses:
+    '200':
+      description: Successfully uploaded package bits
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Package.yaml
+    '202':
+      description: Upload initiated
+      headers:
+        Location:
+          schema:
+            type: string
+          description: URL of the job tracking the upload
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Package.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '422':
+      $ref: ../components/responses/422.yaml

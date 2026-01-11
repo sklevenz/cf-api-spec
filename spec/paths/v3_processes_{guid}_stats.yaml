@@ -1,0 +1,23 @@
+get:
+  summary: Get stats for a process
+  description: Get stats for a process.
+  operationId: getProcessStats
+  tags:
+    - Processes
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ProcessStats.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '503':
+      $ref: ../components/responses/503.yaml

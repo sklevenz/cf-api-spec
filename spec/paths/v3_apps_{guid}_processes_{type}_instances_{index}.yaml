@@ -1,0 +1,29 @@
+delete:
+  summary: Terminate a process instance for an app
+  description: Terminate a specific process instance for an app.
+  operationId: terminateProcessInstanceForApp
+  tags:
+    - Processes
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+    - name: type
+      in: path
+      required: true
+      schema:
+        type: string
+    - name: index
+      in: path
+      required: true
+      schema:
+        type: integer
+  responses:
+    '204':
+      description: No Content
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
