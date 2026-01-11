@@ -18,6 +18,8 @@ get:
   responses:
     '302':
       description: Redirect to download location
+    '401':
+      $ref: ../components/responses/403.yaml
     '403':
       $ref: ../components/responses/403.yaml
     '404':

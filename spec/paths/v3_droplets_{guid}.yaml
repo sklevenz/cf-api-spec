@@ -21,6 +21,8 @@ get:
           description: Retrieve the app for this droplet
     '400':
       $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
     '403':
       $ref: ../components/responses/403.yaml
     '404':
