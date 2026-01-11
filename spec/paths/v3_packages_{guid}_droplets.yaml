@@ -3,7 +3,6 @@ get:
   description: Retrieve a list of droplets belonging to a package.
   operationId: listPackageDroplets
   tags:
-    - Packages
     - Droplets
   parameters:
     - $ref: ../components/parameters/Guid.yaml

@@ -3,7 +3,6 @@ get:
   description: Retrieve all droplets belonging to an app.
   operationId: listAppDroplets
   tags:
-    - Apps
     - Droplets
   parameters:
     - $ref: ../components/parameters/Guid.yaml
