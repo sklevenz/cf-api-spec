@@ -7,7 +7,7 @@ extends: [[vacuum:oas, recommended]]
 
 rules:
 
-  # Rules are mostly turned off to avoid overcomplicating the spec  
+  # Rules are mostly turned off to avoid overcomplicating the spec or ensure compatibility
   owasp-string-restricted: off
   
   oas3-missing-example: off
