@@ -27,6 +27,8 @@ get:
       $ref: ../components/responses/404.yaml
     '429':
       $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
 patch:
   summary: Update an app feature
   description: Update an app feature.
@@ -67,3 +69,5 @@ patch:
       $ref: ../components/responses/422.yaml
     '429':
       $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml

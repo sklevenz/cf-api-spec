@@ -24,6 +24,8 @@ get:
       $ref: ../components/responses/404.yaml
     '429':
       $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
 patch:
   summary: Update environment variables for an app
   description: >-
@@ -66,3 +68,5 @@ patch:
       $ref: ../components/responses/422.yaml
     '429':
       $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml

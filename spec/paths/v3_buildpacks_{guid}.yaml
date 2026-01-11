@@ -19,6 +19,8 @@ get:
       $ref: ../components/responses/404.yaml
     '429':
       $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
 patch:
   summary: Update a buildpack
   description: Update a buildpack.
