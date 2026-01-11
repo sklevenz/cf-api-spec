@@ -16,6 +16,7 @@ post:
       schema:
         type: string
         format: uuid
+      description: Unique identifier of the quota.
   requestBody:
     content:
       application/json:

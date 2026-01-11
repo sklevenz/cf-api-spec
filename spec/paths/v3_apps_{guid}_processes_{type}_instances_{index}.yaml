@@ -11,11 +11,13 @@ delete:
       required: true
       schema:
         type: string
+      description: The type of the process.
     - name: index
       in: path
       required: true
       schema:
         type: integer
+      description: The index of the process instance.
   responses:
     '204':
       description: No Content
