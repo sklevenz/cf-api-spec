@@ -28,6 +28,8 @@ get:
                 type: boolean
               manage:
                 type: boolean
+    '400':
+      $ref: ../components/responses/400.yaml
     '401':
       $ref: ../components/responses/401.yaml
     '403':

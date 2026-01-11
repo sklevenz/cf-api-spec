@@ -19,6 +19,8 @@ get:
           parameters:
             guid: $response.body#/relationships/quota/data/guid
             description: Retrieve the quota associated with this organization
+    '400':
+      $ref: ../components/responses/400.yaml
     '401':
       $ref: ../components/responses/401.yaml
     '403':

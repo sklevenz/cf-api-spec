@@ -24,6 +24,8 @@ get:
           parameters:
             guid: $response.body#/relationships/revision/data/guid
           description: Retrieve the revision for this process
+    '400':
+      $ref: ../components/responses/400.yaml
     '401':
       $ref: ../components/responses/401.yaml
     '403':

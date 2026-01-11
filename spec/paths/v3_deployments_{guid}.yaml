@@ -29,6 +29,8 @@ get:
           parameters:
             guid: $response.body#/previous_droplet/data/guid
           description: Retrieve the previous droplet for this deployment
+    '400':
+      $ref: ../components/responses/400.yaml
     '401':
       $ref: ../components/responses/401.yaml
     '403':

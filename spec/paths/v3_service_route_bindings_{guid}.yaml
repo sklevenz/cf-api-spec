@@ -34,6 +34,8 @@ get:
           parameters:
             guid: $response.body#/relationships/service_instance/data/guid
           description: Retrieve the service instance for this service route binding
+    '400':
+      $ref: ../components/responses/400.yaml
     '401':
       $ref: ../components/responses/401.yaml
     '403':

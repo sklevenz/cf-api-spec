@@ -26,6 +26,8 @@ get:
           parameters:
             guid: $response.body#/droplet_guid
           description: Retrieve the droplet for this task
+    '400':
+      $ref: ../components/responses/400.yaml
     '401':
       $ref: ../components/responses/401.yaml
     '403':

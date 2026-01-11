@@ -13,6 +13,8 @@ get:
         application/json:
           schema:
             $ref: ../components/schemas/SecurityGroup.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
     '401':
       $ref: ../components/responses/401.yaml
     '403':
@@ -78,6 +80,8 @@ delete:
           schema:
             type: string
             format: uri
+    '400':
+      $ref: ../components/responses/400.yaml
     '401':
       $ref: ../components/responses/401.yaml
     '403':

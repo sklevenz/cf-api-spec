@@ -19,6 +19,8 @@ get:
           parameters:
             guid: $response.body#/relationships/organization/data/guid
           description: Retrieve the organization for this domain (private domains only)
+    '400':
+      $ref: ../components/responses/400.yaml
     '401':
       $ref: ../components/responses/401.yaml
     '403':

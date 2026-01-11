@@ -42,6 +42,8 @@ get:
           parameters:
             guid: $response.body#/relationships/space/data/guid
           description: Retrieve the space for this role (if space role)
+    '400':
+      $ref: ../components/responses/400.yaml
     '401':
       $ref: ../components/responses/401.yaml
     '403':

@@ -34,6 +34,8 @@ get:
           parameters:
             guid: $response.body#/relationships/current_droplet/data/guid
           description: Retrieve the current droplet for this app
+    '400':
+      $ref: ../components/responses/400.yaml
     '401':
       $ref: ../components/responses/401.yaml
     '403':
