@@ -1,0 +1,85 @@
+get:
+  summary: List organizations
+  description: Retrieve all organizations the user has access to.
+  operationId: listOrganizations
+  tags:
+    - Organizations
+  parameters:
+    - $ref: ../components/parameters/Page.yaml
+    - $ref: ../components/parameters/PerPage.yaml
+    - $ref: ../components/parameters/OrderBy.yaml
+    - $ref: ../components/parameters/CreatedAts.yaml
+    - $ref: ../components/parameters/UpdatedAts.yaml
+    - $ref: ../components/parameters/LabelSelector.yaml
+    - name: names
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of organization names to filter by
+    - name: guids
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of organization guids to filter by
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/OrganizationList.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '409':
+      $ref: ../components/responses/409.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+    '502':
+      $ref: ../components/responses/502.yaml
+    '503':
+      $ref: ../components/responses/503.yaml
+post:
+  summary: Create an organization
+  description: Create an organization.
+  operationId: createOrganization
+  tags:
+    - Organizations
+  requestBody:
+    $ref: ../components/requestBodies/OrganizationCreateRequestBody.yaml
+  responses:
+    '201':
+      description: Created
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Organization.yaml
+      links:
+        quota:
+          operationId: getOrganizationQuota
+          parameters:
+            guid: $response.body#/relationships/quota/data/guid
+          description: Retrieve the quota associated with this organization
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '409':
+      $ref: ../components/responses/409.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+    '503':
+      $ref: ../components/responses/503.yaml

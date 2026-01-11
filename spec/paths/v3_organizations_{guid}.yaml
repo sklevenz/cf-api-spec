@@ -1,0 +1,95 @@
+get:
+  summary: Get an organization
+  description: This endpoint retrieves the specified organization object.
+  operationId: getOrganization
+  tags:
+    - Organizations
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Organization.yaml
+      links:
+        quota:
+          operationId: getOrganizationQuota
+          parameters:
+            guid: $response.body#/relationships/quota/data/guid
+            description: Retrieve the quota associated with this organization
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+patch:
+  summary: Update an organization
+  description: Update an organization.
+  operationId: updateOrganization
+  tags:
+    - Organizations
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  requestBody:
+    $ref: ../components/requestBodies/OrganizationUpdateRequestBody.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Organization.yaml
+      links:
+        quota:
+          operationId: getOrganizationQuota
+          parameters:
+            guid: $response.body#/relationships/quota/data/guid
+          description: Retrieve the quota associated with this organization
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '409':
+      $ref: ../components/responses/409.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+    '503':
+      $ref: ../components/responses/503.yaml
+delete:
+  summary: Delete an organization
+  description: >-
+    When an organization is deleted, user roles associated with the organization
+    will also be deleted.
+  operationId: deleteOrganization
+  tags:
+    - Organizations
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '202':
+      description: Accepted
+      headers:
+        location:
+          description: URL of the job to query the asynchronous operation
+          schema:
+            type: string
+            format: uri
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '500':
+      $ref: ../components/responses/500.yaml

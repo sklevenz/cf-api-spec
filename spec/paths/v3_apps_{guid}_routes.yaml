@@ -1,0 +1,52 @@
+get:
+  summary: List routes for an app
+  description: Retrieve all routes that have destinations that point to the given app.
+  operationId: listAppRoutes
+  tags:
+    - Routes
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+    - $ref: ../components/parameters/Page.yaml
+    - $ref: ../components/parameters/PerPage.yaml
+    - $ref: ../components/parameters/OrderBy.yaml
+    - name: domain_guids
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of domain guids to filter by
+    - name: hosts
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of hostnames to filter by
+    - name: paths
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of paths to filter by
+    - name: ports
+      in: query
+      schema:
+        type: array
+        items:
+          type: integer
+      description: Comma-delimited list of ports to filter by
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/RouteList.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml

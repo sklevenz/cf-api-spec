@@ -1,0 +1,58 @@
+get:
+  summary: Get a process for an app
+  description: Get a specific process for an app.
+  operationId: getProcessForApp
+  tags:
+    - Processes
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+    - name: type
+      in: path
+      required: true
+      schema:
+        type: string
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Process.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+patch:
+  summary: Update a process for an app
+  description: Update a specific process for an app.
+  operationId: updateProcessForApp
+  tags:
+    - Processes
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+    - name: type
+      in: path
+      required: true
+      schema:
+        type: string
+  requestBody:
+    $ref: ../components/requestBodies/ProcessUpdateRequestBody.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Process.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '422':
+      $ref: ../components/responses/422.yaml

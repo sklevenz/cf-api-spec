@@ -1,0 +1,60 @@
+post:
+  summary: Cancel a task
+  description: >-
+    Cancels a running task. Canceled tasks will initially be in state
+    `CANCELING` and will move to state `FAILED` once the cancel request has been
+    processed. Cancel requests are idempotent and will be processed according to
+    the state of the task when the request is executed. Canceling a task that is
+    in `SUCCEEDED` or `FAILED` state will return an error.
+  operationId: cancelTask
+  tags:
+    - Tasks
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '202':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Task.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+put:
+  summary: Cancel a task (PUT)
+  description: >-
+    Cancels a running task using PUT method. Canceled tasks will initially be in
+    state `CANCELING` and will move to state `FAILED` once the cancel request
+    has been processed. Cancel requests are idempotent and will be processed
+    according to the state of the task when the request is executed. Canceling a
+    task that is in `SUCCEEDED` or `FAILED` state will return an error.
+  operationId: cancelTaskPut
+  tags:
+    - Tasks
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '202':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Task.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '500':
+      $ref: ../components/responses/500.yaml

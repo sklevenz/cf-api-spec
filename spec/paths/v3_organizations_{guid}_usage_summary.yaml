@@ -1,0 +1,52 @@
+get:
+  summary: Get usage summary
+  description: >-
+    This endpoint retrieves the specified organization object's memory and app
+    instance usage summary.
+  operationId: getUsageSummaryForOrganization
+  tags:
+    - Organizations
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              usage_summary:
+                type: object
+                properties:
+                  started_instances:
+                    type: integer
+                  memory_in_mb:
+                    type: integer
+                  routes:
+                    type: integer
+                  service_instances:
+                    type: integer
+                  reserved_ports:
+                    type: integer
+                  domains:
+                    type: integer
+                  per_app_tasks:
+                    type: integer
+                  service_keys:
+                    type: integer
+              links:
+                type: object
+                properties:
+                  self:
+                    $ref: ../components/schemas/Link.yaml
+                    description: The URL to get this usage summary
+                  organization:
+                    $ref: ../components/schemas/Link.yaml
+                    description: The URL to get the organization for this usage summary
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml

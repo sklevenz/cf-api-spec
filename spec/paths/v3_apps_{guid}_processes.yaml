@@ -1,0 +1,24 @@
+get:
+  summary: List processes for an app
+  description: Retrieves all processes belonging to an app.
+  operationId: listAppProcesses
+  tags:
+    - Processes
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+    - $ref: ../components/parameters/Page.yaml
+    - $ref: ../components/parameters/PerPage.yaml
+    - $ref: ../components/parameters/OrderBy.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ProcessList.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml

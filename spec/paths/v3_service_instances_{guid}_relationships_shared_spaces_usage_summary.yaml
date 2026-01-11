@@ -1,0 +1,33 @@
+get:
+  summary: Get usage summary in shared spaces
+  description: >-
+    This endpoint returns the number of bound apps in spaces where the service
+    instance has been shared to.
+  operationId: getServiceInstanceUsageSummaryInSharedSpaces
+  tags:
+    - ServiceInstances
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              usage_summary:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    space:
+                      $ref: ../components/schemas/Relationship.yaml
+                    bound_app_count:
+                      type: integer
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml

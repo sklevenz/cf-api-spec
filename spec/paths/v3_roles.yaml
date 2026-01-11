@@ -84,7 +84,7 @@ get:
     '500':
       $ref: ../components/responses/500.yaml
     '502':
-      $ref: ../components/responses/BadGateway.yaml
+      $ref: ../components/responses/502.yaml
     '503':
       $ref: ../components/responses/503.yaml
 post:
@@ -125,7 +125,7 @@ post:
       content:
         application/json:
           schema:
-            $ref: ../components/schemas/Role.yaml
+            $ref: ../components/schemas/BaseSchema.yaml
       links:
         user:
           operationId: getUser
@@ -153,7 +153,7 @@ post:
     '422':
       $ref: ../components/responses/422.yaml
     '429':
-      $ref: ../components/responses/TooManyRequests.yaml
+      $ref: ../components/responses/429.yaml
     '500':
       $ref: ../components/responses/500.yaml
     '503':

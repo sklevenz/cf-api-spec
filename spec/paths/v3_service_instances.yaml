@@ -88,7 +88,7 @@ get:
     '500':
       $ref: ../components/responses/500.yaml
     '502':
-      $ref: ../components/responses/BadGateway.yaml
+      $ref: ../components/responses/502.yaml
     '503':
       $ref: ../components/responses/503.yaml
 post:

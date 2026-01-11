@@ -1,0 +1,17 @@
+get:
+  summary: List app features
+  description: This endpoint retrieves the list of features for the specified app.
+  operationId: listAppFeatures
+  tags:
+    - Apps
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '200':
+      description: OK
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml

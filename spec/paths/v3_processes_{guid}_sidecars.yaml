@@ -1,0 +1,21 @@
+get:
+  summary: List sidecars for process
+  description: Retrieves all sidecars associated with a process.
+  operationId: listProcessSidecars
+  tags:
+    - Sidecars
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/SidecarList.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
