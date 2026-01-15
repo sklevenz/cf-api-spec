@@ -13,17 +13,10 @@ content:
           description: The name of the stack that the buildpack will use
         position:
           type: integer
-          description: >-
-            The order in which the buildpacks are checked during buildpack
-            auto-detection
+          description: The order in which the buildpacks are checked during buildpack auto-detection
         lifecycle:
           type: string
-          description: >-
-            The version of buildpack the buildpack will use. `buildpack`
-            indicates [Classic
-            Buildpacks](https://docs.cloudfoundry.org/buildpacks/classic.html).
-            `cnb` indicates [Cloud Native
-            Buildpacks](https://docs.cloudfoundry.org/buildpacks/cnb/)
+          description: The version of buildpack the buildpack will use. `buildpack` indicates [Classic Buildpacks](https://docs.cloudfoundry.org/buildpacks/classic.html). `cnb` indicates [Cloud Native Buildpacks](https://docs.cloudfoundry.org/buildpacks/cnb/)
         enabled:
           type: boolean
           description: Whether or not the buildpack will be used for staging
@@ -31,7 +24,7 @@ content:
           type: boolean
           description: Whether or not the buildpack is locked to prevent updating the bits
         metadata:
-          $ref: ../schemas/Metadata.yaml
+          $ref: '../schemas/Metadata.yaml'
       required:
         - name
       description: Request schema for creating a buildpack

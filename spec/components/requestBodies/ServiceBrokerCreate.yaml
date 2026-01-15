@@ -16,8 +16,7 @@ content:
           properties:
             type:
               type: string
-              enum:
-                - basic
+              enum: [basic]
               description: Type of authentication
             credentials:
               type: object
@@ -37,10 +36,10 @@ content:
           type: object
           properties:
             space:
-              $ref: ../schemas/RelationshipToOne.yaml
+              $ref: '../schemas/RelationshipToOne.yaml'
           description: Relationships for the service broker
         metadata:
-          $ref: ../schemas/Metadata.yaml
+          $ref: '../schemas/Metadata.yaml'
       required:
         - name
         - url

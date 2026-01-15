@@ -20,14 +20,10 @@ content:
           type: object
           properties:
             user:
-              $ref: ../schemas/UserRelationshipToOne.yaml
+              $ref: '../schemas/UserRelationshipToOne.yaml'
             organization:
-              $ref: ../schemas/RelationshipToOne.yaml
-              description: >-
-                A relationship to an organization; required only when creating
-                an organization role
+              $ref: '../schemas/RelationshipToOne.yaml'
+              description: A relationship to an organization; required only when creating an organization role
             space:
-              $ref: ../schemas/RelationshipToOne.yaml
-              description: >-
-                A relationship to a space; required only when creating a space
-                role
+              $ref: '../schemas/RelationshipToOne.yaml'
+              description: A relationship to a space; required only when creating a space role

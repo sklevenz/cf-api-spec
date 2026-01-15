@@ -4,10 +4,10 @@ properties:
     type: object
     properties:
       route:
-        $ref: ./RelationshipToOne.yaml
+        $ref: './RelationshipToOne.yaml'
         description: The route to bind
       service_instance:
-        $ref: ./RelationshipToOne.yaml
+        $ref: './RelationshipToOne.yaml'
         description: The service instance to bind
     required:
       - route
@@ -17,6 +17,6 @@ properties:
     type: object
     description: A JSON object that is passed to the service broker
   metadata:
-    $ref: ./Metadata.yaml
+    $ref: './Metadata.yaml'
 required:
   - relationships

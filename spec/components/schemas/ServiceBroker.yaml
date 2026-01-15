@@ -1,6 +1,6 @@
 type: object
 allOf:
-  - $ref: ./BaseSchema.yaml
+  - $ref: './BaseSchema.yaml'
   - properties:
       name:
         type: string
@@ -13,20 +13,20 @@ allOf:
         type: object
         properties:
           space:
-            $ref: ./RelationshipToOne.yaml
+            $ref: './RelationshipToOne.yaml'
         description: Relationships for the service broker
       links:
         type: object
         properties:
           self:
-            $ref: ./Link.yaml
+            $ref: './Link.yaml'
           space:
-            $ref: ./Link.yaml
+            $ref: './Link.yaml'
           service_offerings:
-            $ref: ./Link.yaml
+            $ref: './Link.yaml'
       metadata:
-        $ref: ./Metadata.yaml
+        $ref: './Metadata.yaml'
     required:
-      - name
-      - url
-      - links
+    - name
+    - url
+    - links

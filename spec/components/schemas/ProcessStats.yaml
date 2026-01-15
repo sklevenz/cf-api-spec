@@ -11,28 +11,17 @@ properties:
           type: integer
         state:
           type: string
-          enum:
-            - RUNNING
-            - CRASHED
-            - STARTING
-            - DOWN
-            - STOPPING
+          enum: ["RUNNING", "CRASHED", "STARTING", "DOWN", "STOPPING"]
         host:
           type: string
         uptime:
           type: integer
         mem_quota:
-          type:
-            - integer
-            - 'null'
+          type: [integer, 'null']
         disk_quota:
-          type:
-            - integer
-            - 'null'
+          type: [integer, 'null']
         log_rate_limit:
-          type:
-            - integer
-            - 'null'
+          type: [integer, 'null']
         usage:
           type: object
           properties:
@@ -47,4 +36,4 @@ properties:
               type: integer
             log_rate:
               type: integer
-description: Statistics for a process
+description: 'Statistics for a process'

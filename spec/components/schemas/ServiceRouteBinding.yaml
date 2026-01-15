@@ -1,39 +1,35 @@
 type: object
 allOf:
-  - $ref: ./BaseSchema.yaml
+  - $ref: './BaseSchema.yaml'
   - properties:
       route_service_url:
-        type:
-          - string
-          - 'null'
+        type: [string, "null"]
         format: uri
         description: URL for the route service
       last_operation:
-        $ref: ./ServiceCredentialBindingLastOperation.yaml
+        $ref: './ServiceCredentialBindingLastOperation.yaml'
       relationships:
         type: object
         properties:
           route:
-            $ref: ./RelationshipToOne.yaml
+            $ref: './RelationshipToOne.yaml'
           service_instance:
-            $ref: ./RelationshipToOne.yaml
+            $ref: './RelationshipToOne.yaml'
         description: Relationships for the service route binding
       links:
         type: object
         properties:
           self:
-            $ref: ./Link.yaml
+            $ref: './Link.yaml'
           route:
-            $ref: ./Link.yaml
+            $ref: './Link.yaml'
           service_instance:
-            $ref: ./Link.yaml
+            $ref: './Link.yaml'
       metadata:
-        $ref: ./Metadata.yaml
+        $ref: './Metadata.yaml'
       included:
-        $ref: ./IncludedResources.yaml
-        description: >-
-          Additional related resources included in the response when using the
-          include parameter
+        $ref: './IncludedResources.yaml'
+        description: Additional related resources included in the response when using the include parameter
     required:
-      - relationships
-      - links
+    - relationships
+    - links

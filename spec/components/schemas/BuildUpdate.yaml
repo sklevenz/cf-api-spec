@@ -8,25 +8,19 @@ properties:
       - STAGED
       - FAILED
   staging_memory_in_mb:
-    type:
-      - integer
-      - 'null'
+    type: [integer, "null"]
     description: Memory in MB allocated for staging of the build
   staging_disk_in_mb:
-    type:
-      - integer
-      - 'null'
+    type: [integer, "null"]
     description: Disk space in MB allocated for staging of the build
   staging_log_rate_limit_bytes_per_second:
     type: integer
     description: Log rate limit in bytes per second allocated for staging of the build
   error:
-    type:
-      - string
-      - 'null'
+    type: [string, 'null']
     description: A string describing errors during the build process
   lifecycle:
-    $ref: ./Lifecycle.yaml
+    $ref: './Lifecycle.yaml'
     description: Provides the lifecycle object to use during staging
   metadata:
-    $ref: ./Metadata.yaml
+    $ref: './Metadata.yaml'

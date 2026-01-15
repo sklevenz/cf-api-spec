@@ -14,18 +14,18 @@ content:
           additionalProperties:
             type: string
         lifecycle:
-          $ref: ../schemas/Lifecycle.yaml
+          $ref: '../schemas/Lifecycle.yaml'
           description: Provides the lifecycle object for the application
         relationships:
           type: object
           properties:
             space:
-              $ref: ../schemas/RelationshipToOne.yaml
+              $ref: '../schemas/RelationshipToOne.yaml'
               description: A relationship to a space
           required:
             - space
         metadata:
-          $ref: ../schemas/Metadata.yaml
+          $ref: '../schemas/Metadata.yaml'
       required:
         - name
         - relationships

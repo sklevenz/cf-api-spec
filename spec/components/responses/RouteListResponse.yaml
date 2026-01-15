@@ -5,8 +5,8 @@ content:
       type: object
       properties:
         pagination:
-          $ref: ../schemas/Pagination.yaml
+          $ref: '../schemas/Pagination.yaml'
         resources:
           type: array
           items:
-            $ref: ../schemas/Route.yaml
+            $ref: '../schemas/Route.yaml'

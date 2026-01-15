@@ -9,7 +9,7 @@ content:
           type: object
           properties:
             app:
-              $ref: ../schemas/RelationshipToOne.yaml
+              $ref: '../schemas/RelationshipToOne.yaml'
               description: App to create droplet for
           required:
             - app
@@ -17,7 +17,7 @@ content:
           type: object
           description: Process names and start commands for the droplet
         metadata:
-          $ref: ../schemas/Metadata.yaml
+          $ref: '../schemas/Metadata.yaml'
       required:
         - relationships
       description: Request schema for creating a droplet

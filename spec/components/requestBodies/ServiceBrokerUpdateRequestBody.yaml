@@ -17,8 +17,7 @@ content:
           properties:
             type:
               type: string
-              enum:
-                - basic
+              enum: [basic]
               description: Authentication type
             credentials:
               type: object
@@ -37,4 +36,4 @@ content:
             - type
             - credentials
         metadata:
-          $ref: ../schemas/Metadata.yaml
+          $ref: '../schemas/Metadata.yaml'

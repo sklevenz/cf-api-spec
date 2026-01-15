@@ -14,11 +14,8 @@ content:
           additionalProperties:
             type: string
         lifecycle:
-          $ref: ../schemas/Lifecycle.yaml
-          description: >-
-            Lifecycle to be used when updating the app; note `data` is a
-            required field in lifecycle if lifecycle is updated. `type` may NOT
-            be changed from its current value.
+          $ref: '../schemas/Lifecycle.yaml'
+          description: Lifecycle to be used when updating the app; note `data` is a required field in lifecycle if lifecycle is updated. `type` may NOT be changed from its current value.
         metadata:
-          $ref: ../schemas/Metadata.yaml
+          $ref: '../schemas/Metadata.yaml'
       description: Request schema for updating an app

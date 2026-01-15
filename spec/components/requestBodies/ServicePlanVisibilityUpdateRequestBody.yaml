@@ -7,10 +7,7 @@ content:
       properties:
         type:
           type: string
-          enum:
-            - public
-            - admin
-            - organization
+          enum: [public, admin, organization]
           description: Denotes the visibility of the plan
         organizations:
           type: array
@@ -22,8 +19,6 @@ content:
                 format: uuid
             required:
               - guid
-          description: >-
-            Desired list of organizations GUIDs where the plan will be
-            accessible; required if type is organization
+          description: Desired list of organizations GUIDs where the plan will be accessible; required if type is organization
       required:
         - type

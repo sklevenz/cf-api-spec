@@ -12,9 +12,7 @@ properties:
     type: object
     description: User-defined environment variables
     additionalProperties:
-      type:
-        - string
-        - 'null'
+      type: [string, "null"]
   system_env_json:
     type: object
     description: System environment variables including VCAP_SERVICES
@@ -23,4 +21,4 @@ properties:
     type: object
     description: Application environment variables including VCAP_APPLICATION
     additionalProperties: true
-description: Environment variables that will be provided to an app at runtime
+description: 'Environment variables that will be provided to an app at runtime'

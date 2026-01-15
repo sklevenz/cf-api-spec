@@ -9,4 +9,4 @@ properties:
 required:
   - read_basic_data
   - read_sensitive_data
-description: User permissions for an app
+description: 'User permissions for an app'

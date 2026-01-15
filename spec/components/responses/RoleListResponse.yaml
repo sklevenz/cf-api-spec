@@ -5,13 +5,11 @@ content:
       type: object
       properties:
         pagination:
-          $ref: ../schemas/Pagination.yaml
+          $ref: '../schemas/Pagination.yaml'
         resources:
           type: array
           items:
-            $ref: ../schemas/BaseSchema.yaml
+            $ref: '../schemas/Role.yaml'
         included:
-          $ref: ../schemas/IncludedResources.yaml
-          description: >-
-            Additional related resources included in the response when using the
-            include parameter
+          $ref: '../schemas/IncludedResources.yaml'
+          description: Additional related resources included in the response when using the include parameter

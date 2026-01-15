@@ -6,11 +6,8 @@ content:
       properties:
         name:
           type: string
-          description: >-
-            Name of the isolation segment; isolation segment names must be
-            unique across the entire system, and case is ignored when checking
-            for uniqueness
+          description: Name of the isolation segment; isolation segment names must be unique across the entire system, and case is ignored when checking for uniqueness
         metadata:
-          $ref: ../schemas/Metadata.yaml
+          $ref: '../schemas/Metadata.yaml'
       required:
         - name

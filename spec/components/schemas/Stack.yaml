@@ -1,14 +1,12 @@
 type: object
 allOf:
-  - $ref: ./BaseSchema.yaml
+  - $ref: './BaseSchema.yaml'
   - properties:
       name:
         type: string
         description: Name of the stack
       description:
-        type:
-          - string
-          - 'null'
+        type: [string, "null"]
         description: Description of the stack
       build_rootfs_image:
         type: string
@@ -23,9 +21,9 @@ allOf:
         type: object
         properties:
           self:
-            $ref: ./Link.yaml
+            $ref: './Link.yaml'
       metadata:
-        $ref: ./Metadata.yaml
+        $ref: './Metadata.yaml'
     required:
       - name
       - description

@@ -53,11 +53,11 @@ content:
           type: object
           properties:
             organization:
-              $ref: ../schemas/RelationshipToOne.yaml
+              $ref: '../schemas/RelationshipToOne.yaml'
             spaces:
-              $ref: ../schemas/RelationshipToMany.yaml
+              $ref: '../schemas/RelationshipToMany.yaml'
           description: Relationships for the space quota
         metadata:
-          $ref: ../schemas/Metadata.yaml
+          $ref: '../schemas/Metadata.yaml'
       required:
         - name

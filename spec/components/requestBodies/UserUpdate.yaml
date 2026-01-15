@@ -14,10 +14,10 @@ content:
           type: string
           description: The origin of the user
         metadata:
-          $ref: ../schemas/Metadata.yaml
+          $ref: '../schemas/Metadata.yaml'
         links:
           type: object
           properties:
             self:
-              $ref: ../schemas/Link.yaml
+              $ref: '../schemas/Link.yaml'
               description: The URL to get this user

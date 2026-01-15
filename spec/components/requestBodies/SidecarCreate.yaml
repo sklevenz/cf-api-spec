@@ -18,3 +18,4 @@ content:
         memory_in_mb:
           type: integer
           description: Memory limit for the sidecar in MB
+

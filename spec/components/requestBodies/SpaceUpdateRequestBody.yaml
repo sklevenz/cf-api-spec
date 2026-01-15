@@ -9,5 +9,5 @@ content:
           type: string
           description: New space name
         metadata:
-          $ref: ../schemas/Metadata.yaml
+          $ref: '../schemas/Metadata.yaml'
       description: Request schema for updating a space

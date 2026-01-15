@@ -12,37 +12,21 @@ properties:
         type: array
         items:
           type: string
-        description: >-
-          List of the names of buildpacks, URLs from which they may be
-          downloaded, or null to auto-detect a suitable buildpack during staging
-          (applicable for buildpack and cnb lifecycles)
+        description: List of the names of buildpacks, URLs from which they may be downloaded, or null to auto-detect a suitable buildpack during staging (applicable for buildpack and cnb lifecycles)
       stack:
-        type:
-          - string
-          - 'null'
-        description: >-
-          The root filesystem to use with the buildpack, for example cflinuxfs4
-          (applicable for buildpack lifecycle)
+        type: [string, "null"]
+        description: The root filesystem to use with the buildpack, for example cflinuxfs4 (applicable for buildpack lifecycle)
       credentials:
         type: object
         additionalProperties:
           type: object
           properties:
             username:
-              type:
-                - string
-                - 'null'
+              type: [string, "null"]
             password:
-              type:
-                - string
-                - 'null'
+              type: [string, "null"]
             token:
               type: string
-        description: >-
-          Credentials used to download the configured buildpacks (applicable for
-          cnb lifecycle)
+        description: Credentials used to download the configured buildpacks (applicable for cnb lifecycle)
 description: >
-  The lifecycle type defines how the application droplet is created and run. The
-  following lifecycle types are supported: - buildpack: Traditional buildpacks
-  for Cloud Foundry applications. - cnb: Cloud Native Buildpacks that are
-  OCI-compliant. - docker: Run pre-built Docker images.
+  The lifecycle type defines how the application droplet is created and run. The following lifecycle types are supported: - buildpack: Traditional buildpacks for Cloud Foundry applications. - cnb: Cloud Native Buildpacks that are OCI-compliant. - docker: Run pre-built Docker images.

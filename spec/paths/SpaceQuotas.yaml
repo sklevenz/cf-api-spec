@@ -1,0 +1,293 @@
+/v3/space_quotas:
+  get:
+    summary: List space quotas
+    description: This endpoint lists all space quota resources that the user has permission
+      to view.
+    operationId: listSpaceQuotas
+    tags:
+    - Space Quotas
+    parameters:
+    - $ref: '../components/parameters/Page.yaml'
+    - $ref: '../components/parameters/PerPage.yaml'
+    - $ref: '../components/parameters/OrderBy.yaml'
+    - name: guids
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of space quota guids to filter by
+    - name: names
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of space quota names to filter by
+    - name: organization_guids
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of organization guids to filter by
+    - name: space_guids
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of space guids to filter by
+    - $ref: '../components/parameters/CreatedAts.yaml'
+    - $ref: '../components/parameters/UpdatedAts.yaml'
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas/SpaceQuotaList.yaml'
+      '401':
+        $ref: '../components/responses/Unauthorized.yaml'
+      '403':
+        $ref: '../components/responses/Forbidden.yaml'
+      '400':
+        $ref: '../components/responses/BadRequest.yaml'
+      '500':
+        $ref: '../components/responses/500.yaml'
+      '502':
+        $ref: '../components/responses/BadGateway.yaml'
+      '503':
+        $ref: '../components/responses/ServiceUnavailable.yaml'
+      '422':
+        $ref: '../components/responses/UnprocessableEntity.yaml'
+      '409':
+        $ref: '../components/responses/Conflict.yaml'
+  post:
+    summary: Create a space quota
+    description: This endpoint creates a new space quota scoped to a specific organization.
+    operationId: createSpaceQuota
+    tags:
+    - Space Quotas
+    requestBody:
+      $ref: ../components/requestBodies/SpaceQuotaCreate.yaml
+    responses:
+      '201':
+        description: Created
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas/SpaceQuota.yaml'
+        links:
+          organization:
+            operationId: getOrganization
+            parameters:
+              guid: $response.body#/relationships/organization/data/guid
+            description: Retrieve the organization for this space quota
+      '401':
+        $ref: '../components/responses/Unauthorized.yaml'
+      '403':
+        $ref: '../components/responses/Forbidden.yaml'
+      '422':
+        $ref: '../components/responses/UnprocessableEntity.yaml'
+      '400':
+        $ref: '../components/responses/BadRequest.yaml'
+      '500':
+        $ref: '../components/responses/500.yaml'
+      '503':
+        $ref: '../components/responses/ServiceUnavailable.yaml'
+      '409':
+        $ref: '../components/responses/Conflict.yaml'
+/v3/space_quotas/{guid}:
+  get:
+    summary: Get a space quota
+    description: Get a space quota
+    operationId: getSpaceQuota
+    tags:
+    - Space Quotas
+    parameters:
+    - $ref: '../components/parameters/Guid.yaml'
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas/SpaceQuota.yaml'
+        links:
+          organization:
+            operationId: getOrganization
+            parameters:
+              guid: $response.body#/relationships/organization/data/guid
+            description: Retrieve the organization for this space quota
+      '401':
+        $ref: '../components/responses/Unauthorized.yaml'
+      '404':
+        $ref: '../components/responses/NotFound.yaml'
+      '403':
+        $ref: '../components/responses/Forbidden.yaml'
+  patch:
+    summary: Update a space quota
+    description: This endpoint will only update the parameters specified in the request
+      body. Any unspecified parameters will retain their existing values.
+    operationId: updateSpaceQuota
+    tags:
+    - Space Quotas
+    parameters:
+    - $ref: '../components/parameters/Guid.yaml'
+    requestBody:
+      $ref: ../components/requestBodies/SpaceQuotaUpdate.yaml
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas/SpaceQuota.yaml'
+        links:
+          organization:
+            operationId: getOrganization
+            parameters:
+              guid: $response.body#/relationships/organization/data/guid
+            description: Retrieve the organization for this space quota
+      '401':
+        $ref: '../components/responses/Unauthorized.yaml'
+      '404':
+        $ref: '../components/responses/NotFound.yaml'
+      '422':
+        $ref: '../components/responses/UnprocessableEntity.yaml'
+      '403':
+        $ref: '../components/responses/Forbidden.yaml'
+      '400':
+        $ref: '../components/responses/BadRequest.yaml'
+      '500':
+        $ref: '../components/responses/500.yaml'
+      '503':
+        $ref: '../components/responses/ServiceUnavailable.yaml'
+      '409':
+        $ref: '../components/responses/Conflict.yaml'
+  delete:
+    summary: Delete a space quota
+    description: Space quotas cannot be deleted when applied to any spaces.
+    operationId: deleteSpaceQuota
+    tags:
+    - Space Quotas
+    parameters:
+    - $ref: '../components/parameters/Guid.yaml'
+    responses:
+      '202':
+        description: Accepted
+        headers:
+          Location:
+            description: URL of the job that is deleting the space quota
+            schema:
+              type: string
+              format: uri
+      '401':
+        $ref: '../components/responses/Unauthorized.yaml'
+      '404':
+        $ref: '../components/responses/NotFound.yaml'
+      '403':
+        $ref: '../components/responses/Forbidden.yaml'
+      '422':
+        $ref: '../components/responses/UnprocessableEntity.yaml'
+      '500':
+        $ref: '../components/responses/500.yaml'
+/v3/space_quotas/{quota_guid}/relationships/spaces:
+  post:
+    summary: Apply a space quota to a space
+    description: 'This endpoint applies a space quota to one or more spaces.
+
+
+      Only an admin or an org manager in the quota’s parent organization can apply
+      a space quota to a space.'
+    operationId: applySpaceQuota
+    tags:
+    - Space Quotas
+    parameters:
+    - name: quota_guid
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/RelationshipToMany.yaml'
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas/RelationshipToMany.yaml'
+      '401':
+        $ref: '../components/responses/Unauthorized.yaml'
+      '404':
+        $ref: '../components/responses/NotFound.yaml'
+      '403':
+        $ref: '../components/responses/Forbidden.yaml'
+      '422':
+        $ref: '../components/responses/UnprocessableEntity.yaml'
+/v3/space_quotas/{guid}/relationships/spaces/{space_guid}:
+  delete:
+    summary: Remove a space quota from a space
+    description: 'This endpoint removes a space quota from a space.
+
+
+      Only an admin or an org manager in the quota’s parent organization can remove
+      a space quota from a space.'
+    operationId: removeSpaceQuotaFromSpace
+    tags:
+    - Space Quotas
+    parameters:
+    - $ref: '../components/parameters/Guid.yaml'
+    - name: space_guid
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    responses:
+      '204':
+        description: No Content
+      '401':
+        $ref: '../components/responses/Unauthorized.yaml'
+      '404':
+        $ref: '../components/responses/NotFound.yaml'
+      '403':
+        $ref: '../components/responses/Forbidden.yaml'
+      '422':
+        $ref: '../components/responses/UnprocessableEntity.yaml'
+/v3/space_quotas/{guid}/relationships/spaces/{space_guid}/:
+  delete:
+    summary: Remove a space quota from a space (with trailing slash)
+    description: 'This endpoint removes a space quota from a space.
+
+
+      Only an admin or an org manager in the quota’s parent organization can remove
+      a space quota from a space.'
+    operationId: removeSpaceQuotaFromSpaceWithSlash
+    tags:
+    - Space Quotas
+    parameters:
+    - $ref: '../components/parameters/Guid.yaml'
+    - name: space_guid
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    responses:
+      '204':
+        description: No Content
+      '401':
+        $ref: '../components/responses/Unauthorized.yaml'
+      '404':
+        $ref: '../components/responses/NotFound.yaml'
+      '403':
+        $ref: '../components/responses/Forbidden.yaml'
+      '422':
+        $ref: '../components/responses/UnprocessableEntity.yaml'

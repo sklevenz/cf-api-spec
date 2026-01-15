@@ -2,4 +2,4 @@ description: Successfully retrieved droplet
 content:
   application/json:
     schema:
-      $ref: ../schemas/Droplet.yaml
+      $ref: '../schemas/Droplet.yaml'

@@ -1,6 +1,6 @@
 type: object
 allOf:
-  - $ref: ./BaseSchema.yaml
+  - $ref: './BaseSchema.yaml'
   - properties:
       operation:
         type: string
@@ -17,35 +17,32 @@ allOf:
         type: array
         description: Any errors encountered during job execution
         items:
-          $ref: ./Error.yaml
+          $ref: './Error.yaml'
       warnings:
         type: array
         description: Any warnings encountered during job execution
         items:
-          $ref: ./Warning.yaml
+          $ref: './Warning.yaml'
       links:
         type: object
         additionalProperties: true
         properties:
           self:
-            $ref: ./Link.yaml
+            $ref: './Link.yaml'
             description: The URL to get this job
           manifest:
-            $ref: ./Link.yaml
+            $ref: './Link.yaml'
             description: The URL to get the manifest for this job
           service_brokers:
-            $ref: ./Link.yaml
+            $ref: './Link.yaml'
             description: The URL to get the service broker for this job
           service_credential_binding:
-            $ref: ./Link.yaml
+            $ref: './Link.yaml'
             description: The URL to get the service credential binding for this job
           service_instances:
-            $ref: ./Link.yaml
+            $ref: './Link.yaml'
             description: The URL to get the service instance for this job
           service_route_bindings:
-            $ref: ./Link.yaml
+            $ref: './Link.yaml'
             description: The URL to get the service route binding for this job
-description: >-
-  Jobs are created by the platform when performing certain asynchronous actions.
-  Asynchronous jobs are commonly used for long-running tasks such as uploading
-  large files, staging applications, or deleting resources.
+description: 'Jobs are created by the platform when performing certain asynchronous actions. Asynchronous jobs are commonly used for long-running tasks such as uploading large files, staging applications, or deleting resources.'

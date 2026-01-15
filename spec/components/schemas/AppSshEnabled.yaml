@@ -5,9 +5,7 @@ properties:
     description: Whether SSH is enabled for the app
   reason:
     type: string
-    description: >-
-      If SSH is disabled, describes whether it is disabled globally, at the
-      space level, or at the app level
+    description: If SSH is disabled, describes whether it is disabled globally, at the space level, or at the app level
 required:
   - enabled
-description: SSH enabled status for an app
+description: 'SSH enabled status for an app'

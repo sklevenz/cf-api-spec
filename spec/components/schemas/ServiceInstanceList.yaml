@@ -1,22 +1,15 @@
 type: object
 properties:
   pagination:
-    $ref: ./Pagination.yaml
+    $ref: './Pagination.yaml'
   resources:
     type: array
     items:
-      type: object
-      required:
-        - type
-      properties:
-        type:
-          type: string
-          description: Discriminator for the service instance schema
       oneOf:
-        - $ref: ./ManagedServiceInstance.yaml
-        - $ref: ./UserProvidedServiceInstance.yaml
+        - $ref: './ManagedServiceInstance.yaml'
+        - $ref: './UserProvidedServiceInstance.yaml'
       discriminator:
         propertyName: type
         mapping:
-          managed: ./ManagedServiceInstance.yaml
-          user-provided: ./UserProvidedServiceInstance.yaml
+          managed: './ManagedServiceInstance.yaml'
+          user-provided: './UserProvidedServiceInstance.yaml'

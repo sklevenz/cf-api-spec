@@ -1,6 +1,6 @@
 type: object
 allOf:
-  - $ref: ./BaseSchema.yaml
+  - $ref: './BaseSchema.yaml'
   - properties:
       name:
         type: string
@@ -14,36 +14,31 @@ allOf:
           type: string
         description: Process types that the sidecar applies to
       memory_in_mb:
-        type:
-          - integer
-          - null
+        type: [integer, "null"]
         description: Memory limit for the sidecar in MB
       origin:
-        type:
-          - string
-          - null
+        type: [string, "null"]
         description: Origin of the sidecar
         enum:
           - user
           - buildpack
-          - null
       relationships:
         type: object
         properties:
           app:
-            $ref: ./RelationshipToOne.yaml
+            $ref: './RelationshipToOne.yaml'
         description: Relationships for the sidecar
       links:
         type: object
         properties:
           self:
-            $ref: ./Link.yaml
+            $ref: './Link.yaml'
           app:
-            $ref: ./Link.yaml
+            $ref: './Link.yaml'
       metadata:
-        $ref: ./Metadata.yaml
+        $ref: './Metadata.yaml'
     required:
-      - name
-      - command
-      - process_types
-      - relationships
+    - name
+    - command
+    - process_types
+    - relationships

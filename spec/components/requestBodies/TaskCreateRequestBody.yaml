@@ -7,9 +7,7 @@ content:
       properties:
         command:
           type: string
-          description: >-
-            The command to run for the task. **NOTE:** optional if a
-            `template.process.guid` is provided
+          description: The command to run for the task. **NOTE:** optional if a `template.process.guid` is provided
         name:
           type: string
           description: Human-readable name for the task
@@ -21,9 +19,7 @@ content:
           description: Amount of disk to allocate for the task in MB
         log_rate_limit_in_bytes_per_second:
           type: integer
-          description: >-
-            Amount of log rate limit to allocate for the task in bytes per
-            second
+          description: Amount of log rate limit to allocate for the task in bytes per second
         droplet_guid:
           type: string
           format: uuid
@@ -42,5 +38,5 @@ content:
                 - guid
               description: The guid of the process that will be used as a template
         metadata:
-          $ref: ../schemas/Metadata.yaml
+          $ref: '../schemas/Metadata.yaml'
       description: Request schema for creating a task

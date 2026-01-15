@@ -1,8 +1,8 @@
 type: object
 properties:
   pagination:
-    $ref: ./Pagination.yaml
+    $ref: './Pagination.yaml'
   resources:
     type: array
     items:
-      $ref: ./ServiceUsageEvent.yaml
+      $ref: './ServiceUsageEvent.yaml'

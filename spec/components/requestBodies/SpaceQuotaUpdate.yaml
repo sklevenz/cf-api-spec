@@ -50,4 +50,4 @@ content:
               description: Total number of reserved ports allowed
           description: Route limits for the space quota
         metadata:
-          $ref: ../schemas/Metadata.yaml
+          $ref: '../schemas/Metadata.yaml'
