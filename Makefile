@@ -290,7 +290,7 @@ dashboard-bundle-hard:
 	@npx vacuum dashboard "$(BUNDLE_FILE)" --ignore-file "$(VACUUM_IGNORE)" --hard-mode --watch
 
 generate-ignore-file:
-	@echo "Generating Vacuum ignore file"
+	@echo "Generating Vacuum ignore file for $(SPEC_FILE)"
 	@if [ ! -f "$(SPEC_FILE)" ]; then \
 		echo ""; \
 		echo "Error"; \
