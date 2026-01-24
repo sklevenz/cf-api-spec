@@ -40,10 +40,6 @@ get:
                 description: Custom information about the platform
                 additionalProperties:
                   type: string
-                propertyNames:
-                  type: string
-                  pattern: ^[A-Za-z0-9_.-]{1,128}$
-                  description: Custom info key
               links:
                 type: object
                 description: Links to related resources

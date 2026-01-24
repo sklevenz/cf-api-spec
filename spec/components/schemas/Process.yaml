@@ -1,7 +1,8 @@
 type: object
 allOf:
   - $ref: ./BaseSchema.yaml
-  - properties:
+  - type: object
+    properties:
       version:
         type: string
         format: uuid

@@ -16,7 +16,7 @@ delete:
       required: true
       schema:
         type: integer
-      description: The zero based index of the process instance.
+      description: index identifier
   responses:
     '204':
       description: No Content

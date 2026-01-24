@@ -38,14 +38,9 @@ properties:
                 - 'null'
             token:
               type: string
-          additionalProperties: false
         description: >-
           Credentials used to download the configured buildpacks (applicable for
           cnb lifecycle)
-        propertyNames:
-          type: string
-          pattern: ^[A-Za-z0-9_.-]{1,128}$
-          description: Credential name
 description: >
   The lifecycle type defines how the application droplet is created and run. The
   following lifecycle types are supported: - buildpack: Traditional buildpacks

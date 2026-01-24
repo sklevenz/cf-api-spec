@@ -13,7 +13,7 @@ get:
         enum:
           - running
           - staging
-      description: The name of the environment variable group.
+      description: name identifier
   responses:
     '200':
       description: OK
@@ -65,7 +65,7 @@ patch:
         enum:
           - running
           - staging
-      description: The name of the environment variable group.
+      description: name identifier
   requestBody:
     description: The environment variables to update
     required: true
@@ -79,10 +79,6 @@ patch:
               additionalProperties:
                 type: string
               description: Environment variables to inject; keys and values must be strings
-              propertyNames:
-                type: string
-                pattern: ^[A-Za-z_][A-Za-z0-9_]*$
-                description: Environment variable name
   responses:
     '200':
       description: OK

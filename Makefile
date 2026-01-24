@@ -10,7 +10,7 @@ BUNDLE_FILE := $(GEN_DIR)/openapi.yaml
 SPLIT_DIR := $(GEN_DIR)/spec
 MOCK_PORT := 4010
 
-.PHONY: help all lint lint-hard lint-bundle lint-bundle-hard docs bundle bundle-vacuum bundle-redocly split-bundle split-bundle-update mock dashboard dashboard-bundle dashboard-hard dashboard-bundle-hard generate-ignore-file upgrade
+.PHONY: help all lint lint-hard lint-bundle lint-bundle-hard docs bundle bundle-vacuum bundle-redocly split-bundle mock dashboard dashboard-bundle dashboard-hard dashboard-bundle-hard ignore-file upgrade
 
 help:
 	@echo "Available targets:"
@@ -29,8 +29,7 @@ help:
 	@echo "  make bundle                - Bundle OpenAPI spec using Vacuum"
 	@echo "  make bundle-vacuum         - Bundle OpenAPI spec using Vacuum (known issues with securityScheme)"
 	@echo "  make bundle-redocly        - Bundle OpenAPI spec using Redocly"
-	@echo "  make split-bundle          - Split bundled spec into file structure (./gen/spec)"
-	@echo "  make split-bundle-update   - Split bundled spec and update ./spec directory"
+	@echo "  make split-bundle          - Split bundled spec into file structure (./spec)"
 	@echo ""
 	@echo "Documentation:"
 	@echo "  make docs                  - Generate HTML documentation using Redocly (./docs/index.html)"
@@ -44,7 +43,7 @@ help:
 	@echo ""
 	@echo "Maintenance:"
 	@echo "  make upgrade               - Install or update CLI tools locally (CI safe, no sudo)"
-	@echo "  make generate-ignore-file  - Generate Vacuum ignore file from hard mode report"
+	@echo "  make ignore-file           - Generate Vacuum ignore file from hard mode report"
 
 all: upgrade lint bundle docs
 
@@ -206,17 +205,6 @@ split-bundle:
 		echo "  Please check the output above for details"; \
 		exit $$STATUS; \
 	fi
-	@echo ""
-
-split-bundle-update: split-bundle
-	@echo "Updating source spec from split output"
-	@if [ ! -d "$(SPLIT_DIR)" ]; then \
-		echo ""; \
-		echo "Error"; \
-		echo "  Split output directory not found"; \
-		echo "  Path: $(SPLIT_DIR)"; \
-		exit 1; \
-	fi
 	@rm -rf "$(SPEC_DIR)"
 	@mv "$(SPLIT_DIR)" .
 	@echo ""; \
@@ -289,8 +277,8 @@ dashboard-bundle-hard:
 	@echo ""
 	@npx vacuum dashboard "$(BUNDLE_FILE)" --ignore-file "$(VACUUM_IGNORE)" --hard-mode --watch
 
-generate-ignore-file:
-	@echo "Generating Vacuum ignore file"
+ignore-file:
+	@echo "Generating Vacuum ignore file for $(SPEC_FILE)"
 	@if [ ! -f "$(SPEC_FILE)" ]; then \
 		echo ""; \
 		echo "Error"; \
