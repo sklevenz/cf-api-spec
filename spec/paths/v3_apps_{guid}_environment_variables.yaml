@@ -53,6 +53,10 @@ patch:
               additionalProperties:
                 type: string
               description: Environment variables to inject; keys and values must be strings
+              propertyNames:
+                type: string
+                pattern: ^[A-Za-z_][A-Za-z0-9_]*$
+                description: Environment variable name
     description: Update environment variables for the app.
   responses:
     '200':

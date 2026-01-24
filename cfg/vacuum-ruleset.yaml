@@ -8,12 +8,22 @@ extends: [[vacuum:oas, recommended]]
 rules:
 
   # Rules are mostly turned off to avoid overcomplicating the spec or ensure compatibility
+  owasp-array-limit: off
+  owasp-constrained-additionalProperties: off
+  owasp-integer-format: off
+  owasp-integer-limit: off
+  owasp-no-additionalProperties: off
+  owasp-protection-global-safe: off
+  owasp-rate-limit: off
+  owasp-security-hosts-https-oas3: off
+  owasp-string-limit: off
   owasp-string-restricted: off
-  
+
   oas3-missing-example: off
   
   camel-case-properties: off
   component-description: off
-  no-$ref-siblings: off
   description-duplication: off
+  no-$ref-siblings: off
+  path-item-refs: off
   paths-kebab-case: off
