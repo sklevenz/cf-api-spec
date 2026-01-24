@@ -10,7 +10,9 @@ BUNDLE_FILE := $(GEN_DIR)/openapi.yaml
 SPLIT_DIR := $(GEN_DIR)/spec
 MOCK_PORT := 4010
 
-.PHONY: help all lint lint-hard lint-bundle lint-bundle-hard docs bundle bundle-vacuum bundle-redocly split-bundle mock dashboard dashboard-bundle dashboard-hard dashboard-bundle-hard ignore-file upgrade
+.PHONY: help all lint lint-hard lint-bundle lint-bundle-hard docs bundle release release-list \
+        bundle-vacuum bundle-redocly split-bundle mock dashboard dashboard-bundle \
+        dashboard-hard dashboard-bundle-hard ignore-file upgrade
 
 help:
 	@echo "Available targets:"
@@ -44,6 +46,11 @@ help:
 	@echo "Maintenance:"
 	@echo "  make upgrade               - Install or update CLI tools locally (CI safe, no sudo)"
 	@echo "  make ignore-file           - Generate Vacuum ignore file from hard mode report"
+	@echo ""
+	@echo "Releasing:"
+	@echo "  make release               - Release on github (VERSION=0.0.0)"
+	@echo "  make release-list          - List available releases"
+
 
 all: upgrade lint bundle docs
 
@@ -296,3 +303,31 @@ ignore-file:
 	echo "  Output: $(VACUUM_IGNORE)"; \
 	echo ""
 
+check-version:
+ifndef VERSION
+	$(error VERSION is required, use: make release VERSION=0.0.0)
+endif
+
+release-list: 
+	@gh release list
+
+release: check-version
+
+release: check-version bundle docs
+	@set -euo pipefail; \
+	tag="$(VERSION)"; \
+	openapi_src="$(BUNDLE_FILE)"; \
+	docs_src="$(DOC_FILE)"; \
+	if [[ ! -f "$$openapi_src" ]]; then echo "Error: bundled spec not found at $$openapi_src"; exit 1; fi; \
+	if [[ ! -f "$$docs_src" ]]; then echo "Error: docs not found at $$docs_src"; exit 1; fi; \
+	openapi_out="$(GEN_DIR)/cf-api-openapi-$$tag.yaml"; \
+	docs_out="$(GEN_DIR)/cf-api-openapi-$$tag.html"; \
+	cp "$$openapi_src" "$$openapi_out"; \
+	cp "$$docs_src" "$$docs_out"; \
+	echo "Creating GitHub release $$tag"; \
+	gh release create "$$tag" "$$openapi_out" "$$docs_out" \
+		--title "$$tag" \
+		--target main \
+		--latest \
+		--generate-notes
+	
