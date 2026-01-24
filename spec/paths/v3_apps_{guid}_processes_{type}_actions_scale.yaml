@@ -11,6 +11,7 @@ post:
       required: true
       schema:
         type: string
+      description: The process type, for example web or worker.
   requestBody:
     content:
       application/json:
@@ -34,6 +35,9 @@ post:
               type:
                 - integer
                 - 'null'
+    description: >-
+      Scale an app process of the given type by updating instance count and or
+      resource limits.
   responses:
     '202':
       description: Accepted
@@ -49,3 +53,7 @@ post:
       $ref: ../components/responses/404.yaml
     '422':
       $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml

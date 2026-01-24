@@ -20,6 +20,7 @@ post:
       application/x-yaml:
         schema:
           type: string
+    description: Provide an application manifest to apply to apps in the given space.
   responses:
     '202':
       description: Accepted
@@ -37,3 +38,7 @@ post:
       $ref: ../components/responses/404.yaml
     '422':
       $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml

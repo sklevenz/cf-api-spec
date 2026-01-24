@@ -13,6 +13,10 @@ content:
           description: Environment variables to be used for the App when running
           additionalProperties:
             type: string
+          propertyNames:
+            type: string
+            pattern: ^[A-Za-z_][A-Za-z0-9_]*$
+            description: Environment variable name
         lifecycle:
           $ref: ../schemas/Lifecycle.yaml
           description: >-

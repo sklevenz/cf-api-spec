@@ -17,6 +17,9 @@ post:
       application/x-yaml:
         schema:
           type: string
+    description: >-
+      Provide a manifest to compare against the current space state and return a
+      diff.
   responses:
     '201':
       description: Accepted
@@ -42,3 +45,7 @@ post:
       $ref: ../components/responses/404.yaml
     '422':
       $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml

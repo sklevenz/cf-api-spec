@@ -13,12 +13,18 @@ get:
         application/json:
           schema:
             $ref: ../components/schemas/SecurityGroup.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
     '401':
       $ref: ../components/responses/401.yaml
     '403':
       $ref: ../components/responses/403.yaml
     '404':
       $ref: ../components/responses/404.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
 patch:
   summary: Update a security group
   description: Update a security group.
@@ -32,6 +38,7 @@ patch:
       application/json:
         schema:
           $ref: ../components/schemas/SecurityGroupUpdate.yaml
+    description: Update the security group properties such as name and rules.
   responses:
     '200':
       description: OK
@@ -51,6 +58,8 @@ patch:
       $ref: ../components/responses/409.yaml
     '422':
       $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
     '500':
       $ref: ../components/responses/500.yaml
     '503':
@@ -72,11 +81,15 @@ delete:
           schema:
             type: string
             format: uri
+    '400':
+      $ref: ../components/responses/400.yaml
     '401':
       $ref: ../components/responses/401.yaml
     '403':
       $ref: ../components/responses/403.yaml
     '404':
       $ref: ../components/responses/404.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
     '500':
       $ref: ../components/responses/500.yaml

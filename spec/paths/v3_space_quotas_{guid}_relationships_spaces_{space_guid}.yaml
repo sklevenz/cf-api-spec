@@ -17,6 +17,7 @@ delete:
       schema:
         type: string
         format: uuid
+      description: The GUID of the space.
   responses:
     '204':
       description: No Content
@@ -28,3 +29,7 @@ delete:
       $ref: ../components/responses/404.yaml
     '422':
       $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml

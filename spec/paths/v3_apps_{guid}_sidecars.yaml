@@ -13,12 +13,18 @@ get:
         application/json:
           schema:
             $ref: ../components/schemas/SidecarList.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
     '401':
       $ref: ../components/responses/401.yaml
     '403':
       $ref: ../components/responses/403.yaml
     '404':
       $ref: ../components/responses/404.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
 post:
   summary: Create a sidecar associated with an app
   description: Create a sidecar associated with an app.
@@ -54,6 +60,8 @@ post:
       $ref: ../components/responses/409.yaml
     '422':
       $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
     '500':
       $ref: ../components/responses/500.yaml
     '503':

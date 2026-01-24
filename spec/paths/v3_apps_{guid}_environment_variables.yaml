@@ -16,12 +16,18 @@ get:
         application/json:
           schema:
             $ref: ../components/schemas/AppEnvironmentVariables.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
     '401':
       $ref: ../components/responses/401.yaml
     '403':
       $ref: ../components/responses/403.yaml
     '404':
       $ref: ../components/responses/404.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
 patch:
   summary: Update environment variables for an app
   description: >-
@@ -47,6 +53,11 @@ patch:
               additionalProperties:
                 type: string
               description: Environment variables to inject; keys and values must be strings
+              propertyNames:
+                type: string
+                pattern: ^[A-Za-z_][A-Za-z0-9_]*$
+                description: Environment variable name
+    description: Update environment variables for the app.
   responses:
     '200':
       description: OK
@@ -62,3 +73,7 @@ patch:
       $ref: ../components/responses/404.yaml
     '422':
       $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml

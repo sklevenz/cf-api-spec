@@ -13,12 +13,18 @@ get:
         application/json:
           schema:
             $ref: ../components/schemas/ServiceOffering.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
     '401':
       $ref: ../components/responses/401.yaml
     '403':
       $ref: ../components/responses/403.yaml
     '404':
       $ref: ../components/responses/404.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
 patch:
   summary: Update a service offering
   description: This endpoint updates a service offering with labels and annotations.
@@ -34,6 +40,7 @@ patch:
           properties:
             metadata:
               $ref: ../components/schemas/Metadata.yaml
+    description: Update service offering properties such as metadata and documentation.
   responses:
     '200':
       description: OK
@@ -53,6 +60,8 @@ patch:
       $ref: ../components/responses/409.yaml
     '422':
       $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
     '500':
       $ref: ../components/responses/500.yaml
     '503':
@@ -91,5 +100,7 @@ delete:
       $ref: ../components/responses/404.yaml
     '422':
       $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
     '500':
       $ref: ../components/responses/500.yaml

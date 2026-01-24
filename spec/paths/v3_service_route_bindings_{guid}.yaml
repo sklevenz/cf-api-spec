@@ -34,12 +34,18 @@ get:
           parameters:
             guid: $response.body#/relationships/service_instance/data/guid
           description: Retrieve the service instance for this service route binding
+    '400':
+      $ref: ../components/responses/400.yaml
     '401':
       $ref: ../components/responses/401.yaml
     '403':
       $ref: ../components/responses/403.yaml
     '404':
       $ref: ../components/responses/404.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
 patch:
   summary: Update a service route binding
   description: This endpoint updates a service route binding with labels and annotations.
@@ -55,6 +61,7 @@ patch:
           properties:
             metadata:
               $ref: ../components/schemas/Metadata.yaml
+    description: Update a service route binding, for example to change metadata.
   responses:
     '200':
       description: OK
@@ -74,6 +81,8 @@ patch:
       $ref: ../components/responses/409.yaml
     '422':
       $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
     '500':
       $ref: ../components/responses/500.yaml
     '503':
@@ -111,5 +120,7 @@ delete:
       $ref: ../components/responses/404.yaml
     '422':
       $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
     '500':
       $ref: ../components/responses/500.yaml

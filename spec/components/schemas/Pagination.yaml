@@ -7,13 +7,11 @@ properties:
     type: integer
     description: The total number of pages available
   first:
-    allOf:
-      - $ref: ./Link.yaml
-      - description: The first page of results
+    $ref: ./Link.yaml
+    description: The first page of results
   last:
-    allOf:
-      - $ref: ./Link.yaml
-      - description: The last page of results
+    $ref: ./Link.yaml
+    description: The last page of results
   next:
     oneOf:
       - $ref: ./Link.yaml

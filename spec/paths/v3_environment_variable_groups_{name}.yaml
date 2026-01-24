@@ -13,6 +13,7 @@ get:
         enum:
           - running
           - staging
+      description: The name of the environment variable group.
   responses:
     '200':
       description: OK
@@ -32,6 +33,8 @@ get:
       $ref: ../components/responses/409.yaml
     '422':
       $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
     '500':
       $ref: ../components/responses/500.yaml
     '502':
@@ -62,6 +65,7 @@ patch:
         enum:
           - running
           - staging
+      description: The name of the environment variable group.
   requestBody:
     description: The environment variables to update
     required: true
@@ -75,6 +79,10 @@ patch:
               additionalProperties:
                 type: string
               description: Environment variables to inject; keys and values must be strings
+              propertyNames:
+                type: string
+                pattern: ^[A-Za-z_][A-Za-z0-9_]*$
+                description: Environment variable name
   responses:
     '200':
       description: OK
@@ -94,6 +102,8 @@ patch:
       $ref: ../components/responses/409.yaml
     '422':
       $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
     '500':
       $ref: ../components/responses/500.yaml
     '503':

@@ -68,6 +68,8 @@ get:
       $ref: ../components/responses/409.yaml
     '422':
       $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
     '500':
       $ref: ../components/responses/500.yaml
     '502':
@@ -96,6 +98,7 @@ post:
       application/json:
         schema:
           $ref: ../components/schemas/ServiceRouteBindingCreate.yaml
+    description: Create a new service route binding between a service instance and a route.
   responses:
     '201':
       description: Created
@@ -132,6 +135,8 @@ post:
       $ref: ../components/responses/409.yaml
     '422':
       $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
     '500':
       $ref: ../components/responses/500.yaml
     '503':

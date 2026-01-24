@@ -23,6 +23,10 @@ get:
       $ref: ../components/responses/403.yaml
     '404':
       $ref: ../components/responses/404.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
 post:
   summary: Insert destinations for a route
   description: >-
@@ -55,6 +59,10 @@ post:
       $ref: ../components/responses/404.yaml
     '422':
       $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
 patch:
   summary: Replace all destinations for a route
   description: >-
@@ -96,6 +104,10 @@ patch:
       $ref: ../components/responses/404.yaml
     '422':
       $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
 put:
   summary: Replace all destinations for a route
   description: >-
@@ -135,5 +147,7 @@ put:
       $ref: ../components/responses/403.yaml
     '422':
       $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
     '500':
       $ref: ../components/responses/500.yaml

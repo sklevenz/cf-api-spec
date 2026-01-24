@@ -3,7 +3,6 @@ get:
   description: Retrieve a list of droplets belonging to a package.
   operationId: listPackageDroplets
   tags:
-    - Packages
     - Droplets
   parameters:
     - $ref: ../components/parameters/Guid.yaml
@@ -32,9 +31,15 @@ get:
         application/json:
           schema:
             $ref: ../components/schemas/DropletList.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
     '401':
       $ref: ../components/responses/401.yaml
     '403':
       $ref: ../components/responses/403.yaml
     '404':
       $ref: ../components/responses/404.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml

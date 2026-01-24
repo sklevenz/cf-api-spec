@@ -50,6 +50,9 @@ post:
               description: List of resources to check for in the resource cache
           required:
             - resources
+    description: >-
+      Provide resource descriptors to check which resources already exist on the
+      Cloud Foundry blobstore.
   responses:
     '201':
       description: Created
@@ -67,6 +70,8 @@ post:
       $ref: ../components/responses/409.yaml
     '422':
       $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
     '500':
       $ref: ../components/responses/500.yaml
     '503':

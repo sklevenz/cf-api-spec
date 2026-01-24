@@ -16,11 +16,13 @@ post:
       schema:
         type: string
         format: uuid
+      description: The GUID of the space quota.
   requestBody:
     content:
       application/json:
         schema:
           $ref: ../components/schemas/RelationshipToMany.yaml
+    description: Apply the space quota to the given spaces.
   responses:
     '200':
       description: OK
@@ -36,3 +38,7 @@ post:
       $ref: ../components/responses/404.yaml
     '422':
       $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml

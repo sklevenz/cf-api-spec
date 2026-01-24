@@ -13,6 +13,7 @@ get:
         type: string
         enum:
           - ssh
+      description: The name of the feature.
   responses:
     '200':
       description: OK
@@ -20,12 +21,18 @@ get:
         application/json:
           schema:
             $ref: ../components/schemas/SpaceFeature.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
     '401':
       $ref: ../components/responses/401.yaml
     '403':
       $ref: ../components/responses/403.yaml
     '404':
       $ref: ../components/responses/404.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
 patch:
   summary: Update a space feature
   description: Update a space feature.
@@ -41,6 +48,7 @@ patch:
         type: string
         enum:
           - ssh
+      description: The name of the feature.
   requestBody:
     content:
       application/json:
@@ -48,6 +56,7 @@ patch:
           properties:
             enabled:
               type: boolean
+    description: Update the named space feature, enabling or disabling it.
   responses:
     '200':
       description: OK
@@ -63,3 +72,7 @@ patch:
       $ref: ../components/responses/404.yaml
     '422':
       $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
