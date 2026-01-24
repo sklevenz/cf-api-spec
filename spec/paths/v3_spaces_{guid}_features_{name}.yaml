@@ -13,6 +13,7 @@ get:
         type: string
         enum:
           - ssh
+      description: The name of the feature.
   responses:
     '200':
       description: OK
@@ -47,6 +48,7 @@ patch:
         type: string
         enum:
           - ssh
+      description: The name of the feature.
   requestBody:
     content:
       application/json:

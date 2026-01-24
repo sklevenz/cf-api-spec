@@ -11,6 +11,7 @@ post:
       required: true
       schema:
         type: string
+      description: The process type, for example web or worker.
   requestBody:
     content:
       application/json:

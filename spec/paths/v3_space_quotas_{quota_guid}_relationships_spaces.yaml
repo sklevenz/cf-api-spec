@@ -16,6 +16,7 @@ post:
       schema:
         type: string
         format: uuid
+      description: The GUID of the space quota.
   requestBody:
     content:
       application/json:

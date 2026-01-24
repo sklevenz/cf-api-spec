@@ -17,6 +17,7 @@ delete:
       schema:
         type: string
         format: uuid
+      description: The GUID of the space.
   responses:
     '204':
       description: No Content

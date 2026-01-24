@@ -13,6 +13,7 @@ get:
         enum:
           - running
           - staging
+      description: The name of the environment variable group.
   responses:
     '200':
       description: OK
@@ -64,6 +65,7 @@ patch:
         enum:
           - running
           - staging
+      description: The name of the environment variable group.
   requestBody:
     description: The environment variables to update
     required: true

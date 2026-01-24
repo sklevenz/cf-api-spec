@@ -16,6 +16,7 @@ get:
           - revisions
           - service-binding-k8s
           - file-based-vcap-services
+      description: The name of the feature.
   responses:
     '200':
       description: OK
@@ -49,6 +50,7 @@ patch:
           - revisions
           - service-binding-k8s
           - file-based-vcap-services
+      description: The name of the feature.
   requestBody:
     content:
       application/json:

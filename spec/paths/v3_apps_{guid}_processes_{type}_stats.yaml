@@ -11,6 +11,7 @@ get:
       required: true
       schema:
         type: string
+      description: The process type, for example web or worker.
   responses:
     '200':
       description: OK
