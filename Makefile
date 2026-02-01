@@ -1,13 +1,18 @@
 SPEC_DIR := ./spec
-SPEC_FILE := $(SPEC_DIR)/openapi.yaml
 CFG_DIR := ./cfg
+DOC_DIR := ./docs
+MOCK_DIR := ./mock
+GEN_DIR := ./gen
+SPLIT_DIR := $(GEN_DIR)/spec
+
+SPEC_FILE := $(SPEC_DIR)/openapi.yaml
 VACUUM_RULESET := $(CFG_DIR)/vacuum-ruleset.yaml
 VACUUM_IGNORE := $(CFG_DIR)/vacuum-ignore.yaml
-DOC_DIR := ./docs
 DOC_FILE := $(DOC_DIR)/index.html
-GEN_DIR := ./gen
 BUNDLE_FILE := $(GEN_DIR)/openapi.yaml
-SPLIT_DIR := $(GEN_DIR)/spec
+UAA_SPEC_FILE := $(MOCK_DIR)/uaa.yaml
+MOCK_SPEC_FILE := $(GEN_DIR)/openapi-mock.yaml
+
 MOCK_PORT := 4010
 
 .PHONY: help all lint lint-hard lint-bundle lint-bundle-hard docs bundle release release-list \
@@ -36,8 +41,10 @@ help:
 	@echo "Documentation:"
 	@echo "  make docs                  - Generate HTML documentation using Redocly (./docs/index.html)"
 	@echo ""
-	@echo "Mock and dashboards:"
+	@echo "Mock:"
 	@echo "  make mock                  - Start local Prism mock server"
+	@echo ""
+	@echo "Dashboards:"
 	@echo "  make dashboard             - Start Vacuum dashboard with custom ruleset"
 	@echo "  make dashboard-hard        - Start Vacuum dashboard in hard mode"
 	@echo "  make dashboard-bundle      - Start Vacuum dashboard for bundled spec"
@@ -221,16 +228,9 @@ split-bundle:
 
 mock:
 	@echo "Starting Prism mock server"
-	@if [ ! -f "$(SPEC_FILE)" ]; then \
-		echo ""; \
-		echo "Error"; \
-		echo "  Spec file not found"; \
-		echo "  Path: $(SPEC_FILE)"; \
-		exit 1; \
-	fi
-	@echo "  Port: $(MOCK_PORT)"
-	@echo ""
-	@npx prism mock "$(SPEC_FILE)" --port $(MOCK_PORT)
+	@mkdir -p gen
+	@npx -y @redocly/cli join "$(SPEC_FILE)" "$(UAA_SPEC_FILE)" -o "$(MOCK_SPEC_FILE)"
+	@npx prism mock "$(MOCK_SPEC_FILE)" --port "$(MOCK_PORT)"
 
 dashboard:
 	@echo "Starting Vacuum dashboard on source spec"

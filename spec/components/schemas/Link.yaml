@@ -3,11 +3,14 @@ properties:
   href:
     type: string
     description: The URL of the link
+    format: uri
+    example: http://127.0.0.1:4010/v3/organizations
   method:
     type: string
     description: >-
       An optional field containing the HTTP method to be used when following the
       URL
+    example: GET
 required:
   - href
 description: >
