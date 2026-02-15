@@ -20,7 +20,6 @@ properties:
       - $ref: ./Link.yaml
     default: null
     example: null
-    nullable: true
     description: Null when there is no next page.
     x-faker: null
   previous:
@@ -29,7 +28,6 @@ properties:
       - $ref: ./Link.yaml
     default: null
     example: null
-    nullable: true
     description: Null when there is no next page.
     x-faker: null
 description: >
