@@ -120,124 +120,131 @@ node -v
 npm -v
 ```
 
-All tools are installed locally under `./node_modules` using:
-
-```
-make upgrade
-```
-
-This guarantees consistent tool versions independent of globally installed binaries.
-
 ---
 
 ## Usage
 
-All workflows are executed exclusively through the Makefile.
-
-### Install or Upgrade Toolchain
-
-```
-make upgrade
-```
-
-This target installs or updates the required CLI tools locally using npm without modifying `package.json`.
-
-It installs:
-
-- `@redocly/cli`
-- `@stoplight/prism-cli`
-- `@quobix/vacuum`
-
-After installation, it prints the installed tool versions to ensure transparency and reproducibility.
-
-### Lint the OpenAPI Specification
-
-```
-make lint
-```
-
-This target runs the Vacuum linter against the OpenAPI specification.
-
-By default, it validates the modular source specification (`spec/openapi.yaml`) using the configured ruleset and ignore file.
-
-Variants:
-
-- `make lint-hard` enables Vacuum hard mode
-- `make lint-bundle` lints the bundled specification (`./gen/openapi.yaml`)
-- `make lint-bundle-hard` combines bundle scope with hard mode
-
-### Generate HTML Documentation
-
-```
-make docs
-```
-
-This target generates static HTML documentation from the modular OpenAPI specification using the Redocly CLI.
-
-It builds a self contained documentation page and writes the result to:
-
-`./docs/index.html`
-
-Output: `./docs/index.html`
-
-### Bundle the Specification
-
-```
-make bundle
-```
-
-This target bundles the modular OpenAPI specification into a single self contained file using the Redocly CLI.
-
-Internally it performs the following steps:
-
-- Executes `redocly bundle` to resolve and inline all `$ref` references
-
-The resulting bundled specification is written to:
-
-`./gen/openapi.yaml`
-
-The bundled artifact can be used for:
-
-- Client and server code generation
-- Distribution as a single OpenAPI file
-- Release packaging
-- Downstream tooling that requires a flattened specification
-
-
-### Start the Local Mock Server
-
-```
-make mock
-```
-
-This target starts a local Prism mock server based on a merged specification.
-
-It:
-
-- Joins the Cloud Foundry spec and the UAA mock spec using `redocly join`
-- Writes the merged file to `./gen/openapi-mock.yaml`
-- Starts `prism mock` on port `4010`
-
-The server exposes both CF API endpoints and selected UAA authentication endpoints.
-
-http://localhost:4010/
-
-Example:
-
-```
-curl -X GET http://localhost:4010/v3 \
-  -H "Authorization: Bearer $MOCK_ACCESS_TOKEN"
-```
+All workflows are executed via the Makefile. Run `make help` to see the complete list of available targets.
 
 ---
 
-## API Documentation
+### General
 
-<https://sklevenz.github.io/cf-api-spec>
+Installs the required tools, bundles the specification, runs validation, and generates documentation in a single workflow.
 
 ---
 
-## References
+### Linting
+
+Validates the OpenAPI specification using Vacuum.
+
+Linting can be executed against both the modular source specification and the bundled specification, with optional hard mode enforcement.
+
+Vacuum uses a custom ruleset and an ignore file located in the `./cfg` directory to control validation behavior and rule suppression.
+
+In hard mode, all rule violations are treated as errors; in practice, this mode is intentionally strict and rarely fully satisfied by real world specifications.
+
+---
+
+### Bundling and Splitting
+
+Bundles the modular OpenAPI specification into a single flattened file located in `./gen/openapi.yaml`.
+
+Provides alternative bundling implementations and allows splitting a bundled specification back into the modular structure under `./spec`.
+
+Together with the interactive dashboards, this forms the typical development workflow:
+
+- Edit the modular specification in `./spec` while running a dashboard in a separate terminal for immediate validation feedback
+- Alternatively, edit the bundled file (`./gen/openapi.yaml`) and split it back into the modular structure afterwards
+
+This combination of dashboards, bundling, and splitting enables an efficient iterative development mode for refining and restructuring the specification.
+
+---
+
+### Documentation
+
+Generates static HTML documentation from the OpenAPI specification and writes the result to `./docs/index.html`.
+
+A GitHub Pages workflow publishes this documentation automatically from the `main` branch to:
+
+https://sklevenz.github.io/cf-api-spec
+
+---
+
+### Mock
+
+Creates a merged specification of the Cloud Foundry API and the UAA mock specification, writes it to `./gen/openapi-mock.yaml`, and starts a local Prism mock server.
+
+The mock works by joining the main CF OpenAPI specification (`./spec/openapi.yaml`) with the dedicated UAA mock specification (`./mock/uaa.yaml`). The merged result is written to `./gen/openapi-mock.yaml` and served by Prism on `http://localhost:4010`.
+
+Because UAA endpoints are part of the merged specification, authentication flows can be simulated locally. The mock does not perform real credential validation.
+
+Example CF CLI command sequence:
+
+1. `cf api http://localhost:4010`
+2. `cf auth username password`  
+   (The mock does not validate credentials)
+3. `cf target -o org -s space`
+
+The CF CLI maintains the session under `$HOME/.cf/config.json`.
+
+4. `cf orgs`
+5. `cf curl /v3/apps`
+
+This enables end to end interaction testing against mocked CF and UAA APIs without running a real Cloud Foundry deployment.
+
+The OpenAPI specification contains curated example responses that are used by the mock server. These examples can be extended at any time to refine or enrich the mocked behavior.
+
+---
+
+### Dashboards
+
+Starts the interactive Vacuum dashboard for exploring linting results, rules, and validation feedback for both source and bundled specifications.
+
+The dashboards are typically used in parallel with bundling and splitting during development:
+
+- Run a dashboard while editing the modular specification in `./spec` to receive immediate rule feedback
+- Run a dashboard against the bundled specification (`./gen/openapi.yaml`) to validate the flattened result
+
+This makes the dashboard the central feedback loop in the iterative development mode of the specification.
+
+The dashboard can also be started in hard mode; however, similar to linting hard mode, this configuration is intentionally strict and primarily useful for theoretical rule evaluation rather than practical day to day development.
+
+---
+
+### Maintenance
+
+Installs or updates required CLI tools locally and maintains the linting configuration.
+
+Linting rules are defined in:
+
+- `./cfg/vacuum-ruleset.yaml`
+- `./cfg/vacuum-ignore.yaml`
+
+The ignore file is generated from Vacuum hard mode once the specification quality is considered acceptable.
+
+Typical workflow:
+
+1. Generate ignore file from hard mode
+2. Review the generated ignore file
+3. Remove ignored rules that should not be accepted
+4. Fix the specification accordingly (while having a vacuum dashboard open in parallel)
+5. Repeat until the linter passes as expected
+
+---
+
+### Releasing
+
+Creates GitHub releases including generated artifacts and provides visibility into existing releases.
+
+````
+make release VERSION=0.0.0
+````
+
+
+---
+
+# References
 
 - https://v3-apidocs.cloudfoundry.org/version/3.181.0/index.html
 - https://sklevenz.github.io/cf-api-spec
