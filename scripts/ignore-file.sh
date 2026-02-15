@@ -2,14 +2,10 @@
 
 # Generate Vacuum ignore file from hard mode report
 
-set -euo pipefail
-
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=lib.sh
 source "${SCRIPT_DIR}/lib.sh"
-
-SPEC_FILE="${SPEC_FILE:-./spec/openapi.yaml}"
-VACUUM_IGNORE="${VACUUM_IGNORE:-./cfg/vacuum-ignore.yaml}"
+init_common_paths
 
 print_step "Generating Vacuum ignore file"
 

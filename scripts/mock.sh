@@ -2,17 +2,13 @@
 
 # Start local Prism mock server for combined CF and UAA spec
 
-set -euo pipefail
-
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=lib.sh
 source "${SCRIPT_DIR}/lib.sh"
-
-SPEC_FILE="${SPEC_FILE:-./spec/openapi.yaml}"
-UAA_SPEC_FILE="${UAA_SPEC_FILE:-./mock/uaa.yaml}"
-GEN_DIR="${GEN_DIR:-./gen}"
-MOCK_SPEC_FILE="${MOCK_SPEC_FILE:-./gen/openapi-mock.yaml}"
-MOCK_PORT="${MOCK_PORT:-4010}"
+init_common_paths
+set_default UAA_SPEC_FILE "./mock/uaa.yaml"
+set_default MOCK_SPEC_FILE "${GEN_DIR}/openapi-mock.yaml"
+set_default MOCK_PORT "4010"
 
 print_step "Starting Prism mock server"
 

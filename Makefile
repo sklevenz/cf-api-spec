@@ -1,19 +1,3 @@
-SPEC_DIR := ./spec
-CFG_DIR := ./cfg
-DOC_DIR := ./docs
-MOCK_DIR := ./mock
-GEN_DIR := ./gen
-SPLIT_DIR := $(GEN_DIR)/spec
-
-SPEC_FILE := $(SPEC_DIR)/openapi.yaml
-VACUUM_RULESET := $(CFG_DIR)/vacuum-ruleset.yaml
-VACUUM_IGNORE := $(CFG_DIR)/vacuum-ignore.yaml
-DOC_FILE := $(DOC_DIR)/index.html
-BUNDLE_FILE := $(GEN_DIR)/openapi.yaml
-UAA_SPEC_FILE := $(MOCK_DIR)/uaa.yaml
-MOCK_SPEC_FILE := $(GEN_DIR)/openapi-mock.yaml
-
-MOCK_PORT := 4010
 
 .PHONY: help all lint lint-hard lint-bundle lint-bundle-hard docs bundle release release-list \
         bundle-vacuum bundle-redocly split-bundle mock dashboard dashboard-bundle \

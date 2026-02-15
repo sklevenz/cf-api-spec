@@ -1,17 +1,10 @@
-
 #!/usr/bin/env bash
-
-# Build HTML documentation using Redocly
-
-set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=lib.sh
 source "${SCRIPT_DIR}/lib.sh"
 
-SPEC_FILE="${SPEC_FILE:-./spec/openapi.yaml}"
-DOC_DIR="${DOC_DIR:-./docs}"
-DOC_FILE="${DOC_FILE:-./docs/index.html}"
+init_common_paths
 
 print_step "Building HTML documentation"
 

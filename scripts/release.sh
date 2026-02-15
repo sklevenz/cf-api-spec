@@ -2,16 +2,13 @@
 
 # Create a GitHub release with bundled OpenAPI spec and generated docs
 
-set -euo pipefail
-
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=lib.sh
 source "${SCRIPT_DIR}/lib.sh"
 
+init_common_paths
 VERSION="${VERSION:-}"
-GEN_DIR="${GEN_DIR:-./gen}"
-BUNDLE_FILE="${BUNDLE_FILE:-./gen/openapi.yaml}"
-DOC_FILE="${DOC_FILE:-./docs/index.html}"
+
 
 if [[ -z "${VERSION}" ]]; then
   fail "VERSION is required, use: make release VERSION=0.0.0"
