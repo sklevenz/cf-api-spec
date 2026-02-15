@@ -8,9 +8,9 @@ content:
         cloud_controller_v3:
           href: https://api.example.com/v3
         login:
-          href: https://login.example.com
+          href: http://localhost:4010
         uaa:
-          href: https://uaa.example.com
+          href: http://localhost:4010
         version:
           href: https://api.example.com/version
         health:
@@ -29,9 +29,9 @@ content:
             cloud_controller_v3:
               href: https://api.example.com/v3
             login:
-              href: https://login.example.com
+              href: http://localhost:4010
             uaa:
-              href: https://uaa.example.com
+              href: http://localhost:4010
             version:
               href: https://api.example.com/version
             health:

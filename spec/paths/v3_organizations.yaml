@@ -32,6 +32,48 @@ get:
         application/json:
           schema:
             $ref: ../components/schemas/OrganizationList.yaml
+          example:
+            pagination:
+              total_results: 1
+              total_pages: 1
+              first:
+                href: http://127.0.0.1:4010/v3/organizations?page=1&per_page=50
+                method: GET
+              last:
+                href: http://127.0.0.1:4010/v3/organizations?page=1&per_page=50
+                method: GET
+              next: null
+              previous: null
+            resources:
+              - guid: ee6a7af7-650d-499b-8e32-58a52ffdb7bc
+                created_at: '2026-02-01T10:00:00Z'
+                updated_at: '2026-02-01T10:00:00Z'
+                name: Org1
+                suspended: false
+                relationships:
+                  quota:
+                    data:
+                      guid: 00000000-0000-0000-0000-000000000000
+                metadata:
+                  labels: {}
+                  annotations: {}
+                links:
+                  self:
+                    href: >-
+                      http://127.0.0.1:4010/v3/organizations/ee6a7af7-650d-499b-8e32-58a52ffdb7bc
+                    method: GET
+                  domains:
+                    href: >-
+                      http://127.0.0.1:4010/v3/organizations/ee6a7af7-650d-499b-8e32-58a52ffdb7bc/domains
+                    method: GET
+                  quota:
+                    href: >-
+                      http://127.0.0.1:4010/v3/organization_quotas/00000000-0000-0000-0000-000000000000
+                    method: GET
+                  default_domain:
+                    href: >-
+                      http://127.0.0.1:4010/v3/organizations/ee6a7af7-650d-499b-8e32-58a52ffdb7bc/domains/default
+                    method: GET
     '400':
       $ref: ../components/responses/400.yaml
     '401':
