@@ -20,7 +20,7 @@ info:
     Additional resources include the deprecated but still available Cloud
     Foundry V2 API, documentation on running tasks, and the source code for the
     V3 API documentation and OpenAPI specification.
-  version: alpha-0.0.1
+  version: alpha-0.0.2
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
