@@ -1,184 +1,244 @@
 # cf-api-spec
 
-OpenAPI Specification of Cloud Foundry API
+OpenAPI Specification of the Cloud Foundry API
 
 [![Lint Status](https://github.com/sklevenz/cf-api-spec/actions/workflows/lint.yaml/badge.svg)](https://github.com/sklevenz/cf-api-spec/actions)
 [![Bundle Status](https://github.com/sklevenz/cf-api-spec/actions/workflows/bundle.yaml/badge.svg)](https://github.com/sklevenz/cf-api-spec/actions)
 [![Documentation Status](https://github.com/sklevenz/cf-api-spec/actions/workflows/docs.yaml/badge.svg)](https://github.com/sklevenz/cf-api-spec/actions)
 
+---
+
 ## Abstract
 
-This project provides an OpenAPI Specification for the Cloud Foundry API, covering the Cloud Controller APIs. By defining a standardized and machine readable format, the specification aims to improve developer productivity, simplify API integration, and ensure consistent and reliable documentation.
+This repository provides a modular OpenAPI specification for the Cloud Foundry Cloud Controller API.
 
-The OpenAPI Specification is developed and maintained using a streamlined toolchain, with the Makefile acting as the single entry point for all workflows. The setup focuses on a small set of purpose built tools to reduce complexity and improve maintainability.
+The goal is to offer a machine readable and maintainable API definition that enables:
 
-Vacuum is used as the primary tool for OpenAPI validation, linting, reporting, and rule enforcement. Due to known limitations and occasional bugs in Vacuum, Redocly CLI is used as a fallback for selected tasks such as bundling and documentation generation. Prism is used to run a local mock server based on the specification. 
+- Client and server code generation
+- Deterministic validation and linting
+- Reproducible documentation builds
+- Local API simulation via mock server
 
-For local development, the mock target first merges the Cloud Foundry OpenAPI specification with an additional UAA OpenAPI specification using the Redocly CLI join command. The resulting combined specification includes both Cloud Foundry and UAA endpoints and is then served via Prism. This allows the local mock server to simulate not only CF API endpoints but also the relevant UAA authentication and OAuth related endpoints in a single unified mock API.
+The specification is maintained through a minimal and focused toolchain. The Makefile acts as the single entry point for all workflows to ensure reproducible and automated development processes.
 
-All tasks such as tool installation, validation, reporting, bundling, documentation generation, and mock server startup are executed via Makefile targets to ensure reproducible and automated development workflows.
+---
 
-The repository serves as a foundation for:
+## Toolchain Overview
 
-* Client and server code generation
-* Interactive API documentation
-* Improved validation and testing of API interactions
+The project intentionally uses a small and clearly defined OpenAPI toolchain:
 
-Through this effort, the project contributes to the Cloud Foundry ecosystem by promoting accessibility, transparency, and interoperability of its APIs.
-
-## API Documentation
-
-https://sklevenz.github.io/cf-api-spec
-
-## Folder Structure
-
-The directory structure of this repository is organized to separate concerns and improve clarity. Each folder serves a specific purpose, from storing the OpenAPI specification and its components to configuration and workflows.
-
-```plaintext
-├── .github             # GitHub Actions workflows
-│   └── workflows       # CI pipelines, lint, bundle, docs
-├── cfg                 # Tool configuration, rulesets, ignore files
-├── spec                # OpenAPI specification and modularized content
-│   ├── openapi.yaml    # Main OpenAPI entry file
-│   ├── paths           # Path items split into separate files
-│   └── components      # Reusable OpenAPI components
-│       ├── schemas     # Data models
-│       ├── parameters  # Reusable parameters
-│       ├── responses   # Reusable responses
-│       ├── requestBodies  # Reusable request bodies
-│       ├── examples    # Reusable examples
-│       ├── headers     # Reusable headers
-│       ├── links       # Reusable links
-│       └── securitySchemes  # Auth definitions
-├── scripts             # Bash helper scripts invoked by the Makefile
-├── mock                # UAA mock OpenAPI spec used for join during mock server startup
-├── Makefile            # Single entry point for workflows
-├── README.md           # Project overview and usage
-└── LICENSE             # License
-````
-
-## Tools Used
-
-This project uses a small and well defined OpenAPI toolchain. All tools are installed automatically in their latest versions via npm and executed through a local Node.js environment using npx. The Makefile is the single entry point and guarantees deterministic behavior across local development and GitHub Actions.
-
-The `make upgrade` target updates all required tools and creates a local Node.js environment under `./node_modules`. This ensures that every Makefile execution uses the same locally managed tool versions, independent of any globally installed tooling.
-
-For convenience, the tools can also be installed globally or via Homebrew for ad hoc local usage, following the recommendations of each tool. This is optional and not required for the Makefile driven workflows.
+```
+Makefile
+   ├── Vacuum      (validation, linting, reporting, rule enforcement)
+   ├── Redocly     (bundling, documentation generation, spec merging)
+   └── Prism       (local mock server)
+```
 
 ### Vacuum
 
 Vacuum is the primary tool for OpenAPI validation, linting, reporting, and rule enforcement. It is the default validator used in CI and local development.
 
-Vacuum is executed via npx to ensure a consistent version:
-
-```bash
-@npx vacuum version
-````
+```
+npx vacuum version
+```
 
 ### Redocly CLI
 
-Redocly CLI is used as a fallback tool, mainly for bundling and documentation generation where Vacuum currently has known limitations.
+Redocly CLI is used as a fallback tool where Vacuum currently has limitations, primarily for:
 
-Redocly is executed via npx as part of the Makefile workflow:
+- Bundling modular specifications
+- Documentation generation
+- Joining multiple OpenAPI specifications
 
-```bash
-@npx redocly --version
-````
+```
+npx redocly --version
+```
 
 ### Prism CLI
 
-Prism CLI is used to run a local mock server based on the OpenAPI specification. This allows developers to test API behavior without a running backend.
+Prism is used to run a local mock server based on the OpenAPI specification.
 
-Prism is executed via npx:
+```
+npx prism --version
+```
 
-```bash
-@npx prism --version
-````
+---
 
-## Tool Updates and Automation
+## Mock Server Design
 
-The make upgrade target updates all Node.js based tools to their latest versions. This ensures that local development and GitHub Actions always run with a well defined and up to date toolchain.
+For local development, the mock target merges:
 
-All validation, bundling, documentation generation, and mock server tasks are executed via Makefile targets, ensuring reproducible and automated workflows.
+- The Cloud Foundry OpenAPI specification
+- A dedicated UAA OpenAPI mock specification
 
-## Requirements
+The merge is performed using the Redocly CLI `join` command. The resulting combined specification includes both Cloud Foundry and selected UAA endpoints.
 
-Node.js and npm are required to run the toolchain:
+This allows the local mock server to simulate:
 
-```bash
+- CF API endpoints
+- OAuth and authentication related UAA endpoints
+
+All served through a single Prism instance.
+
+---
+
+## Folder Structure
+
+The repository structure separates concerns clearly and keeps the OpenAPI specification modular and maintainable.
+
+```plaintext
+├── .github             # GitHub Actions workflows
+│   └── workflows       # CI pipelines: lint, bundle, docs
+├── cfg                 # Tool configuration, rulesets, ignore files
+├── spec                # OpenAPI specification and modularized content
+│   ├── openapi.yaml    # Main OpenAPI entry file
+│   ├── paths           # Path items split into separate files
+│   └── components      # Reusable OpenAPI components
+│       ├── schemas
+│       ├── parameters
+│       ├── responses
+│       ├── requestBodies
+│       ├── examples
+│       ├── headers
+│       ├── links
+│       └── securitySchemes
+├── scripts             # Bash helper scripts used internally by the Makefile
+├── mock                # UAA mock OpenAPI spec used for spec joining
+├── Makefile            # Single entry point for all workflows
+├── README.md
+└── LICENSE
+```
+
+---
+
+## Installation and Requirements
+
+Node.js and npm are required:
+
+```
 node -v
 npm -v
 ```
 
-## Usage
+All tools are installed locally under `./node_modules` using:
 
-All workflows in this repository are driven exclusively via the Makefile. The Makefile installs required tools, manages a local Node.js environment, and executes all tasks in a deterministic way. No helper scripts need to be called directly.
-
-### Upgrade and Install Tools
-
-Install or upgrade all required Node.js based tools to their latest versions and set up a local environment under ./node_modules by running:
-
-```bash
+```
 make upgrade
 ```
 
-This target is used both locally and in GitHub Actions to ensure consistent tool versions.
+This guarantees consistent tool versions independent of globally installed binaries.
 
-### Lint and Validate the OpenAPI Specification
+---
 
-Run OpenAPI validation and linting using Vacuum via:
+## Usage
 
-```bash
+All workflows are executed exclusively through the Makefile.
+
+### Install or Upgrade Toolchain
+
+```
+make upgrade
+```
+
+This target installs or updates the required CLI tools locally using npm without modifying `package.json`.
+
+It installs:
+
+- `@redocly/cli`
+- `@stoplight/prism-cli`
+- `@quobix/vacuum`
+
+After installation, it prints the installed tool versions to ensure transparency and reproducibility.
+
+### Lint the OpenAPI Specification
+
+```
 make lint
 ```
 
-### Generate Documentation
+This target runs the Vacuum linter against the OpenAPI specification.
 
-Build the interactive API documentation via:
+By default, it validates the modular source specification (`spec/openapi.yaml`) using the configured ruleset and ignore file.
 
-```bash
+Variants:
+
+- `make lint-hard` enables Vacuum hard mode
+- `make lint-bundle` lints the bundled specification (`./gen/openapi.yaml`)
+- `make lint-bundle-hard` combines bundle scope with hard mode
+
+### Generate HTML Documentation
+
+```
 make docs
 ```
 
-The generated documentation will be available at `./docs/index.html`.
+This target generates static HTML documentation from the modular OpenAPI specification using the Redocly CLI.
 
-### Bundle the OpenAPI Specification
+It builds a self contained documentation page and writes the result to:
 
-Generate a bundled OpenAPI specification via:
+`./docs/index.html`
 
-```bash
+Output: `./docs/index.html`
+
+### Bundle the Specification
+
+```
 make bundle
 ```
 
-### View Documentation Locally
+This target bundles the modular OpenAPI specification into a single self contained file using the Redocly CLI.
 
-Open the generated documentation in your browser at `./docs/index.html`.
+Internally it performs the following steps:
 
-### Mock Server
+- Executes `redocly bundle` to resolve and inline all `$ref` references
 
-A local mock server can be started directly via the Makefile. This uses Prism to serve the OpenAPI specification.
+The resulting bundled specification is written to:
 
-#### Start the Mock Server
+`./gen/openapi.yaml`
 
-Start the mock server via:
+The bundled artifact can be used for:
 
-```bash
+- Client and server code generation
+- Distribution as a single OpenAPI file
+- Release packaging
+- Downstream tooling that requires a flattened specification
+
+
+### Start the Local Mock Server
+
+```
 make mock
-````
+```
 
-Once started, the mock server is available at
+This target starts a local Prism mock server based on a merged specification.
+
+It:
+
+- Joins the Cloud Foundry spec and the UAA mock spec using `redocly join`
+- Writes the merged file to `./gen/openapi-mock.yaml`
+- Starts `prism mock` on port `4010`
+
+The server exposes both CF API endpoints and selected UAA authentication endpoints.
+
 http://localhost:4010/
 
-#### Example API Call
+Example:
 
-Send a request against the mock server using curl and an Authorization header. Any token value can be used to simulate authenticated requests.
-
-```bash
+```
 curl -X GET http://localhost:4010/v3 \
   -H "Authorization: Bearer $MOCK_ACCESS_TOKEN"
-  ```
+```
+
+---
+
+## API Documentation
+
+<https://sklevenz.github.io/cf-api-spec>
+
+---
 
 ## References
 
-* https://v3-apidocs.cloudfoundry.org/version/3.181.0/index.html
-* https://sklevenz.github.io/cf-api-spec
+- https://v3-apidocs.cloudfoundry.org/version/3.181.0/index.html
+- https://sklevenz.github.io/cf-api-spec
+
