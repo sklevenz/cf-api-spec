@@ -77,28 +77,7 @@ lint-bundle-hard:
 	@./scripts/lint.sh bundle hard
 
 docs:
-	@echo "Building HTML documentation"
-	@if [ ! -f "$(SPEC_FILE)" ]; then \
-		echo ""; \
-		echo "Error"; \
-		echo "  Spec file not found"; \
-		echo "  Path: $(SPEC_FILE)"; \
-		exit 1; \
-	fi
-	@mkdir -p "$(DOC_DIR)"
-	@npx redocly build-docs "$(SPEC_FILE)" -o "$(DOC_FILE)"
-	@STATUS=$$?; \
-	if [ $$STATUS -eq 0 ]; then \
-		echo ""; \
-		echo "Documentation generated"; \
-		echo "  Output: $(DOC_FILE)"; \
-	else \
-		echo ""; \
-		echo "Documentation build failed"; \
-		echo "  Please check the output above for details"; \
-		exit $$STATUS; \
-	fi
-	@echo ""
+	@./scripts/docs.sh
 
 bundle: bundle-redocly # change to vacuum as soon as securitySchemes gets rendered correctly
 

@@ -12,7 +12,9 @@ This project provides an OpenAPI Specification for the Cloud Foundry API, coveri
 
 The OpenAPI Specification is developed and maintained using a streamlined toolchain, with the Makefile acting as the single entry point for all workflows. The setup focuses on a small set of purpose built tools to reduce complexity and improve maintainability.
 
-Vacuum is used as the primary tool for OpenAPI validation, linting, reporting, and rule enforcement. Due to known limitations and occasional bugs in Vacuum, Redocly CLI is used as a fallback for selected tasks such as bundling and documentation generation. Prance is used to run a local mock server based on the specification. Spectral is no longer part of the toolchain and is not required.
+Vacuum is used as the primary tool for OpenAPI validation, linting, reporting, and rule enforcement. Due to known limitations and occasional bugs in Vacuum, Redocly CLI is used as a fallback for selected tasks such as bundling and documentation generation. Prism is used to run a local mock server based on the specification. 
+
+For local development, the mock target first merges the Cloud Foundry OpenAPI specification with an additional UAA OpenAPI specification using the Redocly CLI join command. The resulting combined specification includes both Cloud Foundry and UAA endpoints and is then served via Prism. This allows the local mock server to simulate not only CF API endpoints but also the relevant UAA authentication and OAuth related endpoints in a single unified mock API.
 
 All tasks such as tool installation, validation, reporting, bundling, documentation generation, and mock server startup are executed via Makefile targets to ensure reproducible and automated development workflows.
 
@@ -48,6 +50,8 @@ The directory structure of this repository is organized to separate concerns and
 │       ├── headers     # Reusable headers
 │       ├── links       # Reusable links
 │       └── securitySchemes  # Auth definitions
+├── scripts             # Bash helper scripts invoked by the Makefile
+├── mock                # UAA mock OpenAPI spec used for join during mock server startup
 ├── Makefile            # Single entry point for workflows
 ├── README.md           # Project overview and usage
 └── LICENSE             # License
