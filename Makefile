@@ -92,13 +92,8 @@ dashboard-bundle-hard:
 ignore-file:
 	@./scripts/ignore-file.sh
 
-check-version:
-ifndef VERSION
-	$(error VERSION is required, use: make release VERSION=0.0.0)
-endif
-
 release-list: 
 	@gh release list
 
-release: check-version bundle docs
+release: bundle docs
 	@./scripts/release.sh

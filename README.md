@@ -120,6 +120,15 @@ node -v
 npm -v
 ```
 
+The following tools are required in your Bash environment:
+- `make`
+- `node` (Node.js)
+- `npm`
+- `gh` (GitHub CLI)
+- `yq` (YAML processor)
+
+Note: `gh` and `yq` are only required for the release workflow.
+
 ---
 
 ## Usage

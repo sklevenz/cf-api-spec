@@ -7,14 +7,36 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "${SCRIPT_DIR}/lib.sh"
 
 init_common_paths
-VERSION="${VERSION:-}"
 
+# Read release version from spec (source of truth)
+require_file "${SPEC_FILE}"
 
-if [[ -z "${VERSION}" ]]; then
-  fail "VERSION is required, use: make release VERSION=0.0.0"
+if ! command -v yq >/dev/null 2>&1; then
+  fail "yq is required to read info.version from ${SPEC_FILE}"
 fi
 
-tag="${VERSION}"
+TAG="$(yq e '.info.version' "${SPEC_FILE}")"
+
+if [[ "${TAG}" == "null" || -z "${TAG}" ]]; then
+  fail "Could not read info.version from ${SPEC_FILE}"
+fi
+
+# Ensure no local tag exists
+if git rev-parse -q --verify "refs/tags/${TAG}" >/dev/null; then
+  fail "Git tag already exists: ${TAG}"
+fi
+
+# Ensure no remote tag exists
+if git ls-remote --tags origin "refs/tags/${TAG}" | grep -q .; then
+  fail "Remote git tag already exists: ${TAG}"
+fi
+
+# Ensure no GitHub release exists
+if gh release view "${TAG}" >/dev/null 2>&1; then
+  fail "GitHub release already exists: ${TAG}"
+fi
+
+tag="${TAG}"
 openapi_src="${BUNDLE_FILE}"
 docs_src="${DOC_FILE}"
 
