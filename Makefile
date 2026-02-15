@@ -1,19 +1,3 @@
-SPEC_DIR := ./spec
-CFG_DIR := ./cfg
-DOC_DIR := ./docs
-MOCK_DIR := ./mock
-GEN_DIR := ./gen
-SPLIT_DIR := $(GEN_DIR)/spec
-
-SPEC_FILE := $(SPEC_DIR)/openapi.yaml
-VACUUM_RULESET := $(CFG_DIR)/vacuum-ruleset.yaml
-VACUUM_IGNORE := $(CFG_DIR)/vacuum-ignore.yaml
-DOC_FILE := $(DOC_DIR)/index.html
-BUNDLE_FILE := $(GEN_DIR)/openapi.yaml
-UAA_SPEC_FILE := $(MOCK_DIR)/uaa.yaml
-MOCK_SPEC_FILE := $(GEN_DIR)/openapi-mock.yaml
-
-MOCK_PORT := 4010
 
 .PHONY: help all lint lint-hard lint-bundle lint-bundle-hard docs bundle release release-list \
         bundle-vacuum bundle-redocly split-bundle mock dashboard dashboard-bundle \
@@ -77,28 +61,7 @@ lint-bundle-hard:
 	@./scripts/lint.sh bundle hard
 
 docs:
-	@echo "Building HTML documentation"
-	@if [ ! -f "$(SPEC_FILE)" ]; then \
-		echo ""; \
-		echo "Error"; \
-		echo "  Spec file not found"; \
-		echo "  Path: $(SPEC_FILE)"; \
-		exit 1; \
-	fi
-	@mkdir -p "$(DOC_DIR)"
-	@npx redocly build-docs "$(SPEC_FILE)" -o "$(DOC_FILE)"
-	@STATUS=$$?; \
-	if [ $$STATUS -eq 0 ]; then \
-		echo ""; \
-		echo "Documentation generated"; \
-		echo "  Output: $(DOC_FILE)"; \
-	else \
-		echo ""; \
-		echo "Documentation build failed"; \
-		echo "  Please check the output above for details"; \
-		exit $$STATUS; \
-	fi
-	@echo ""
+	@./scripts/docs.sh
 
 bundle: bundle-redocly # change to vacuum as soon as securitySchemes gets rendered correctly
 
@@ -129,13 +92,8 @@ dashboard-bundle-hard:
 ignore-file:
 	@./scripts/ignore-file.sh
 
-check-version:
-ifndef VERSION
-	$(error VERSION is required, use: make release VERSION=0.0.0)
-endif
-
 release-list: 
 	@gh release list
 
-release: check-version bundle docs
+release: bundle docs
 	@./scripts/release.sh

@@ -3,6 +3,34 @@
 # Enable strict mode
 set -euo pipefail
 
+# Set a default value for an env var if it is empty or unset
+set_default() {
+  local var_name="${1:?var_name missing}"
+  local default_value="${2-}"
+
+  # Indirect expansion to read current value
+  local current_value="${!var_name-}"
+  if [[ -z "${current_value}" ]]; then
+    printf -v "${var_name}" '%s' "${default_value}"
+    export "${var_name}"
+  fi
+}
+
+# Initialize common project paths and files
+init_common_paths() {
+  set_default SPEC_DIR "./spec"
+  set_default GEN_DIR "./gen"
+
+  set_default SPEC_FILE "${SPEC_DIR}/openapi.yaml"
+  set_default BUNDLE_FILE "${GEN_DIR}/openapi.yaml"
+
+  set_default DOC_DIR "./docs"
+  set_default DOC_FILE "${DOC_DIR}/index.html"
+
+  set_default VACUUM_RULESET "./cfg/vacuum-ruleset.yaml"
+  set_default VACUUM_IGNORE "./cfg/vacuum-ignore.yaml"
+}
+
 # Print a section header
 print_step() {
   local message="${1:-}"
@@ -67,3 +95,4 @@ success() {
   echo "${message}"
   echo ""
 }
+

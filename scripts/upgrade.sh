@@ -2,11 +2,11 @@
 
 # Install or update CLI tools locally
 
-set -euo pipefail
-
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=lib.sh
 source "${SCRIPT_DIR}/lib.sh"
+
+init_common_paths
 
 print_step "Installing CLI tools locally"
 
@@ -15,7 +15,8 @@ run "npm install" \
 
 print_step "Installed tool versions"
 
-printf "  Redocly  %s\n" "$(npx redocly --version)"
-printf "  Prism    %s\n" "$(npx prism --version)"
-printf "  Vacuum   %s\n" "$(npx vacuum version)"
+run "Redocly version" npx redocly --version
+run "Prism version" npx prism --version
+run "Vacuum version" npx vacuum version
+
 echo ""

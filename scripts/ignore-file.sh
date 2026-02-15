@@ -2,14 +2,10 @@
 
 # Generate Vacuum ignore file from hard mode report
 
-set -euo pipefail
-
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=lib.sh
 source "${SCRIPT_DIR}/lib.sh"
-
-SPEC_FILE="${SPEC_FILE:-./spec/openapi.yaml}"
-VACUUM_IGNORE="${VACUUM_IGNORE:-./cfg/vacuum-ignore.yaml}"
+init_common_paths
 
 print_step "Generating Vacuum ignore file"
 
@@ -19,7 +15,7 @@ tmp="$(mktemp)"
 trap 'rm -f "${tmp}"' EXIT
 
 run "Generating hard mode report" \
-  npx vacuum report "${SPEC_FILE}" --stdout --hard-mode > "${tmp}"
+  bash -c 'npx vacuum report -o -n -q --hard-mode "$1" > "$2"' _ "${SPEC_FILE}" "${tmp}"
 
 run "Generating ignore file" \
   npx vacuum generate-ignorefile "${tmp}" "${VACUUM_IGNORE}"
