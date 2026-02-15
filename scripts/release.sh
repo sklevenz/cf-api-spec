@@ -21,6 +21,17 @@ if [[ "${TAG}" == "null" || -z "${TAG}" ]]; then
   fail "Could not read info.version from ${SPEC_FILE}"
 fi
 
+# Ensure we are on main branch
+current_branch="$(git rev-parse --abbrev-ref HEAD)"
+if [[ "${current_branch}" != "main" ]]; then
+  fail "Releases are only allowed from main branch. Current branch: ${current_branch}"
+fi
+
+# Ensure working directory is clean
+if ! git diff-index --quiet HEAD --; then
+  fail "Working directory is dirty. Please commit or stash changes before releasing."
+fi
+
 # Ensure no local tag exists
 if git rev-parse -q --verify "refs/tags/${TAG}" >/dev/null; then
   fail "Git tag already exists: ${TAG}"
