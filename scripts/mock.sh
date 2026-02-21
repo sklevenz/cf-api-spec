@@ -1,23 +1,34 @@
 #!/usr/bin/env bash
 
-# Start local Prism mock server for combined CF and UAA spec
+set -euo pipefail
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# Start a local Prism mock server for the combined CF and UAA specifications.
+# Usage: ./mock.sh
+# Requirements: node, npx
+
+readonly script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=lib.sh
-source "${SCRIPT_DIR}/lib.sh"
+source "${script_dir}/lib.sh"
 init_common_paths
-set_default UAA_SPEC_FILE "./mock/uaa.yaml"
-set_default MOCK_SPEC_FILE "${GEN_DIR}/openapi-mock.yaml"
-set_default MOCK_PORT "4010"
 
-print_step "Starting Prism mock server"
+require_command npx
 
-require_file "${SPEC_FILE}"
-require_file "${UAA_SPEC_FILE}"
-ensure_dir "${GEN_DIR}"
+main() {
+  set_default UAA_SPEC_FILE "./mock/uaa.yaml"
+  set_default MOCK_SPEC_FILE "${GEN_DIR}/openapi-mock.yaml"
+  set_default MOCK_PORT "4010"
 
-run "Joining OpenAPI specs" \
-  npx -y @redocly/cli join "${SPEC_FILE}" "${UAA_SPEC_FILE}" -o "${MOCK_SPEC_FILE}"
+  print_step "Starting Prism mock server"
 
-run "Starting Prism mock server" \
-  npx prism mock "${MOCK_SPEC_FILE}" --port "${MOCK_PORT}"
+  require_file "${SPEC_FILE}"
+  require_file "${UAA_SPEC_FILE}"
+  ensure_dir "${GEN_DIR}"
+
+  run "Joining OpenAPI specs" \
+    npx --yes @redocly/cli join "${SPEC_FILE}" "${UAA_SPEC_FILE}" -o "${MOCK_SPEC_FILE}"
+
+  run "Starting Prism mock server" \
+    npx --yes @stoplight/prism-cli mock "${MOCK_SPEC_FILE}" --port "${MOCK_PORT}"
+}
+
+main "$@"

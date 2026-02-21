@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
 
-# Render index.html for OpenAPI documentation
-# Expects: releases array (e.g. alpha-0.0.4 alpha-0.0.3 ...)
-# Usage: render_index_html "./gen/docs/index.html"
+set -euo pipefail
+
+# Build HTML documentation for the current spec and download docs for existing releases.
+# Output: ${DOC_DIR}/index.html and ${DOC_DIR}/cf-api-openapi-<version>.html
+# Requirements: node, npx, wget
 
 render_index_html() {
   local output_file="$1"
+  local dev_version="$2"
 
   {
     echo '<!doctype html>'
@@ -20,7 +23,7 @@ render_index_html() {
     echo ''
     echo '    <ul>'
 
-    echo "      <li><a href=\"./cf-api-openapi-${DEV_VERSION}.html\">${DEV_VERSION} (dev)</a></li>"
+    echo "      <li><a href=\"./cf-api-openapi-${dev_version}.html\">${dev_version} (dev)</a></li>"
 
     for release in "${releases[@]}"; do
       echo "      <li><a href=\"./cf-api-openapi-${release}.html\">${release}</a></li>"
@@ -32,36 +35,54 @@ render_index_html() {
   } > "${output_file}"
 }
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+readonly script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=lib.sh
-source "${SCRIPT_DIR}/lib.sh"
+source "${script_dir}/lib.sh"
 
 init_common_paths
+
+if ! command -v npx >/dev/null 2>&1; then
+  fail "npx is required to build HTML docs"
+fi
+
+if ! command -v wget >/dev/null 2>&1; then
+  fail "wget is required to download release docs"
+fi
+
 get_releases
 
-print_step "Building HTML documentation"
+main() {
+  print_step "Building HTML documentation"
 
-require_file "${SPEC_FILE}"
-ensure_dir "${DOC_DIR}"
+  require_file "${SPEC_FILE}"
+  ensure_dir "${DOC_DIR}"
 
-# Read release version from spec via shared library function
-DEV_VERSION="$(read_version_from_spec "${SPEC_FILE}")"
+  local dev_version
+  dev_version="$(read_version_from_spec "${SPEC_FILE}")"
 
-# Build the development release
-run "Running redocly build-docs" \
-  set_default DOC_FILE "${DOC_DIR}/cf-api-openapi-$DEV_VERSION.html"
-  npx redocly build-docs "${SPEC_FILE}" -o "${DOC_FILE}"
+  # Build the documentation for the current dev version
+  set_default DOC_FILE "${DOC_DIR}/cf-api-openapi-${dev_version}.html"
 
-# Download all release doc files
-# Iterate over all releases
-for release in "${releases[@]}"; do
-  outfile="$DOC_DIR/cf-api-openapi-"$release".html"
-  wget "https://github.com/sklevenz/cf-api-spec/releases/download/"$release"/cf-api-openapi-"$release".html" --output-document="$outfile"
-  echo "Release: ${outfile}"
-done
+  run "Running redocly build-docs" \
+    npx --yes @redocly/cli build-docs "${SPEC_FILE}" -o "${DOC_FILE}"
 
-render_index_html "${DOC_DIR}/index.html"
+  # Download docs for all existing releases
+  for release in "${releases[@]}"; do
+    local outfile
+    outfile="${DOC_DIR}/cf-api-openapi-${release}.html"
 
-echo ""
-echo "Documentation generated: ${DOC_DIR}/index.html"
-echo ""
+    wget -q \
+      "https://github.com/sklevenz/cf-api-spec/releases/download/${release}/cf-api-openapi-${release}.html" \
+      --output-document="${outfile}"
+
+    echo "Release: ${outfile}"
+  done
+
+  render_index_html "${DOC_DIR}/index.html" "${dev_version}"
+
+  echo ""
+  echo "Documentation generated: ${DOC_DIR}/index.html"
+  echo ""
+}
+
+main "$@"

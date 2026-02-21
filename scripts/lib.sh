@@ -46,12 +46,20 @@ fail() {
   exit 1
 }
 
+# Check that a command exists in PATH
+require_command() {
+  local cmd="${1:-}"
+  if [[ -z "${cmd}" ]]; then
+    fail "No command name provided to require_command"
+  fi
+  if ! command -v "${cmd}" >/dev/null 2>&1; then
+    fail "${cmd} is required"
+  fi
+}
+
 # Check that a file exists
 require_file() {
-  local file_path="${1:-}"
-  if [[ -z "${file_path}" ]]; then
-    fail "No file path provided to require_file"
-  fi
+  local file_path="${1:?file_path missing}"
   if [[ ! -f "${file_path}" ]]; then
     fail "File not found at ${file_path}"
   fi
@@ -59,10 +67,7 @@ require_file() {
 
 # Check that a directory exists
 require_dir() {
-  local dir_path="${1:-}"
-  if [[ -z "${dir_path}" ]]; then
-    fail "No directory path provided to require_dir"
-  fi
+  local dir_path="${1:?dir_path missing}"
   if [[ ! -d "${dir_path}" ]]; then
     fail "Directory not found at ${dir_path}"
   fi
@@ -70,10 +75,7 @@ require_dir() {
 
 # Create directory if it does not exist
 ensure_dir() {
-  local dir_path="${1:-}"
-  if [[ -z "${dir_path}" ]]; then
-    fail "No directory path provided to ensure_dir"
-  fi
+  local dir_path="${1:?dir_path missing}"
   mkdir -p "${dir_path}"
 }
 
@@ -95,11 +97,17 @@ success() {
   echo ""
 }
 
-# Return list all releases echo "${releases[@]}"
+# Populate global array "releases" with all GitHub release tag names
 get_releases() {
+  require_command gh
+  require_command jq
+
+  # Ensure array exists even if no releases are returned
+  releases=()
+
   mapfile -t releases < <(
     gh release list --json tagName --limit 100 \
-    | jq -r '.[].tagName'
+      | jq -r '.[].tagName'
   )
 }
 
@@ -109,9 +117,7 @@ read_version_from_spec() {
 
   require_file "${spec_file}"
 
-  if ! command -v yq >/dev/null 2>&1; then
-    fail "yq is required to read info.version from ${spec_file}"
-  fi
+  require_command yq
 
   local tag
   tag="$(yq e '.info.version' "${spec_file}")"
