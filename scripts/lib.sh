@@ -25,7 +25,6 @@ init_common_paths() {
   set_default BUNDLE_FILE "${GEN_DIR}/openapi.yaml"
 
   set_default DOC_DIR "./docs"
-  set_default DOC_FILE "${DOC_DIR}/index.html"
 
   set_default VACUUM_RULESET "./cfg/vacuum-ruleset.yaml"
   set_default VACUUM_IGNORE "./cfg/vacuum-ignore.yaml"
@@ -96,3 +95,30 @@ success() {
   echo ""
 }
 
+# Return list all releases echo "${releases[@]}"
+get_releases() {
+  mapfile -t releases < <(
+    gh release list --json tagName --limit 100 \
+    | jq -r '.[].tagName'
+  )
+}
+
+# Read version property from spec file
+read_version_from_spec() {
+  local spec_file="$1"
+
+  require_file "${spec_file}"
+
+  if ! command -v yq >/dev/null 2>&1; then
+    fail "yq is required to read info.version from ${spec_file}"
+  fi
+
+  local tag
+  tag="$(yq e '.info.version' "${spec_file}")"
+
+  if [[ "${tag}" == "null" || -z "${tag}" ]]; then
+    fail "Could not read info.version from ${spec_file}"
+  fi
+
+  echo "${tag}"
+}

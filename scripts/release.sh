@@ -8,18 +8,8 @@ source "${SCRIPT_DIR}/lib.sh"
 
 init_common_paths
 
-# Read release version from spec (source of truth)
-require_file "${SPEC_FILE}"
-
-if ! command -v yq >/dev/null 2>&1; then
-  fail "yq is required to read info.version from ${SPEC_FILE}"
-fi
-
-TAG="$(yq e '.info.version' "${SPEC_FILE}")"
-
-if [[ "${TAG}" == "null" || -z "${TAG}" ]]; then
-  fail "Could not read info.version from ${SPEC_FILE}"
-fi
+# Read release version from spec via shared library function
+TAG="$(read_version_from_spec "${SPEC_FILE}")"
 
 # Ensure we are on main branch
 current_branch="$(git rev-parse --abbrev-ref HEAD)"
@@ -49,7 +39,7 @@ fi
 
 tag="${TAG}"
 openapi_src="${BUNDLE_FILE}"
-docs_src="${DOC_FILE}"
+docs_src="${DOC_DIR}/cf-api-openapi-${tag}.html"
 
 require_file "${openapi_src}"
 require_file "${docs_src}"
