@@ -7,8 +7,6 @@ on:
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 jobs:
     publish:
@@ -25,79 +23,11 @@ jobs:
             - name: Generate OpenAPI Doc
               run: make upgrade docs
 
-            - name: Determine doc version
-              id: version
+            - name: Push to gh-pages branch
               run: |
-                set -euo pipefail
-                version=$(yq e '.info.version' ./spec/openapi.yaml)
-                if [[ -z "${version}" || "${version}" == "null" ]]; then
-                  echo "Could not read .info.version from ./spec/openapi.yaml" >&2
-                  exit 1
-                fi
-                echo "version=${version}" >> "$GITHUB_OUTPUT"
-
-            - name: Publish docs to gh-pages with history
-              env:
-                DOC_VERSION: ${{ steps.version.outputs.version }}
-              run: |
-                set -euo pipefail
-
                 git config --global user.name "github-actions"
                 git config --global user.email "github-actions@github.com"
-
-                # Keep the generated docs from main branch checkout
-                rm -rf /tmp/generated-docs
-                mkdir -p /tmp/generated-docs
-                cp -R ./docs/. /tmp/generated-docs/
-
-                # Check if gh-pages exists, if not create it
-                if git ls-remote --exit-code --heads origin gh-pages > /dev/null 2>&1; then
-                  git fetch origin gh-pages:gh-pages
-                  git checkout gh-pages
-                else
-                  git checkout --orphan gh-pages
-                  git rm -rf . || true
-                  mkdir -p docs
-                  echo "<html><body><p>Initializing gh-pages</p></body></html>" > docs/index.html
-                  git add docs/index.html
-                  git commit -m "Initialize gh-pages"
-                fi
-
-                mkdir -p docs/releases/${DOC_VERSION}
-
-                # Copy the generated HTML and any assets into the versioned folder
-                rm -rf docs/releases/${DOC_VERSION}/*
-                cp -R /tmp/generated-docs/. docs/releases/${DOC_VERSION}/
-
-                # Render the docs index as a simple link list
-                mkdir -p docs
-                {
-                  echo '<!doctype html>'
-                  echo '<html>'
-                  echo '<head><meta charset="utf-8"><title>CF API Spec Docs</title></head>'
-                  echo '<body>'
-                  echo '<h1>CF API Spec Docs</h1>'
-                  echo '<ul>'
-                  for d in $(ls -1 docs/releases 2>/dev/null | sort -Vr); do
-                    # Prefer an html entry point if present
-                    if ls "docs/releases/${d}"/*.html > /dev/null 2>&1; then
-                      first_html=$(ls -1 "docs/releases/${d}"/*.html | head -n 1)
-                      rel_path=${first_html#docs/}
-                      echo "<li><a href=\"/${rel_path}\">${d}</a></li>"
-                    else
-                      echo "<li>${d}</li>"
-                    fi
-                  done
-                  echo '</ul>'
-                  echo '</body>'
-                  echo '</html>'
-                } > docs/index.html
-
-                git add -A
-                if git diff --cached --quiet; then
-                  echo "No changes to publish"
-                  exit 0
-                fi
-
-                git commit -m "Publish docs ${DOC_VERSION}"
-                git push origin gh-pages
+                git checkout --orphan gh-pages
+                git add -f ./docs # Force add the docs folder to the gh-pages branch even if it's in .gitignore file 
+                git commit -m "Publish GitHub Pages"
+                git push origin gh-pages --force

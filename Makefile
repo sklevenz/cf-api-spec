@@ -39,7 +39,7 @@ help:
 	@echo "  make ignore-file           - Generate Vacuum ignore file from hard mode report"
 	@echo ""
 	@echo "Releasing:"
-	@echo "  make release               - Release on github (VERSION=0.0.0)"
+	@echo "  make release               - Release on github"
 	@echo "  make release-list          - List available releases"
 
 
