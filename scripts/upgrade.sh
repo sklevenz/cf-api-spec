@@ -1,22 +1,33 @@
 #!/usr/bin/env bash
 
-# Install or update CLI tools locally
+set -euo pipefail
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# Install or update local CLI tools used by this repository.
+# Usage: ./upgrade.sh
+# Requirements: npm, npx
+
+readonly script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=lib.sh
-source "${SCRIPT_DIR}/lib.sh"
+source "${script_dir}/lib.sh"
 
-init_common_paths
+main() {
+  init_common_paths
 
-print_step "Installing CLI tools locally"
+  require_command npm
+  require_command npx
 
-run "npm install" \
-  npm install --no-save @redocly/cli @stoplight/prism-cli @quobix/vacuum
+  print_step "Installing CLI tools locally"
 
-print_step "Installed tool versions"
+  run "npm install" \
+    npm install --no-save @redocly/cli @stoplight/prism-cli @quobix/vacuum
 
-run "Redocly version" npx redocly --version
-run "Prism version" npx prism --version
-run "Vacuum version" npx vacuum version
+  print_step "Installed tool versions"
 
-echo ""
+  run "Redocly version" npx --yes @redocly/cli --version
+  run "Prism version" npx --yes @stoplight/prism-cli --version
+  run "Vacuum version" npx --yes @quobix/vacuum version
+
+  echo ""
+}
+
+main "$@"

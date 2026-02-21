@@ -1,7 +1,18 @@
+SHELL := /usr/bin/env bash
 
-.PHONY: help all lint lint-hard lint-bundle lint-bundle-hard docs bundle release release-list \
-        bundle-vacuum bundle-redocly split-bundle mock dashboard dashboard-bundle \
-        dashboard-hard dashboard-bundle-hard ignore-file upgrade
+SCRIPTS_DIR := ./scripts
+GEN_DIR := ./gen
+DOCS_DIR := ./docs
+
+.PHONY: \
+	help all upgrade \
+	lint lint-hard lint-bundle lint-bundle-hard \
+	bundle bundle-vacuum bundle-redocly split-bundle \
+	docs  \
+	mock \
+	dashboard dashboard-hard dashboard-bundle dashboard-bundle-hard \
+	ignore-file \
+	release release-list next-version
 
 help:
 	@echo "Available targets:"
@@ -17,13 +28,13 @@ help:
 	@echo "  make lint-bundle-hard      - Run Vacuum linter in hard mode on bundled spec (./gen/openapi.yaml)"
 	@echo ""
 	@echo "Bundling and splitting:"
-	@echo "  make bundle                - Bundle OpenAPI spec using Vacuum"
-	@echo "  make bundle-vacuum         - Bundle OpenAPI spec using Vacuum (known issues with securityScheme)"
+	@echo "  make bundle                - Bundle OpenAPI spec using Redocly"
+	@echo "  make bundle-vacuum         - Bundle OpenAPI spec using Vacuum (known issues with securitySchemes)"
 	@echo "  make bundle-redocly        - Bundle OpenAPI spec using Redocly"
 	@echo "  make split-bundle          - Split bundled spec into file structure (./spec)"
 	@echo ""
 	@echo "Documentation:"
-	@echo "  make docs                  - Generate HTML documentation using Redocly (./docs/index.html)"
+	@echo "  make docs                  - Generate versioned HTML docs + index (./docs/index.html)"
 	@echo ""
 	@echo "Mock:"
 	@echo "  make mock                  - Start local Prism mock server"
@@ -41,59 +52,63 @@ help:
 	@echo "Releasing:"
 	@echo "  make release               - Release on github"
 	@echo "  make release-list          - List available releases"
+	@echo "  make next-version          - Set next version"
 
 
-all: upgrade lint bundle docs
+all: upgrade lint bundle docs2
 
 upgrade:
-	@./scripts/upgrade.sh
+	@$(SCRIPTS_DIR)/upgrade.sh
 
 lint:
-	@./scripts/lint.sh source standard
+	@$(SCRIPTS_DIR)/lint.sh source standard
 	
 lint-hard:
-	@./scripts/lint.sh source hard
+	@$(SCRIPTS_DIR)/lint.sh source hard
 
 lint-bundle:
-	@./scripts/lint.sh bundle standard
+	@$(SCRIPTS_DIR)/lint.sh bundle standard
 
 lint-bundle-hard:
-	@./scripts/lint.sh bundle hard
+	@$(SCRIPTS_DIR)/lint.sh bundle hard
 
 docs:
-	@./scripts/docs.sh
+	@$(SCRIPTS_DIR)/docs.sh
 
-bundle: bundle-redocly # change to vacuum as soon as securitySchemes gets rendered correctly
+bundle: bundle-redocly # TODO switch default to Vacuum once securitySchemes render correctly
 
 bundle-vacuum:
-	@./scripts/bundle-vacuum.sh
+	@$(SCRIPTS_DIR)/bundle-vacuum.sh
 
 bundle-redocly:
-	@./scripts/bundle-redocly.sh
+	@$(SCRIPTS_DIR)/bundle-redocly.sh
 
 split-bundle:
-	@./scripts/split-bundle.sh
+	@$(SCRIPTS_DIR)/split-bundle.sh
 
 mock:
-	@./scripts/mock.sh
+	@$(SCRIPTS_DIR)/mock.sh
 
 dashboard:
-	@./scripts/dashboard.sh source standard
+	@$(SCRIPTS_DIR)/dashboard.sh source standard
 
 dashboard-hard:
-	@./scripts/dashboard.sh source hard
+	@$(SCRIPTS_DIR)/dashboard.sh source hard
 
 dashboard-bundle:
-	@./scripts/dashboard.sh bundle standard
+	@$(SCRIPTS_DIR)/dashboard.sh bundle standard
 
 dashboard-bundle-hard:
-	@./scripts/dashboard.sh bundle hard
+	@$(SCRIPTS_DIR)/dashboard.sh bundle hard
 
 ignore-file:
-	@./scripts/ignore-file.sh
+	@$(SCRIPTS_DIR)/ignore-file.sh
 
-release-list: 
-	@gh release list
+release-list:
+	@$(SCRIPTS_DIR)/release-list.sh
 
-release: bundle docs
-	@./scripts/release.sh
+release: lint bundle docs
+	@$(SCRIPTS_DIR)/release.sh
+
+next-version: release-list
+	@$(SCRIPTS_DIR)/next-version.sh

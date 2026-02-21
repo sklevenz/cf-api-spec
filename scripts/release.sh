@@ -1,96 +1,107 @@
 #!/usr/bin/env bash
 
-# Create a GitHub release with bundled OpenAPI spec and generated docs
+set -euo pipefail
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# Create a GitHub release with bundled OpenAPI spec and generated docs.
+# Usage: ./release.sh
+# Requirements: git, gh (authenticated), plus tools required by scripts/lib.sh
+
+readonly script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=lib.sh
-source "${SCRIPT_DIR}/lib.sh"
+source "${script_dir}/lib.sh"
 
-init_common_paths
+main() {
+  init_common_paths
 
-# Read release version from spec (source of truth)
-require_file "${SPEC_FILE}"
+  require_command git
+  require_command gh
 
-if ! command -v yq >/dev/null 2>&1; then
-  fail "yq is required to read info.version from ${SPEC_FILE}"
-fi
+  require_file "${SPEC_FILE}"
 
-TAG="$(yq e '.info.version' "${SPEC_FILE}")"
+  # Read release version from spec via shared library function
+  local tag
+  tag="$(read_version_from_spec "${SPEC_FILE}")"
 
-if [[ "${TAG}" == "null" || -z "${TAG}" ]]; then
-  fail "Could not read info.version from ${SPEC_FILE}"
-fi
+  # Ensure we are on main branch
+  local current_branch
+  current_branch="$(git rev-parse --abbrev-ref HEAD)"
+  if [[ "${current_branch}" != "main" ]]; then
+    fail "Releases are only allowed from main branch. Current branch: ${current_branch}"
+  fi
 
-# Ensure we are on main branch
-current_branch="$(git rev-parse --abbrev-ref HEAD)"
-if [[ "${current_branch}" != "main" ]]; then
-  fail "Releases are only allowed from main branch. Current branch: ${current_branch}"
-fi
+  # Ensure working directory is clean
+  if ! git diff-index --quiet HEAD --; then
+    fail "Working directory is dirty. Please commit or stash changes before releasing."
+  fi
 
-# Ensure working directory is clean
-if ! git diff-index --quiet HEAD --; then
-  fail "Working directory is dirty. Please commit or stash changes before releasing."
-fi
+  # Ensure no local tag exists
+  if git rev-parse -q --verify "refs/tags/${tag}" >/dev/null; then
+    fail "Git tag already exists: ${tag}"
+  fi
 
-# Ensure no local tag exists
-if git rev-parse -q --verify "refs/tags/${TAG}" >/dev/null; then
-  fail "Git tag already exists: ${TAG}"
-fi
+  # Ensure no remote tag exists
+  if git ls-remote --tags origin "refs/tags/${tag}" | grep -q .; then
+    fail "Remote git tag already exists: ${tag}"
+  fi
 
-# Ensure no remote tag exists
-if git ls-remote --tags origin "refs/tags/${TAG}" | grep -q .; then
-  fail "Remote git tag already exists: ${TAG}"
-fi
+  # Ensure no GitHub release exists
+  if gh release view "${tag}" >/dev/null 2>&1; then
+    fail "GitHub release already exists: ${tag}"
+  fi
 
-# Ensure no GitHub release exists
-if gh release view "${TAG}" >/dev/null 2>&1; then
-  fail "GitHub release already exists: ${TAG}"
-fi
+  local openapi_src
+  openapi_src="${BUNDLE_FILE}"
 
-tag="${TAG}"
-openapi_src="${BUNDLE_FILE}"
-docs_src="${DOC_FILE}"
+  local docs_src
+  docs_src="${DOC_DIR}/cf-api-openapi-${tag}.html"
 
-require_file "${openapi_src}"
-require_file "${docs_src}"
-ensure_dir "${GEN_DIR}"
+  require_file "${openapi_src}"
+  require_file "${docs_src}"
 
-openapi_out="${GEN_DIR}/cf-api-openapi-${tag}.yaml"
-docs_out="${GEN_DIR}/cf-api-openapi-${tag}.html"
+  ensure_dir "${GEN_DIR}"
 
-run "Copying release artifacts" cp "${openapi_src}" "${openapi_out}"
-run "Copying release artifacts" cp "${docs_src}" "${docs_out}"
+  local openapi_out
+  openapi_out="${GEN_DIR}/cf-api-openapi-${tag}.yaml"
 
-print_step "Preparing GitHub release"
+  local docs_out
+  docs_out="${GEN_DIR}/cf-api-openapi-${tag}.html"
 
-echo ""
-echo "About to create GitHub release"
-echo "  Tag: ${tag}"
-echo "  Target: main"
-echo "  Title: ${tag}"
-echo "  Assets:"
-echo "    ${openapi_out}"
-echo "    ${docs_out}"
-echo ""
+  run "Copying OpenAPI bundle" cp "${openapi_src}" "${openapi_out}"
+  run "Copying HTML docs" cp "${docs_src}" "${docs_out}"
 
-read -r -p "Proceed with creating the GitHub release? (y/N): " confirm
-if [[ ! "${confirm}" =~ ^[Yy]$ ]]; then
-  echo "Aborted"
-  exit 1
-fi
+  print_step "Preparing GitHub release"
 
-print_step "Creating GitHub release ${tag}"
+  echo ""
+  echo "About to create GitHub release"
+  echo "  Tag: ${tag}"
+  echo "  Target: main"
+  echo "  Title: ${tag}"
+  echo "  Assets:"
+  echo "    ${openapi_out}"
+  echo "    ${docs_out}"
+  echo ""
 
-run "gh release create" gh release create "${tag}" "${openapi_out}" "${docs_out}" \
-  --title "${tag}" \
-  --target main \
-  --latest \
-  --generate-notes
+  read -r -p "Proceed with creating the GitHub release? (y/N): " confirm
+  if [[ ! "${confirm}" =~ ^[Yy]$ ]]; then
+    echo "Aborted"
+    exit 1
+  fi
 
-echo ""
-echo "Release created"
-echo "  Tag: ${tag}"
-echo "  Assets:"
-echo "    ${openapi_out}"
-echo "    ${docs_out}"
-echo ""
+  print_step "Creating GitHub release ${tag}"
+
+  run "gh release create" gh release create "${tag}" "${openapi_out}" "${docs_out}" \
+    --title "${tag}" \
+    --target main \
+    --latest \
+    --generate-notes
+
+  echo ""
+  echo "Release created"
+  echo "  Tag: ${tag}"
+  echo "  Assets:"
+  echo "    ${openapi_out}"
+  echo "    ${docs_out}"
+  echo ""
+}
+
+main "$@"

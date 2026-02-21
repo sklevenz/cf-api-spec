@@ -25,7 +25,6 @@ init_common_paths() {
   set_default BUNDLE_FILE "${GEN_DIR}/openapi.yaml"
 
   set_default DOC_DIR "./docs"
-  set_default DOC_FILE "${DOC_DIR}/index.html"
 
   set_default VACUUM_RULESET "./cfg/vacuum-ruleset.yaml"
   set_default VACUUM_IGNORE "./cfg/vacuum-ignore.yaml"
@@ -47,12 +46,20 @@ fail() {
   exit 1
 }
 
+# Check that a command exists in PATH
+require_command() {
+  local cmd="${1:-}"
+  if [[ -z "${cmd}" ]]; then
+    fail "No command name provided to require_command"
+  fi
+  if ! command -v "${cmd}" >/dev/null 2>&1; then
+    fail "${cmd} is required"
+  fi
+}
+
 # Check that a file exists
 require_file() {
-  local file_path="${1:-}"
-  if [[ -z "${file_path}" ]]; then
-    fail "No file path provided to require_file"
-  fi
+  local file_path="${1:?file_path missing}"
   if [[ ! -f "${file_path}" ]]; then
     fail "File not found at ${file_path}"
   fi
@@ -60,10 +67,7 @@ require_file() {
 
 # Check that a directory exists
 require_dir() {
-  local dir_path="${1:-}"
-  if [[ -z "${dir_path}" ]]; then
-    fail "No directory path provided to require_dir"
-  fi
+  local dir_path="${1:?dir_path missing}"
   if [[ ! -d "${dir_path}" ]]; then
     fail "Directory not found at ${dir_path}"
   fi
@@ -71,10 +75,7 @@ require_dir() {
 
 # Create directory if it does not exist
 ensure_dir() {
-  local dir_path="${1:-}"
-  if [[ -z "${dir_path}" ]]; then
-    fail "No directory path provided to ensure_dir"
-  fi
+  local dir_path="${1:?dir_path missing}"
   mkdir -p "${dir_path}"
 }
 
@@ -96,3 +97,34 @@ success() {
   echo ""
 }
 
+# Populate global array "releases" with all GitHub release tag names
+get_releases() {
+  require_command gh
+  require_command jq
+
+  # Ensure array exists even if no releases are returned
+  releases=()
+
+  mapfile -t releases < <(
+    gh release list --json tagName --limit 100 \
+      | jq -r '.[].tagName'
+  )
+}
+
+# Read version property from spec file
+read_version_from_spec() {
+  local spec_file="$1"
+
+  require_file "${spec_file}"
+
+  require_command yq
+
+  local tag
+  tag="$(yq e '.info.version' "${spec_file}")"
+
+  if [[ "${tag}" == "null" || -z "${tag}" ]]; then
+    fail "Could not read info.version from ${spec_file}"
+  fi
+
+  echo "${tag}"
+}

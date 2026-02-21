@@ -1,21 +1,33 @@
 #!/usr/bin/env bash
 
-# Bundle OpenAPI specification using Redocly
+set -euo pipefail
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# Bundle the OpenAPI specification using Redocly.
+# Requirements: node, npx
+# Output: ${BUNDLE_FILE}
+
+readonly script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=lib.sh
-source "${SCRIPT_DIR}/lib.sh"
+source "${script_dir}/lib.sh"
 init_common_paths
 
-print_step "Bundling OpenAPI specification using Redocly"
+if ! command -v npx >/dev/null 2>&1; then
+  fail "npx is required to run redocly bundle"
+fi
 
-require_file "${SPEC_FILE}"
-ensure_dir "${GEN_DIR}"
+main() {
+  print_step "Bundling OpenAPI specification using Redocly"
 
-run "Running redocly bundle" \
-  npx redocly bundle "${SPEC_FILE}" -o "${BUNDLE_FILE}"
+  require_file "${SPEC_FILE}"
+  ensure_dir "${GEN_DIR}"
 
-echo ""
-echo "Bundling completed"
-echo "  Output: ${BUNDLE_FILE}"
-echo ""
+  run "Running redocly bundle" \
+    npx --yes @redocly/cli bundle "${SPEC_FILE}" -o "${BUNDLE_FILE}"
+
+  echo ""
+  echo "Bundling completed"
+  echo "  Output: ${BUNDLE_FILE}"
+  echo ""
+}
+
+main "$@"
