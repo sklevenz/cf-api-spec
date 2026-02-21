@@ -12,7 +12,7 @@ DOCS_DIR := ./docs
 	mock \
 	dashboard dashboard-hard dashboard-bundle dashboard-bundle-hard \
 	ignore-file \
-	release release-list
+	release release-list next-version
 
 help:
 	@echo "Available targets:"
@@ -52,6 +52,7 @@ help:
 	@echo "Releasing:"
 	@echo "  make release               - Release on github"
 	@echo "  make release-list          - List available releases"
+	@echo "  make next-version          - Set next version"
 
 
 all: upgrade lint bundle docs2
@@ -108,3 +109,6 @@ release-list:
 
 release: lint bundle docs
 	@$(SCRIPTS_DIR)/release.sh
+
+next-version: release-list
+	@$(SCRIPTS_DIR)/next-version.sh
