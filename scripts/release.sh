@@ -61,6 +61,24 @@ docs_out="${GEN_DIR}/cf-api-openapi-${tag}.html"
 run "Copying release artifacts" cp "${openapi_src}" "${openapi_out}"
 run "Copying release artifacts" cp "${docs_src}" "${docs_out}"
 
+print_step "Preparing GitHub release"
+
+echo ""
+echo "About to create GitHub release"
+echo "  Tag: ${tag}"
+echo "  Target: main"
+echo "  Title: ${tag}"
+echo "  Assets:"
+echo "    ${openapi_out}"
+echo "    ${docs_out}"
+echo ""
+
+read -r -p "Proceed with creating the GitHub release? (y/N): " confirm
+if [[ ! "${confirm}" =~ ^[Yy]$ ]]; then
+  echo "Aborted"
+  exit 1
+fi
+
 print_step "Creating GitHub release ${tag}"
 
 run "gh release create" gh release create "${tag}" "${openapi_out}" "${docs_out}" \
