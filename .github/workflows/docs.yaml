@@ -19,6 +19,30 @@ jobs:
 
             - name: Set up Node.js
               uses: actions/setup-node@v4
+              with:
+                node-version: "20"
+
+            - name: Install CLI tools
+              run: |
+                sudo apt-get update
+                sudo apt-get install -y jq wget
+
+                # Install GitHub CLI
+                if ! command -v gh >/dev/null 2>&1; then
+                  sudo apt-get install -y gh
+                fi
+
+                # Install yq (mikefarah)
+                if ! command -v yq >/dev/null 2>&1; then
+                  YQ_VERSION="v4.45.1"
+                  sudo wget -q "https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64" -O /usr/local/bin/yq
+                  sudo chmod +x /usr/local/bin/yq
+                fi
+
+                gh --version
+                jq --version
+                yq --version
+                wget --version
 
             - name: Generate OpenAPI Doc
               run: make upgrade docs
