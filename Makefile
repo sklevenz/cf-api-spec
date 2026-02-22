@@ -9,10 +9,10 @@ DOCS_DIR := ./docs
 	lint lint-hard lint-bundle lint-bundle-hard \
 	bundle bundle-vacuum bundle-redocly split-bundle \
 	docs  \
-	mock \
+	mock test \
 	dashboard dashboard-hard dashboard-bundle dashboard-bundle-hard \
 	ignore-file \
-	release release-list next-version
+	release release-list next-version 
 
 help:
 	@echo "Available targets:"
@@ -38,6 +38,7 @@ help:
 	@echo ""
 	@echo "Mock:"
 	@echo "  make mock                  - Start local Prism mock server"
+	@echo "  make test                  - Start test runner against mock server"	
 	@echo ""
 	@echo "Dashboards:"
 	@echo "  make dashboard             - Start Vacuum dashboard with custom ruleset"
@@ -88,6 +89,9 @@ split-bundle:
 
 mock:
 	@$(SCRIPTS_DIR)/mock.sh
+
+test:
+	@$(SCRIPTS_DIR)/test-runner.sh
 
 dashboard:
 	@$(SCRIPTS_DIR)/dashboard.sh source standard
