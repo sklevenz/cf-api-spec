@@ -56,7 +56,7 @@ help:
 	@echo "  make next-version          - Set next version"
 
 
-all: upgrade lint bundle docs2
+all: upgrade lint bundle docs
 
 upgrade:
 	@$(SCRIPTS_DIR)/upgrade.sh
@@ -111,7 +111,7 @@ ignore-file:
 release-list:
 	@$(SCRIPTS_DIR)/release-list.sh
 
-release: lint bundle docs
+release: lint bundle docs test
 	@$(SCRIPTS_DIR)/release.sh
 
 next-version: release-list
