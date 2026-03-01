@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: Cloud Foundry V3 API
   description: "Welcome to the Cloud Foundry V3 API documentation. Version 3 introduces several key features, including the ability to run one-off tasks on Cloud Foundry, support for applications with multiple processes defined via a Procfile, direct access to application packages and droplets, and the ability to update application source code without stopping the app through deployments. \n\nFor help or questions regarding the API, the CAPI team is best reached through our Slack channel. If you encounter issues with the API or its documentation, please consider submitting a GitHub issue in the cloud_controller_ng repository. We recommend using Slack first, as we are most responsive there.\n\nAdditional resources include the deprecated but still available Cloud Foundry V2 API, documentation on running tasks, and the source code for the V3 API documentation and OpenAPI specification."
-  version: alpha-0.0.5
+  version: alpha-0.0.6
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
