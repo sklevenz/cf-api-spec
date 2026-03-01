@@ -1,0 +1,76 @@
+name: Run Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *'
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  test:
+    if: github.event_name != 'schedule' || github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install CLI tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq wget curl ca-certificates gpg
+
+          # Install yq (mikefarah)
+          if ! command -v yq >/dev/null 2>&1; then
+            YQ_VERSION="v4.45.1"
+            sudo wget -q "https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64" -O /usr/local/bin/yq
+            sudo chmod +x /usr/local/bin/yq
+          fi
+
+          # Install Cloud Foundry CLI (cf) via official apt repo
+          if ! command -v cf >/dev/null 2>&1; then
+            wget -qO- https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key \
+              | sudo gpg --dearmor -o /usr/share/keyrings/cli.cloudfoundry.org.gpg
+            echo "deb [signed-by=/usr/share/keyrings/cli.cloudfoundry.org.gpg] https://packages.cloudfoundry.org/debian stable main" \
+              | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list >/dev/null
+            sudo apt-get update
+            sudo apt-get install -y cf8-cli
+          fi
+
+          cf --version
+          jq --version
+          yq --version
+
+      - name: Install dependencies
+        run: make upgrade
+
+      - name: Start mock server
+        run: |
+          make mock &
+          for i in $(seq 1 30); do
+            if curl -sf "http://127.0.0.1:4010/v3/info" >/dev/null 2>&1; then
+              echo "Mock server is up"
+              exit 0
+            fi
+            echo "Waiting for mock server..."
+            sleep 1
+          done
+          echo "Mock server did not start"
+          exit 1
+
+      - name: Run tests
+        env:
+          CF_API_URL: http://127.0.0.1:4010
+        run: make test

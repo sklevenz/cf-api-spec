@@ -1,0 +1,1558 @@
+tests:
+  - path: /
+    method: GET
+    content-type: null
+    param: null
+    body: null
+    status: 200
+  - path: /v3
+    method: GET
+    content-type: null
+    param: null
+    body: null
+    status: 200
+  - path: /v3/app_usage_events
+    method: GET
+    content-type: application/json
+    param:
+      - after_guid="00000000-0000-0000-0000-000000000000"
+      - guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+    body: null
+    status: 200
+  - path: /v3/app_usage_events/actions/destructively_purge_all_and_reseed
+    method: POST
+    content-type: null
+    param: null
+    body: null
+    status: 200
+  - path: /v3/app_usage_events/00000000-0000-0000-0000-000000000000
+    method: GET
+    content-type: application/json
+    param: null
+    body: null
+    status: 200
+  - path: /v3/apps
+    method: GET
+    content-type: application/json
+    param:
+      - guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - names="Name1,Name2"
+      - space_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - organization_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - stacks="cflinuxfs4"
+      - lifecycle_type="buildpack"
+      - include="space"
+    body: null
+    status: 200
+  - path: /v3/apps
+    method: POST
+    content-type: application/json
+    param: null
+    body: {"name": "test-app-1", "relationships": {"space": {"data": {"guid": "00000000-0000-0000-0000-000000000000"}}}}
+    status: 201
+  - path: /v3/apps/00000000-0000-0000-0000-000000000000
+    method: GET
+    content-type: application/json
+    param:
+      - include="space"
+    body: null
+    status: 200
+  - path: /v3/apps/00000000-0000-0000-0000-000000000000
+    method: PATCH
+    content-type: application/json
+    param: null
+    body: {"name": "test-app-1", "relationships": {"space": {"data": {"guid": "00000000-0000-0000-0000-000000000000"}}}}
+    status: 200
+  - path: /v3/apps/00000000-0000-0000-0000-000000000000
+    method: DELETE
+    content-type: null
+    param: null
+    body: null
+    status: 202
+  - path: /v3/apps/00000000-0000-0000-0000-000000000000/actions/clear_buildpack_cache
+    method: POST
+    content-type: null
+    param: null
+    body: null
+    status: 202
+  - path: /v3/apps/00000000-0000-0000-0000-000000000000/actions/restart
+    method: POST
+    content-type: application/json
+    param: null
+    body: null
+    status: 200
+  - path: /v3/apps/00000000-0000-0000-0000-000000000000/actions/start
+    method: POST
+    content-type: application/json
+    param: null
+    body: null
+    status: 200
+  - path: /v3/apps/00000000-0000-0000-0000-000000000000/actions/stop
+    method: POST
+    content-type: application/json
+    param: null
+    body: null
+    status: 200
+  - path: /v3/apps/00000000-0000-0000-0000-000000000000/builds
+    method: GET
+    content-type: application/json
+    param:
+      - states="STAGED"
+    body: null
+    status: 200
+  - path: /v3/apps/00000000-0000-0000-0000-000000000000/builds
+    method: PATCH
+    content-type: application/json
+    param: null
+    body: {"metadata": {"labels": {}, "annotations": {}}}
+    status: 200
+  - path: /v3/apps/00000000-0000-0000-0000-000000000000/droplets
+    method: GET
+    content-type: application/json
+    param:
+      - guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - states="STAGED"
+    body: null
+    status: 200
+  - path: /v3/apps/00000000-0000-0000-0000-000000000000/droplets/current
+    method: GET
+    content-type: application/json
+    param: null
+    body: null
+    status: 200
+  - path: /v3/apps/00000000-0000-0000-0000-000000000000/env
+    method: GET
+    content-type: application/json
+    param: null
+    body: null
+    status: 200
+  - path: /v3/apps/00000000-0000-0000-0000-000000000000/environment_variables
+    method: GET
+    content-type: application/json
+    param: null
+    body: null
+    status: 200
+  - path: /v3/apps/00000000-0000-0000-0000-000000000000/environment_variables
+    method: PATCH
+    content-type: application/json
+    param: null
+    body: {}
+    status: 200
+  - path: /v3/apps/00000000-0000-0000-0000-000000000000/features
+    method: GET
+    content-type: null
+    param: null
+    body: null
+    status: 200
+  - path: /v3/apps/00000000-0000-0000-0000-000000000000/features/service-binding-k8s
+    method: GET
+    content-type: null
+    param: null
+    body: null
+    status: 200
+  - path: /v3/apps/00000000-0000-0000-0000-000000000000/features/service-binding-k8s
+    method: PATCH
+    content-type: null
+    param: null
+    body: {}
+    status: 200
+  - path: /v3/apps/00000000-0000-0000-0000-000000000000/manifest
+    method: GET
+    accept: application/x-yaml
+    param: null
+    body: null
+    status: 200
+  - path: /v3/apps/00000000-0000-0000-0000-000000000000/packages
+    method: GET
+    content-type: application/json
+    param:
+      - guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - states="READY"
+      - types="bits"
+    body: null
+    status: 200
+  - path: /v3/apps/00000000-0000-0000-0000-000000000000/permissions
+    method: GET
+    content-type: application/json
+    param: null
+    body: null
+    status: 200
+  - path: /v3/apps/00000000-0000-0000-0000-000000000000/processes
+    method: GET
+    content-type: application/json
+    param: null
+    body: null
+    status: 200
+  - path: /v3/apps/00000000-0000-0000-0000-000000000000/processes/web
+    method: GET
+    content-type: application/json
+    param: null
+    body: null
+    status: 200
+  - path: /v3/apps/00000000-0000-0000-0000-000000000000/processes/web
+    method: PATCH
+    content-type: application/json
+    param: null
+    body: {"metadata": {"labels": {}, "annotations": {}}}
+    status: 200
+  - path: /v3/apps/00000000-0000-0000-0000-000000000000/processes/web/actions/scale
+    method: POST
+    content-type: application/json
+    param: null
+    body: {}
+    status: 202
+  - path: /v3/apps/00000000-0000-0000-0000-000000000000/processes/web/instances/0
+    method: DELETE
+    content-type: null
+    param: null
+    body: null
+    status: 204
+  - path: /v3/apps/00000000-0000-0000-0000-000000000000/processes/web/stats
+    method: GET
+    content-type: application/json
+    param:
+      - type="web"
+    body: null
+    status: 200
+  - path: /v3/apps/00000000-0000-0000-0000-000000000000/relationships/current_droplet
+    method: GET
+    content-type: application/json
+    param: null
+    body: null
+    status: 200
+  - path: /v3/apps/00000000-0000-0000-0000-000000000000/relationships/current_droplet
+    method: PATCH
+    content-type: application/json
+    param: null
+    body: {"data": {"guid": "00000000-0000-0000-0000-000000000000"}}
+    status: 200
+  - path: /v3/apps/00000000-0000-0000-0000-000000000000/revisions
+    method: GET
+    content-type: application/json
+    param:
+      - versions=1
+    body: null
+    status: 200
+  - path: /v3/apps/00000000-0000-0000-0000-000000000000/revisions/deployed
+    method: GET
+    content-type: application/json
+    param: null
+    body: null
+    status: 200
+  - path: /v3/apps/00000000-0000-0000-0000-000000000000/routes
+    method: GET
+    content-type: application/json
+    param:
+      - domain_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - hosts="example"
+      - paths="/"
+      - ports=8080
+    body: null
+    status: 200
+  - path: /v3/apps/00000000-0000-0000-0000-000000000000/sidecars
+    method: GET
+    content-type: application/json
+    param: null
+    body: null
+    status: 200
+  - path: /v3/apps/00000000-0000-0000-0000-000000000000/sidecars
+    method: POST
+    content-type: application/json
+    param: null
+    body: {}
+    status: 201
+  - path: /v3/apps/00000000-0000-0000-0000-000000000000/ssh_enabled
+    method: GET
+    content-type: application/json
+    param: null
+    body: null
+    status: 200
+  - path: /v3/apps/00000000-0000-0000-0000-000000000000/tasks
+    method: GET
+    content-type: application/json
+    param:
+      - guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - names="Name1,Name2"
+      - states="RUNNING"
+      - sequence_ids=1
+    body: null
+    status: 200
+  - path: /v3/apps/00000000-0000-0000-0000-000000000000/tasks
+    method: POST
+    content-type: application/json
+    param: null
+    body: {"command": "echo hello"}
+    status: 202
+  - path: /v3/audit_events
+    method: GET
+    content-type: application/json
+    param:
+      - types="audit.app.apply_manifest"
+      - target_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - space_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - organization_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+    status: 200
+  - path: /v3/audit_events/00000000-0000-0000-0000-000000000000
+    method: GET
+    content-type: application/json
+    param: null
+    status: 200
+  - path: /v3/buildpacks
+    method: GET
+    content-type: application/json
+    param:
+      - names="Name1,Name2"
+      - stacks="cflinuxfs4"
+    status: 200
+  - path: /v3/buildpacks
+    method: POST
+    content-type: null
+    param: null
+    body: {"name": "my-buildpack", "position": 1}
+    status: 201
+  - path: /v3/buildpacks/00000000-0000-0000-0000-000000000000
+    method: GET
+    content-type: null
+    param: null
+    status: 200
+  - path: /v3/buildpacks/00000000-0000-0000-0000-000000000000
+    method: PATCH
+    content-type: application/json
+    param: null
+    body: {"name": "updated-buildpack"}
+    status: 200
+  - path: /v3/buildpacks/00000000-0000-0000-0000-000000000000
+    method: DELETE
+    content-type: null
+    param: null
+    status: 202
+  - path: /v3/buildpacks/00000000-0000-0000-0000-000000000000/upload
+    method: POST
+    content-type: multipart/form-data
+    param: null
+    body: {}
+    status: 422  # cf curl doesn't support this content type
+  - path: /v3/builds
+    method: GET
+    content-type: application/json
+    param:
+      - states="STAGING"
+      - app_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - package_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+    status: 200
+  - path: /v3/builds
+    method: POST
+    content-type: application/json
+    param: null
+    body: {"package": {"guid": "00000000-0000-0000-0000-000000000000"}}
+    status: 201
+  - path: /v3/builds/00000000-0000-0000-0000-000000000000
+    method: GET
+    content-type: application/json
+    param: null
+    status: 200
+  - path: /v3/builds/00000000-0000-0000-0000-000000000000
+    method: PATCH
+    content-type: application/json
+    param: null
+    status: 200
+    body: {}
+  - path: /v3/deployments
+    method: GET
+    content-type: application/json
+    param:
+      - app_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - states="STAGING"
+      - status_reasons="DEPLOYING"
+      - status_values="ACTIVE"
+    status: 200
+  - path: /v3/deployments
+    method: POST
+    content-type: application/json
+    param: null
+    body: {"relationships": {"app": {"data": {"guid": "00000000-0000-0000-0000-000000000000"}}}}
+    status: 201
+  - path: /v3/deployments/00000000-0000-0000-0000-000000000000
+    method: GET
+    content-type: application/json
+    param: null
+    status: 200
+  - path: /v3/deployments/00000000-0000-0000-0000-000000000000
+    method: PATCH
+    content-type: application/json
+    param: null
+    body: {"metadata": {"labels": {}, "annotations": {}}}
+    status: 200
+  - path: /v3/deployments/00000000-0000-0000-0000-000000000000/actions/cancel
+    method: POST
+    content-type: null
+    param: null
+    status: 200
+    body: null
+  - path: /v3/deployments/00000000-0000-0000-0000-000000000000/actions/continue
+    method: POST
+    content-type: null
+    param: null
+    status: 200
+    body: null
+  - path: /v3/domains
+    method: GET
+    content-type: application/json
+    param:
+      - guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - names="Name1,Name2"
+      - organization_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+    status: 200
+  - path: /v3/domains
+    method: POST
+    content-type: application/json
+    param: null
+    body: {"name": "example.com", "internal": false}
+    status: 201
+  - path: /v3/domains/00000000-0000-0000-0000-000000000000
+    method: GET
+    content-type: application/json
+    param: null
+    status: 200
+  - path: /v3/domains/00000000-0000-0000-0000-000000000000
+    method: PATCH
+    content-type: application/json
+    param: null
+    body: {"internal": true}
+    status: 200
+  - path: /v3/domains/00000000-0000-0000-0000-000000000000
+    method: DELETE
+    content-type: null
+    param: null
+    status: 202
+  - path: /v3/domains/00000000-0000-0000-0000-000000000000/relationships/shared_organizations
+    method: POST
+    content-type: application/json
+    param: null
+    body: {"metadata": {"labels": {}, "annotations": {}}}
+    status: 200
+  - path: /v3/domains/00000000-0000-0000-0000-000000000000/relationships/shared_organizations/00000000-0000-0000-0000-000000000000
+    method: DELETE
+    content-type: null
+    param: null
+    status: 204
+  - path: /v3/domains/00000000-0000-0000-0000-000000000000/route_reservations
+    method: GET
+    content-type: application/json
+    param:
+      - host="example"
+      - path="/"
+      - port=8080
+    status: 200
+  - path: /v3/droplets
+    method: GET
+    content-type: application/json
+    param:
+      - guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - states="STAGED"
+      - app_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - space_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - organization_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+    status: 200
+  - path: /v3/droplets
+    method: POST
+    content-type: application/json
+    param: null
+    body: {"relationships": {"app": {"data": {"guid": "00000000-0000-0000-0000-000000000000"}}, "package": {"data": {"guid": "00000000-0000-0000-0000-000000000000"}}}, "lifecycle": {"type": "buildpack", "data": {}}}
+    status: 201
+  - path: /v3/droplets/00000000-0000-0000-0000-000000000000
+    method: GET
+    content-type: application/json
+    param: null
+    status: 200
+  - path: /v3/droplets/00000000-0000-0000-0000-000000000000
+    method: PATCH
+    content-type: null
+    param: null
+    status: 200
+    body: {"image":"docker://example/image:latest"}
+  - path: /v3/droplets/00000000-0000-0000-0000-000000000000
+    method: DELETE
+    content-type: application/json
+    param: null
+    status: 202
+  - path: /v3/droplets/00000000-0000-0000-0000-000000000000/download
+    method: GET
+    accept: application/octet-stream
+    param: null
+    status: 200
+  - path: /v3/droplets/00000000-0000-0000-0000-000000000000/upload
+    method: POST
+    content-type: null
+    param: null
+    status: 200
+    body: {}
+  - path: /v3/environment_variable_groups/running
+    method: GET
+    content-type: application/json
+    param: null
+    status: 200
+  - path: /v3/environment_variable_groups/running
+    method: PATCH
+    content-type: application/json
+    param: null
+    body: {}
+    status: 200
+  - path: /v3/feature_flags
+    method: GET
+    content-type: application/json
+    param:
+      - updated_ats="2020-01-01T00:00:00Z"
+    status: 200
+  - path: /v3/feature_flags/diego_cnb
+    method: GET
+    content-type: application/json
+    param: null
+    status: 200
+  - path: /v3/feature_flags/diego_cnb
+    method: PATCH
+    content-type: application/json
+    param: null
+    status: 200
+    body: {}
+  - path: /v3/info
+    method: GET
+    content-type: application/json
+    param: null
+    status: 200
+  - path: /v3/info/usage_summary
+    method: GET
+    content-type: application/json
+    param: null
+    status: 200
+  - path: /v3/isolation_segments
+    method: GET
+    content-type: application/json
+    param:
+      - guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - names="Name1,Name2"
+      - organization_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+    status: 200
+  - path: /v3/isolation_segments
+    method: POST
+    content-type: application/json
+    param: null
+    status: 201
+    body: null
+  - path: /v3/isolation_segments/00000000-0000-0000-0000-000000000000
+    method: GET
+    content-type: application/json
+    param: null
+    status: 200
+  - path: /v3/isolation_segments/00000000-0000-0000-0000-000000000000
+    method: PATCH
+    content-type: application/json
+    param: null
+    status: 200
+    body: {}
+  - path: /v3/isolation_segments/00000000-0000-0000-0000-000000000000
+    method: DELETE
+    content-type: null
+    param: null
+    status: 204
+  - path: /v3/isolation_segments/00000000-0000-0000-0000-000000000000/relationships/organizations
+    method: GET
+    content-type: application/json
+    param: null
+    status: 200
+  - path: /v3/isolation_segments/00000000-0000-0000-0000-000000000000/relationships/organizations
+    method: POST
+    content-type: application/json
+    param: null
+    status: 200
+    body: {}
+  - path: /v3/isolation_segments/00000000-0000-0000-0000-000000000000/relationships/organizations/00000000-0000-0000-0000-000000000000
+    method: DELETE
+    content-type: null
+    param: null
+    status: 204
+  - path: /v3/isolation_segments/00000000-0000-0000-0000-000000000000/relationships/spaces
+    method: GET
+    content-type: application/json
+    param: null
+    status: 200
+  - path: /v3/jobs/00000000-0000-0000-0000-000000000000
+    method: GET
+    content-type: application/json
+    param: null
+    status: 200
+  - path: /v3/organization_quotas
+    method: GET
+    content-type: application/json
+    param:
+      - guids
+      - names
+      - organization_guids
+    status: 200
+  - path: /v3/organization_quotas
+    method: POST
+    content-type: application/json
+    param: null
+    status: 201
+    body: {"name":"quota-1"}
+  - path: /v3/organization_quotas/00000000-0000-0000-0000-000000000000
+    method: GET
+    content-type: application/json
+    param: null
+    status: 200
+  - path: /v3/organization_quotas/00000000-0000-0000-0000-000000000000
+    method: PATCH
+    content-type: application/json
+    param: null
+    status: 200
+    body: {}
+  - path: /v3/organization_quotas/00000000-0000-0000-0000-000000000000
+    method: DELETE
+    content-type: null
+    param: null
+    status: 202
+  - path: /v3/organization_quotas/00000000-0000-0000-0000-000000000000/relationships/organizations
+    method: POST
+    content-type: application/json
+    param: null
+    status: 200
+    body: {}
+  - path: /v3/organizations
+    method: GET
+    content-type: application/json
+    param:
+      - names="Name1,Name2"
+      - guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+    status: 200
+  - path: /v3/organizations
+    method: POST
+    content-type: application/json
+    param: null
+    status: 201
+    body: {"name":"org-1"}
+  - path: /v3/organizations/00000000-0000-0000-0000-000000000000
+    method: GET
+    content-type: application/json
+    param: null
+    status: 200
+  - path: /v3/organizations/00000000-0000-0000-0000-000000000000
+    method: PATCH
+    content-type: application/json
+    param: null
+    status: 200
+    body: {}
+  - path: /v3/organizations/00000000-0000-0000-0000-000000000000
+    method: DELETE
+    content-type: null
+    param: null
+    status: 202
+  - path: /v3/organizations/00000000-0000-0000-0000-000000000000/domains
+    method: GET
+    content-type: application/json
+    param:
+      - names="Name1,Name2"
+    status: 200
+  - path: /v3/organizations/00000000-0000-0000-0000-000000000000/domains/default
+    method: GET
+    content-type: application/json
+    param: null
+    status: 200
+  - path: /v3/organizations/00000000-0000-0000-0000-000000000000/relationships/default_isolation_segment
+    method: GET
+    content-type: application/json
+    param: null
+    status: 200
+  - path: /v3/organizations/00000000-0000-0000-0000-000000000000/relationships/default_isolation_segment
+    method: PATCH
+    content-type: application/json
+    param: null
+    status: 200
+    body: {}
+  - path: /v3/organizations/00000000-0000-0000-0000-000000000000/usage_summary
+    method: GET
+    content-type: application/json
+    param: null
+    status: 200
+  - path: /v3/organizations/00000000-0000-0000-0000-000000000000/users
+    method: GET
+    content-type: application/json
+    param:
+      - guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - usernames="user1,user2"
+      - origins="uaa"
+      - partial_usernames="use"
+    status: 200
+  - path: /v3/packages
+    method: GET
+    content-type: application/json
+    param:
+      - guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - states="READY"
+      - types="bits"
+      - app_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - space_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - organization_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+    status: 200
+  - path: /v3/packages
+    method: POST
+    content-type: application/json
+    param: null
+    status: 201
+    body: {"type":"bits","relationships":{"app":{"data":{"guid":"00000000-0000-0000-0000-000000000000"}}}}
+  - path: /v3/packages/00000000-0000-0000-0000-000000000000
+    method: GET
+    content-type: application/json
+    param: null
+    status: 200
+  - path: /v3/packages/00000000-0000-0000-0000-000000000000
+    method: PATCH
+    content-type: application/json
+    param: null
+    status: 200
+    body: {}
+  - path: /v3/packages/00000000-0000-0000-0000-000000000000
+    method: DELETE
+    content-type: null
+    param: null
+    status: 202
+  - path: /v3/packages/00000000-0000-0000-0000-000000000000/download
+    method: GET
+    content-type: null
+    param: null
+    status: 302
+  - path: /v3/packages/00000000-0000-0000-0000-000000000000/droplets
+    method: GET
+    content-type: application/json
+    param:
+      - guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - states="READY"
+    status: 200
+  - path: /v3/packages/00000000-0000-0000-0000-000000000000/upload
+    method: POST
+    content-type: application/json
+    param: null
+    status: 200
+    body: {}
+  - path: /v3/processes
+    method: GET
+    content-type: application/json
+    param:
+      - guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - types="bits"
+      - app_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - space_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - organization_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+    status: 200
+  - path: /v3/processes/00000000-0000-0000-0000-000000000000
+    method: GET
+    content-type: application/json
+    param: null
+    status: 200
+  - path: /v3/processes/00000000-0000-0000-0000-000000000000
+    method: PATCH
+    content-type: application/json
+    param: null
+    status: 200
+    body: {"metadata":{"labels":{},"annotations":{}}}
+  - path: /v3/processes/00000000-0000-0000-0000-000000000000/actions/scale
+    method: POST
+    content-type: application/json
+    param: null
+    status: 202
+    body: {}
+  - path: /v3/processes/00000000-0000-0000-0000-000000000000/instances/0
+    method: DELETE
+    content-type: null
+    param: null
+    status: 204
+  - path: /v3/processes/00000000-0000-0000-0000-000000000000/sidecars
+    method: GET
+    content-type: application/json
+    param: null
+    body: null
+    status: 200
+  - path: /v3/processes/00000000-0000-0000-0000-000000000000/stats
+    method: GET
+    content-type: application/json
+    param: null
+    body: null
+    status: 200
+  - path: /v3/processes/00000000-0000-0000-0000-000000000000/stats
+    method: GET
+    content-type: application/json
+    param: null
+    body: null
+    status: 200
+  - path: /v3/resource_matches
+    method: POST
+    content-type: application/json
+    param: null
+    status: 201
+    body: {"resources":[{"checksum":{"type":"sha1","value":"0000000000000000000000000000000000000000"},"size_in_bytes":0,"path":"foo"}]}
+  - path: /v3/revisions/00000000-0000-0000-0000-000000000000
+    method: GET
+    content-type: application/json
+    param: null
+    status: 200
+  - path: /v3/revisions/00000000-0000-0000-0000-000000000000
+    method: PATCH
+    content-type: application/json
+    param: null
+    status: 200
+    body: {}
+  - path: /v3/revisions/00000000-0000-0000-0000-000000000000/environment_variables
+    method: GET
+    content-type: application/json
+    param: null
+    body: null
+    status: 200
+  - path: /v3/roles
+    method: GET
+    content-type: null
+    param:
+      - guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - types="space_developer"
+      - organization_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - space_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - user_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - include="space"
+    status: 200
+  - path: /v3/roles
+    method: POST
+    content-type: application/json
+    param: null
+    status: 201
+    body: {}
+  - path: /v3/roles/00000000-0000-0000-0000-000000000000
+    method: GET
+    content-type: application/json
+    param:
+      - include="space"
+    status: 200
+  - path: /v3/roles/00000000-0000-0000-0000-000000000000
+    method: DELETE
+    content-type: null
+    param: null
+    status: 202
+  - path: /v3/routes
+    method: GET
+    content-type: null
+    param:
+      - protocols="http"
+      - hosts="example"
+      - paths="/"
+      - ports=8080
+      - domain_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - space_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - app_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - organization_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - service_instance_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - include="space"
+    status: 200
+  - path: /v3/routes
+    method: POST
+    content-type: application/json
+    param: null
+    status: 201
+    body: {"relationships":{"space":{"data":{"guid":"00000000-0000-0000-0000-000000000000"}},"domain":{"data":{"guid":"00000000-0000-0000-0000-000000000000"}}},"host":"example","path":"/"}
+  - path: /v3/routes/00000000-0000-0000-0000-000000000000
+    method: GET
+    content-type: application/json
+    param:
+      - include="space"
+    status: 200
+  - path: /v3/routes/00000000-0000-0000-0000-000000000000
+    method: PATCH
+    content-type: application/json
+    param: null
+    status: 200
+    body: {}
+  - path: /v3/routes/00000000-0000-0000-0000-000000000000
+    method: DELETE
+    content-type: null
+    param: null
+    status: 202
+  - path: /v3/routes/00000000-0000-0000-0000-000000000000/destinations
+    method: GET
+    content-type: application/json
+    param: null
+    body: null
+    status: 200
+  - path: /v3/routes/00000000-0000-0000-0000-000000000000/destinations
+    method: POST
+    content-type: application/json
+    param: null
+    status: 200
+    body: {}
+  - path: /v3/routes/00000000-0000-0000-0000-000000000000/destinations
+    method: PUT
+    content-type: application/json
+    param: null
+    status: 200
+    body: {}
+  - path: /v3/routes/00000000-0000-0000-0000-000000000000/destinations
+    method: PATCH
+    content-type: application/json
+    param: null
+    status: 200
+    body: {}
+  - path: /v3/routes/00000000-0000-0000-0000-000000000000/destinations/00000000-0000-0000-0000-000000000000
+    method: PATCH
+    content-type: application/json
+    param: null
+    status: 200
+    body: {"protocol":"http1"}
+  - path: /v3/routes/00000000-0000-0000-0000-000000000000/destinations/00000000-0000-0000-0000-000000000000
+    method: DELETE
+    content-type: null
+    param: null
+    status: 204
+  - path: /v3/routes/00000000-0000-0000-0000-000000000000/relationships/shared_spaces
+    method: GET
+    content-type: application/json
+    param: null
+    body: null
+    status: 200
+  - path: /v3/routes/00000000-0000-0000-0000-000000000000/relationships/shared_spaces
+    method: POST
+    content-type: application/json
+    param: null
+    status: 200
+    body: {}
+  - path: /v3/routes/00000000-0000-0000-0000-000000000000/relationships/shared_spaces/00000000-0000-0000-0000-000000000000
+    method: DELETE
+    content-type: null
+    param: null
+    status: 204
+  - path: /v3/routes/00000000-0000-0000-0000-000000000000/relationships/space
+    method: PATCH
+    content-type: null
+    param: null
+    status: 204
+    body: {}
+  - path: /v3/security_groups
+    method: GET
+    content-type: application/json
+    param:
+      - guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - names="Name1,Name2"
+      - globally_enabled_running=true
+      - globally_enabled_staging=true
+      - running_space_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - staging_space_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+    status: 200
+  - path: /v3/security_groups
+    method: POST
+    content-type: application/json
+    param: null
+    status: 201
+    body: {"name":"sg-test","rules":[]}
+  - path: /v3/security_groups/00000000-0000-0000-0000-000000000000
+    method: GET
+    content-type: application/json
+    param: null
+    body: null
+    status: 200
+  - path: /v3/security_groups/00000000-0000-0000-0000-000000000000
+    method: PATCH
+    content-type: application/json
+    param: null
+    status: 200
+    body: {}
+  - path: /v3/security_groups/00000000-0000-0000-0000-000000000000
+    method: DELETE
+    content-type: null
+    param: null
+    status: 202
+  - path: /v3/security_groups/00000000-0000-0000-0000-000000000000/relationships/running_spaces
+    method: POST
+    content-type: application/json
+    param: null
+    status: 200
+    body: {}
+  - path: /v3/security_groups/00000000-0000-0000-0000-000000000000/relationships/running_spaces/00000000-0000-0000-0000-000000000000
+    method: DELETE
+    content-type: null
+    param: null
+    status: 204
+  - path: /v3/security_groups/00000000-0000-0000-0000-000000000000/relationships/staging_spaces
+    method: POST
+    content-type: application/json
+    param: null
+    status: 200
+    body: {}
+  - path: /v3/security_groups/00000000-0000-0000-0000-000000000000/relationships/staging_spaces/00000000-0000-0000-0000-000000000000
+    method: DELETE
+    content-type: null
+    param: null
+    status: 204
+  - path: /v3/service_brokers
+    method: GET
+    content-type: application/json
+    param:
+      - names="Name1,Name2"
+      - space_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+    status: 200
+  - path: /v3/service_brokers
+    method: POST
+    content-type: application/json
+    param: null
+    status: 202
+    body: {"name":"sb-test","url":"https://example.com","authentication":{"type":"basic","credentials":{"username":"u","password":"p"}}}
+  - path: /v3/service_brokers/00000000-0000-0000-0000-000000000000
+    method: GET
+    content-type: application/json
+    param: null
+    body: null
+    status: 200
+  - path: /v3/service_brokers/00000000-0000-0000-0000-000000000000
+    method: PATCH
+    content-type: application/json
+    param: null
+    status: 200
+    body: {}
+  - path: /v3/service_brokers/00000000-0000-0000-0000-000000000000
+    method: DELETE
+    content-type: null
+    param: null
+    status: 202
+  - path: /v3/service_credential_bindings
+    method: GET
+    content-type: application/json
+    param:
+      - names="Name1,Name2"
+      - service_instance_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - app_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - type="app"
+      - service_instance_names="si1,si2"
+      - app_names="app1,app2"
+      - service_plan_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - service_plan_names="plan1,plan2"
+      - service_offering_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - service_offering_names="off1,off2"
+      - guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - include="service_instance"
+    status: 200
+  - path: /v3/service_credential_bindings
+    method: POST
+    content-type: application/json
+    param: null
+    status: 201
+    body: {"type":"app","relationships":{"service_instance":{"data":{"guid":"00000000-0000-0000-0000-000000000000"}},"app":{"data":{"guid":"11111111-1111-1111-1111-111111111111"}}}}
+  - path: /v3/service_credential_bindings/00000000-0000-0000-0000-000000000000
+    method: GET
+    content-type: application/json
+    param:
+      - include="app"
+    body: null
+    status: 200
+  - path: /v3/service_credential_bindings/00000000-0000-0000-0000-000000000000
+    method: PATCH
+    content-type: application/json
+    param: null
+    status: 200
+    body: {}
+  - path: /v3/service_credential_bindings/00000000-0000-0000-0000-000000000000
+    method: DELETE
+    content-type: null
+    param: null
+    status: 202
+  - path: /v3/service_credential_bindings/00000000-0000-0000-0000-000000000000/details
+    method: GET
+    content-type: application/json
+    param: null
+    body: null
+    status: 200
+  - path: /v3/service_credential_bindings/00000000-0000-0000-0000-000000000000/parameters
+    method: GET
+    content-type: application/json
+    param: null
+    body: null
+    status: 200
+  - path: /v3/service_instances
+    method: GET
+    content-type: application/json
+    param:
+      - names="Name1,Name2"
+      - guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - type="managed"
+      - space_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - organization_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - service_plan_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - service_plan_names="plan1,plan2"
+      - fields="guid,name"
+    status: 200
+  - path: /v3/service_instances
+    method: POST
+    content-type: application/json
+    param: null
+    status: 201
+    body: {"type":"managed","name":"si-test","relationships":{"space":{"data":{"guid":"00000000-0000-0000-0000-000000000000"}},"service_plan":{"data":{"guid":"11111111-1111-1111-1111-111111111111"}}}}
+  - path: /v3/service_instances/00000000-0000-0000-0000-000000000000
+    method: GET
+    content-type: application/json
+    param:
+      - fields="guid,name"
+    body: null
+    status: 200
+  - path: /v3/service_instances/00000000-0000-0000-0000-000000000000
+    method: PATCH
+    content-type: application/json
+    param: null
+    status: 200
+    body: {}
+  - path: /v3/service_instances/00000000-0000-0000-0000-000000000000
+    method: DELETE
+    content-type: null
+    param:
+      - purge=true
+    status: 202
+  - path: /v3/service_instances/00000000-0000-0000-0000-000000000000/credentials
+    method: GET
+    content-type: application/json
+    param: null
+    body: null
+    status: 200
+  - path: /v3/service_instances/00000000-0000-0000-0000-000000000000/parameters
+    method: GET
+    content-type: application/json
+    param: null
+    body: null
+    status: 200
+  - path: /v3/service_instances/00000000-0000-0000-0000-000000000000/permissions
+    method: GET
+    content-type: application/json
+    param: null
+    body: null
+    status: 200
+  - path: /v3/service_instances/00000000-0000-0000-0000-000000000000/relationships/shared_spaces
+    method: GET
+    content-type: application/json
+    param:
+      - fields="guid,name"
+    body: null
+    status: 200
+  - path: /v3/service_instances/00000000-0000-0000-0000-000000000000/relationships/shared_spaces
+    method: POST
+    content-type: application/json
+    param: null
+    status: 200
+    body: {}
+  - path: /v3/service_instances/00000000-0000-0000-0000-000000000000/relationships/shared_spaces/usage_summary
+    method: GET
+    content-type: application/json
+    param: null
+    body: null
+    status: 200
+  - path: /v3/service_instances/00000000-0000-0000-0000-000000000000/relationships/shared_spaces/00000000-0000-0000-0000-000000000000
+    method: DELETE
+    content-type: null
+    param: null
+    status: 204
+  - path: /v3/service_offerings
+    method: GET
+    content-type: application/json
+    param:
+      - names="Name1,Name2"
+      - available=true
+      - service_broker_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - space_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - organization_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - service_broker_names="broker1,broker2"
+      - fields="guid,name"
+    status: 200
+  - path: /v3/service_offerings/00000000-0000-0000-0000-000000000000
+    method: GET
+    content-type: application/json
+    param: null
+    body: null
+    status: 200
+  - path: /v3/service_offerings/00000000-0000-0000-0000-000000000000
+    method: PATCH
+    content-type: application/json
+    param: null
+    status: 200
+    body: {}
+  - path: /v3/service_offerings/00000000-0000-0000-0000-000000000000
+    method: DELETE
+    content-type: null
+    param:
+      - purge=true
+    status: 204
+  - path: /v3/service_plans
+    method: GET
+    content-type: application/json
+    param:
+      - names="Name1,Name2"
+      - available=true
+      - service_offering_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - service_instance_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - space_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - organization_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - broker_catalog_ids="catalog1,catalog2"
+      - service_broker_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - service_broker_names="broker1,broker2"
+      - service_offering_names="off1,off2"
+      - include="service_offering"
+      - fields="guid,name"
+    status: 200
+  - path: /v3/service_plans/00000000-0000-0000-0000-000000000000
+    method: GET
+    content-type: application/json
+    param:
+      - include="service_offering"
+    body: null
+    status: 200
+  - path: /v3/service_plans/00000000-0000-0000-0000-000000000000
+    method: PATCH
+    content-type: application/json
+    param: null
+    status: 200
+    body: {}
+  - path: /v3/service_plans/00000000-0000-0000-0000-000000000000
+    method: DELETE
+    content-type: null
+    param: null
+    status: 204
+  - path: /v3/service_plans/00000000-0000-0000-0000-000000000000/visibility
+    method: GET
+    content-type: application/json
+    param: null
+    body: null
+    status: 200
+  - path: /v3/service_plans/00000000-0000-0000-0000-000000000000/visibility
+    method: POST
+    content-type: application/json
+    param: null
+    status: 200
+    body: {"type":"public"}
+  - path: /v3/service_plans/00000000-0000-0000-0000-000000000000/visibility
+    method: PATCH
+    content-type: application/json
+    param: null
+    status: 200
+    body: {"type":"public"}
+  - path: /v3/service_plans/00000000-0000-0000-0000-000000000000/visibility/00000000-0000-0000-0000-000000000000
+    method: DELETE
+    content-type: null
+    param: null
+    status: 204
+  - path: /v3/service_route_bindings
+    method: GET
+    content-type: application/json
+    param:
+      - route_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - service_instance_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - service_instance_names="si1,si2"
+      - guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - include="service_instance"
+    status: 200
+  - path: /v3/service_route_bindings
+    method: POST
+    content-type: application/json
+    param: null
+    status: 201
+    body: {"relationships":{"route":{"data":{"guid":"00000000-0000-0000-0000-000000000000"}},"service_instance":{"data":{"guid":"11111111-1111-1111-1111-111111111111"}}}}
+  - path: /v3/service_route_bindings/00000000-0000-0000-0000-000000000000
+    method: GET
+    content-type: application/json
+    param:
+      - include="service_instance"
+    body: null
+    status: 200
+  - path: /v3/service_route_bindings/00000000-0000-0000-0000-000000000000
+    method: PATCH
+    content-type: application/json
+    param: null
+    status: 200
+    body: {}
+  - path: /v3/service_route_bindings/00000000-0000-0000-0000-000000000000
+    method: DELETE
+    content-type: null
+    param: null
+    status: 202
+  - path: /v3/service_route_bindings/00000000-0000-0000-0000-000000000000/parameters
+    method: GET
+    content-type: application/json
+    param: null
+    body: null
+    status: 200
+  - path: /v3/service_usage_events
+    method: GET
+    content-type: application/json
+    param:
+      - after_guid="00000000-0000-0000-0000-000000000000"
+      - guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - service_instance_types="managed_service_instance"
+      - service_offering_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+    status: 200
+  - path: /v3/service_usage_events/actions/destructively_purge_all_and_reseed
+    method: POST
+    content-type: application/json
+    param: null
+    status: 200
+    body: null
+  - path: /v3/service_usage_events/00000000-0000-0000-0000-000000000000
+    method: GET
+    content-type: application/json
+    param: null
+    body: null
+    status: 200
+  - path: /v3/sidecars/00000000-0000-0000-0000-000000000000
+    method: GET
+    content-type: application/json
+    param: null
+    body: null
+    status: 200
+  - path: /v3/sidecars/00000000-0000-0000-0000-000000000000
+    method: PATCH
+    content-type: application/json
+    param: null
+    status: 200
+    body: {}
+  - path: /v3/sidecars/00000000-0000-0000-0000-000000000000
+    method: DELETE
+    content-type: null
+    param: null
+    status: 204
+  - path: /v3/space_quotas
+    method: GET
+    content-type: application/json
+    param:
+      - guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - names="Name1,Name2"
+      - organization_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - space_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+    status: 200
+  - path: /v3/space_quotas
+    method: POST
+    content-type: application/json
+    param: null
+    status: 201
+    body: {"name":"sq-test","relationships":{"organization":{"data":{"guid":"00000000-0000-0000-0000-000000000000"}}}}
+  - path: /v3/space_quotas/00000000-0000-0000-0000-000000000000
+    method: GET
+    content-type: application/json
+    param: null
+    body: null
+    status: 200
+  - path: /v3/space_quotas/00000000-0000-0000-0000-000000000000
+    method: PATCH
+    content-type: application/json
+    param: null
+    status: 200
+    body: {}
+  - path: /v3/space_quotas/00000000-0000-0000-0000-000000000000
+    method: DELETE
+    content-type: null
+    param: null
+    status: 202
+  - path: /v3/space_quotas/00000000-0000-0000-0000-000000000000/relationships/spaces/00000000-0000-0000-0000-000000000000
+    method: DELETE
+    content-type: null
+    param: null
+    status: 204
+  - path: /v3/space_quotas/00000000-0000-0000-0000-000000000000/relationships/spaces
+    method: POST
+    content-type: application/json
+    param: null
+    status: 200
+    body: {}
+  - path: /v3/spaces
+    method: GET
+    content-type: application/json
+    param:
+      - names="Name1,Name2"
+      - guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - organization_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - include="organization"
+    status: 200
+  - path: /v3/spaces
+    method: POST
+    content-type: application/json
+    param: null
+    status: 201
+    body: {"name":"space-test","relationships":{"organization":{"data":{"guid":"00000000-0000-0000-0000-000000000000"}}}}
+  - path: /v3/spaces/00000000-0000-0000-0000-000000000000
+    method: GET
+    content-type: application/json
+    param:
+      - include="organization"
+    body: null
+    status: 200
+  - path: /v3/spaces/00000000-0000-0000-0000-000000000000
+    method: PATCH
+    content-type: application/json
+    param: null
+    status: 200
+    body: {}
+  - path: /v3/spaces/00000000-0000-0000-0000-000000000000
+    method: DELETE
+    content-type: null
+    param: null
+    status: 202
+  - path: /v3/spaces/00000000-0000-0000-0000-000000000000/actions/apply_manifest
+    method: POST
+    content-type: application/x-yaml
+    param: null
+    status: 202
+    body: {}
+  - path: /v3/spaces/00000000-0000-0000-0000-000000000000/features
+    method: GET
+    content-type: application/json
+    param: null
+    status: 200
+  - path: /v3/spaces/00000000-0000-0000-0000-000000000000/features/ssh
+    method: GET
+    content-type: application/json
+    param: null
+    status: 200
+  - path: /v3/spaces/00000000-0000-0000-0000-000000000000/features/ssh
+    method: PATCH
+    content-type: application/json
+    param: null
+    status: 200
+    body: {}
+  - path: /v3/spaces/00000000-0000-0000-0000-000000000000/manifest_diff
+    method: POST
+    content-type: application/x-yaml
+    param: null
+    status: 201
+    body: {}
+  - path: /v3/spaces/00000000-0000-0000-0000-000000000000/relationships/isolation_segment
+    method: GET
+    content-type: application/json
+    param: null
+    status: 200
+  - path: /v3/spaces/00000000-0000-0000-0000-000000000000/relationships/isolation_segment
+    method: PATCH
+    content-type: application/json
+    param: null
+    status: 200
+    body: {}
+  - path: /v3/spaces/00000000-0000-0000-0000-000000000000/routes
+    method: DELETE
+    content-type: null
+    param:
+      - unmapped=true
+    status: 202
+  - path: /v3/spaces/00000000-0000-0000-0000-000000000000/running_security_groups
+    method: GET
+    content-type: application/json
+    param: null
+    status: 200
+  - path: /v3/spaces/00000000-0000-0000-0000-000000000000/staging_security_groups
+    method: GET
+    content-type: application/json
+    param: null
+    status: 200
+  - path: /v3/spaces/00000000-0000-0000-0000-000000000000/users
+    method: GET
+    content-type: application/json
+    param: null
+    status: 200
+  - path: /v3/stacks
+    method: GET
+    content-type: application/json
+    param:
+      - names="Name1,Name2"
+    status: 200
+  - path: /v3/stacks
+    method: POST
+    content-type: application/json
+    param: null
+    status: 201
+    body: {"name":"stack-test","description":"test stack"}
+  - path: /v3/stacks/00000000-0000-0000-0000-000000000000
+    method: GET
+    content-type: application/json
+    param: null
+    status: 200
+  - path: /v3/stacks/00000000-0000-0000-0000-000000000000
+    method: PATCH
+    content-type: application/json
+    param: null
+    status: 200
+    body: {}
+  - path: /v3/stacks/00000000-0000-0000-0000-000000000000
+    method: DELETE
+    content-type: null
+    param: null
+    status: 204
+  - path: /v3/stacks/00000000-0000-0000-0000-000000000000/apps
+    method: GET
+    content-type: application/json
+    param: null
+    status: 200
+  - path: /v3/tasks
+    method: GET
+    content-type: application/json
+    param:
+      - guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - names="Name1,Name2"
+      - states="CANCELING"
+      - app_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - space_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - organization_guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - sequence_ids=1
+    status: 200
+  - path: /v3/tasks/00000000-0000-0000-0000-000000000000
+    method: GET
+    content-type: application/json
+    param: null
+    status: 200
+  - path: /v3/tasks/00000000-0000-0000-0000-000000000000
+    method: PATCH
+    content-type: application/json
+    param: null
+    status: 200
+    body: {}
+  - path: /v3/tasks/00000000-0000-0000-0000-000000000000/actions/cancel
+    method: POST
+    content-type: application/json
+    param: null
+    status: 202
+    body: null
+  - path: /v3/tasks/00000000-0000-0000-0000-000000000000/actions/cancel
+    method: PUT
+    content-type: application/json
+    param: null
+    status: 202
+    body: null
+  - path: /v3/tasks/00000000-0000-0000-0000-000000000000/cancel
+    method: PUT
+    content-type: application/json
+    param: null
+    status: 202
+    body: null
+  - path: /v3/users
+    method: GET
+    content-type: application/json
+    param:
+      - guids="00000000-0000-0000-0000-000000000000,11111111-1111-1111-1111-111111111111"
+      - usernames="user1,user2"
+      - origins="uaa"
+      - partial_usernames="use"
+    status: 200
+  - path: /v3/users
+    method: POST
+    content-type: null
+    param: null
+    status: 201
+    body: {}
+  - path: /v3/users/00000000-0000-0000-0000-000000000000
+    method: GET
+    content-type: application/json
+    param: null
+    status: 200
+  - path: /v3/users/00000000-0000-0000-0000-000000000000
+    method: PATCH
+    content-type: null
+    param: null
+    status: 200
+    body: {}
+  - path: /v3/users/00000000-0000-0000-0000-000000000000
+    method: DELETE
+    content-type: null
+    param: null
+    status: 202
