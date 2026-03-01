@@ -248,9 +248,11 @@ Typical workflow:
 Creates GitHub releases including generated artifacts and provides visibility into existing releases.
 
 ````
-make release VERSION=0.0.0
+Releasing:
+  make release               - Create a release on github
+  make release-list          - List available releases
+  make next-version          - Set next version in openapi.yaml (+ manual commit)
 ````
-
 
 ---
 
