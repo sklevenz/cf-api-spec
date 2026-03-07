@@ -16,3 +16,17 @@ When generating the scripts, the AI was instructed to focus on usability:
 They are not perfect.  
 But they are most likely good enough for their purpose.
 
+---
+
+## Development Environment and Portability
+
+These scripts were developed and tested on:
+
+- macOS
+- GNU Bash 5.3.9
+
+If you are working in a different environment and portability becomes a concern, feel free to adapt the scripts as needed.
+
+A rewrite in another language such as Python is also perfectly fine.
+
+Pull requests are welcome 🙂
