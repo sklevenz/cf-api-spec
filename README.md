@@ -121,14 +121,28 @@ node -v
 npm -v
 ```
 
-The following tools are required in your Bash environment:
+The following tools are required in your Bash environment.
+
+### Core Requirements (most workflows)
+- `bash`
 - `make`
 - `node` (Node.js)
 - `npm`
+- `npx`
+
+### Additional Requirements for Release Workflows
 - `gh` (GitHub CLI)
+- `git`
+- `jq`
 - `yq` (YAML processor)
 
-Note: `gh` and `yq` are only required for the release workflow.
+### Additional Requirements for Documentation Workflows
+- `wget`
+
+### Additional Requirements for Mock and Test Workflows
+- `curl`
+- `cf` (Cloud Foundry CLI)
+- `yq`
 
 ---
 
