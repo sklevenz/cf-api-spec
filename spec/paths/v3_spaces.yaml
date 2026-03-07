@@ -1,0 +1,110 @@
+get:
+  summary: List spaces
+  description: Retrieve all spaces the user has access to.
+  operationId: listSpaces
+  tags:
+    - Spaces
+  parameters:
+    - $ref: ../components/parameters/Page.yaml
+    - $ref: ../components/parameters/PerPage.yaml
+    - $ref: ../components/parameters/OrderBy.yaml
+    - $ref: ../components/parameters/CreatedAts.yaml
+    - $ref: ../components/parameters/UpdatedAts.yaml
+    - $ref: ../components/parameters/LabelSelector.yaml
+    - name: names
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of space names to filter by
+    - name: guids
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of space guids to filter by
+    - name: organization_guids
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of organization guids to filter by
+    - name: include
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - organization
+      description: Optionally include a list of unique related resources in the response
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/SpaceList.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '409':
+      $ref: ../components/responses/409.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+    '502':
+      $ref: ../components/responses/502.yaml
+    '503':
+      $ref: ../components/responses/503.yaml
+post:
+  summary: Create a space
+  description: Create a space.
+  operationId: createSpace
+  tags:
+    - Spaces
+  requestBody:
+    $ref: ../components/requestBodies/SpaceCreateRequestBody.yaml
+  responses:
+    '201':
+      description: Created
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Space.yaml
+      links:
+        organization:
+          operationId: getOrganization
+          parameters:
+            guid: $response.body#/relationships/organization/data/guid
+          description: Retrieve the organization for this space
+        quota:
+          operationId: getSpaceQuota
+          parameters:
+            guid: $response.body#/relationships/quota/data/guid
+          description: Retrieve the quota associated with this space
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '409':
+      $ref: ../components/responses/409.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+    '503':
+      $ref: ../components/responses/503.yaml

@@ -1,0 +1,72 @@
+post:
+  summary: Entitle organizations for isolation segment
+  description: >-
+    This endpoint entitles the specified organizations for the isolation
+    segment. In the case where the specified isolation segment is the
+    system-wide shared segment, and if an organization is not already entitled
+    for any other isolation segment, then the shared isolation segment
+    automatically gets assigned as the default for that organization.
+  operationId: entitleOrganizationsForIsolationSegment
+  tags:
+    - IsolationSegments
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  requestBody:
+    description: List of organizations to entitle
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/RelationshipToMany.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/RelationshipToMany.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+get:
+  summary: List organizations relationship
+  description: >-
+    This endpoint lists the organizations entitled for the isolation segment.
+    For an Admin, this will list all entitled organizations in the system. For
+    any other user, this will list only the entitled organizations to which the
+    user belongs.
+  operationId: listOrganizationsForIsolationSegment
+  tags:
+    - IsolationSegments
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+    - $ref: ../components/parameters/Page.yaml
+    - $ref: ../components/parameters/PerPage.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/RelationshipToMany.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml

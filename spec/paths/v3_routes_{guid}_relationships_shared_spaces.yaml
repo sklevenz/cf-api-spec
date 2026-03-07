@@ -1,0 +1,65 @@
+get:
+  summary: List shared spaces relationship
+  description: Lists the spaces that the route has been shared to.
+  operationId: listSharedSpacesRelationship
+  tags:
+    - Routes
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/RelationshipToMany.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+post:
+  summary: Share a route with other spaces (experimental)
+  description: >-
+    This endpoint shares the route with the specified spaces. This allows users
+    with read and write access in both the route’s space and a shared space to
+    bind a route to an app in the shared space. In order to share into a space
+    the requesting user must have write permission in the target space.
+  operationId: shareRoute
+  tags:
+    - Routes
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  requestBody:
+    description: List of spaces to share the route with
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/RelationshipToMany.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/RelationshipToMany.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml

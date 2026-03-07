@@ -1,0 +1,149 @@
+get:
+  summary: List service instances
+  description: >-
+    This endpoint retrieves the service instances the user has access to,
+    including access granted by service instance sharing.
+  operationId: listServiceInstances
+  tags:
+    - ServiceInstances
+  parameters:
+    - name: names
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of service instance names to filter by
+    - name: guids
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of service instance guids to filter by
+    - name: type
+      in: query
+      schema:
+        type: string
+        enum:
+          - managed
+          - user-provided
+      description: Filter by type; valid values are 'managed' and 'user-provided'
+    - name: space_guids
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of space guids to filter by
+    - name: organization_guids
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of organization guids to filter by
+    - name: service_plan_guids
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of service plan guids to filter by
+    - name: service_plan_names
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of service plan names to filter by
+    - $ref: ../components/parameters/Page.yaml
+    - $ref: ../components/parameters/PerPage.yaml
+    - $ref: ../components/parameters/OrderBy.yaml
+    - $ref: ../components/parameters/LabelSelector.yaml
+    - $ref: ../components/parameters/CreatedAts.yaml
+    - $ref: ../components/parameters/UpdatedAts.yaml
+    - name: fields
+      in: query
+      schema:
+        type: object
+      description: Fields to include in the response
+  responses:
+    '200':
+      description: Request succeeded
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ServiceInstanceList.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '409':
+      $ref: ../components/responses/409.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+    '502':
+      $ref: ../components/responses/502.yaml
+    '503':
+      $ref: ../components/responses/503.yaml
+post:
+  summary: Create a service instance
+  description: >-
+    This endpoint creates a new service instance. Service instances can be of
+    type `managed` or `user-provided`, and the required parameters are different
+    for each type. User provided service instances do not require interactions
+    with service brokers.
+
+
+    If failures occur when creating managed service instances, the API might
+    execute orphan mitigation steps accordingly to cases outlined in the [OSBAPI
+    specification](https://github.com/openservicebrokerapi/servicebroker/blob/master/spec.md#orphan-mitigation)
+  operationId: createServiceInstance
+  tags:
+    - ServiceInstances
+  requestBody:
+    $ref: ../components/requestBodies/ServiceInstanceCreateRequestBody.yaml
+  responses:
+    '201':
+      description: User Provided Service instance created
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/UserProvidedServiceInstance.yaml
+      links:
+        space:
+          operationId: getSpace
+          parameters:
+            guid: $response.body#/relationships/space/data/guid
+          description: Retrieve the space for this service instance
+    '202':
+      description: Service instance creation in progress
+      headers:
+        Location:
+          description: URL of the job that is creating the service instance
+          schema:
+            type: string
+            format: uri
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '409':
+      $ref: ../components/responses/409.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+    '503':
+      $ref: ../components/responses/503.yaml

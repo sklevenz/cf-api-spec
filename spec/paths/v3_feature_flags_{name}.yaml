@@ -1,0 +1,124 @@
+get:
+  summary: Get a feature flag
+  description: Get a feature flag.
+  operationId: getFeatureFlag
+  tags:
+    - FeatureFlags
+  parameters:
+    - name: name
+      in: path
+      required: true
+      schema:
+        type: string
+        enum:
+          - app_bits_upload
+          - app_scaling
+          - diego_docker
+          - diego_cnb
+          - env_var_visibility
+          - hide_marketplace_from_unauthenticated_users
+          - private_domain_creation
+          - resource_matching
+          - route_creation
+          - route_sharing
+          - service_instance_creation
+          - service_instance_sharing
+          - set_roles_by_username
+          - space_developer_env_var_visibility
+          - space_scoped_private_broker_creation
+          - task_creation
+          - unset_roles_by_username
+          - user_org_creation
+      description: The name of the feature flag
+  responses:
+    '200':
+      description: Successfully retrieved feature flag
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/FeatureFlag.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+patch:
+  summary: Update a feature flag
+  description: Update a feature flag.
+  operationId: updateFeatureFlag
+  tags:
+    - FeatureFlags
+  parameters:
+    - name: name
+      in: path
+      required: true
+      schema:
+        type: string
+        enum:
+          - app_bits_upload
+          - app_scaling
+          - diego_docker
+          - diego_cnb
+          - env_var_visibility
+          - hide_marketplace_from_unauthenticated_users
+          - private_domain_creation
+          - resource_matching
+          - route_creation
+          - route_sharing
+          - service_instance_creation
+          - service_instance_sharing
+          - set_roles_by_username
+          - space_developer_env_var_visibility
+          - space_scoped_private_broker_creation
+          - task_creation
+          - unset_roles_by_username
+          - user_org_creation
+      description: The name of the feature flag
+  requestBody:
+    description: Feature flag object that needs to be updated
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            enabled:
+              type: boolean
+              description: Whether the feature flag is enabled
+            custom_error_message:
+              type: string
+              description: >-
+                The error string returned by the API when a client performs an
+                action disabled by the feature flag
+  responses:
+    '200':
+      description: Successfully updated feature flag
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/FeatureFlag.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '409':
+      $ref: ../components/responses/409.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+    '503':
+      $ref: ../components/responses/503.yaml

@@ -1,0 +1,102 @@
+get:
+  summary: Get an isolation segment
+  description: >-
+    Retrieve an isolation segment to which the user has access. For admin, this
+    is any isolation segment in the system. For anyone else, this is an
+    isolation segment in the allowed list for any organization to which the user
+    belongs.
+  operationId: getIsolationSegment
+  tags:
+    - IsolationSegments
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/IsolationSegment.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+patch:
+  summary: Update an isolation segment
+  description: Update an isolation segment.
+  operationId: updateIsolationSegment
+  tags:
+    - IsolationSegments
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  requestBody:
+    description: Isolation segment to update
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name of the isolation segment
+            metadata:
+              $ref: ../components/schemas/Metadata.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/IsolationSegment.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '409':
+      $ref: ../components/responses/409.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+    '503':
+      $ref: ../components/responses/503.yaml
+delete:
+  summary: Delete an isolation segment
+  description: >-
+    An isolation segment cannot be deleted if it is entitled to any
+    organization.
+  operationId: deleteIsolationSegment
+  tags:
+    - IsolationSegments
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '204':
+      description: No Content
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml

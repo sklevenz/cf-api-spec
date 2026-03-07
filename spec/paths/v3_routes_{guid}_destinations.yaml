@@ -1,0 +1,153 @@
+get:
+  summary: List destinations for a route
+  description: Retrieve all destinations associated with a route.
+  operationId: listDestinationsForRoute
+  tags:
+    - Routes
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+    - $ref: ../components/parameters/Page.yaml
+    - $ref: ../components/parameters/PerPage.yaml
+  responses:
+    '200':
+      description: List of destinations for the route
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/RouteDestinationList.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+post:
+  summary: Insert destinations for a route
+  description: >-
+    Add one or more destinations to a route, preserving any existing
+    destinations.
+
+
+    Weighted destinations (deprecated) cannot be added with this endpoint.
+  operationId: insertDestinationsForRoute
+  tags:
+    - Routes
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  requestBody:
+    $ref: ../components/requestBodies/RouteDestinations.yaml
+  responses:
+    '200':
+      description: List of destinations for the route
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/RouteDestinationList.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+patch:
+  summary: Replace all destinations for a route
+  description: >-
+    Replaces all destinations for a route, removing any destinations not
+    included in the provided list.
+
+
+    Weighted destinations are **deprecated**. Development of the experimental
+    Istio Service Mesh routing layer was discontinued in 2020 and is no longer
+    supported by the platform. Specifying a `weight` for a destination will take
+    no effect.
+
+
+    If weighted destinations are provided, however, all destinations provided
+    here must have a `weight` specified, and all weights for this route must sum
+    to 100. If not, all provided destinations must not have a `weight`. Mixing
+    weighted and unweighted destinations for a route is not allowed.
+  operationId: replaceDestinationsForRouteWithPatch
+  tags:
+    - Routes
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  requestBody:
+    $ref: ../components/requestBodies/RouteDestinations.yaml
+  responses:
+    '200':
+      description: List of destinations for the route
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/RouteDestinationList.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+put:
+  summary: Replace all destinations for a route
+  description: >-
+    Replaces all destinations for a route, removing any destinations not
+    included in the provided list.
+
+
+    Weighted destinations are **deprecated**. Development of the experimental
+    Istio Service Mesh routing layer was discontinued in 2020 and is no longer
+    supported by the platform. Specifying a `weight` for a destination will take
+    no effect.
+
+
+    If weighted destinations are provided, however, all destinations provided
+    here must have a `weight` specified, and all weights for this route must sum
+    to 100. If not, all provided destinations must not have a `weight`. Mixing
+    weighted and unweighted destinations for a route is not allowed.
+  operationId: replaceDestinationsForRoute
+  tags:
+    - Routes
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  requestBody:
+    $ref: ../components/requestBodies/RouteDestinations.yaml
+  responses:
+    '200':
+      description: List of destinations for the route
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/RouteDestinationList.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml

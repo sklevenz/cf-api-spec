@@ -1,0 +1,32 @@
+type: object
+description: >-
+  Shallow representation of an App used inside IncludedResources to avoid
+  circular references
+allOf:
+  - $ref: ./BaseSchema.yaml
+  - type: object
+    properties:
+      name:
+        type: string
+        description: The name of the app
+      state:
+        type: string
+        description: Current desired state of the app
+        enum:
+          - STOPPED
+          - STARTED
+      relationships:
+        type: object
+        properties:
+          space:
+            $ref: ./RelationshipToOne.yaml
+        description: Relationships for the app
+      links:
+        type: object
+        properties:
+          self:
+            $ref: ./Link.yaml
+    required:
+      - name
+      - relationships
+      - links

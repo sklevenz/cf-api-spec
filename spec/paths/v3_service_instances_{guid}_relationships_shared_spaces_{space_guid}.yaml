@@ -1,0 +1,34 @@
+delete:
+  summary: Unshare a service instance from another space
+  description: >-
+    This endpoint unshares the service instance from the specified space. This
+    will automatically unbind any applications bound to this service instance in
+    the specified space. Unsharing a service instance from a space will not
+    delete any service keys.
+  operationId: unshareServiceInstance
+  tags:
+    - ServiceInstances
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+    - name: space_guid
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: space_guid identifier
+  responses:
+    '204':
+      description: No Content
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml

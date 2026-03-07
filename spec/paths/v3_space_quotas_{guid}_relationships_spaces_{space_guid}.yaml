@@ -1,0 +1,35 @@
+delete:
+  summary: Remove a space quota from a space
+  description: >-
+    This endpoint removes a space quota from a space.
+
+
+    Only an admin or an org manager in the quota’s parent organization can
+    remove a space quota from a space.
+  operationId: removeSpaceQuotaFromSpace
+  tags:
+    - SpaceQuotas
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+    - name: space_guid
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: space_guid identifier
+  responses:
+    '204':
+      description: No Content
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml

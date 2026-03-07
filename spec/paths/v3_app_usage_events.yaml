@@ -1,0 +1,50 @@
+get:
+  summary: List app usage events
+  description: Retrieve all app usage events.
+  operationId: listAppUsageEvents
+  tags:
+    - AppUsageEvents
+  parameters:
+    - $ref: ../components/parameters/Page.yaml
+    - $ref: ../components/parameters/PerPage.yaml
+    - $ref: ../components/parameters/OrderBy.yaml
+    - name: after_guid
+      in: query
+      schema:
+        type: string
+      description: Filters out events before and including the event with the given guid
+    - name: guids
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of usage event guids to filter by
+    - $ref: ../components/parameters/CreatedAts.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/AppUsageEventList.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '409':
+      $ref: ../components/responses/409.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+    '502':
+      $ref: ../components/responses/502.yaml
+    '503':
+      $ref: ../components/responses/503.yaml

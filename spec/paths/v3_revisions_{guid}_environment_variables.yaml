@@ -1,0 +1,42 @@
+get:
+  summary: Get environment variables for a revision
+  description: Retrieve the environment variables that are associated with the revision.
+  operationId: getRevisionEnvironmentVariables
+  tags:
+    - Revisions
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '200':
+      description: Successfully retrieved revision environment variables
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              var:
+                type: object
+                description: Environment variables for the revision
+                additionalProperties:
+                  type: string
+              links:
+                type: object
+                properties:
+                  self:
+                    $ref: ../components/schemas/Link.yaml
+                  revision:
+                    $ref: ../components/schemas/Link.yaml
+                  app:
+                    $ref: ../components/schemas/Link.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml

@@ -1,0 +1,44 @@
+post:
+  summary: Apply a space quota to a space
+  description: >-
+    This endpoint applies a space quota to one or more spaces.
+
+
+    Only an admin or an org manager in the quota’s parent organization can apply
+    a space quota to a space.
+  operationId: applySpaceQuota
+  tags:
+    - SpaceQuotas
+  parameters:
+    - name: quota_guid
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: quota_guid identifier
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/RelationshipToMany.yaml
+    description: Apply the space quota to the given spaces.
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/RelationshipToMany.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml

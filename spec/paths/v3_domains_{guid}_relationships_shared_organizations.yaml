@@ -1,0 +1,54 @@
+post:
+  summary: Share a domain
+  description: >-
+    This endpoint shares an organization-scoped domain to other organizations
+    specified by a list of organization guids. This will allow any of the other
+    organizations to use the organization-scoped domain.
+  operationId: shareDomain
+  tags:
+    - Domains
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  requestBody:
+    description: List of organizations to share the domain with
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: ../components/schemas/Relationship.yaml
+          description: >-
+            Organization relationships; each organization will be entitled to
+            manage this isolation segment
+  responses:
+    '200':
+      description: Successfully shared domain
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+              items:
+                type: object
+                properties:
+                  guid:
+                    type: string
+                    format: uuid
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml

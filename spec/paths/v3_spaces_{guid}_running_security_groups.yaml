@@ -1,0 +1,29 @@
+get:
+  summary: List running security groups for a space
+  description: >-
+    This endpoint returns security groups that are enabled for running globally
+    or at the space level for the given space.
+  operationId: listRunningSecurityGroupsForSpace
+  tags:
+    - Spaces
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/SecurityGroupList.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml

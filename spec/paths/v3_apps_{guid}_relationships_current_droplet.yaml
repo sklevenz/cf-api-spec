@@ -1,0 +1,69 @@
+get:
+  summary: Get current droplet association for an app
+  description: This endpoint retrieves the current droplet relationship for an app.
+  operationId: getCurrentDropletAssociationForApp
+  tags:
+    - Apps
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/RelationshipToOne.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+patch:
+  summary: Set current droplet
+  description: >-
+    Set the current droplet for an app. The current droplet is the droplet that
+    the app will use when running.
+  operationId: setCurrentDropletForApp
+  tags:
+    - Apps
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  requestBody:
+    description: Droplet relationship object that needs to be set
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            data:
+              $ref: ../components/schemas/Relationship.yaml
+          required:
+            - data
+          description: Request schema for setting the current droplet
+  responses:
+    '200':
+      description: Successfully set current droplet
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Relationship.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml

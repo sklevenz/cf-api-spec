@@ -1,0 +1,106 @@
+get:
+  summary: Get a service offering
+  description: This endpoint retrieves the service offering by GUID.
+  operationId: getServiceOffering
+  tags:
+    - ServiceOfferings
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ServiceOffering.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+patch:
+  summary: Update a service offering
+  description: This endpoint updates a service offering with labels and annotations.
+  operationId: updateServiceOffering
+  tags:
+    - ServiceOfferings
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  requestBody:
+    content:
+      application/json:
+        schema:
+          properties:
+            metadata:
+              $ref: ../components/schemas/Metadata.yaml
+    description: Update service offering properties such as metadata and documentation.
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ServiceOffering.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '409':
+      $ref: ../components/responses/409.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+    '503':
+      $ref: ../components/responses/503.yaml
+delete:
+  summary: Delete a service offering
+  description: >-
+    This endpoint deletes a service offering. This is typically used to remove
+    orphan service offerings from the Cloud Foundry database when they have been
+    removed from the service broker catalog, or when the service broker has been
+    removed.
+
+
+    Note that this operation only affects the Cloud Foundry database, and no
+    attempt is made to contact the service broker.
+  operationId: deleteServiceOffering
+  tags:
+    - ServiceOfferings
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+    - name: purge
+      in: query
+      schema:
+        type: boolean
+      description: >-
+        If `true`, any service plans, instances, and bindings associated with
+        this service offering will also be deleted
+  responses:
+    '204':
+      description: No Content
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml

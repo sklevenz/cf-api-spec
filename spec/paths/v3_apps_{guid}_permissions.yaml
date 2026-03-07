@@ -1,0 +1,30 @@
+get:
+  summary: Get permissions for an app
+  description: >-
+    Get the current user’s permissions for the given app. If a user can see an
+    app, then they can see its basic data. Only admin, read-only admins, and
+    space developers can read sensitive data.
+  operationId: getPermissionsForApp
+  tags:
+    - Apps
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/AppPermissions.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml

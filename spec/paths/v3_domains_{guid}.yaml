@@ -1,0 +1,106 @@
+get:
+  summary: Get a domain
+  description: Retrieve a domain.
+  operationId: getDomain
+  tags:
+    - Domains
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '200':
+      description: Successfully retrieved domain
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Domain.yaml
+      links:
+        organization:
+          operationId: getOrganization
+          parameters:
+            guid: $response.body#/relationships/organization/data/guid
+          description: Retrieve the organization for this domain (private domains only)
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+patch:
+  summary: Update a domain
+  description: Update a domain.
+  operationId: updateDomain
+  tags:
+    - Domains
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  requestBody:
+    description: Domain object that needs to be updated
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            metadata:
+              $ref: ../components/schemas/Metadata.yaml
+          description: Request schema for updating a domain
+  responses:
+    '200':
+      description: Successfully updated domain
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Domain.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '409':
+      $ref: ../components/responses/409.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+    '503':
+      $ref: ../components/responses/503.yaml
+delete:
+  summary: Delete a domain
+  description: Delete a domain.
+  operationId: deleteDomain
+  tags:
+    - Domains
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '202':
+      description: Accepted
+      headers:
+        Location:
+          description: URL of the job that is deleting the domain
+          schema:
+            type: string
+            format: uri
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml

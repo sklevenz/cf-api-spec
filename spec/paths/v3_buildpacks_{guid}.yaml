@@ -1,0 +1,87 @@
+get:
+  summary: Get a buildpack
+  description: Retrieve a buildpack.
+  operationId: getBuildpack
+  tags:
+    - Buildpacks
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '200':
+      $ref: ../components/responses/BuildpackGetResponse.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+patch:
+  summary: Update a buildpack
+  description: Update a buildpack.
+  operationId: updateBuildpack
+  tags:
+    - Buildpacks
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  requestBody:
+    $ref: ../components/requestBodies/BuildpackUpdateRequestBody.yaml
+  responses:
+    '200':
+      description: Successfully updated buildpack
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Buildpack.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '409':
+      $ref: ../components/responses/409.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+    '503':
+      $ref: ../components/responses/503.yaml
+delete:
+  summary: Delete a buildpack
+  description: Delete a buildpack.
+  operationId: deleteBuildpack
+  tags:
+    - Buildpacks
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '202':
+      description: Accepted
+      headers:
+        Location:
+          description: URL of the job that is deleting the buildpack
+          schema:
+            type: string
+            format: uri
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml

@@ -1,0 +1,29 @@
+get:
+  summary: List space features
+  description: >-
+    This endpoint retrieves the list of features for the specified space.
+    Currently, the only feature on spaces is the SSH feature.
+  operationId: listSpaceFeatures
+  tags:
+    - Spaces
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/SpaceFeature.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml

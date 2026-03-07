@@ -1,0 +1,96 @@
+get:
+  summary: List domains
+  description: Retrieve all domains the user has access to.
+  operationId: listDomains
+  tags:
+    - Domains
+  parameters:
+    - $ref: ../components/parameters/Page.yaml
+    - $ref: ../components/parameters/PerPage.yaml
+    - $ref: ../components/parameters/OrderBy.yaml
+    - $ref: ../components/parameters/CreatedAts.yaml
+    - $ref: ../components/parameters/UpdatedAts.yaml
+    - $ref: ../components/parameters/LabelSelector.yaml
+    - name: guids
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of GUIDs to filter by
+    - name: names
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of domain names to filter by
+    - name: organization_guids
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of owning organization GUIDs to filter by
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/DomainList.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '409':
+      $ref: ../components/responses/409.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+    '502':
+      $ref: ../components/responses/502.yaml
+    '503':
+      $ref: ../components/responses/503.yaml
+post:
+  summary: Create a domain
+  description: Create a domain.
+  operationId: createDomain
+  tags:
+    - Domains
+  requestBody:
+    $ref: ../components/requestBodies/DomainCreateRequestBody.yaml
+  responses:
+    '201':
+      description: Successfully created domain
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Domain.yaml
+      links:
+        organization:
+          operationId: getOrganization
+          parameters:
+            guid: $response.body#/relationships/organization/data/guid
+          description: Retrieve the organization for this domain (private domains only)
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '409':
+      $ref: ../components/responses/409.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+    '503':
+      $ref: ../components/responses/503.yaml

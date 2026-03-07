@@ -1,0 +1,65 @@
+get:
+  summary: Get platform usage summary
+  description: >-
+    This endpoint retrieves a high-level summary of usage across the entire
+    Cloud Foundry installation.
+  operationId: getPlatformUsageSummary
+  tags:
+    - Info
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              usage_summary:
+                type: object
+                description: Usage summary
+                properties:
+                  started_instances:
+                    type: integer
+                    description: Total number of process instances in the STARTED state
+                  memory_in_mb:
+                    type: integer
+                    description: >-
+                      Sum of memory usage of all tasks in the RUNNING state and
+                      all process instances in the STARTED state
+                  routes:
+                    type: integer
+                    description: Total number of routes
+                  service_instances:
+                    type: integer
+                    description: Total number of managed service instances
+                  reserved_ports:
+                    type: integer
+                    description: Total number of reserved ports
+                  domains:
+                    type: integer
+                    description: Total number of private domains
+                  per_app_tasks:
+                    type: integer
+                    description: Total number of running tasks
+                  service_keys:
+                    type: integer
+                    description: Total number of service keys
+              links:
+                type: object
+                description: Links to related resources
+                properties:
+                  self:
+                    $ref: ../components/schemas/Link.yaml
+                    description: Link to the current endpoint
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml

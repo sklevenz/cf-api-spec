@@ -1,0 +1,59 @@
+post:
+  summary: Scale a process
+  description: Scale a process.
+  operationId: scaleProcess
+  tags:
+    - Processes
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  requestBody:
+    content:
+      application/json:
+        schema:
+          properties:
+            instances:
+              type:
+                - integer
+                - 'null'
+                - string
+            memory_in_mb:
+              type:
+                - integer
+                - 'null'
+                - string
+            disk_in_mb:
+              type:
+                - integer
+                - 'null'
+                - string
+            log_rate_limit_in_bytes_per_second:
+              type:
+                - integer
+                - 'null'
+                - string
+    description: Scale a process by updating instance count and or resource limits.
+  responses:
+    '202':
+      description: Accepted
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Process.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '409':
+      $ref: ../components/responses/409.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+    '503':
+      $ref: ../components/responses/503.yaml

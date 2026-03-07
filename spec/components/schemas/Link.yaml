@@ -1,0 +1,18 @@
+type: object
+properties:
+  href:
+    type: string
+    description: The URL of the link
+    format: uri
+    example: http://127.0.0.1:4010/v3/organizations
+  method:
+    type: string
+    description: >-
+      An optional field containing the HTTP method to be used when following the
+      URL
+    example: GET
+required:
+  - href
+description: >
+  Each link is keyed by its type and will include a href for the URL and an
+  optional method for links that cannot be followed using GET.

@@ -1,0 +1,84 @@
+get:
+  summary: Get a process
+  description: Get a process.
+  operationId: getProcess
+  tags:
+    - Processes
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Process.yaml
+      links:
+        app:
+          operationId: getApp
+          parameters:
+            guid: $response.body#/relationships/app/data/guid
+          description: Retrieve the app for this process
+        revision:
+          operationId: getRevision
+          parameters:
+            guid: $response.body#/relationships/revision/data/guid
+          description: Retrieve the revision for this process
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+patch:
+  summary: Update a process
+  description: Update a process.
+  operationId: updateProcess
+  tags:
+    - Processes
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  requestBody:
+    $ref: ../components/requestBodies/ProcessUpdateRequestBody.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Process.yaml
+      links:
+        app:
+          operationId: getApp
+          parameters:
+            guid: $response.body#/relationships/app/data/guid
+          description: Retrieve the app for this process
+        revision:
+          operationId: getRevision
+          parameters:
+            guid: $response.body#/relationships/revision/data/guid
+          description: Retrieve the revision for this process
+    '400':
+      $ref: ../components/responses/400.yaml
+    '401':
+      $ref: ../components/responses/401.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+    '409':
+      $ref: ../components/responses/409.yaml
+    '422':
+      $ref: ../components/responses/422.yaml
+    '429':
+      $ref: ../components/responses/429.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+    '503':
+      $ref: ../components/responses/503.yaml
