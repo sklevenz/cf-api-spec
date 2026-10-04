@@ -3,7 +3,7 @@ get:
   description: Retrieve an environment variable group.
   operationId: getEnvironmentVariableGroup
   tags:
-    - EnvironmentVariableGroups
+    - Environment Variable Groups
   parameters:
     - name: name
       in: path
@@ -13,7 +13,7 @@ get:
         enum:
           - running
           - staging
-      description: name identifier
+      description: Name of the environment variable group.
   responses:
     '200':
       description: OK
@@ -21,26 +21,36 @@ get:
         application/json:
           schema:
             $ref: ../components/schemas/EnvironmentVariableGroup.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                updated_at: '2016-05-04T17:00:41Z'
+                name: running
+                var:
+                  foo: bar
+                links:
+                  self:
+                    href: >-
+                      https://api.example.org/v3/environment_variable_groups/running
     '400':
-      $ref: ../components/responses/400.yaml
+      $ref: ../components/responses/BadRequest.yaml
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
+      $ref: ../components/responses/NotFound.yaml
     '409':
-      $ref: ../components/responses/409.yaml
+      $ref: ../components/responses/Conflict.yaml
     '422':
-      $ref: ../components/responses/422.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
+      $ref: ../components/responses/UnprocessableEntity.yaml
     '500':
       $ref: ../components/responses/500.yaml
     '502':
-      $ref: ../components/responses/502.yaml
+      $ref: ../components/responses/BadGateway.yaml
     '503':
-      $ref: ../components/responses/503.yaml
+      $ref: ../components/responses/ServiceUnavailable.yaml
 patch:
   summary: Update environment variable group
   description: >-
@@ -55,7 +65,7 @@ patch:
     take effect until apps are restarted.
   operationId: updateEnvironmentVariableGroup
   tags:
-    - EnvironmentVariableGroups
+    - Environment Variable Groups
   parameters:
     - name: name
       in: path
@@ -65,7 +75,7 @@ patch:
         enum:
           - running
           - staging
-      description: name identifier
+      description: Name of the environment variable group.
   requestBody:
     description: The environment variables to update
     required: true
@@ -86,21 +96,30 @@ patch:
         application/json:
           schema:
             $ref: ../components/schemas/EnvironmentVariableGroup.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                var:
+                  RAILS_ENV: production
+                  DEBUG: 'false'
+                links:
+                  self:
+                    href: >-
+                      https://api.example.org/v3/environment_variable_groups/[name]
     '400':
-      $ref: ../components/responses/400.yaml
+      $ref: ../components/responses/BadRequest.yaml
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
+      $ref: ../components/responses/NotFound.yaml
     '409':
-      $ref: ../components/responses/409.yaml
+      $ref: ../components/responses/Conflict.yaml
     '422':
-      $ref: ../components/responses/422.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
+      $ref: ../components/responses/UnprocessableEntity.yaml
     '500':
       $ref: ../components/responses/500.yaml
     '503':
-      $ref: ../components/responses/503.yaml
+      $ref: ../components/responses/ServiceUnavailable.yaml

@@ -7,7 +7,7 @@ delete:
     delete any service keys.
   operationId: unshareServiceInstance
   tags:
-    - ServiceInstances
+    - Service Instances
   parameters:
     - $ref: ../components/parameters/Guid.yaml
     - name: space_guid
@@ -16,19 +16,17 @@ delete:
       schema:
         type: string
         format: uuid
-      description: space_guid identifier
+      description: GUID of the space.
   responses:
     '204':
       description: No Content
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
+      $ref: ../components/responses/NotFound.yaml
     '422':
-      $ref: ../components/responses/422.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
+      $ref: ../components/responses/UnprocessableEntity.yaml
     '500':
       $ref: ../components/responses/500.yaml

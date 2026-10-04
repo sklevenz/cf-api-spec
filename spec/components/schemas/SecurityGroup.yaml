@@ -70,3 +70,4 @@ allOf:
       - globally_enabled
       - rules
       - links
+    type: object

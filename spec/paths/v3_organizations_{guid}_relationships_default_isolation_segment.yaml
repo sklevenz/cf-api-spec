@@ -13,18 +13,25 @@ get:
         application/json:
           schema:
             $ref: ../components/schemas/RelationshipToOne.yaml
-    '400':
-      $ref: ../components/responses/400.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                data:
+                  guid: 123e4567-e89b-12d3-a456-426614174000
+                links:
+                  self:
+                    href: >-
+                      https://api.example.org/v3/organizations/d4c91047-7b29-4fda-b7f9-04033e5c9c9f/relationships/default_isolation_segment
+                  related:
+                    href: >-
+                      https://api.example.org/v3/isolation_segments/9d8e007c-ce52-4ea7-8a57-f2825d2c6b39
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
-    '500':
-      $ref: ../components/responses/500.yaml
+      $ref: ../components/responses/NotFound.yaml
 patch:
   summary: Assign default isolation segment
   description: >-
@@ -45,9 +52,13 @@ patch:
       application/json:
         schema:
           $ref: ../components/schemas/RelationshipToOne.yaml
-    description: >-
-      Set or clear the default isolation segment relationship for the
-      organization.
+        examples:
+          default:
+            summary: default
+            value:
+              data:
+                guid: 123e4567-e89b-12d3-a456-426614174000
+    description: Request body for assign default isolation segment.
   responses:
     '200':
       description: OK
@@ -55,15 +66,24 @@ patch:
         application/json:
           schema:
             $ref: ../components/schemas/RelationshipToOne.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                data:
+                  guid: 123e4567-e89b-12d3-a456-426614174000
+                links:
+                  self:
+                    href: >-
+                      https://api.example.org/v3/organizations/d4c91047-7b29-4fda-b7f9-04033e5c9c9f/relationships/default_isolation_segment
+                  related:
+                    href: >-
+                      https://api.example.org/v3/isolation_segments/9d8e007c-ce52-4ea7-8a57-f2825d2c6b39
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
+      $ref: ../components/responses/NotFound.yaml
     '422':
-      $ref: ../components/responses/422.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
-    '500':
-      $ref: ../components/responses/500.yaml
+      $ref: ../components/responses/UnprocessableEntity.yaml

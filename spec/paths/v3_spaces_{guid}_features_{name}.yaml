@@ -13,7 +13,7 @@ get:
         type: string
         enum:
           - ssh
-      description: name identifier
+      description: Name of the feature.
   responses:
     '200':
       description: OK
@@ -21,18 +21,19 @@ get:
         application/json:
           schema:
             $ref: ../components/schemas/SpaceFeature.yaml
-    '400':
-      $ref: ../components/responses/400.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                name: ssh
+                description: Enable SSHing into apps in the space.
+                enabled: true
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
-    '500':
-      $ref: ../components/responses/500.yaml
+      $ref: ../components/responses/NotFound.yaml
 patch:
   summary: Update a space feature
   description: Update a space feature.
@@ -48,7 +49,7 @@ patch:
         type: string
         enum:
           - ssh
-      description: name identifier
+      description: Name of the feature.
   requestBody:
     content:
       application/json:
@@ -56,7 +57,13 @@ patch:
           properties:
             enabled:
               type: boolean
-    description: Update the named space feature, enabling or disabling it.
+          type: object
+        examples:
+          default:
+            summary: default
+            value:
+              enabled: true
+    description: Request body for update a space feature.
   responses:
     '200':
       description: OK
@@ -64,15 +71,18 @@ patch:
         application/json:
           schema:
             $ref: ../components/schemas/SpaceFeature.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                name: ssh
+                description: Enable SSHing into apps in the space.
+                enabled: true
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
+      $ref: ../components/responses/NotFound.yaml
     '422':
-      $ref: ../components/responses/422.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
-    '500':
-      $ref: ../components/responses/500.yaml
+      $ref: ../components/responses/UnprocessableEntity.yaml

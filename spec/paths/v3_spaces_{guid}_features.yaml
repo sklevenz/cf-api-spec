@@ -14,16 +14,26 @@ get:
       content:
         application/json:
           schema:
-            $ref: ../components/schemas/SpaceFeature.yaml
-    '400':
-      $ref: ../components/responses/400.yaml
+            type: object
+            properties:
+              resources:
+                type: array
+                items:
+                  $ref: ../components/schemas/SpaceFeature.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                resources:
+                  - name: ssh
+                    description: Enable SSHing into apps in the space.
+                    enabled: true
+                  - name: diego_docker
+                    description: Allow Docker image support for the space.
+                    enabled: false
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
-    '500':
-      $ref: ../components/responses/500.yaml
+      $ref: ../components/responses/NotFound.yaml

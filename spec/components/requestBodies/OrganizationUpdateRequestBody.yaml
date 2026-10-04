@@ -14,3 +14,8 @@ content:
         metadata:
           $ref: ../schemas/Metadata.yaml
       description: Request schema for updating an organization
+    examples:
+      default:
+        summary: default
+        value:
+          name: my-organization

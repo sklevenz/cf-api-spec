@@ -9,21 +9,59 @@ get:
 
     To retrieve the default domain for an organization, use the [get default
     domain](#get-default-domain) endpoint.
+
+
+    **Permitted roles:** All Roles
   operationId: listDomainsForOrganization
   tags:
     - Domains
   parameters:
-    - $ref: ../components/parameters/Guid.yaml
-    - $ref: ../components/parameters/Page.yaml
-    - $ref: ../components/parameters/PerPage.yaml
-    - $ref: ../components/parameters/OrderBy.yaml
+    - name: guid
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: The guid of the organization
+    - name: guids
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of guids to filter by
     - name: names
       in: query
       schema:
         type: array
         items:
           type: string
-      description: Comma-delimited list of domain names to filter by
+      description: Comma-delimited list of domain names to filter by (case-insensitive)
+    - name: organization_guids
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of owning organization guids to filter by
+    - $ref: ../components/parameters/Page.yaml
+    - $ref: ../components/parameters/PerPage.yaml
+    - name: order_by
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+          - created_at
+          - -created_at
+          - updated_at
+          - -updated_at
+      description: >-
+        Value to sort by. Defaults to ascending; prepend with `-` to sort
+        descending. Valid values are `created_at`, `updated_at`
+    - $ref: ../components/parameters/LabelSelector.yaml
+    - $ref: ../components/parameters/CreatedAts.yaml
+    - $ref: ../components/parameters/UpdatedAts.yaml
   responses:
     '200':
       description: OK
@@ -31,15 +69,54 @@ get:
         application/json:
           schema:
             $ref: ../components/schemas/DomainList.yaml
-    '400':
-      $ref: ../components/responses/400.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                pagination:
+                  total_results: 3
+                  total_pages: 2
+                  first:
+                    href: >-
+                      https://api.example.org/v3/organizations/3a3f3d89-3f89-4f05-8188-751b298c79d5/domains?page=1&per_page=2
+                  last:
+                    href: >-
+                      https://api.example.org/v3/organizations/3a3f3d89-3f89-4f05-8188-751b298c79d5/domains?page=2&per_page=2
+                  next:
+                    href: >-
+                      https://api.example.org/v3/organizations/3a3f3d89-3f89-4f05-8188-751b298c79d5/domains?page=2&per_page=2
+                  previous: null
+                resources:
+                  - guid: 3a5d3d89-3f89-4f05-8188-8a2b298c79d5
+                    created_at: '2019-03-08T01:06:19Z'
+                    updated_at: '2019-03-08T01:06:19Z'
+                    name: test-domain.com
+                    internal: false
+                    router_group:
+                      guid: 5806148f-cce6-4d86-7fbd-aa269e3f6f3f
+                    supported_protocols:
+                      - tcp
+                    metadata:
+                      labels: {}
+                      annotations: {}
+                    relationships:
+                      organization:
+                        data: null
+                      shared_organizations:
+                        data: []
+                    links:
+                      self:
+                        href: >-
+                          https://api.example.org/v3/domains/3a5d3d89-3f89-4f05-8188-8a2b298c79d5
+                      route_reservations:
+                        href: >-
+                          https://api.example.org/v3/domains/3a5d3d89-3f89-4f05-8188-8a2b298c79d5/route_reservations
+                      router_group:
+                        href: >-
+                          https://api.example.org/routing/v1/router_groups/5806148f-cce6-4d86-7fbd-aa269e3f6f3f
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
-    '500':
-      $ref: ../components/responses/500.yaml
+      $ref: ../components/responses/NotFound.yaml

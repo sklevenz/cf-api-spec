@@ -3,7 +3,7 @@ get:
   description: Get a feature flag.
   operationId: getFeatureFlag
   tags:
-    - FeatureFlags
+    - Feature Flags
   parameters:
     - name: name
       in: path
@@ -37,24 +37,29 @@ get:
         application/json:
           schema:
             $ref: ../components/schemas/FeatureFlag.yaml
-    '400':
-      $ref: ../components/responses/400.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                name: my_feature_flag
+                enabled: true
+                updated_at: '2016-10-17T20:00:42Z'
+                custom_error_message: error message the user sees
+                links:
+                  self:
+                    href: https://api.example.org/v3/feature_flags/my_feature_flag
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
-    '500':
-      $ref: ../components/responses/500.yaml
+      $ref: ../components/responses/NotFound.yaml
 patch:
   summary: Update a feature flag
   description: Update a feature flag.
   operationId: updateFeatureFlag
   tags:
-    - FeatureFlags
+    - Feature Flags
   parameters:
     - name: name
       in: path
@@ -97,6 +102,12 @@ patch:
               description: >-
                 The error string returned by the API when a client performs an
                 action disabled by the feature flag
+        examples:
+          default:
+            summary: default
+            value:
+              enabled: true
+              custom_error_message: error message the user sees
   responses:
     '200':
       description: Successfully updated feature flag
@@ -104,21 +115,30 @@ patch:
         application/json:
           schema:
             $ref: ../components/schemas/FeatureFlag.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                name: my_feature_flag
+                enabled: true
+                updated_at: '2016-10-17T20:00:42Z'
+                custom_error_message: error message the user sees
+                links:
+                  self:
+                    href: https://api.example.org/v3/feature_flags/my_feature_flag
     '400':
-      $ref: ../components/responses/400.yaml
+      $ref: ../components/responses/BadRequest.yaml
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
+      $ref: ../components/responses/NotFound.yaml
     '409':
-      $ref: ../components/responses/409.yaml
+      $ref: ../components/responses/Conflict.yaml
     '422':
-      $ref: ../components/responses/422.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
+      $ref: ../components/responses/UnprocessableEntity.yaml
     '500':
       $ref: ../components/responses/500.yaml
     '503':
-      $ref: ../components/responses/503.yaml
+      $ref: ../components/responses/ServiceUnavailable.yaml

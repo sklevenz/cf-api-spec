@@ -5,7 +5,7 @@ get:
     instance has been shared to.
   operationId: getServiceInstanceUsageSummaryInSharedSpaces
   tags:
-    - ServiceInstances
+    - Service Instances
   parameters:
     - $ref: ../components/parameters/Guid.yaml
   responses:
@@ -25,15 +25,39 @@ get:
                       $ref: ../components/schemas/Relationship.yaml
                     bound_app_count:
                       type: integer
-    '400':
-      $ref: ../components/responses/400.yaml
+              links:
+                type: object
+                properties:
+                  self:
+                    $ref: ../components/schemas/Link.yaml
+                  shared_spaces:
+                    $ref: ../components/schemas/Link.yaml
+                  service_instance:
+                    $ref: ../components/schemas/Link.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                usage_summary:
+                  - space:
+                      guid: 123e4567-e89b-12d3-a456-426614174000
+                    bound_app_count: 2
+                  - space:
+                      guid: 123e4567-e89b-12d3-a456-426614174000
+                    bound_app_count: 0
+                links:
+                  self:
+                    href: >-
+                      https://api.example.org/v3/service_instances/bdeg4371-cbd3-4155-b156-dc0c2a431b4c/relationships/shared_spaces/usage_summary
+                  shared_spaces:
+                    href: >-
+                      https://api.example.org/v3/service_instances/bdeg4371-cbd3-4155-b156-dc0c2a431b4c/relationships/shared_spaces
+                  service_instance:
+                    href: >-
+                      https://api.example.org/v3/service_instances/bdeg4371-cbd3-4155-b156-dc0c2a431b4c
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
-    '500':
-      $ref: ../components/responses/500.yaml
+      $ref: ../components/responses/NotFound.yaml

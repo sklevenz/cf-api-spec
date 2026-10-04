@@ -2,7 +2,6 @@ get:
   summary: Get platform info
   description: Get information about the platform.
   operationId: getPlatformInfo
-  security: []
   tags:
     - Info
   responses:
@@ -45,28 +44,62 @@ get:
                 description: Links to related resources
                 properties:
                   self:
-                    $ref: ../components/schemas/Link.yaml
-                    description: Link to the current endpoint
+                    allOf:
+                      - $ref: ../components/schemas/Link.yaml
+                      - description: Link to the current endpoint
+                    type: object
                   support:
-                    $ref: ../components/schemas/Link.yaml
-                    description: Link to the support website for the platform
+                    allOf:
+                      - $ref: ../components/schemas/Link.yaml
+                      - description: Link to the support website for the platform
+                    type: object
+              osbapi_version:
+                type: string
+                description: Supported Open Service Broker API version.
+              rate_limits:
+                type: object
+                properties:
+                  enabled:
+                    type: boolean
+                  general_limit:
+                    type: integer
+                  reset_interval_in_minutes:
+                    type: integer
+          examples:
+            default:
+              summary: default
+              value:
+                build: ''
+                cli_version:
+                  minimum: ''
+                  recommended: ''
+                custom: {}
+                description: ''
+                name: ''
+                version: 0
+                osbapi_version: ''
+                rate_limits:
+                  enabled: false
+                  general_limit: 2000
+                  reset_interval_in_minutes: 30
+                links:
+                  self:
+                    href: http://api.example.com/v3/info
+                  support:
+                    href: ''
     '400':
-      $ref: ../components/responses/400.yaml
-    '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/BadRequest.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
+      $ref: ../components/responses/NotFound.yaml
     '409':
-      $ref: ../components/responses/409.yaml
+      $ref: ../components/responses/Conflict.yaml
     '422':
-      $ref: ../components/responses/422.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
+      $ref: ../components/responses/UnprocessableEntity.yaml
     '500':
       $ref: ../components/responses/500.yaml
     '502':
-      $ref: ../components/responses/502.yaml
+      $ref: ../components/responses/BadGateway.yaml
     '503':
-      $ref: ../components/responses/503.yaml
+      $ref: ../components/responses/ServiceUnavailable.yaml

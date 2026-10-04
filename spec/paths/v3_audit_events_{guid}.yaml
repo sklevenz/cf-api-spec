@@ -3,7 +3,7 @@ get:
   description: Retrieve a specific audit event.
   operationId: getAuditEvent
   tags:
-    - AuditEvents
+    - Audit Events
   parameters:
     - $ref: ../components/parameters/Guid.yaml
   responses:
@@ -13,15 +13,36 @@ get:
         application/json:
           schema:
             $ref: ../components/schemas/AuditEvent.yaml
-    '400':
-      $ref: ../components/responses/400.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                guid: 123e4567-e89b-12d3-a456-426614174000
+                created_at: '2016-06-08T16:41:23Z'
+                updated_at: '2016-06-08T16:41:26Z'
+                type: audit.app.update
+                actor:
+                  guid: 123e4567-e89b-12d3-a456-426614174000
+                  type: user
+                  name: admin
+                target:
+                  guid: 123e4567-e89b-12d3-a456-426614174000
+                  type: app
+                  name: my-app
+                data:
+                  request:
+                    recursive: true
+                space:
+                  guid: 123e4567-e89b-12d3-a456-426614174000
+                organization:
+                  guid: 123e4567-e89b-12d3-a456-426614174000
+                links:
+                  self:
+                    href: >-
+                      https://api.example.org/v3/audit_events/a595fe2f-01ff-4965-a50c-290258ab8582
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
-    '500':
-      $ref: ../components/responses/500.yaml
+      $ref: ../components/responses/NotFound.yaml

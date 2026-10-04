@@ -5,9 +5,12 @@ get:
     is any isolation segment in the system. For anyone else, this is an
     isolation segment in the allowed list for any organization to which the user
     belongs.
+
+
+    **Permitted roles:** All Roles
   operationId: getIsolationSegment
   tags:
-    - IsolationSegments
+    - Isolation Segments
   parameters:
     - $ref: ../components/parameters/Guid.yaml
   responses:
@@ -17,24 +20,39 @@ get:
         application/json:
           schema:
             $ref: ../components/schemas/IsolationSegment.yaml
-    '400':
-      $ref: ../components/responses/400.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                guid: b19f6525-cbd3-4155-b156-dc0c2a431b4c
+                name: an_isolation_segment
+                created_at: '2016-10-19T20:25:04Z'
+                updated_at: '2016-11-08T16:41:26Z'
+                links:
+                  self:
+                    href: >-
+                      https://api.example.org/v3/isolation_segments/b19f6525-cbd3-4155-b156-dc0c2a431b4c
+                  organizations:
+                    href: >-
+                      https://api.example.org/v3/isolation_segments/b19f6525-cbd3-4155-b156-dc0c2a431b4c/organizations
+                metadata:
+                  annotations: {}
+                  labels: {}
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
-    '500':
-      $ref: ../components/responses/500.yaml
+      $ref: ../components/responses/NotFound.yaml
 patch:
   summary: Update an isolation segment
-  description: Update an isolation segment.
+  description: |-
+    Update an isolation segment.
+
+    **Permitted roles:** Admin
   operationId: updateIsolationSegment
   tags:
-    - IsolationSegments
+    - Isolation Segments
   parameters:
     - $ref: ../components/parameters/Guid.yaml
   requestBody:
@@ -47,9 +65,19 @@ patch:
           properties:
             name:
               type: string
-              description: The name of the isolation segment
+              description: >-
+                Name of the isolation segment; isolation segment names must be
+                unique across the entire system, and case is ignored when
+                checking for uniqueness
             metadata:
               $ref: ../components/schemas/Metadata.yaml
+              description: Labels and annotations applied to the isolation segment
+              type: object
+        examples:
+          default:
+            summary: default
+            value:
+              name: my_isolation_segment
   responses:
     '200':
       description: OK
@@ -57,46 +85,63 @@ patch:
         application/json:
           schema:
             $ref: ../components/schemas/IsolationSegment.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                guid: b19f6525-cbd3-4155-b156-dc0c2a431b4c
+                name: my_isolation_segment
+                created_at: '2016-10-19T20:25:04Z'
+                updated_at: '2016-11-08T16:41:26Z'
+                links:
+                  self:
+                    href: >-
+                      https://api.example.org/v3/isolation_segments/b19f6525-cbd3-4155-b156-dc0c2a431b4c
+                  organizations:
+                    href: >-
+                      https://api.example.org/v3/isolation_segments/b19f6525-cbd3-4155-b156-dc0c2a431b4c/organizations
+                metadata:
+                  annotations: {}
+                  labels: {}
     '400':
-      $ref: ../components/responses/400.yaml
+      $ref: ../components/responses/BadRequest.yaml
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
+      $ref: ../components/responses/NotFound.yaml
     '409':
-      $ref: ../components/responses/409.yaml
+      $ref: ../components/responses/Conflict.yaml
     '422':
-      $ref: ../components/responses/422.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
+      $ref: ../components/responses/UnprocessableEntity.yaml
     '500':
       $ref: ../components/responses/500.yaml
     '503':
-      $ref: ../components/responses/503.yaml
+      $ref: ../components/responses/ServiceUnavailable.yaml
 delete:
   summary: Delete an isolation segment
   description: >-
     An isolation segment cannot be deleted if it is entitled to any
     organization.
+
+
+    **Permitted roles:** Admin
   operationId: deleteIsolationSegment
   tags:
-    - IsolationSegments
+    - Isolation Segments
   parameters:
     - $ref: ../components/parameters/Guid.yaml
   responses:
     '204':
       description: No Content
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
+      $ref: ../components/responses/NotFound.yaml
     '422':
-      $ref: ../components/responses/422.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
+      $ref: ../components/responses/UnprocessableEntity.yaml
     '500':
       $ref: ../components/responses/500.yaml

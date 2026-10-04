@@ -11,6 +11,7 @@ content:
             app:
               $ref: ../schemas/RelationshipToOne.yaml
               description: App to create droplet for
+              type: object
           required:
             - app
         process_types:
@@ -21,3 +22,14 @@ content:
       required:
         - relationships
       description: Request schema for creating a droplet
+    examples:
+      default:
+        summary: default
+        value:
+          relationships:
+            app:
+              data:
+                guid: 123e4567-e89b-12d3-a456-426614174000
+          process_types:
+            rake: bundle exec rake
+            web: bundle exec rackup config.ru -p $PORT

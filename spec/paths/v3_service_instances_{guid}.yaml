@@ -3,7 +3,7 @@ get:
   description: This endpoint retrieves the service instance by GUID.
   operationId: getServiceInstance
   tags:
-    - ServiceInstances
+    - Service Instances
   parameters:
     - $ref: ../components/parameters/Guid.yaml
     - name: fields
@@ -17,13 +17,6 @@ get:
       content:
         application/json:
           schema:
-            type: object
-            required:
-              - type
-            properties:
-              type:
-                type: string
-                description: Discriminator for the service instance schema
             oneOf:
               - $ref: ../components/schemas/ManagedServiceInstance.yaml
               - $ref: ../components/schemas/UserProvidedServiceInstance.yaml
@@ -45,18 +38,12 @@ get:
           description: >-
             Retrieve the service plan for this service instance (managed
             instances only)
-    '400':
-      $ref: ../components/responses/400.yaml
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
-    '500':
-      $ref: ../components/responses/500.yaml
+      $ref: ../components/responses/NotFound.yaml
 patch:
   summary: Update a service instance
   description: >-
@@ -78,7 +65,7 @@ patch:
     Otherwise the response will be synchronous.
   operationId: updateServiceInstance
   tags:
-    - ServiceInstances
+    - Service Instances
   parameters:
     - $ref: ../components/parameters/Guid.yaml
   requestBody:
@@ -89,13 +76,6 @@ patch:
       content:
         application/json:
           schema:
-            type: object
-            required:
-              - type
-            properties:
-              type:
-                type: string
-                description: Discriminator for the service instance schema
             oneOf:
               - $ref: ../components/schemas/ManagedServiceInstance.yaml
               - $ref: ../components/schemas/UserProvidedServiceInstance.yaml
@@ -126,23 +106,21 @@ patch:
             type: string
             format: uri
     '400':
-      $ref: ../components/responses/400.yaml
+      $ref: ../components/responses/BadRequest.yaml
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
+      $ref: ../components/responses/NotFound.yaml
     '409':
-      $ref: ../components/responses/409.yaml
+      $ref: ../components/responses/Conflict.yaml
     '422':
-      $ref: ../components/responses/422.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
+      $ref: ../components/responses/UnprocessableEntity.yaml
     '500':
       $ref: ../components/responses/500.yaml
     '503':
-      $ref: ../components/responses/503.yaml
+      $ref: ../components/responses/ServiceUnavailable.yaml
 delete:
   summary: Delete a service instance
   description: >-
@@ -165,7 +143,7 @@ delete:
     successful.
   operationId: deleteServiceInstance
   tags:
-    - ServiceInstances
+    - Service Instances
   parameters:
     - $ref: ../components/parameters/Guid.yaml
     - name: purge
@@ -187,14 +165,10 @@ delete:
     '204':
       description: No Content
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
+      $ref: ../components/responses/NotFound.yaml
     '422':
-      $ref: ../components/responses/422.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
-    '500':
-      $ref: ../components/responses/500.yaml
+      $ref: ../components/responses/UnprocessableEntity.yaml

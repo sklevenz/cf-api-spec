@@ -11,3 +11,4 @@ properties:
     description: >-
       Additional related resources included in the response when using the
       include parameter
+    type: object

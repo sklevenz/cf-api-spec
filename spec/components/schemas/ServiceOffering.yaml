@@ -14,9 +14,13 @@ allOf:
           self:
             $ref: ./Link.yaml
             description: The URL to get this service offering
+            type: object
           service_plans:
             $ref: ./Link.yaml
             description: The URL to get the service plans for this offering
+            type: object
           service_broker:
             $ref: ./Link.yaml
             description: The URL to get the service broker for this offering
+            type: object
+    type: object

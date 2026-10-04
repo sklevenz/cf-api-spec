@@ -3,7 +3,7 @@ get:
   description: This endpoint lists all organization quota resources.
   operationId: listOrganizationQuotas
   tags:
-    - OrganizationQuotas
+    - Organization Quotas
   parameters:
     - $ref: ../components/parameters/Page.yaml
     - $ref: ../components/parameters/PerPage.yaml
@@ -38,24 +38,91 @@ get:
         application/json:
           schema:
             $ref: ../components/schemas/OrganizationQuotaList.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                pagination:
+                  total_results: 2
+                  total_pages: 1
+                  first:
+                    href: >-
+                      https://api.example.org/v3/organization_quotas?page=1&per_page=50
+                  last:
+                    href: >-
+                      https://api.example.org/v3/organization_quotas?page=1&per_page=50
+                  next: null
+                  previous: null
+                resources:
+                  - guid: 123e4567-e89b-12d3-a456-426614174000
+                    created_at: '2016-05-04T17:00:41Z'
+                    updated_at: '2016-05-04T17:00:41Z'
+                    name: don-quixote
+                    apps:
+                      total_memory_in_mb: 5120
+                      per_process_memory_in_mb: 1024
+                      log_rate_limit_in_bytes_per_second: 1024
+                      total_instances: 10
+                      per_app_tasks: 5
+                    services:
+                      paid_services_allowed: true
+                      total_service_instances: 10
+                      total_service_keys: 20
+                    routes:
+                      total_routes: 8
+                      total_reserved_ports: 4
+                    domains:
+                      total_domains: 7
+                    relationships:
+                      organizations:
+                        data:
+                          - guid: 123e4567-e89b-12d3-a456-426614174000
+                    links:
+                      self:
+                        href: >-
+                          https://api.example.org/v3/organization_quotas/quota-1-guid
+                  - guid: 123e4567-e89b-12d3-a456-426614174000
+                    created_at: '2017-05-04T17:00:41Z'
+                    updated_at: '2017-05-04T17:00:41Z'
+                    name: sancho-panza
+                    apps:
+                      total_memory_in_mb: 2048
+                      per_process_memory_in_mb: 1024
+                      log_rate_limit_in_bytes_per_second: 1024
+                      total_instances: 5
+                      per_app_tasks: 2
+                    services:
+                      paid_services_allowed: true
+                      total_service_instances: 10
+                      total_service_keys: 20
+                    routes:
+                      total_routes: 8
+                      total_reserved_ports: 4
+                    domains:
+                      total_domains: 7
+                    relationships:
+                      organizations:
+                        data: []
+                    links:
+                      self:
+                        href: >-
+                          https://api.example.org/v3/organization_quotas/quota-2-guid
     '400':
-      $ref: ../components/responses/400.yaml
+      $ref: ../components/responses/BadRequest.yaml
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '409':
-      $ref: ../components/responses/409.yaml
+      $ref: ../components/responses/Conflict.yaml
     '422':
-      $ref: ../components/responses/422.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
+      $ref: ../components/responses/UnprocessableEntity.yaml
     '500':
       $ref: ../components/responses/500.yaml
     '502':
-      $ref: ../components/responses/502.yaml
+      $ref: ../components/responses/BadGateway.yaml
     '503':
-      $ref: ../components/responses/503.yaml
+      $ref: ../components/responses/ServiceUnavailable.yaml
 post:
   summary: Create an organization quota
   description: >-
@@ -67,7 +134,7 @@ post:
     To create an organization quota you must be an admin.
   operationId: createOrganizationQuota
   tags:
-    - OrganizationQuotas
+    - Organization Quotas
   requestBody:
     $ref: ../components/requestBodies/OrganizationQuotaCreateRequestBody.yaml
   responses:
@@ -77,19 +144,47 @@ post:
         application/json:
           schema:
             $ref: ../components/schemas/OrganizationQuota.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                guid: 123e4567-e89b-12d3-a456-426614174000
+                created_at: '2016-05-04T17:00:41Z'
+                updated_at: '2016-05-04T17:00:41Z'
+                name: don-quixote
+                apps:
+                  total_memory_in_mb: 5120
+                  per_process_memory_in_mb: 1024
+                  log_rate_limit_in_bytes_per_second: 1024
+                  total_instances: 10
+                  per_app_tasks: 5
+                services:
+                  paid_services_allowed: true
+                  total_service_instances: 10
+                  total_service_keys: 20
+                routes:
+                  total_routes: 8
+                  total_reserved_ports: 4
+                domains:
+                  total_domains: 7
+                relationships:
+                  organizations:
+                    data:
+                      - guid: 123e4567-e89b-12d3-a456-426614174000
+                links:
+                  self:
+                    href: https://api.example.org/v3/organization_quotas/quota-guid
     '400':
-      $ref: ../components/responses/400.yaml
+      $ref: ../components/responses/BadRequest.yaml
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '409':
-      $ref: ../components/responses/409.yaml
+      $ref: ../components/responses/Conflict.yaml
     '422':
-      $ref: ../components/responses/422.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
+      $ref: ../components/responses/UnprocessableEntity.yaml
     '500':
       $ref: ../components/responses/500.yaml
     '503':
-      $ref: ../components/responses/503.yaml
+      $ref: ../components/responses/ServiceUnavailable.yaml

@@ -13,18 +13,12 @@ get:
         application/json:
           schema:
             $ref: ../components/schemas/Stack.yaml
-    '400':
-      $ref: ../components/responses/400.yaml
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
-    '500':
-      $ref: ../components/responses/500.yaml
+      $ref: ../components/responses/NotFound.yaml
 patch:
   summary: Update a stack
   description: Update a stack.
@@ -40,7 +34,31 @@ patch:
           properties:
             metadata:
               $ref: ../components/schemas/Metadata.yaml
-    description: Update stack metadata such as name and description.
+            state:
+              type: string
+              enum:
+                - ACTIVE
+                - DEPRECATED
+                - RESTRICTED
+                - DISABLED
+            state_reason:
+              type:
+                - string
+                - 'null'
+              description: Optional explanation of the stack state change.
+          type: object
+        examples:
+          default:
+            summary: default
+            value:
+              metadata:
+                labels:
+                  key: value
+                annotations:
+                  note: detailed information
+              state: ACTIVE
+              state_reason: Optional plain text describing the stack state change
+    description: Request body for update a stack.
   responses:
     '200':
       description: OK
@@ -49,23 +67,21 @@ patch:
           schema:
             $ref: ../components/schemas/Stack.yaml
     '400':
-      $ref: ../components/responses/400.yaml
+      $ref: ../components/responses/BadRequest.yaml
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
+      $ref: ../components/responses/NotFound.yaml
     '409':
-      $ref: ../components/responses/409.yaml
+      $ref: ../components/responses/Conflict.yaml
     '422':
-      $ref: ../components/responses/422.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
+      $ref: ../components/responses/UnprocessableEntity.yaml
     '500':
       $ref: ../components/responses/500.yaml
     '503':
-      $ref: ../components/responses/503.yaml
+      $ref: ../components/responses/ServiceUnavailable.yaml
 delete:
   summary: Delete a stack
   description: Delete a stack.
@@ -78,14 +94,12 @@ delete:
     '204':
       description: No Content
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
+      $ref: ../components/responses/NotFound.yaml
     '422':
-      $ref: ../components/responses/422.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
+      $ref: ../components/responses/UnprocessableEntity.yaml
     '500':
       $ref: ../components/responses/500.yaml

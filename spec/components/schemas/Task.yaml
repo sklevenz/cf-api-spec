@@ -40,4 +40,5 @@ allOf:
         properties:
           self:
             $ref: ./Link.yaml
+    type: object
 description: A task is a one-off process that can be run in the Cloud Foundry environment.

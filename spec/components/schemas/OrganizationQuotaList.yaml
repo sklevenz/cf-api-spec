@@ -6,4 +6,5 @@ allOf:
         type: array
         items:
           $ref: ./OrganizationQuota.yaml
+    type: object
 description: A paginated list of organization quotas

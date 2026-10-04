@@ -16,12 +16,12 @@ allOf:
       memory_in_mb:
         type:
           - integer
-          - null
+          - 'null'
         description: Memory limit for the sidecar in MB
       origin:
         type:
           - string
-          - null
+          - 'null'
         description: Origin of the sidecar
         enum:
           - user
@@ -47,3 +47,4 @@ allOf:
       - command
       - process_types
       - relationships
+    type: object

@@ -65,15 +65,20 @@ allOf:
           self:
             $ref: ./Link.yaml
             description: The URL to get this package
+            type: object
           upload:
             $ref: ./Link.yaml
             description: The URL to upload the package bits
+            type: object
           download:
             $ref: ./Link.yaml
             description: The URL to download the package bits
+            type: object
           app:
             $ref: ./Link.yaml
             description: The URL to get the app for this package
+            type: object
+    type: object
 description: >-
   A package represents an application"s "source code" - either raw bits or a
   pointer to these bits. Packages are used to create builds, which result in a

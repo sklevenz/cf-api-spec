@@ -13,6 +13,57 @@ get:
         application/json:
           schema:
             $ref: ../components/schemas/Droplet.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                guid: 123e4567-e89b-12d3-a456-426614174000
+                state: STAGED
+                error: null
+                lifecycle:
+                  type: buildpack
+                  data: {}
+                execution_metadata: ''
+                process_types:
+                  rake: bundle exec rake
+                  web: bundle exec rackup config.ru -p $PORT
+                checksum:
+                  type: sha256
+                  value: >-
+                    e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+                buildpacks:
+                  - name: ruby_buildpack
+                    detect_output: ruby 1.6.14
+                    version: 1.1.1.
+                    buildpack_name: ruby
+                stack: cflinuxfs4
+                image: null
+                created_at: '2016-03-28T23:39:34Z'
+                updated_at: '2016-03-28T23:39:47Z'
+                relationships:
+                  app:
+                    data:
+                      guid: 123e4567-e89b-12d3-a456-426614174000
+                links:
+                  self:
+                    href: >-
+                      https://api.example.org/v3/droplets/585bc3c1-3743-497d-88b0-403ad6b56d16
+                  package:
+                    href: >-
+                      https://api.example.org/v3/packages/8222f76a-9e09-4360-b3aa-1ed329945e92
+                  app:
+                    href: >-
+                      https://api.example.org/v3/apps/7b34f1cf-7e73-428a-bb5a-8a17a8058396
+                  assign_current_droplet:
+                    href: >-
+                      https://api.example.org/v3/apps/7b34f1cf-7e73-428a-bb5a-8a17a8058396/relationships/current_droplet
+                    method: PATCH
+                  download:
+                    href: >-
+                      https://api.example.org/v3/droplets/585bc3c1-3743-497d-88b0-403ad6b56d16/download
+                metadata:
+                  labels: {}
+                  annotations: {}
       links:
         app:
           operationId: getApp
@@ -20,17 +71,11 @@ get:
             guid: $response.body#/relationships/app/data/guid
           description: Retrieve the app for this droplet
     '400':
-      $ref: ../components/responses/400.yaml
-    '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/BadRequest.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
-    '500':
-      $ref: ../components/responses/500.yaml
+      $ref: ../components/responses/NotFound.yaml
 patch:
   summary: Update a droplet
   description: Update a droplet.
@@ -52,34 +97,40 @@ patch:
             image:
               type: string
               description: Image reference where the built complete image was stored
-          required:
-            - image
+          required: []
           description: Request schema for updating a droplet
+        examples:
+          default:
+            summary: default
+            value:
+              metadata:
+                labels:
+                  key: value
+                annotations:
+                  note: detailed information
   responses:
     '200':
       $ref: ../components/responses/DropletGetResponse.yaml
     '400':
-      $ref: ../components/responses/400.yaml
+      $ref: ../components/responses/BadRequest.yaml
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
+      $ref: ../components/responses/NotFound.yaml
     '409':
-      $ref: ../components/responses/409.yaml
+      $ref: ../components/responses/Conflict.yaml
     '422':
       description: Unprocessable Entity
       content:
         application/json:
           schema:
             $ref: ../components/schemas/Error.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
     '500':
       $ref: ../components/responses/500.yaml
     '503':
-      $ref: ../components/responses/503.yaml
+      $ref: ../components/responses/ServiceUnavailable.yaml
 delete:
   summary: Delete a droplet
   description: Delete a droplet.
@@ -102,14 +153,12 @@ delete:
           schema:
             $ref: ../components/schemas/Job.yaml
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
+      $ref: ../components/responses/NotFound.yaml
     '422':
-      $ref: ../components/responses/422.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
+      $ref: ../components/responses/UnprocessableEntity.yaml
     '500':
       $ref: ../components/responses/500.yaml

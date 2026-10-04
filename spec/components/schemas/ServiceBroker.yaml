@@ -30,3 +30,4 @@ allOf:
       - name
       - url
       - links
+    type: object

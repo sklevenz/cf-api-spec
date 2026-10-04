@@ -3,33 +3,29 @@ properties:
   total_results:
     type: integer
     description: The total number of results available
-    example: 1
   total_pages:
     type: integer
     description: The total number of pages available
-    example: 1
   first:
-    $ref: ./Link.yaml
-    description: The first page of results
+    allOf:
+      - $ref: ./Link.yaml
+      - description: The first page of results
+    type: object
   last:
-    $ref: ./Link.yaml
-    description: The last page of results
+    allOf:
+      - $ref: ./Link.yaml
+      - description: The last page of results
+    type: object
   next:
     oneOf:
-      - type: 'null'
       - $ref: ./Link.yaml
-    default: null
-    example: null
-    description: Null when there is no next page.
-    x-faker: null
+      - type: 'null'
+    description: The next page of results
   previous:
     oneOf:
-      - type: 'null'
       - $ref: ./Link.yaml
-    default: null
-    example: null
-    description: Null when there is no next page.
-    x-faker: null
+      - type: 'null'
+    description: The previous page of results
 description: >
   Pagination is a technique used to divide a large set of results into smaller,
   more manageable sets. This allows clients to retrieve results in smaller

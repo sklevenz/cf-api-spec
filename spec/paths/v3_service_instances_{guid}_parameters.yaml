@@ -7,7 +7,7 @@ get:
     object](#the-service-offering-object) for the value of this feature flag.
   operationId: getServiceInstanceParameters
   tags:
-    - ServiceInstances
+    - Service Instances
   parameters:
     - $ref: ../components/parameters/Guid.yaml
   responses:
@@ -17,15 +17,15 @@ get:
         application/json:
           schema:
             type: object
-    '400':
-      $ref: ../components/responses/400.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                key_1: value_1
+                key_2: value_2
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
-    '500':
-      $ref: ../components/responses/500.yaml
+      $ref: ../components/responses/NotFound.yaml

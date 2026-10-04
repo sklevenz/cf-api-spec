@@ -10,7 +10,7 @@ post:
     add it to additional spaces.
   operationId: bindStagingSecurityGroup
   tags:
-    - SecurityGroups
+    - Security Groups
   parameters:
     - $ref: ../components/parameters/Guid.yaml
   requestBody:
@@ -18,7 +18,14 @@ post:
       application/json:
         schema:
           $ref: ../components/schemas/RelationshipToMany.yaml
-    description: Associate the security group with the given staging spaces.
+        examples:
+          default:
+            summary: default
+            value:
+              data:
+                - guid: 123e4567-e89b-12d3-a456-426614174000
+                - guid: 123e4567-e89b-12d3-a456-426614174000
+    description: Request body for bind a staging security group to spaces.
   responses:
     '200':
       description: OK
@@ -27,14 +34,10 @@ post:
           schema:
             $ref: ../components/schemas/RelationshipToMany.yaml
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
+      $ref: ../components/responses/NotFound.yaml
     '422':
-      $ref: ../components/responses/422.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
-    '500':
-      $ref: ../components/responses/500.yaml
+      $ref: ../components/responses/UnprocessableEntity.yaml

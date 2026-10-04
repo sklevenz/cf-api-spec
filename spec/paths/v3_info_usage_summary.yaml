@@ -49,17 +49,31 @@ get:
                 description: Links to related resources
                 properties:
                   self:
-                    $ref: ../components/schemas/Link.yaml
-                    description: Link to the current endpoint
-    '400':
-      $ref: ../components/responses/400.yaml
+                    allOf:
+                      - $ref: ../components/schemas/Link.yaml
+                      - description: Link to the current endpoint
+                    type: object
+          examples:
+            default:
+              summary: default
+              value:
+                usage_summary:
+                  started_instances: 294
+                  memory_in_mb: 123945
+                  routes: 300
+                  service_instances: 50
+                  reserved_ports: 10
+                  domains: 5
+                  per_app_tasks: 0
+                  service_keys: 20
+                links:
+                  self:
+                    href: http://api.example.com/v3/info/usage_summary
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
+      $ref: ../components/responses/NotFound.yaml
     '500':
       $ref: ../components/responses/500.yaml

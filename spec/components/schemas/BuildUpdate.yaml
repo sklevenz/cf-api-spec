@@ -28,5 +28,6 @@ properties:
   lifecycle:
     $ref: ./Lifecycle.yaml
     description: Provides the lifecycle object to use during staging
+    type: object
   metadata:
     $ref: ./Metadata.yaml

@@ -27,3 +27,10 @@ content:
             accessible; required if type is organization
       required:
         - type
+    examples:
+      default:
+        summary: default
+        value:
+          type: organization
+          organizations:
+            - guid: 123e4567-e89b-12d3-a456-426614174000

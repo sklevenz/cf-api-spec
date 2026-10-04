@@ -3,7 +3,7 @@ get:
   description: This endpoint retrieves the service broker by GUID.
   operationId: getServiceBroker
   tags:
-    - ServiceBrokers
+    - Service Brokers
   parameters:
     - $ref: ../components/parameters/Guid.yaml
   responses:
@@ -13,6 +13,33 @@ get:
         application/json:
           schema:
             $ref: ../components/schemas/ServiceBroker.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                guid: 123e4567-e89b-12d3-a456-426614174000
+                name: my_service_broker
+                url: https://example.service-broker.com
+                created_at: '2015-11-13T17:02:56Z'
+                updated_at: '2016-06-08T16:41:26Z'
+                relationships:
+                  space:
+                    data:
+                      guid: 123e4567-e89b-12d3-a456-426614174000
+                metadata:
+                  labels:
+                    type: dev
+                  annotations: {}
+                links:
+                  self:
+                    href: >-
+                      https://api.example.org/v3/service_brokers/dde5ad2a-d8f4-44dc-a56f-0452d744f1c3
+                  service_offerings:
+                    href: >-
+                      https://api.example.org/v3/service_offerings?service_broker_guids=dde5ad2a-d8f4-44dc-a56f-0452d744f1c3
+                  space:
+                    href: >-
+                      https://api.example.org/v3/spaces/2f35885d-0c9d-4423-83ad-fd05066f8576
       links:
         space:
           operationId: getSpace
@@ -21,18 +48,12 @@ get:
           description: >-
             Retrieve the space for this service broker (space-scoped brokers
             only)
-    '400':
-      $ref: ../components/responses/400.yaml
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
-    '500':
-      $ref: ../components/responses/500.yaml
+      $ref: ../components/responses/NotFound.yaml
 patch:
   summary: Update a service broker
   description: >-
@@ -46,7 +67,7 @@ patch:
     with `metadata` are permitted until the synchronization job is complete.
   operationId: updateServiceBroker
   tags:
-    - ServiceBrokers
+    - Service Brokers
   parameters:
     - $ref: ../components/parameters/Guid.yaml
   requestBody:
@@ -58,6 +79,33 @@ patch:
         application/json:
           schema:
             $ref: ../components/schemas/ServiceBroker.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                guid: 123e4567-e89b-12d3-a456-426614174000
+                name: my_service_broker
+                url: https://example.service-broker.com
+                created_at: '2015-11-13T17:02:56Z'
+                updated_at: '2016-06-08T16:41:26Z'
+                relationships:
+                  space:
+                    data:
+                      guid: 123e4567-e89b-12d3-a456-426614174000
+                metadata:
+                  labels:
+                    type: dev
+                  annotations: {}
+                links:
+                  self:
+                    href: >-
+                      https://api.example.org/v3/service_brokers/dde5ad2a-d8f4-44dc-a56f-0452d744f1c3
+                  service_offerings:
+                    href: >-
+                      https://api.example.org/v3/service_offerings?service_broker_guids=dde5ad2a-d8f4-44dc-a56f-0452d744f1c3
+                  space:
+                    href: >-
+                      https://api.example.org/v3/spaces/2f35885d-0c9d-4423-83ad-fd05066f8576
       links:
         space:
           operationId: getSpace
@@ -75,23 +123,21 @@ patch:
             type: string
             format: uri
     '400':
-      $ref: ../components/responses/400.yaml
+      $ref: ../components/responses/BadRequest.yaml
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
+      $ref: ../components/responses/NotFound.yaml
     '409':
-      $ref: ../components/responses/409.yaml
+      $ref: ../components/responses/Conflict.yaml
     '422':
-      $ref: ../components/responses/422.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
+      $ref: ../components/responses/UnprocessableEntity.yaml
     '500':
       $ref: ../components/responses/500.yaml
     '503':
-      $ref: ../components/responses/503.yaml
+      $ref: ../components/responses/ServiceUnavailable.yaml
 delete:
   summary: Delete a service broker
   description: >-
@@ -100,7 +146,7 @@ delete:
     jobs_](#service-broker-jobs) for more information and limitations.
   operationId: deleteServiceBroker
   tags:
-    - ServiceBrokers
+    - Service Brokers
   parameters:
     - $ref: ../components/parameters/Guid.yaml
   responses:
@@ -113,14 +159,12 @@ delete:
             type: string
             format: uri
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
+      $ref: ../components/responses/NotFound.yaml
     '422':
-      $ref: ../components/responses/422.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
+      $ref: ../components/responses/UnprocessableEntity.yaml
     '500':
       $ref: ../components/responses/500.yaml

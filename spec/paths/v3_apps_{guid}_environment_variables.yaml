@@ -16,18 +16,24 @@ get:
         application/json:
           schema:
             $ref: ../components/schemas/AppEnvironmentVariables.yaml
-    '400':
-      $ref: ../components/responses/400.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                var:
+                  RAILS_ENV: production
+                links:
+                  self:
+                    href: >-
+                      https://api.example.org/v3/apps/[guid]/environment_variables
+                  app:
+                    href: https://api.example.org/v3/apps/[guid]
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
-    '500':
-      $ref: ../components/responses/500.yaml
+      $ref: ../components/responses/NotFound.yaml
 patch:
   summary: Update environment variables for an app
   description: >-
@@ -51,9 +57,18 @@ patch:
             var:
               type: object
               additionalProperties:
-                type: string
+                type:
+                  - string
+                  - 'null'
               description: Environment variables to inject; keys and values must be strings
-    description: Update environment variables for the app.
+        examples:
+          default:
+            summary: default
+            value:
+              var:
+                DEBUG: 'false'
+                USER: null
+    description: Request body for update environment variables for an app.
   responses:
     '200':
       description: OK
@@ -61,15 +76,24 @@ patch:
         application/json:
           schema:
             $ref: ../components/schemas/AppEnvironmentVariables.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                var:
+                  RAILS_ENV: production
+                  DEBUG: 'false'
+                links:
+                  self:
+                    href: >-
+                      https://api.example.org/v3/apps/[guid]/environment_variables
+                  app:
+                    href: https://api.example.org/v3/apps/[guid]
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
+      $ref: ../components/responses/NotFound.yaml
     '422':
-      $ref: ../components/responses/422.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
-    '500':
-      $ref: ../components/responses/500.yaml
+      $ref: ../components/responses/UnprocessableEntity.yaml

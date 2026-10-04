@@ -11,7 +11,7 @@ post:
       required: true
       schema:
         type: string
-      description: type identifier
+      description: Process type, such as web or worker.
   requestBody:
     content:
       application/json:
@@ -21,23 +21,24 @@ post:
               type:
                 - integer
                 - 'null'
-                - string
+              description: The number of instances to run
             memory_in_mb:
               type:
                 - integer
                 - 'null'
-                - string
+              description: The memory in MB allocated per instance
             disk_in_mb:
               type:
                 - integer
                 - 'null'
+              description: The disk in MB allocated per instance
             log_rate_limit_in_bytes_per_second:
               type:
                 - integer
                 - 'null'
-    description: >-
-      Scale an app process of the given type by updating instance count and or
-      resource limits.
+              description: The log rate limit in bytes per second per instance
+          type: object
+    description: Request body for scale a process for an app.
   responses:
     '202':
       description: Accepted
@@ -46,14 +47,10 @@ post:
           schema:
             $ref: ../components/schemas/Process.yaml
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
+      $ref: ../components/responses/NotFound.yaml
     '422':
-      $ref: ../components/responses/422.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
-    '500':
-      $ref: ../components/responses/500.yaml
+      $ref: ../components/responses/UnprocessableEntity.yaml

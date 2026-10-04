@@ -6,4 +6,11 @@ properties:
     type: array
     items:
       $ref: ./RouteDestination.yaml
+  links:
+    type: object
+    properties:
+      self:
+        $ref: ./Link.yaml
+      route:
+        $ref: ./Link.yaml
 description: A list of route destinations

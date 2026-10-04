@@ -25,3 +25,12 @@ content:
         metadata:
           $ref: ../schemas/Metadata.yaml
       description: Request schema for updating a buildpack
+    examples:
+      default:
+        summary: default
+        value:
+          name: ruby_buildpack
+          position: 42
+          enabled: true
+          locked: false
+          stack: windows64

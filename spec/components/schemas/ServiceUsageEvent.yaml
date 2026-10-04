@@ -8,3 +8,5 @@ allOf:
           self:
             $ref: ./Link.yaml
             description: The URL to get this service usage event
+            type: object
+    type: object

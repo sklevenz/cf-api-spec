@@ -64,6 +64,8 @@ allOf:
           self:
             $ref: ./Link.yaml
             description: The URL to get this audit event
+            type: object
+    type: object
 description: >
   Audit events help Cloud Foundry operators monitor actions taken against
   resources (such as apps) via user or system actions.

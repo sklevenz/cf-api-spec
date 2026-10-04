@@ -3,7 +3,7 @@ get:
   description: List security groups.
   operationId: listSecurityGroups
   tags:
-    - SecurityGroups
+    - Security Groups
   parameters:
     - $ref: ../components/parameters/Page.yaml
     - $ref: ../components/parameters/PerPage.yaml
@@ -56,35 +56,47 @@ get:
           schema:
             $ref: ../components/schemas/SecurityGroupList.yaml
     '400':
-      $ref: ../components/responses/400.yaml
+      $ref: ../components/responses/BadRequest.yaml
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '409':
-      $ref: ../components/responses/409.yaml
+      $ref: ../components/responses/Conflict.yaml
     '422':
-      $ref: ../components/responses/422.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
+      $ref: ../components/responses/UnprocessableEntity.yaml
     '500':
       $ref: ../components/responses/500.yaml
     '502':
-      $ref: ../components/responses/502.yaml
+      $ref: ../components/responses/BadGateway.yaml
     '503':
-      $ref: ../components/responses/503.yaml
+      $ref: ../components/responses/ServiceUnavailable.yaml
 post:
   summary: Create a security group
   description: Create a security group.
   operationId: createSecurityGroup
   tags:
-    - SecurityGroups
+    - Security Groups
   requestBody:
     content:
       application/json:
         schema:
           $ref: ../components/schemas/SecurityGroupCreate.yaml
-    description: Create a new security group with the provided rules.
+        examples:
+          default:
+            summary: default
+            value:
+              name: my-group0
+              rules:
+                - protocol: tcp
+                  destination: 10.10.10.0/24
+                  ports: 443,80,8080
+                - protocol: icmp
+                  destination: 10.10.10.0/24
+                  type: 8
+                  code: 0
+                  description: Allow ping requests to private services
+    description: Request body for create a security group.
   responses:
     '201':
       description: Created
@@ -92,19 +104,60 @@ post:
         application/json:
           schema:
             $ref: ../components/schemas/SecurityGroup.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                guid: 123e4567-e89b-12d3-a456-426614174000
+                created_at: '2020-02-20T17:42:08Z'
+                updated_at: '2020-02-20T17:42:08Z'
+                name: my-group0
+                globally_enabled:
+                  running: true
+                  staging: false
+                rules:
+                  - protocol: tcp
+                    destination: 10.10.10.0/24
+                    ports: 443,80,8080
+                  - protocol: icmp
+                    destination: 10.10.10.0/24
+                    type: 8
+                    code: 0
+                    description: Allow ping requests to private services
+                  - protocol: icmpv6
+                    destination: ::/0
+                    type: -1
+                    code: -1
+                    description: Allow all ICMPv6 traffic
+                  - protocol: tcp
+                    destination: 1.1.1.1,2.2.2.2/24,10.0.0.0-10.0.0.255
+                    ports: 80,443,8080
+                    description: >-
+                      Only valid if
+                      cc.security_groups.enable_comma_delimited_destinations is
+                      true
+                relationships:
+                  staging_spaces:
+                    data:
+                      - guid: 123e4567-e89b-12d3-a456-426614174000
+                      - guid: 123e4567-e89b-12d3-a456-426614174000
+                  running_spaces:
+                    data: []
+                links:
+                  self:
+                    href: >-
+                      https://api.example.org/v3/security_groups/b85a788e-671f-4549-814d-e34cdb2f539a
     '400':
-      $ref: ../components/responses/400.yaml
+      $ref: ../components/responses/BadRequest.yaml
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '409':
-      $ref: ../components/responses/409.yaml
+      $ref: ../components/responses/Conflict.yaml
     '422':
-      $ref: ../components/responses/422.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
+      $ref: ../components/responses/UnprocessableEntity.yaml
     '500':
       $ref: ../components/responses/500.yaml
     '503':
-      $ref: ../components/responses/503.yaml
+      $ref: ../components/responses/ServiceUnavailable.yaml

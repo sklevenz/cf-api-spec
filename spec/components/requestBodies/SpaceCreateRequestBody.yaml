@@ -14,6 +14,7 @@ content:
             organization:
               $ref: ../schemas/RelationshipToOne.yaml
               description: A relationship to an organization
+              type: object
           required:
             - organization
         metadata:
@@ -22,3 +23,12 @@ content:
         - name
         - relationships
       description: Request schema for creating a space
+    examples:
+      default:
+        summary: default
+        value:
+          name: my-space
+          relationships:
+            organization:
+              data:
+                guid: 123e4567-e89b-12d3-a456-426614174000

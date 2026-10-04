@@ -11,3 +11,8 @@ content:
         metadata:
           $ref: ../schemas/Metadata.yaml
       description: Request schema for updating a space
+    examples:
+      default:
+        summary: default
+        value:
+          name: new-space-name

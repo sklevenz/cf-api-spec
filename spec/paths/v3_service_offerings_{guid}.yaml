@@ -3,7 +3,7 @@ get:
   description: This endpoint retrieves the service offering by GUID.
   operationId: getServiceOffering
   tags:
-    - ServiceOfferings
+    - Service Offerings
   parameters:
     - $ref: ../components/parameters/Guid.yaml
   responses:
@@ -13,24 +13,61 @@ get:
         application/json:
           schema:
             $ref: ../components/schemas/ServiceOffering.yaml
-    '400':
-      $ref: ../components/responses/400.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                guid: 123e4567-e89b-12d3-a456-426614174000
+                name: my_service_offering
+                description: Provides my service
+                available: true
+                tags:
+                  - relational
+                  - caching
+                requires: []
+                created_at: '2019-11-28T13:44:02Z'
+                updated_at: '2019-11-28T13:44:02Z'
+                shareable: true
+                documentation_url: https://some-documentation-link.io
+                broker_catalog:
+                  id: db730a8c-11e5-11ea-838a-0f4fff3b1cfb
+                  metadata:
+                    shareable: true
+                  features:
+                    plan_updateable: true
+                    bindable: true
+                    instances_retrievable: true
+                    bindings_retrievable: true
+                    allow_context_updates: false
+                relationships:
+                  service_broker:
+                    data:
+                      guid: 123e4567-e89b-12d3-a456-426614174000
+                metadata:
+                  labels: {}
+                  annotations: {}
+                links:
+                  self:
+                    href: >-
+                      https://api.example.org/v3/service_offerings/bf7eb420-11e5-11ea-b7db-4b5d5e7976a
+                  service_plans:
+                    href: >-
+                      https://api.example.org/v3/service_plans?service_offering_guids=bf7eb420-11e5-11ea-b7db-4b5d5e7976a
+                  service_broker:
+                    href: >-
+                      https://api.example.org/v3/service_brokers/13c60e38-11e7-11ea-9106-33ee3c5bd4d7
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
-    '500':
-      $ref: ../components/responses/500.yaml
+      $ref: ../components/responses/NotFound.yaml
 patch:
   summary: Update a service offering
   description: This endpoint updates a service offering with labels and annotations.
   operationId: updateServiceOffering
   tags:
-    - ServiceOfferings
+    - Service Offerings
   parameters:
     - $ref: ../components/parameters/Guid.yaml
   requestBody:
@@ -40,7 +77,17 @@ patch:
           properties:
             metadata:
               $ref: ../components/schemas/Metadata.yaml
-    description: Update service offering properties such as metadata and documentation.
+          type: object
+        examples:
+          default:
+            summary: default
+            value:
+              metadata:
+                labels:
+                  key: value
+                annotations:
+                  note: detailed information
+    description: Request body for update a service offering.
   responses:
     '200':
       description: OK
@@ -48,24 +95,65 @@ patch:
         application/json:
           schema:
             $ref: ../components/schemas/ServiceOffering.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                guid: 123e4567-e89b-12d3-a456-426614174000
+                name: my_service_offering
+                description: Provides my service
+                available: true
+                tags:
+                  - relational
+                  - caching
+                requires: []
+                created_at: '2019-11-28T13:44:02Z'
+                updated_at: '2019-11-28T13:44:02Z'
+                shareable: true
+                documentation_url: https://some-documentation-link.io
+                broker_catalog:
+                  id: db730a8c-11e5-11ea-838a-0f4fff3b1cfb
+                  metadata:
+                    shareable: true
+                  features:
+                    plan_updateable: true
+                    bindable: true
+                    instances_retrievable: true
+                    bindings_retrievable: true
+                    allow_context_updates: false
+                relationships:
+                  service_broker:
+                    data:
+                      guid: 123e4567-e89b-12d3-a456-426614174000
+                metadata:
+                  labels: {}
+                  annotations: {}
+                links:
+                  self:
+                    href: >-
+                      https://api.example.org/v3/service_offerings/bf7eb420-11e5-11ea-b7db-4b5d5e7976a
+                  service_plans:
+                    href: >-
+                      https://api.example.org/v3/service_plans?service_offering_guids=bf7eb420-11e5-11ea-b7db-4b5d5e7976a
+                  service_broker:
+                    href: >-
+                      https://api.example.org/v3/service_brokers/13c60e38-11e7-11ea-9106-33ee3c5bd4d7
     '400':
-      $ref: ../components/responses/400.yaml
+      $ref: ../components/responses/BadRequest.yaml
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
+      $ref: ../components/responses/NotFound.yaml
     '409':
-      $ref: ../components/responses/409.yaml
+      $ref: ../components/responses/Conflict.yaml
     '422':
-      $ref: ../components/responses/422.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
+      $ref: ../components/responses/UnprocessableEntity.yaml
     '500':
       $ref: ../components/responses/500.yaml
     '503':
-      $ref: ../components/responses/503.yaml
+      $ref: ../components/responses/ServiceUnavailable.yaml
 delete:
   summary: Delete a service offering
   description: >-
@@ -79,7 +167,7 @@ delete:
     attempt is made to contact the service broker.
   operationId: deleteServiceOffering
   tags:
-    - ServiceOfferings
+    - Service Offerings
   parameters:
     - $ref: ../components/parameters/Guid.yaml
     - name: purge
@@ -93,14 +181,12 @@ delete:
     '204':
       description: No Content
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
+      $ref: ../components/responses/NotFound.yaml
     '422':
-      $ref: ../components/responses/422.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
+      $ref: ../components/responses/UnprocessableEntity.yaml
     '500':
       $ref: ../components/responses/500.yaml

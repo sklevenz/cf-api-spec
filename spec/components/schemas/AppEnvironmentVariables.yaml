@@ -13,7 +13,9 @@ properties:
       self:
         $ref: ./Link.yaml
         description: The URL to get the environment variables for this app
+        type: object
       app:
         $ref: ./Link.yaml
         description: The URL to get the app for these environment variables
+        type: object
 description: App environment variables with links

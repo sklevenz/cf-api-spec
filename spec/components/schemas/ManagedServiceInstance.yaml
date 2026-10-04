@@ -81,3 +81,4 @@ allOf:
       - name
       - relationships
       - links
+    type: object

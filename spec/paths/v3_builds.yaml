@@ -43,24 +43,71 @@ get:
         application/json:
           schema:
             $ref: ../components/schemas/BuildList.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                pagination:
+                  total_results: 1
+                  total_pages: 1
+                  first:
+                    href: https://api.example.org?states=STAGING&page=1&per_page=2
+                  last:
+                    href: https://api.example.org?states=STAGING&page=1&per_page=2
+                  next: null
+                  previous: null
+                resources:
+                  - guid: 123e4567-e89b-12d3-a456-426614174000
+                    created_at: '2016-03-28T23:39:34Z'
+                    updated_at: '2016-06-08T16:41:26Z'
+                    created_by:
+                      guid: 123e4567-e89b-12d3-a456-426614174000
+                      name: bill
+                      email: bill@example.com
+                    state: STAGING
+                    staging_memory_in_mb: 1024
+                    staging_disk_in_mb: 1024
+                    staging_log_rate_limit_bytes_per_second: 1024
+                    error: null
+                    lifecycle:
+                      type: buildpack
+                      data:
+                        buildpacks:
+                          - ruby_buildpack
+                        stack: cflinuxfs4
+                    package:
+                      guid: 123e4567-e89b-12d3-a456-426614174000
+                    droplet: null
+                    relationships:
+                      app:
+                        data:
+                          guid: 123e4567-e89b-12d3-a456-426614174000
+                    metadata:
+                      labels: {}
+                      annotations: {}
+                    links:
+                      self:
+                        href: >-
+                          https://api.example.org/v3/builds/585bc3c1-3743-497d-88b0-403ad6b56d16
+                      app:
+                        href: >-
+                          https://api.example.org/v3/apps/7b34f1cf-7e73-428a-bb5a-8a17a8058396
     '400':
-      $ref: ../components/responses/400.yaml
+      $ref: ../components/responses/BadRequest.yaml
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '409':
-      $ref: ../components/responses/409.yaml
+      $ref: ../components/responses/Conflict.yaml
     '422':
-      $ref: ../components/responses/422.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
+      $ref: ../components/responses/UnprocessableEntity.yaml
     '500':
       $ref: ../components/responses/500.yaml
     '502':
-      $ref: ../components/responses/502.yaml
+      $ref: ../components/responses/BadGateway.yaml
     '503':
-      $ref: ../components/responses/503.yaml
+      $ref: ../components/responses/ServiceUnavailable.yaml
 post:
   summary: Create a build
   description: Create a build.
@@ -95,6 +142,12 @@ post:
           required:
             - package
           description: Request schema for creating a build
+        examples:
+          default:
+            summary: default
+            value:
+              package:
+                guid: 123e4567-e89b-12d3-a456-426614174000
   responses:
     '201':
       description: Successfully created build
@@ -109,18 +162,16 @@ post:
             guid: $response.body#/relationships/app/data/guid
           description: Retrieve the app for this build
     '400':
-      $ref: ../components/responses/400.yaml
+      $ref: ../components/responses/BadRequest.yaml
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '409':
-      $ref: ../components/responses/409.yaml
+      $ref: ../components/responses/Conflict.yaml
     '422':
-      $ref: ../components/responses/422.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
+      $ref: ../components/responses/UnprocessableEntity.yaml
     '500':
       $ref: ../components/responses/500.yaml
     '503':
-      $ref: ../components/responses/503.yaml
+      $ref: ../components/responses/ServiceUnavailable.yaml

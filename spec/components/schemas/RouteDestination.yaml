@@ -38,9 +38,13 @@ properties:
       self:
         $ref: ./Link.yaml
         description: The URL to get this route destination
+        type: object
       route:
         $ref: ./Link.yaml
         description: The URL to get the route for this destination
+        type: object
+      destinations:
+        $ref: ./Link.yaml
 description: >-
   A route destination is a specification for where traffic on a route should be
   directed.

@@ -16,3 +16,8 @@ content:
       required:
         - name
       description: Request schema for creating an organization
+    examples:
+      default:
+        summary: default
+        value:
+          name: my-organization
