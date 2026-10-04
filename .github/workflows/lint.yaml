@@ -1,6 +1,7 @@
 name: Lint OpenAPI Spec
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
