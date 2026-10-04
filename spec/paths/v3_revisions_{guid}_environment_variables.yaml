@@ -28,15 +28,23 @@ get:
                     $ref: ../components/schemas/Link.yaml
                   app:
                     $ref: ../components/schemas/Link.yaml
-    '400':
-      $ref: ../components/responses/400.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                var:
+                  RAILS_ENV: production
+                links:
+                  self:
+                    href: >-
+                      https://api.example.org/v3/revisions/[guid]/environment_variables
+                  revision:
+                    href: https://api.example.org/v3/revisions/[guid]
+                  app:
+                    href: https://api.example.org/v3/apps/[app_guid]
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
-    '500':
-      $ref: ../components/responses/500.yaml
+      $ref: ../components/responses/NotFound.yaml

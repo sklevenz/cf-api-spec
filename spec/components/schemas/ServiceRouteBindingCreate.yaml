@@ -6,9 +6,11 @@ properties:
       route:
         $ref: ./RelationshipToOne.yaml
         description: The route to bind
+        type: object
       service_instance:
         $ref: ./RelationshipToOne.yaml
         description: The service instance to bind
+        type: object
     required:
       - route
       - service_instance

@@ -1,23 +1,39 @@
 post:
-  summary: Entitle organizations for isolation segment
+  summary: Entitle organizations for an isolation segment
   description: >-
     This endpoint entitles the specified organizations for the isolation
     segment. In the case where the specified isolation segment is the
     system-wide shared segment, and if an organization is not already entitled
     for any other isolation segment, then the shared isolation segment
     automatically gets assigned as the default for that organization.
+
+
+    **Permitted roles:** Admin
   operationId: entitleOrganizationsForIsolationSegment
   tags:
-    - IsolationSegments
+    - Isolation Segments
   parameters:
     - $ref: ../components/parameters/Guid.yaml
   requestBody:
-    description: List of organizations to entitle
+    description: >-
+      Organization relationships; each organization will be entitled to manage
+      this isolation segment
     required: true
     content:
       application/json:
         schema:
           $ref: ../components/schemas/RelationshipToMany.yaml
+          description: >-
+            Organization relationships; each organization will be entitled to
+            manage this isolation segment
+          type: object
+        examples:
+          default:
+            summary: default
+            value:
+              data:
+                - guid: 68d54d31-9b3a-463b-ba94-e8e4c32edbac
+                - guid: b19f6525-cbd3-4155-b156-dc0c2a431b4c
   responses:
     '200':
       description: OK
@@ -25,18 +41,28 @@ post:
         application/json:
           schema:
             $ref: ../components/schemas/RelationshipToMany.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                data:
+                  - guid: 68d54d31-9b3a-463b-ba94-e8e4c32edbac
+                  - guid: b19f6525-cbd3-4155-b156-dc0c2a431b4c
+                links:
+                  self:
+                    href: >-
+                      https://api.example.org/v3/isolation_segments/bdeg4371-cbd3-4155-b156-dc0c2a431b4c/relationships/organizations
+                  related:
+                    href: >-
+                      https://api.example.org/v3/isolation_segments/bdeg4371-cbd3-4155-b156-dc0c2a431b4c/organizations
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
+      $ref: ../components/responses/NotFound.yaml
     '422':
-      $ref: ../components/responses/422.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
-    '500':
-      $ref: ../components/responses/500.yaml
+      $ref: ../components/responses/UnprocessableEntity.yaml
 get:
   summary: List organizations relationship
   description: >-
@@ -44,13 +70,14 @@ get:
     For an Admin, this will list all entitled organizations in the system. For
     any other user, this will list only the entitled organizations to which the
     user belongs.
+
+
+    **Permitted roles:** All Roles
   operationId: listOrganizationsForIsolationSegment
   tags:
-    - IsolationSegments
+    - Isolation Segments
   parameters:
     - $ref: ../components/parameters/Guid.yaml
-    - $ref: ../components/parameters/Page.yaml
-    - $ref: ../components/parameters/PerPage.yaml
   responses:
     '200':
       description: OK
@@ -58,15 +85,23 @@ get:
         application/json:
           schema:
             $ref: ../components/schemas/RelationshipToMany.yaml
-    '400':
-      $ref: ../components/responses/400.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                data:
+                  - guid: 68d54d31-9b3a-463b-ba94-e8e4c32edbac
+                  - guid: b19f6525-cbd3-4155-b156-dc0c2a431b4c
+                links:
+                  self:
+                    href: >-
+                      https://api.example.org/v3/isolation_segments/bdeg4371-cbd3-4155-b156-dc0c2a431b4c/relationships/organizations
+                  related:
+                    href: >-
+                      https://api.example.org/v3/isolation_segments/bdeg4371-cbd3-4155-b156-dc0c2a431b4c/organizations
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
-    '500':
-      $ref: ../components/responses/500.yaml
+      $ref: ../components/responses/NotFound.yaml

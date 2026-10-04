@@ -32,6 +32,7 @@ allOf:
         description: >-
           Provides the lifecycle object to use during staging; this will
           override the build’s application’s default lifecycle for this build
+        type: object
       checksum:
         type: object
         properties:
@@ -87,12 +88,16 @@ allOf:
           self:
             $ref: ./Link.yaml
             description: The URL to get this build
+            type: object
           app:
             $ref: ./Link.yaml
             description: The URL to get the app for this build
+            type: object
           droplet:
             $ref: ./Link.yaml
             description: The URL to get the droplet for this build
+            type: object
+    type: object
 description: >
   Builds represent the process of transforming source code into a runnable
   artifact. Builds can be triggered manually or automatically as part of the app

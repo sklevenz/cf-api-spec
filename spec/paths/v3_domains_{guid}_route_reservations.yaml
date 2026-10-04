@@ -1,9 +1,15 @@
 get:
   summary: Check reserved routes for a domain
   description: >-
-    Check if a specific route for a domain exists, regardless of the user’s
+    Check if a specific route for a domain exists, regardless of the user's
     visibility for the route in case the route belongs to a space the user does
     not belong to.
+
+
+    **Permitted roles:** Admin, Admin Read-Only, Global Auditor, Org Auditor,
+    Org Billing Manager *(can only check if routes exist for a domain without an
+    organization relationship)*, Org Manager, Space Auditor, Space Developer,
+    Space Manager, Space Supporter
   operationId: checkReservedRoutesForDomain
   tags:
     - Domains
@@ -11,19 +17,28 @@ get:
     - $ref: ../components/parameters/Guid.yaml
     - name: host
       in: query
+      required: false
       schema:
         type: string
-      description: Hostname to filter by
+      description: >-
+        Hostname to filter by; defaults to empty string if not provided and only
+        applicable to `http` routes
     - name: path
       in: query
+      required: false
       schema:
         type: string
-      description: Path to filter by
+      description: >-
+        Path to filter by; defaults to empty string if not provided and only
+        applicable to `http` routes
     - name: port
       in: query
+      required: false
       schema:
         type: integer
-      description: Port to filter by
+      description: >-
+        Port to filter by; only applicable to `tcp` routes and required for
+        `tcp` routes
   responses:
     '200':
       description: OK
@@ -34,15 +49,17 @@ get:
             properties:
               matching_route:
                 type: boolean
-    '400':
-      $ref: ../components/responses/400.yaml
+                description: >-
+                  Whether a route matching the given host, path, and port exists
+                  for the domain
+          examples:
+            default:
+              summary: default
+              value:
+                matching_route: true
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
-    '500':
-      $ref: ../components/responses/500.yaml
+      $ref: ../components/responses/NotFound.yaml

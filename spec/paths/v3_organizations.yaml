@@ -32,66 +32,88 @@ get:
         application/json:
           schema:
             $ref: ../components/schemas/OrganizationList.yaml
-          example:
-            pagination:
-              total_results: 1
-              total_pages: 1
-              first:
-                href: http://127.0.0.1:4010/v3/organizations?page=1&per_page=50
-                method: GET
-              last:
-                href: http://127.0.0.1:4010/v3/organizations?page=1&per_page=50
-                method: GET
-              next: null
-              previous: null
-            resources:
-              - guid: ee6a7af7-650d-499b-8e32-58a52ffdb7bc
-                created_at: '2026-02-01T10:00:00Z'
-                updated_at: '2026-02-01T10:00:00Z'
-                name: Org1
-                suspended: false
-                relationships:
-                  quota:
-                    data:
-                      guid: 00000000-0000-0000-0000-000000000000
-                metadata:
-                  labels: {}
-                  annotations: {}
-                links:
-                  self:
+          examples:
+            default:
+              summary: default
+              value:
+                pagination:
+                  total_results: 2
+                  total_pages: 1
+                  first:
                     href: >-
-                      http://127.0.0.1:4010/v3/organizations/ee6a7af7-650d-499b-8e32-58a52ffdb7bc
-                    method: GET
-                  domains:
+                      https://api.example.org/v3/organizations?page=1&per_page=50
+                  last:
                     href: >-
-                      http://127.0.0.1:4010/v3/organizations/ee6a7af7-650d-499b-8e32-58a52ffdb7bc/domains
-                    method: GET
-                  quota:
-                    href: >-
-                      http://127.0.0.1:4010/v3/organization_quotas/00000000-0000-0000-0000-000000000000
-                    method: GET
-                  default_domain:
-                    href: >-
-                      http://127.0.0.1:4010/v3/organizations/ee6a7af7-650d-499b-8e32-58a52ffdb7bc/domains/default
-                    method: GET
+                      https://api.example.org/v3/organizations?page=1&per_page=50
+                  next: null
+                  previous: null
+                resources:
+                  - guid: 123e4567-e89b-12d3-a456-426614174000
+                    created_at: '2017-02-01T01:33:58Z'
+                    updated_at: '2017-02-01T01:33:58Z'
+                    name: org1
+                    suspended: false
+                    relationships:
+                      quota:
+                        data:
+                          guid: 123e4567-e89b-12d3-a456-426614174000
+                    links:
+                      self:
+                        href: >-
+                          https://api.example.org/v3/organizations/885735b5-aea4-4cf5-8e44-961af0e41920
+                      domains:
+                        href: >-
+                          https://api.example.org/v3/organizations/885735b5-aea4-4cf5-8e44-961af0e41920/domains
+                      default_domain:
+                        href: >-
+                          https://api.example.org/v3/organizations/885735b5-aea4-4cf5-8e44-961af0e41920/domains/default
+                      quota:
+                        href: >-
+                          https://api.example.org/v3/organization_quotas/b7887f5c-34bb-40c5-9778-577572e4fb2d
+                    metadata:
+                      labels: {}
+                      annotations: {}
+                  - guid: 123e4567-e89b-12d3-a456-426614174000
+                    created_at: '2017-02-02T00:14:30Z'
+                    updated_at: '2017-02-02T00:14:30Z'
+                    name: org2
+                    suspended: false
+                    relationships:
+                      quota:
+                        data:
+                          guid: 123e4567-e89b-12d3-a456-426614174000
+                    links:
+                      self:
+                        href: >-
+                          https://api.example.org/v3/organizations/d4c91047-7b29-4fda-b7f9-04033e5c9c9f
+                      domains:
+                        href: >-
+                          https://api.example.org/v3/organizations/d4c91047-7b29-4fda-b7f9-04033e5c9c9f/domains
+                      default_domain:
+                        href: >-
+                          https://api.example.org/v3/organizations/d4c91047-7b29-4fda-b7f9-04033e5c9c9f/domains/default
+                      quota:
+                        href: >-
+                          https://api.example.org/v3/organization_quotas/b7887f5c-34bb-40c5-9778-577572e4fb2d
+                    metadata:
+                      labels: {}
+                      annotations: {}
     '400':
-      $ref: ../components/responses/400.yaml
+      $ref: ../components/responses/BadRequest.yaml
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '409':
-      $ref: ../components/responses/409.yaml
+      $ref: ../components/responses/Conflict.yaml
     '422':
-      $ref: ../components/responses/422.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
+      $ref: ../components/responses/UnprocessableEntity.yaml
     '500':
       $ref: ../components/responses/500.yaml
     '502':
-      $ref: ../components/responses/502.yaml
+      $ref: ../components/responses/BadGateway.yaml
     '503':
-      $ref: ../components/responses/503.yaml
+      $ref: ../components/responses/ServiceUnavailable.yaml
 post:
   summary: Create an organization
   description: Create an organization.
@@ -107,6 +129,35 @@ post:
         application/json:
           schema:
             $ref: ../components/schemas/Organization.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                guid: 123e4567-e89b-12d3-a456-426614174000
+                created_at: '2017-02-01T01:33:58Z'
+                updated_at: '2017-02-01T01:33:58Z'
+                name: my-organization
+                suspended: false
+                relationships:
+                  quota:
+                    data:
+                      guid: 123e4567-e89b-12d3-a456-426614174000
+                links:
+                  self:
+                    href: >-
+                      https://api.example.org/v3/organizations/24637893-3b77-489d-bb79-8466f0d88b52
+                  domains:
+                    href: >-
+                      https://api.example.org/v3/organizations/24637893-3b77-489d-bb79-8466f0d88b52/domains
+                  default_domain:
+                    href: >-
+                      https://api.example.org/v3/organizations/24637893-3b77-489d-bb79-8466f0d88b52/domains/default
+                  quota:
+                    href: >-
+                      https://api.example.org/v3/organization_quotas/b7887f5c-34bb-40c5-9778-577572e4fb2d
+                metadata:
+                  labels: {}
+                  annotations: {}
       links:
         quota:
           operationId: getOrganizationQuota
@@ -114,18 +165,16 @@ post:
             guid: $response.body#/relationships/quota/data/guid
           description: Retrieve the quota associated with this organization
     '400':
-      $ref: ../components/responses/400.yaml
+      $ref: ../components/responses/BadRequest.yaml
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '409':
-      $ref: ../components/responses/409.yaml
+      $ref: ../components/responses/Conflict.yaml
     '422':
-      $ref: ../components/responses/422.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
+      $ref: ../components/responses/UnprocessableEntity.yaml
     '500':
       $ref: ../components/responses/500.yaml
     '503':
-      $ref: ../components/responses/503.yaml
+      $ref: ../components/responses/ServiceUnavailable.yaml

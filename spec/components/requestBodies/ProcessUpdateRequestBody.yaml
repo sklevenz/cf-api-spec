@@ -15,9 +15,21 @@ content:
         health_check:
           $ref: ../schemas/HealthCheck.yaml
           description: The health check to perform on the process
+          type: object
         readiness_health_check:
           $ref: ../schemas/HealthCheck.yaml
           description: The readiness health check to perform on the process
+          type: object
         metadata:
           $ref: ../schemas/Metadata.yaml
       description: Request schema for updating a process
+    examples:
+      default:
+        summary: default
+        value:
+          command: rackup
+          metadata:
+            labels:
+              key: value
+            annotations:
+              note: detailed information

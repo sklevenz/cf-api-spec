@@ -4,26 +4,39 @@ post:
     This endpoint shares an organization-scoped domain to other organizations
     specified by a list of organization guids. This will allow any of the other
     organizations to use the organization-scoped domain.
+
+
+    **Permitted roles:** Admin, Org Manager
   operationId: shareDomain
   tags:
     - Domains
   parameters:
     - $ref: ../components/parameters/Guid.yaml
   requestBody:
-    description: List of organizations to share the domain with
+    description: The organization guids with which to share the domain
     required: true
     content:
       application/json:
         schema:
           type: object
+          required:
+            - data
           properties:
             data:
               type: array
               items:
                 $ref: ../components/schemas/Relationship.yaml
+              description: The organization guids with which to share the domain
           description: >-
-            Organization relationships; each organization will be entitled to
-            manage this isolation segment
+            A to-many relationship containing the organization guids with which
+            to share the domain
+        examples:
+          default:
+            summary: default
+            value:
+              data:
+                - guid: 404f3d89-3f89-4a72-8188-751b298d88d5
+                - guid: 416d3d89-3f89-4b67-a189-123b298d3592
   responses:
     '200':
       description: Successfully shared domain
@@ -34,21 +47,21 @@ post:
             properties:
               data:
                 type: array
-              items:
-                type: object
-                properties:
-                  guid:
-                    type: string
-                    format: uuid
+                items:
+                  $ref: ../components/schemas/Relationship.yaml
+                description: The organizations the domain is shared with
+          examples:
+            default:
+              summary: default
+              value:
+                data:
+                  - guid: 404f3d89-3f89-4a72-8188-751b298d88d5
+                  - guid: 416d3d89-3f89-4b67-a189-123b298d3592
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
+      $ref: ../components/responses/NotFound.yaml
     '422':
-      $ref: ../components/responses/422.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
-    '500':
-      $ref: ../components/responses/500.yaml
+      $ref: ../components/responses/UnprocessableEntity.yaml

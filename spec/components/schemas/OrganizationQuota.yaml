@@ -96,9 +96,12 @@ allOf:
           self:
             $ref: ./Link.yaml
             description: The URL to get this organization quota
+            type: object
           organizations:
             $ref: ./Link.yaml
             description: The URL to get the organizations for this quota
+            type: object
+    type: object
 description: >
   Organization quotas are named sets of memory, log rate, service, and instance
   usage quotas. For example, one organization quota might allow up to 10

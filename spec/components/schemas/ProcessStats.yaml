@@ -47,4 +47,37 @@ properties:
               type: integer
             log_rate:
               type: integer
+            cpu_entitlement:
+              type: number
+        instance_guid:
+          type: string
+        routable:
+          type: boolean
+        instance_internal_ip:
+          type: string
+        instance_ports:
+          type:
+            - array
+            - 'null'
+          items:
+            type: object
+            properties:
+              external:
+                type: integer
+              internal:
+                type: integer
+              external_tls_proxy_port:
+                type: integer
+              internal_tls_proxy_port:
+                type: integer
+        fds_quota:
+          type: integer
+        isolation_segment:
+          type:
+            - string
+            - 'null'
+        details:
+          type:
+            - string
+            - 'null'
 description: Statistics for a process

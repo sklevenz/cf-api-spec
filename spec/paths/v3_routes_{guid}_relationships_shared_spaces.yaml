@@ -13,18 +13,12 @@ get:
         application/json:
           schema:
             $ref: ../components/schemas/RelationshipToMany.yaml
-    '400':
-      $ref: ../components/responses/400.yaml
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
-    '500':
-      $ref: ../components/responses/500.yaml
+      $ref: ../components/responses/NotFound.yaml
 post:
   summary: Share a route with other spaces (experimental)
   description: >-
@@ -44,6 +38,13 @@ post:
       application/json:
         schema:
           $ref: ../components/schemas/RelationshipToMany.yaml
+        examples:
+          default:
+            summary: default
+            value:
+              data:
+                - guid: 123e4567-e89b-12d3-a456-426614174000
+                - guid: 123e4567-e89b-12d3-a456-426614174000
   responses:
     '200':
       description: OK
@@ -52,14 +53,10 @@ post:
           schema:
             $ref: ../components/schemas/RelationshipToMany.yaml
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
+      $ref: ../components/responses/NotFound.yaml
     '422':
-      $ref: ../components/responses/422.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
-    '500':
-      $ref: ../components/responses/500.yaml
+      $ref: ../components/responses/UnprocessableEntity.yaml

@@ -1,8 +1,7 @@
 type: object
 allOf:
   - $ref: ./BaseSchema.yaml
-  - type: object
-    properties:
+  - properties:
       version:
         type: string
         format: uuid
@@ -63,16 +62,24 @@ allOf:
           self:
             $ref: ./Link.yaml
             description: The URL to get this process
+            type: object
           scale:
             $ref: ./Link.yaml
             description: The URL to scale this process
+            type: object
           app:
             $ref: ./Link.yaml
             description: The URL to get the app for this process
+            type: object
           space:
             $ref: ./Link.yaml
             description: The URL to get the space for this process
+            type: object
           stats:
             $ref: ./Link.yaml
             description: The URL to get the stats for this process
+            type: object
+          process_instances:
+            $ref: ./Link.yaml
+    type: object
 description: A process defines the runnable units of an app

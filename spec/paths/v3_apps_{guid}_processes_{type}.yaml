@@ -11,7 +11,7 @@ get:
       required: true
       schema:
         type: string
-      description: type identifier
+      description: Process type, such as web or worker.
   responses:
     '200':
       description: OK
@@ -19,18 +19,12 @@ get:
         application/json:
           schema:
             $ref: ../components/schemas/Process.yaml
-    '400':
-      $ref: ../components/responses/400.yaml
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
-    '500':
-      $ref: ../components/responses/500.yaml
+      $ref: ../components/responses/NotFound.yaml
 patch:
   summary: Update a process for an app
   description: Update a specific process for an app.
@@ -44,7 +38,7 @@ patch:
       required: true
       schema:
         type: string
-      description: type identifier
+      description: Process type, such as web or worker.
   requestBody:
     $ref: ../components/requestBodies/ProcessUpdateRequestBody.yaml
   responses:
@@ -55,16 +49,12 @@ patch:
           schema:
             $ref: ../components/schemas/Process.yaml
     '400':
-      $ref: ../components/responses/400.yaml
+      $ref: ../components/responses/BadRequest.yaml
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
+      $ref: ../components/responses/NotFound.yaml
     '422':
-      $ref: ../components/responses/422.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
-    '500':
-      $ref: ../components/responses/500.yaml
+      $ref: ../components/responses/UnprocessableEntity.yaml

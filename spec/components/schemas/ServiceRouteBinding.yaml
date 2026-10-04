@@ -27,6 +27,8 @@ allOf:
             $ref: ./Link.yaml
           service_instance:
             $ref: ./Link.yaml
+          parameters:
+            $ref: ./Link.yaml
       metadata:
         $ref: ./Metadata.yaml
       included:
@@ -34,6 +36,8 @@ allOf:
         description: >-
           Additional related resources included in the response when using the
           include parameter
+        type: object
     required:
       - relationships
       - links
+    type: object

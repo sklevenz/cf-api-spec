@@ -35,3 +35,12 @@ content:
       required:
         - name
       description: Request schema for creating a buildpack
+    examples:
+      default:
+        summary: default
+        value:
+          name: ruby_buildpack
+          position: 42
+          enabled: true
+          locked: false
+          stack: windows64

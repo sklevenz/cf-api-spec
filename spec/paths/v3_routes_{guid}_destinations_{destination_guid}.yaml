@@ -31,6 +31,11 @@ patch:
                 - http2
           required:
             - protocol
+        examples:
+          default:
+            summary: default
+            value:
+              protocol: http2
   responses:
     '200':
       description: Successfully updated protocol of the destination
@@ -38,18 +43,33 @@ patch:
         application/json:
           schema:
             $ref: ../components/schemas/RouteDestination.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                guid: 123e4567-e89b-12d3-a456-426614174000
+                app:
+                  guid: 123e4567-e89b-12d3-a456-426614174000
+                  process:
+                    type: web
+                weight: 61
+                port: 8080
+                protocol: http2
+                links:
+                  destinations:
+                    href: >-
+                      https://api.example.org/v3/routes/cbad697f-cac1-48f4-9017-ac08f39dfb31/destinations
+                  route:
+                    href: >-
+                      https://api.example.org/v3/routes/cbad697f-cac1-48f4-9017-ac08f39dfb31
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
+      $ref: ../components/responses/NotFound.yaml
     '422':
-      $ref: ../components/responses/422.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
-    '500':
-      $ref: ../components/responses/500.yaml
+      $ref: ../components/responses/UnprocessableEntity.yaml
 delete:
   summary: Remove destination for a route
   description: Remove a destination from a route.
@@ -69,14 +89,10 @@ delete:
     '204':
       description: Successfully removed destination from the route
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
+      $ref: ../components/responses/NotFound.yaml
     '422':
-      $ref: ../components/responses/422.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
-    '500':
-      $ref: ../components/responses/500.yaml
+      $ref: ../components/responses/UnprocessableEntity.yaml

@@ -11,7 +11,7 @@ get:
       required: true
       schema:
         type: string
-      description: type identifier
+      description: Process type, such as web or worker.
   responses:
     '200':
       description: OK
@@ -19,17 +19,11 @@ get:
         application/json:
           schema:
             $ref: ../components/schemas/ProcessStats.yaml
-    '400':
-      $ref: ../components/responses/400.yaml
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
-    '500':
-      $ref: ../components/responses/500.yaml
+      $ref: ../components/responses/NotFound.yaml
     '503':
-      $ref: ../components/responses/503.yaml
+      $ref: ../components/responses/ServiceUnavailable.yaml

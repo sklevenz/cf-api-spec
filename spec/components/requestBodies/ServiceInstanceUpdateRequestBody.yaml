@@ -40,6 +40,7 @@ content:
             service_plan:
               $ref: ../schemas/RelationshipToOne.yaml
               description: The service plan from which to create the service instance
+              type: object
           description: Relationships for the service instance
         maintenance_info:
           type: object
@@ -88,6 +89,24 @@ content:
             version: 2.1.1
       user_provided_service_instance:
         summary: Update user-provided service instance
+        value:
+          name: my_service_instance
+          credentials:
+            foo: bar
+            baz: qux
+          tags:
+            - foo
+            - bar
+            - baz
+          syslog_drain_url: https://syslog.com/drain
+          route_service_url: https://route.com/service
+          metadata:
+            annotations:
+              foo: bar
+            labels:
+              baz: qux
+      default:
+        summary: default
         value:
           name: my_service_instance
           credentials:

@@ -1,6 +1,13 @@
 get:
   summary: Get a domain
-  description: Retrieve a domain.
+  description: >-
+    Retrieve a domain.
+
+
+    **Permitted roles:** Admin, Admin Read-Only, Global Auditor, Org Auditor,
+    Org Billing Manager *(can only view domains without an organization
+    relationship)*, Org Manager, Space Auditor, Space Developer, Space Manager,
+    Space Supporter
   operationId: getDomain
   tags:
     - Domains
@@ -13,43 +20,69 @@ get:
         application/json:
           schema:
             $ref: ../components/schemas/Domain.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                guid: 3a5d3d89-3f89-4f05-8188-8a2b298c79d5
+                created_at: '2019-03-08T01:06:19Z'
+                updated_at: '2019-03-08T01:06:19Z'
+                name: test-domain.com
+                internal: false
+                router_group: null
+                supported_protocols:
+                  - http
+                metadata:
+                  labels: {}
+                  annotations: {}
+                relationships:
+                  organization:
+                    data:
+                      guid: 3a3f3d89-3f89-4f05-8188-751b298c79d5
+                  shared_organizations:
+                    data:
+                      - guid: 404f3d89-3f89-4a72-8188-751b298d88d5
+                      - guid: 416d3d89-3f89-4b67-a189-123b298d3592
+                links:
+                  self:
+                    href: >-
+                      https://api.example.org/v3/domains/3a5d3d89-3f89-4f05-8188-8a2b298c79d5
+                  organization:
+                    href: >-
+                      https://api.example.org/v3/organizations/3a3f3d89-3f89-4f05-8188-751b298c79d5
+                  route_reservations:
+                    href: >-
+                      https://api.example.org/v3/domains/3a5d3d89-3f89-4f05-8188-8a2b298c79d5/route_reservations
+                  shared_organizations:
+                    href: >-
+                      https://api.example.org/v3/domains/3a5d3d89-3f89-4f05-8188-8a2b298c79d5/relationships/shared_organizations
       links:
         organization:
           operationId: getOrganization
           parameters:
             guid: $response.body#/relationships/organization/data/guid
           description: Retrieve the organization for this domain (private domains only)
-    '400':
-      $ref: ../components/responses/400.yaml
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
-    '500':
-      $ref: ../components/responses/500.yaml
+      $ref: ../components/responses/NotFound.yaml
 patch:
   summary: Update a domain
-  description: Update a domain.
+  description: >-
+    Update a domain.
+
+
+    **Permitted roles:** Admin, Org Manager *(if domain is scoped to
+    organization managed by the org manager)*
   operationId: updateDomain
   tags:
     - Domains
   parameters:
     - $ref: ../components/parameters/Guid.yaml
   requestBody:
-    description: Domain object that needs to be updated
-    required: true
-    content:
-      application/json:
-        schema:
-          type: object
-          properties:
-            metadata:
-              $ref: ../components/schemas/Metadata.yaml
-          description: Request schema for updating a domain
+    $ref: ../components/requestBodies/DomainUpdateRequestBody.yaml
   responses:
     '200':
       description: Successfully updated domain
@@ -57,27 +90,68 @@ patch:
         application/json:
           schema:
             $ref: ../components/schemas/Domain.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                guid: 3a5d3d89-3f89-4f05-8188-8a2b298c79d5
+                created_at: '2019-03-08T01:06:19Z'
+                updated_at: '2019-03-08T01:06:19Z'
+                name: test-domain.com
+                internal: false
+                router_group: null
+                supported_protocols:
+                  - http
+                metadata:
+                  labels:
+                    key: value
+                  annotations:
+                    note: detailed information
+                relationships:
+                  organization:
+                    data:
+                      guid: 3a3f3d89-3f89-4f05-8188-751b298c79d5
+                  shared_organizations:
+                    data:
+                      - guid: 404f3d89-3f89-4a72-8188-751b298d88d5
+                      - guid: 416d3d89-3f89-4b67-a189-123b298d3592
+                links:
+                  self:
+                    href: >-
+                      https://api.example.org/v3/domains/3a5d3d89-3f89-4f05-8188-8a2b298c79d5
+                  organization:
+                    href: >-
+                      https://api.example.org/v3/organizations/3a3f3d89-3f89-4f05-8188-751b298c79d5
+                  route_reservations:
+                    href: >-
+                      https://api.example.org/v3/domains/3a5d3d89-3f89-4f05-8188-8a2b298c79d5/route_reservations
+                  shared_organizations:
+                    href: >-
+                      https://api.example.org/v3/domains/3a5d3d89-3f89-4f05-8188-8a2b298c79d5/relationships/shared_organizations
     '400':
-      $ref: ../components/responses/400.yaml
+      $ref: ../components/responses/BadRequest.yaml
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
+      $ref: ../components/responses/NotFound.yaml
     '409':
-      $ref: ../components/responses/409.yaml
+      $ref: ../components/responses/Conflict.yaml
     '422':
-      $ref: ../components/responses/422.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
+      $ref: ../components/responses/UnprocessableEntity.yaml
     '500':
       $ref: ../components/responses/500.yaml
     '503':
-      $ref: ../components/responses/503.yaml
+      $ref: ../components/responses/ServiceUnavailable.yaml
 delete:
   summary: Delete a domain
-  description: Delete a domain.
+  description: >-
+    Delete a domain.
+
+
+    **Permitted roles:** Admin, Org Manager *(if domain is scoped to
+    organization managed by the org manager)*
   operationId: deleteDomain
   tags:
     - Domains
@@ -93,14 +167,12 @@ delete:
             type: string
             format: uri
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
+      $ref: ../components/responses/NotFound.yaml
     '422':
-      $ref: ../components/responses/422.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
+      $ref: ../components/responses/UnprocessableEntity.yaml
     '500':
       $ref: ../components/responses/500.yaml

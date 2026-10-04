@@ -21,3 +21,23 @@ content:
             self:
               $ref: ../schemas/Link.yaml
               description: The URL to get this user
+              type: object
+        rate_limits:
+          type: object
+          properties:
+            custom_request_limit:
+              type:
+                - integer
+                - 'null'
+              description: Custom request limit for the user; null restores the default.
+    examples:
+      default:
+        summary: default
+        value:
+          metadata:
+            labels:
+              environment: production
+            annotations:
+              note: detailed information
+          rate_limits:
+            custom_request_limit: 2000

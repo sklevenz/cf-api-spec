@@ -1,11 +1,7 @@
 type: object
-description: >-
-  Shallow representation of a Space used inside IncludedResources to avoid
-  circular references
 allOf:
   - $ref: ./BaseSchema.yaml
-  - type: object
-    properties:
+  - properties:
       name:
         type: string
         description: Name of the space
@@ -14,13 +10,26 @@ allOf:
         properties:
           organization:
             $ref: ./RelationshipToOne.yaml
+          quota:
+            $ref: ./RelationshipToOne.yaml
         description: Relationships for the space
       links:
         type: object
         properties:
           self:
             $ref: ./Link.yaml
+          organization:
+            $ref: ./Link.yaml
+          features:
+            $ref: ./Link.yaml
+          apply_manifest:
+            $ref: ./Link.yaml
+          quota:
+            $ref: ./Link.yaml
+      metadata:
+        $ref: ./Metadata.yaml
     required:
       - name
       - relationships
       - links
+    type: object

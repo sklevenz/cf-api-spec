@@ -19,6 +19,17 @@ content:
             Lifecycle to be used when updating the app; note `data` is a
             required field in lifecycle if lifecycle is updated. `type` may NOT
             be changed from its current value.
+          type: object
         metadata:
           $ref: ../schemas/Metadata.yaml
       description: Request schema for updating an app
+    examples:
+      default:
+        summary: default
+        value:
+          name: my_app
+          lifecycle:
+            type: buildpack
+            data:
+              buildpacks:
+                - java_buildpack

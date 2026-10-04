@@ -3,7 +3,7 @@ get:
   description: Retrieve all audit events the user has access to.
   operationId: listAuditEvents
   tags:
-    - AuditEvents
+    - Audit Events
   parameters:
     - $ref: ../components/parameters/Page.yaml
     - $ref: ../components/parameters/PerPage.yaml
@@ -167,21 +167,56 @@ get:
         application/json:
           schema:
             $ref: ../components/schemas/AuditEventList.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                pagination:
+                  total_results: 1
+                  total_pages: 1
+                  first:
+                    href: https://api.example.org?page=1&per_page=2
+                  last:
+                    href: https://api.example.org?page=1&per_page=2
+                  next: null
+                  previous: null
+                resources:
+                  - guid: 123e4567-e89b-12d3-a456-426614174000
+                    created_at: '2016-06-08T16:41:23Z'
+                    updated_at: '2016-06-08T16:41:26Z'
+                    type: audit.app.update
+                    actor:
+                      guid: 123e4567-e89b-12d3-a456-426614174000
+                      type: user
+                      name: admin
+                    target:
+                      guid: 123e4567-e89b-12d3-a456-426614174000
+                      type: app
+                      name: my-app
+                    data:
+                      request:
+                        recursive: true
+                    space:
+                      guid: 123e4567-e89b-12d3-a456-426614174000
+                    organization:
+                      guid: 123e4567-e89b-12d3-a456-426614174000
+                    links:
+                      self:
+                        href: >-
+                          https://api.example.org//a595fe2f-01ff-4965-a50c-290258ab8582
     '400':
-      $ref: ../components/responses/400.yaml
+      $ref: ../components/responses/BadRequest.yaml
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '409':
-      $ref: ../components/responses/409.yaml
+      $ref: ../components/responses/Conflict.yaml
     '422':
-      $ref: ../components/responses/422.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
+      $ref: ../components/responses/UnprocessableEntity.yaml
     '500':
       $ref: ../components/responses/500.yaml
     '502':
-      $ref: ../components/responses/502.yaml
+      $ref: ../components/responses/BadGateway.yaml
     '503':
-      $ref: ../components/responses/503.yaml
+      $ref: ../components/responses/ServiceUnavailable.yaml

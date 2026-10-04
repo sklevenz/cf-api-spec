@@ -3,7 +3,7 @@ get:
   description: This endpoint retrieves the service plan visibility for a given plan.
   operationId: getServicePlanVisibility
   tags:
-    - ServicePlans
+    - Service Plans
   parameters:
     - $ref: ../components/parameters/Guid.yaml
   responses:
@@ -13,18 +13,17 @@ get:
         application/json:
           schema:
             $ref: ../components/schemas/ServicePlanVisibility.yaml
-    '400':
-      $ref: ../components/responses/400.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                type: public
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
-    '500':
-      $ref: ../components/responses/500.yaml
+      $ref: ../components/responses/NotFound.yaml
 patch:
   summary: Update a service plan visibility
   description: >-
@@ -34,7 +33,7 @@ patch:
     service plan is `organization` visible.
   operationId: updateServicePlanVisibility
   tags:
-    - ServicePlans
+    - Service Plans
   parameters:
     - $ref: ../components/parameters/Guid.yaml
   requestBody:
@@ -47,17 +46,13 @@ patch:
           schema:
             $ref: ../components/schemas/ServicePlanVisibility.yaml
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
+      $ref: ../components/responses/NotFound.yaml
     '422':
-      $ref: ../components/responses/422.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
-    '500':
-      $ref: ../components/responses/500.yaml
+      $ref: ../components/responses/UnprocessableEntity.yaml
 post:
   summary: Apply a service plan visibility
   description: >-
@@ -67,7 +62,7 @@ post:
     service plan is `organization` visible.
   operationId: applyServicePlanVisibility
   tags:
-    - ServicePlans
+    - Service Plans
   parameters:
     - $ref: ../components/parameters/Guid.yaml
   requestBody:
@@ -79,21 +74,24 @@ post:
         application/json:
           schema:
             $ref: ../components/schemas/ServicePlanVisibility.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                type: organization
     '400':
-      $ref: ../components/responses/400.yaml
+      $ref: ../components/responses/BadRequest.yaml
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
+      $ref: ../components/responses/NotFound.yaml
     '409':
-      $ref: ../components/responses/409.yaml
+      $ref: ../components/responses/Conflict.yaml
     '422':
-      $ref: ../components/responses/422.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
+      $ref: ../components/responses/UnprocessableEntity.yaml
     '500':
       $ref: ../components/responses/500.yaml
     '503':
-      $ref: ../components/responses/503.yaml
+      $ref: ../components/responses/ServiceUnavailable.yaml

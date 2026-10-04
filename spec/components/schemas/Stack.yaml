@@ -30,3 +30,4 @@ allOf:
       - name
       - description
       - links
+    type: object

@@ -6,13 +6,14 @@ get:
     manager, this will list only those associated spaces belonging to orgs for
     which the user is a manager. For any other user, this will list only those
     associated spaces to which the user has access.
+
+
+    **Permitted roles:** All Roles
   operationId: listSpacesForIsolationSegment
   tags:
-    - IsolationSegments
+    - Isolation Segments
   parameters:
     - $ref: ../components/parameters/Guid.yaml
-    - $ref: ../components/parameters/Page.yaml
-    - $ref: ../components/parameters/PerPage.yaml
   responses:
     '200':
       description: OK
@@ -20,15 +21,20 @@ get:
         application/json:
           schema:
             $ref: ../components/schemas/RelationshipToMany.yaml
-    '400':
-      $ref: ../components/responses/400.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                data:
+                  - guid: 885735b5-aea4-4cf5-8e44-961af0e41920
+                  - guid: d4c91047-7b29-4fda-b7f9-04033e5c9c9f
+                links:
+                  self:
+                    href: >-
+                      https://api.example.org/v3/isolation_segments/bdeg4371-cbd3-4155-b156-dc0c2a431b4c/relationships/spaces
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
-    '500':
-      $ref: ../components/responses/500.yaml
+      $ref: ../components/responses/NotFound.yaml

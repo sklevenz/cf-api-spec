@@ -26,7 +26,7 @@ post:
     disabled, resource matching will always return an empty array.
   operationId: postResourceMatches
   tags:
-    - ResourceMatches
+    - Resource Matches
   requestBody:
     content:
       application/json:
@@ -47,12 +47,28 @@ post:
                     type: integer
                   path:
                     type: string
+                  mode:
+                    type: string
+                    description: File permissions expressed as an octal string.
               description: List of resources to check for in the resource cache
           required:
             - resources
-    description: >-
-      Provide resource descriptors to check which resources already exist on the
-      Cloud Foundry blobstore.
+        examples:
+          default:
+            summary: default
+            value:
+              resources:
+                - checksum:
+                    value: 002d760bea1be268e27077412e11a320d0f164d3
+                  size_in_bytes: 36
+                  path: C:\path\to\file
+                  mode: '645'
+                - checksum:
+                    value: a9993e364706816aba3e25717850c26c9cd0d89d
+                  size_in_bytes: 1
+                  path: path/to/file
+                  mode: '644'
+    description: Request body for create a resource match.
   responses:
     '201':
       description: Created
@@ -60,19 +76,27 @@ post:
         application/json:
           schema:
             $ref: ../components/schemas/ResourceMatch.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                resources:
+                  - checksum:
+                      value: a9993e364706816aba3e25717850c26c9cd0d89d
+                    size_in_bytes: 1
+                    path: path/to/file
+                    mode: '644'
     '400':
-      $ref: ../components/responses/400.yaml
+      $ref: ../components/responses/BadRequest.yaml
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '409':
-      $ref: ../components/responses/409.yaml
+      $ref: ../components/responses/Conflict.yaml
     '422':
-      $ref: ../components/responses/422.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
+      $ref: ../components/responses/UnprocessableEntity.yaml
     '500':
       $ref: ../components/responses/500.yaml
     '503':
-      $ref: ../components/responses/503.yaml
+      $ref: ../components/responses/ServiceUnavailable.yaml

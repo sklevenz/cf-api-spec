@@ -1,19 +1,137 @@
 get:
-  summary: Get API root
-  description: |
-    Global API Root for Cloud Foundry V3.
-  operationId: getApiV3Root
-  security: []
+  summary: Get V3 API root
+  description: Returns the V3 API root endpoint information.
+  operationId: getV3ApiRoot
   tags:
     - Root
   responses:
     '200':
-      $ref: ../components/responses/v3.yaml
-    '400':
-      $ref: ../components/responses/400.yaml
-    '401':
-      $ref: ../components/responses/401.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              links:
+                type: object
+                description: Links to related resources
+                properties:
+                  self:
+                    allOf:
+                      - $ref: ../components/schemas/Link.yaml
+                      - description: Link to the current endpoint
+                    type: object
+                  apps:
+                    allOf:
+                      - $ref: ../components/schemas/Link.yaml
+                      - description: Link to the apps endpoint
+                    type: object
+                  builds:
+                    allOf:
+                      - $ref: ../components/schemas/Link.yaml
+                      - description: Link to the builds endpoint
+                    type: object
+                  deployments:
+                    allOf:
+                      - $ref: ../components/schemas/Link.yaml
+                      - description: Link to the deployments endpoint
+                    type: object
+                  domains:
+                    allOf:
+                      - $ref: ../components/schemas/Link.yaml
+                      - description: Link to the domains endpoint
+                    type: object
+                  droplets:
+                    allOf:
+                      - $ref: ../components/schemas/Link.yaml
+                      - description: Link to the droplets endpoint
+                    type: object
+                  feature_flags:
+                    allOf:
+                      - $ref: ../components/schemas/Link.yaml
+                      - description: Link to the feature flags endpoint
+                    type: object
+                  info:
+                    allOf:
+                      - $ref: ../components/schemas/Link.yaml
+                      - description: Link to the info endpoint
+                    type: object
+                  isolation_segments:
+                    allOf:
+                      - $ref: ../components/schemas/Link.yaml
+                      - description: Link to the isolation segments endpoint
+                    type: object
+                  organizations:
+                    allOf:
+                      - $ref: ../components/schemas/Link.yaml
+                      - description: Link to the organizations endpoint
+                    type: object
+                  packages:
+                    allOf:
+                      - $ref: ../components/schemas/Link.yaml
+                      - description: Link to the packages endpoint
+                    type: object
+                  processes:
+                    allOf:
+                      - $ref: ../components/schemas/Link.yaml
+                      - description: Link to the processes endpoint
+                    type: object
+                  roles:
+                    allOf:
+                      - $ref: ../components/schemas/Link.yaml
+                      - description: Link to the roles endpoint
+                    type: object
+                  routes:
+                    allOf:
+                      - $ref: ../components/schemas/Link.yaml
+                      - description: Link to the routes endpoint
+                    type: object
+                  security_groups:
+                    allOf:
+                      - $ref: ../components/schemas/Link.yaml
+                      - description: Link to the security groups endpoint
+                    type: object
+                  service_brokers:
+                    allOf:
+                      - $ref: ../components/schemas/Link.yaml
+                      - description: Link to the service brokers endpoint
+                    type: object
+                  service_instances:
+                    allOf:
+                      - $ref: ../components/schemas/Link.yaml
+                      - description: Link to the service instances endpoint
+                    type: object
+                  service_offerings:
+                    allOf:
+                      - $ref: ../components/schemas/Link.yaml
+                      - description: Link to the service offerings endpoint
+                    type: object
+                  service_plans:
+                    allOf:
+                      - $ref: ../components/schemas/Link.yaml
+                      - description: Link to the service plans endpoint
+                    type: object
+                  spaces:
+                    allOf:
+                      - $ref: ../components/schemas/Link.yaml
+                      - description: Link to the spaces endpoint
+                    type: object
+                  stacks:
+                    allOf:
+                      - $ref: ../components/schemas/Link.yaml
+                      - description: Link to the stacks endpoint
+                    type: object
+                  tasks:
+                    allOf:
+                      - $ref: ../components/schemas/Link.yaml
+                      - description: Link to the tasks endpoint
+                    type: object
+                  users:
+                    allOf:
+                      - $ref: ../components/schemas/Link.yaml
+                      - description: Link to the users endpoint
+                    type: object
+    '404':
+      $ref: ../components/responses/NotFound.yaml
     '500':
       $ref: ../components/responses/500.yaml

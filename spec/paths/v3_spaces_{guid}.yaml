@@ -22,6 +22,37 @@ get:
         application/json:
           schema:
             $ref: ../components/schemas/Space.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                guid: 123e4567-e89b-12d3-a456-426614174000
+                created_at: '2017-02-01T01:33:58Z'
+                updated_at: '2017-02-01T01:33:58Z'
+                name: my-space
+                relationships:
+                  organization:
+                    data:
+                      guid: 123e4567-e89b-12d3-a456-426614174000
+                  quota:
+                    data: null
+                links:
+                  self:
+                    href: >-
+                      https://api.example.org/v3/spaces/885735b5-aea4-4cf5-8e44-961af0e41920
+                  features:
+                    href: >-
+                      https://api.example.org/v3/spaces/885735b5-aea4-4cf5-8e44-961af0e41920/features
+                  organization:
+                    href: >-
+                      https://api.example.org/v3/organizations/e00705b9-7b42-4561-ae97-2520399d2133
+                  apply_manifest:
+                    href: >-
+                      https://api.example.org/v3/spaces/885735b5-aea4-4cf5-8e44-961af0e41920/actions/apply_manifest
+                    method: POST
+                metadata:
+                  labels: {}
+                  annotations: {}
       links:
         organization:
           operationId: getOrganization
@@ -33,18 +64,12 @@ get:
           parameters:
             guid: $response.body#/relationships/quota/data/guid
           description: Retrieve the quota associated with this space
-    '400':
-      $ref: ../components/responses/400.yaml
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
-    '500':
-      $ref: ../components/responses/500.yaml
+      $ref: ../components/responses/NotFound.yaml
 patch:
   summary: Update a space
   description: Update a space
@@ -62,6 +87,37 @@ patch:
         application/json:
           schema:
             $ref: ../components/schemas/Space.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                guid: 123e4567-e89b-12d3-a456-426614174000
+                created_at: '2017-02-01T01:33:58Z'
+                updated_at: '2017-02-01T01:33:58Z'
+                name: my-space
+                relationships:
+                  organization:
+                    data:
+                      guid: 123e4567-e89b-12d3-a456-426614174000
+                  quota:
+                    data: null
+                links:
+                  self:
+                    href: >-
+                      https://api.example.org/v3/spaces/885735b5-aea4-4cf5-8e44-961af0e41920
+                  features:
+                    href: >-
+                      https://api.example.org/v3/spaces/885735b5-aea4-4cf5-8e44-961af0e41920/features
+                  organization:
+                    href: >-
+                      https://api.example.org/v3/organizations/e00705b9-7b42-4561-ae97-2520399d2133
+                  apply_manifest:
+                    href: >-
+                      https://api.example.org/v3/spaces/885735b5-aea4-4cf5-8e44-961af0e41920/actions/apply_manifest
+                    method: POST
+                metadata:
+                  labels: {}
+                  annotations: {}
       links:
         organization:
           operationId: getOrganization
@@ -74,23 +130,21 @@ patch:
             guid: $response.body#/relationships/quota/data/guid
           description: Retrieve the quota associated with this space
     '400':
-      $ref: ../components/responses/400.yaml
+      $ref: ../components/responses/BadRequest.yaml
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
+      $ref: ../components/responses/NotFound.yaml
     '409':
-      $ref: ../components/responses/409.yaml
+      $ref: ../components/responses/Conflict.yaml
     '422':
-      $ref: ../components/responses/422.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
+      $ref: ../components/responses/UnprocessableEntity.yaml
     '500':
       $ref: ../components/responses/500.yaml
     '503':
-      $ref: ../components/responses/503.yaml
+      $ref: ../components/responses/ServiceUnavailable.yaml
 delete:
   summary: Delete a space
   description: >-
@@ -111,16 +165,14 @@ delete:
             type: string
             format: uri
     '400':
-      $ref: ../components/responses/400.yaml
+      $ref: ../components/responses/BadRequest.yaml
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
+      $ref: ../components/responses/NotFound.yaml
     '422':
-      $ref: ../components/responses/422.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
+      $ref: ../components/responses/UnprocessableEntity.yaml
     '500':
       $ref: ../components/responses/500.yaml

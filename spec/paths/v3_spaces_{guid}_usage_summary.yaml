@@ -1,0 +1,76 @@
+get:
+  summary: Get usage summary for a space
+  description: >-
+    This endpoint retrieves the specified space's memory and app instance usage
+    summary.
+  operationId: getUsageSummaryForSpace
+  tags:
+    - Spaces
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              usage_summary:
+                type: object
+                properties:
+                  started_instances:
+                    type: integer
+                  memory_in_mb:
+                    type: integer
+                  routes:
+                    type: integer
+                  service_instances:
+                    type: integer
+                  reserved_ports:
+                    type: integer
+                  domains:
+                    type: integer
+                  per_app_tasks:
+                    type: integer
+                  service_keys:
+                    type: integer
+              links:
+                type: object
+                properties:
+                  self:
+                    $ref: ../components/schemas/Link.yaml
+                    description: The URL to get this usage summary
+                    type: object
+                  space:
+                    $ref: ../components/schemas/Link.yaml
+                    description: The URL to get the space for this usage summary
+                    type: object
+                  organization:
+                    $ref: ../components/schemas/Link.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                usage_summary:
+                  started_instances: 3
+                  memory_in_mb: 3072
+                  routes: 3
+                  service_instances: 2
+                  reserved_ports: 1
+                  domains: 1
+                  per_app_tasks: 0
+                  service_keys: 1
+                links:
+                  self:
+                    href: >-
+                      https://api.example.org/v3/spaces/f47ac10b-58cc-4372-a567-0e02b2c3d479/usage_summary
+                  organization:
+                    href: >-
+                      https://api.example.org/v3/spaces/f47ac10b-58cc-4372-a567-0e02b2c3d479
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml

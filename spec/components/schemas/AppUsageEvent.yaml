@@ -1,3 +1,4 @@
+type: object
 allOf:
   - $ref: ./BaseSchema.yaml
   - type: object
@@ -118,9 +119,14 @@ allOf:
             description: >-
               Previous instance count of the app that this event pertains to, if
               applicable
+      links:
+        type: object
+        properties:
+          self:
+            $ref: ./Link.yaml
 description: >-
   App usage events are a record of changes in the usage of apps and tasks.
-  Examples include starting an application, scaling an application from one to
-  three instances, and stopping an application.
+  Examples include starting an application, scaling an application (from, say,
+  one to three instances), and stopping an application.
 
   Usage events are typically used by billing and chargeback applications.

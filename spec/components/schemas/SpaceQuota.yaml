@@ -89,3 +89,4 @@ allOf:
       - routes
       - relationships
       - links
+    type: object

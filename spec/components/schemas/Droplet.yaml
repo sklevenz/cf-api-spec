@@ -34,21 +34,27 @@ allOf:
           self:
             $ref: ./Link.yaml
             description: The URL to get this droplet
+            type: object
           package:
             $ref: ./Link.yaml
             description: The URL to get the package for this droplet
+            type: object
           app:
             $ref: ./Link.yaml
             description: The URL to get the app for this droplet
+            type: object
           assign_current_droplet:
             $ref: ./Link.yaml
             description: The URL to assign the droplet to an application
+            type: object
           download:
             $ref: ./Link.yaml
             description: The URL to download the droplet
+            type: object
           upload:
             $ref: ./Link.yaml
             description: The URL to upload the droplet
+            type: object
       checksum:
         type:
           - object
@@ -99,6 +105,7 @@ allOf:
           - string
           - 'null'
         description: Docker image name for Docker droplets
+    type: object
 description: >-
   A droplet is the result of staging an application package. There are two types
   (lifecycles) of droplets buildpack and docker. In the case of the buildpacks,

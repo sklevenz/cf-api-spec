@@ -3,7 +3,7 @@ get:
   description: This endpoint lists the spaces that the service instance has been shared to.
   operationId: listServiceInstanceSharedSpaces
   tags:
-    - ServiceInstances
+    - Service Instances
   parameters:
     - $ref: ../components/parameters/Guid.yaml
     - name: fields
@@ -18,18 +18,23 @@ get:
         application/json:
           schema:
             $ref: ../components/schemas/RelationshipToMany.yaml
-    '400':
-      $ref: ../components/responses/400.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                data:
+                  - guid: 123e4567-e89b-12d3-a456-426614174000
+                  - guid: 123e4567-e89b-12d3-a456-426614174000
+                links:
+                  self:
+                    href: >-
+                      https://api.example.org/v3/service_instances/bdeg4371-cbd3-4155-b156-dc0c2a431b4c/relationships/shared_spaces
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
-    '500':
-      $ref: ../components/responses/500.yaml
+      $ref: ../components/responses/NotFound.yaml
 post:
   summary: Share a service instance to other spaces
   description: >-
@@ -38,7 +43,7 @@ post:
     the target space.
   operationId: shareServiceInstance
   tags:
-    - ServiceInstances
+    - Service Instances
   parameters:
     - $ref: ../components/parameters/Guid.yaml
   requestBody:
@@ -46,7 +51,14 @@ post:
       application/json:
         schema:
           $ref: ../components/schemas/RelationshipToMany.yaml
-    description: Share a service instance with additional spaces.
+        examples:
+          default:
+            summary: default
+            value:
+              data:
+                - guid: 123e4567-e89b-12d3-a456-426614174000
+                - guid: 123e4567-e89b-12d3-a456-426614174000
+    description: Request body for share a service instance to other spaces.
   responses:
     '200':
       description: OK
@@ -54,15 +66,22 @@ post:
         application/json:
           schema:
             $ref: ../components/schemas/RelationshipToMany.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                data:
+                  - guid: 123e4567-e89b-12d3-a456-426614174000
+                  - guid: 123e4567-e89b-12d3-a456-426614174000
+                links:
+                  self:
+                    href: >-
+                      https://api.example.org/v3/service_instances/bdeg4371-cbd3-4155-b156-dc0c2a431b4c/relationships/shared_spaces
     '401':
-      $ref: ../components/responses/401.yaml
+      $ref: ../components/responses/Unauthorized.yaml
     '403':
-      $ref: ../components/responses/403.yaml
+      $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/404.yaml
+      $ref: ../components/responses/NotFound.yaml
     '422':
-      $ref: ../components/responses/422.yaml
-    '429':
-      $ref: ../components/responses/429.yaml
-    '500':
-      $ref: ../components/responses/500.yaml
+      $ref: ../components/responses/UnprocessableEntity.yaml

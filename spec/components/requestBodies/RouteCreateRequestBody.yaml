@@ -26,12 +26,48 @@ content:
             domain:
               $ref: ../schemas/RelationshipToOne.yaml
               description: A relationship to the domain of the route
+              type: object
             space:
               $ref: ../schemas/RelationshipToOne.yaml
               description: >-
                 A relationship to the space containing the route; routes can
                 only be mapped to destinations in that space
+              type: object
         metadata:
           $ref: ../schemas/Metadata.yaml
+        options:
+          type: object
+          properties:
+            loadbalancing:
+              type: string
+              enum:
+                - round-robin
+                - least-connection
+                - hash
+            hash_header:
+              type: string
+            hash_balance:
+              type: string
       required:
         - relationships
+    examples:
+      default:
+        summary: default
+        value:
+          host: a-hostname
+          path: /some_path
+          port: 6666
+          relationships:
+            domain:
+              data:
+                guid: 123e4567-e89b-12d3-a456-426614174000
+            space:
+              data:
+                guid: 123e4567-e89b-12d3-a456-426614174000
+          options:
+            loadbalancing: round-robin
+          metadata:
+            labels:
+              key: value
+            annotations:
+              note: detailed information

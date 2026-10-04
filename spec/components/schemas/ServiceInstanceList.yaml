@@ -5,13 +5,6 @@ properties:
   resources:
     type: array
     items:
-      type: object
-      required:
-        - type
-      properties:
-        type:
-          type: string
-          description: Discriminator for the service instance schema
       oneOf:
         - $ref: ./ManagedServiceInstance.yaml
         - $ref: ./UserProvidedServiceInstance.yaml
