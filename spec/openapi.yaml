@@ -1,31 +1,8 @@
 openapi: 3.1.0
 info:
   title: Cloud Foundry V3 API
-  description: >-
-    # Welcome to the Experimental Cloud Foundry V3 API Docs! 
-
-
-    # Expermiental Warning
-     This OpenAPI specification is a experiment and not ready for productive use.
-    # Getting help
-
-    The CAPI team can most easily be reached on our Slack channel for questions
-    and issues regarding the API. To report an issue with the docs or API,
-    please feel free to file a GitHub issue on our API repo,
-    cloud_controller_ng.
-
-    We recommend reaching out to Slack first as we will be most responsive
-    there.
-        
-    # More resources
-
-    - The Cloud Foundry V2 API is still deprecated but still available for
-    interacting with Cloud Foundry.
-
-    - Running Tasks
-
-    - V3 API Documentation OpenAPI Spec Source Code. 
-  version: latest
+  description: "# Welcome to the Experimental Cloud Foundry V3 API Docs! \n\n# Expermiental Warning\n This OpenAPI specification is a experiment and not ready for productive use.\n# Getting help\nThe CAPI team can most easily be reached on our Slack channel for questions and issues regarding the API. To report an issue with the docs or API, please feel free to file a GitHub issue on our API repo, cloud_controller_ng.\nWe recommend reaching out to Slack first as we will be most responsive there.\n    \n# More resources\n- The Cloud Foundry V2 API is still deprecated but still available for interacting with Cloud Foundry.\n- Running Tasks\n- V3 API Documentation OpenAPI Spec Source Code. "
+  version: alpha-0.1.0
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
@@ -44,70 +21,57 @@ tags:
     description: Administrative operations for Cloud Foundry platform management.
   - name: Apps
     description: >-
-      Apps are top-level objects that link together and contain configuration
-      information for your packages, droplets, processes, tasks, and more.
+      Apps are top-level objects that link together and contain configuration information for your packages, droplets, processes, tasks, and more.
   - name: App Usage Events
     description: App usage events are a record of changes in the usage of apps and tasks.
   - name: Audit Events
     description: >-
-      Audit events help Cloud Foundry operators monitor actions taken against
-      resources (such as apps) via user or system actions.
+      Audit events help Cloud Foundry operators monitor actions taken against resources (such as apps) via user or system actions.
   - name: Builds
     description: Builds represent the process of staging an application package.
   - name: Buildpacks
     description: >-
-      Buildpacks are used during a build to download external dependencies and
-      transform a package into an executable droplet.
+      Buildpacks are used during a build to download external dependencies and transform a package into an executable droplet.
   - name: Deployments
     description: >-
-      Deployments are objects that manage updates to applications with zero
-      downtime.
+      Deployments are objects that manage updates to applications with zero downtime.
   - name: Domains
     description: >-
-      Domains represent a fully qualified domain name that is used for
-      application routes.
+      Domains represent a fully qualified domain name that is used for application routes.
   - name: Droplets
     description: Droplets are the result of staging an application package.
   - name: Environment Variable Groups
     description: 'There are two types of environment variable groups: running and staging.'
   - name: Feature Flags
     description: >-
-      Feature flags are runtime flags that enable or disable functionality on
-      the API.
+      Feature flags are runtime flags that enable or disable functionality on the API.
   - name: Info
     description: Info endpoints expose Cloud Controller configuration information.
   - name: Internal
     description: Internal endpoints for system monitoring and metrics.
   - name: Isolation Segments
     description: >-
-      Isolation Segments provide dedicated pools of resources to which apps can
-      be deployed to isolate workloads.
+      Isolation Segments provide dedicated pools of resources to which apps can be deployed to isolate workloads.
   - name: Jobs
     description: >-
-      Jobs are created by the platform when performing certain asynchronous
-      actions.
+      Jobs are created by the platform when performing certain asynchronous actions.
   - name: Manifests
     description: >-
-      A manifest is a method for applying bulk configurations to apps and their
-      underlying processes.
+      A manifest is a method for applying bulk configurations to apps and their underlying processes.
   - name: Organizations
     description: >-
-      An org is a development account that an individual or multiple
-      collaborators can own and use.
+      An org is a development account that an individual or multiple collaborators can own and use.
   - name: Organization Quotas
     description: >-
-      Organization quotas are named sets of memory, log rate, service, and
-      instance usage quotas.
+      Organization quotas are named sets of memory, log rate, service, and instance usage quotas.
   - name: Packages
     description: >-
-      A package is an application’s ‘source code’; either raw bits for your
-      application or a pointer to these bits.
+      A package is an application’s ‘source code’; either raw bits for your application or a pointer to these bits.
   - name: Processes
     description: Processes define the runnable units of an app.
   - name: Resource Matches
     description: >-
-      Resource Matches are used to determine if a resource has been previously
-      uploaded to the Cloud Controller.
+      Resource Matches are used to determine if a resource has been previously uploaded to the Cloud Controller.
   - name: Revisions
     description: Revisions represent code used by an application at a specific time.
   - name: Roles
@@ -118,8 +82,7 @@ tags:
     description: Routes are used to map a URL to an app.
   - name: Route Policies
     description: >-
-      Route policies control which callers can access routes on identity-aware
-      domains.
+      Route policies control which callers can access routes on identity-aware domains.
   - name: Security Groups
     description: Security groups are used to control access to apps.
   - name: Service Brokers
@@ -142,12 +105,10 @@ tags:
     description: Spaces are used to group apps and services.
   - name: Space Quotas
     description: >-
-      Space quotas are named sets of memory, log rate, service, and instance
-      usage quotas.
+      Space quotas are named sets of memory, log rate, service, and instance usage quotas.
   - name: Stacks
     description: >-
-      Stacks are used to specify the operating system and runtime environment
-      for an app.
+      Stacks are used to specify the operating system and runtime environment for an app.
   - name: Tasks
     description: Tasks are one-off commands that can be run against an app.
   - name: Users
@@ -493,8 +454,6 @@ components:
             cloud_controller.read: Read access to the Cloud Controller
             cloud_controller.write: Write access to the Cloud Controller
             cloud_controller.update_build_state: >-
-              This scope allows its bearer to update the state of a build;
-              currently only used when updating builds
+              This scope allows its bearer to update the state of a build; currently only used when updating builds
             cloud_controller_service_permissions.read: >-
-              This scope provides read only access for service instance
-              permissions
+              This scope provides read only access for service instance permissions
