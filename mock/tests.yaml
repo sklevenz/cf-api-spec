@@ -429,7 +429,7 @@ tests:
     method: POST
     content-type: application/json
     param: null
-    body: {"metadata": {"labels": {}, "annotations": {}}}
+    body: {"data":[{"guid":"00000000-0000-0000-0000-000000000000"}]}
     status: 200
   - path: /v3/domains/00000000-0000-0000-0000-000000000000/relationships/shared_organizations/00000000-0000-0000-0000-000000000000
     method: DELETE
@@ -538,7 +538,7 @@ tests:
     content-type: application/json
     param: null
     status: 201
-    body: null
+    body: {"name":"test-isolation-segment"}
   - path: /v3/isolation_segments/00000000-0000-0000-0000-000000000000
     method: GET
     content-type: application/json
@@ -885,11 +885,11 @@ tests:
     status: 200
     body: {}
   - path: /v3/routes/00000000-0000-0000-0000-000000000000/destinations
-    method: PUT
+    method: PATCH
     content-type: application/json
     param: null
     status: 200
-    body: {}
+    body: {"destinations":[]}
   - path: /v3/routes/00000000-0000-0000-0000-000000000000/destinations
     method: PATCH
     content-type: application/json

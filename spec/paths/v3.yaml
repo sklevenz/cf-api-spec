@@ -2,6 +2,7 @@ get:
   summary: Get V3 API root
   description: Returns the V3 API root endpoint information.
   operationId: getV3ApiRoot
+  security: []
   tags:
     - Root
   responses:

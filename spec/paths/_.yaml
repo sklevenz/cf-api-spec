@@ -4,6 +4,7 @@ get:
     This endpoint returns links to the APIs available on a given Cloud Foundry
     deployment.
   operationId: getApiRoot
+  security: []
   tags:
     - Root
   responses:
@@ -58,6 +59,27 @@ get:
                       - $ref: ../components/schemas/IndexLink.yaml
                       - description: Link to the Log Stream API
                     type: object
+                  login:
+                    $ref: ../components/schemas/IndexLink.yaml
+                    type: object
+                    description: Link to the login service.
+          examples:
+            local:
+              summary: >-
+                Discovery endpoints for the local Prism and UAA mock on port
+                4010
+              value:
+                links:
+                  self:
+                    href: http://127.0.0.1:4010
+                  cloud_controller_v3:
+                    href: http://127.0.0.1:4010/v3
+                    meta:
+                      version: 3.232.0
+                  login:
+                    href: http://127.0.0.1:4010
+                  uaa:
+                    href: http://127.0.0.1:4010
     '404':
       $ref: ../components/responses/NotFound.yaml
     '500':
