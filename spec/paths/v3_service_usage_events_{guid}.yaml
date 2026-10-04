@@ -1,0 +1,51 @@
+get:
+  summary: Get a service usage event
+  description: Retrieve a service usage event.
+  operationId: getServiceUsageEvent
+  tags:
+    - Service Usage Events
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ServiceUsageEvent.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                guid: 123e4567-e89b-12d3-a456-426614174000
+                created_at: '2020-05-28T12:34:56Z'
+                updated_at: '2020-05-28T12:34:56Z'
+                state: CREATED
+                space:
+                  guid: 123e4567-e89b-12d3-a456-426614174000
+                  name: name-1664
+                organization:
+                  guid: 123e4567-e89b-12d3-a456-426614174000
+                service_instance:
+                  guid: 123e4567-e89b-12d3-a456-426614174000
+                  name: name-1982
+                  type: managed_service_instance
+                service_plan:
+                  guid: 123e4567-e89b-12d3-a456-426614174000
+                  name: name-1983
+                service_offering:
+                  guid: 123e4567-e89b-12d3-a456-426614174000
+                  name: label-64
+                service_broker:
+                  guid: 123e4567-e89b-12d3-a456-426614174000
+                  name: name-2929
+                links:
+                  self:
+                    href: >-
+                      https://api.example.org/v3/service_usage_events/c9976002-96f4-435a-888e-db1e1178df62
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml

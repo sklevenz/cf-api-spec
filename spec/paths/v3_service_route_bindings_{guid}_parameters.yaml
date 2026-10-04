@@ -1,0 +1,32 @@
+get:
+  summary: Get parameters for a route binding
+  description: >-
+    Queries the Service Broker for the parameters associated with this service
+    route binding. The broker catalog must have enabled the
+    `bindings_retrievable` feature for the Service Offering. Check the [Service
+    Offering object](#the-service-offering-object) for the value of this feature
+    flag. This endpoint is not available for User-Provided Service Instances.
+  operationId: getServiceRouteBindingParameters
+  tags:
+    - Service Route Bindings
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+          examples:
+            default:
+              summary: default
+              value:
+                foo: bar
+                foz: baz
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml

@@ -1,0 +1,215 @@
+get:
+  summary: List domains
+  description: |-
+    Retrieve all domains the user has access to.
+
+    **Permitted roles:** All Roles
+  operationId: listDomains
+  tags:
+    - Domains
+  parameters:
+    - $ref: ../components/parameters/Page.yaml
+    - $ref: ../components/parameters/PerPage.yaml
+    - name: order_by
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+          - created_at
+          - -created_at
+          - updated_at
+          - -updated_at
+      description: >-
+        Value to sort by. Defaults to ascending; prepend with `-` to sort
+        descending. Valid values are `created_at`, `updated_at`
+    - $ref: ../components/parameters/CreatedAts.yaml
+    - $ref: ../components/parameters/UpdatedAts.yaml
+    - $ref: ../components/parameters/LabelSelector.yaml
+    - name: guids
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of guids to filter by
+    - name: names
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of domain names to filter by (case-insensitive)
+    - name: organization_guids
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of owning organization guids to filter by
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/DomainList.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                pagination:
+                  total_results: 3
+                  total_pages: 2
+                  first:
+                    href: https://api.example.org/v3/domains?page=1&per_page=2
+                  last:
+                    href: https://api.example.org/v3/domains?page=2&per_page=2
+                  next:
+                    href: https://api.example.org/v3/domains?page=2&per_page=2
+                  previous: null
+                resources:
+                  - guid: 3a5d3d89-3f89-4f05-8188-8a2b298c79d5
+                    created_at: '2019-03-08T01:06:19Z'
+                    updated_at: '2019-03-08T01:06:19Z'
+                    name: test-domain.com
+                    internal: false
+                    router_group:
+                      guid: 5806148f-cce6-4d86-7fbd-aa269e3f6f3f
+                    supported_protocols:
+                      - tcp
+                    metadata:
+                      labels: {}
+                      annotations: {}
+                    relationships:
+                      organization:
+                        data: null
+                      shared_organizations:
+                        data: []
+                    links:
+                      self:
+                        href: >-
+                          https://api.example.org/v3/domains/3a5d3d89-3f89-4f05-8188-8a2b298c79d5
+                      route_reservations:
+                        href: >-
+                          https://api.example.org/v3/domains/3a5d3d89-3f89-4f05-8188-8a2b298c79d5/route_reservations
+                      router_group:
+                        href: >-
+                          https://api.example.org/routing/v1/router_groups/5806148f-cce6-4d86-7fbd-aa269e3f6f3f
+                  - guid: 9b2f3d89-3f89-4f05-8188-8a2b298c79d5
+                    created_at: '2026-04-21T10:15:30Z'
+                    updated_at: '2026-04-21T10:15:30Z'
+                    name: apps.identity
+                    internal: false
+                    router_group: null
+                    supported_protocols:
+                      - http
+                    enforce_route_policies: true
+                    route_policies_scope: org
+                    metadata:
+                      labels: {}
+                      annotations: {}
+                    relationships:
+                      organization:
+                        data: null
+                      shared_organizations:
+                        data: []
+                    links:
+                      self:
+                        href: >-
+                          https://api.example.org/v3/domains/9b2f3d89-3f89-4f05-8188-8a2b298c79d5
+                      route_reservations:
+                        href: >-
+                          https://api.example.org/v3/domains/9b2f3d89-3f89-4f05-8188-8a2b298c79d5/route_reservations
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '409':
+      $ref: ../components/responses/Conflict.yaml
+    '422':
+      $ref: ../components/responses/UnprocessableEntity.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+    '502':
+      $ref: ../components/responses/BadGateway.yaml
+    '503':
+      $ref: ../components/responses/ServiceUnavailable.yaml
+post:
+  summary: Create a domain
+  description: >-
+    Create a domain.
+
+
+    **Permitted roles:** Admin, Org Manager *(when an `organization`
+    relationship is provided)*
+  operationId: createDomain
+  tags:
+    - Domains
+  requestBody:
+    $ref: ../components/requestBodies/DomainCreateRequestBody.yaml
+  responses:
+    '201':
+      description: Successfully created domain
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Domain.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                guid: 3a5d3d89-3f89-4f05-8188-8a2b298c79d5
+                created_at: '2019-03-08T01:06:19Z'
+                updated_at: '2019-03-08T01:06:19Z'
+                name: test-domain.com
+                internal: false
+                router_group: null
+                supported_protocols:
+                  - http
+                metadata:
+                  labels: {}
+                  annotations: {}
+                relationships:
+                  organization:
+                    data:
+                      guid: 3a3f3d89-3f89-4f05-8188-751b298c79d5
+                  shared_organizations:
+                    data:
+                      - guid: 404f3d89-3f89-4a72-8188-751b298d88d5
+                      - guid: 416d3d89-3f89-4b67-a189-123b298d3592
+                links:
+                  self:
+                    href: >-
+                      https://api.example.org/v3/domains/3a5d3d89-3f89-4f05-8188-8a2b298c79d5
+                  organization:
+                    href: >-
+                      https://api.example.org/v3/organizations/3a3f3d89-3f89-4f05-8188-751b298c79d5
+                  route_reservations:
+                    href: >-
+                      https://api.example.org/v3/domains/3a5d3d89-3f89-4f05-8188-8a2b298c79d5/route_reservations
+                  shared_organizations:
+                    href: >-
+                      https://api.example.org/v3/domains/3a5d3d89-3f89-4f05-8188-8a2b298c79d5/relationships/shared_organizations
+      links:
+        organization:
+          operationId: getOrganization
+          parameters:
+            guid: $response.body#/relationships/organization/data/guid
+          description: Retrieve the organization for this domain (private domains only)
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '409':
+      $ref: ../components/responses/Conflict.yaml
+    '422':
+      $ref: ../components/responses/UnprocessableEntity.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+    '503':
+      $ref: ../components/responses/ServiceUnavailable.yaml

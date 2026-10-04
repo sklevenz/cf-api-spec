@@ -1,0 +1,21 @@
+description: Isolation segment to create
+required: true
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the isolation segment; must be unique (case-insensitive)
+        metadata:
+          $ref: ../schemas/Metadata.yaml
+          description: Labels and annotations applied to the isolation segment
+          type: object
+      required:
+        - name
+    examples:
+      default:
+        summary: default
+        value:
+          name: my_segment

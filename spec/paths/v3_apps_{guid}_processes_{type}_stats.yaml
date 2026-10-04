@@ -1,0 +1,29 @@
+get:
+  summary: Get stats for a process for an app
+  description: Get stats for a specific process for an app.
+  operationId: getProcessStatsForApp
+  tags:
+    - Processes
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+    - name: type
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Process type, such as web or worker.
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ProcessStats.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '503':
+      $ref: ../components/responses/ServiceUnavailable.yaml

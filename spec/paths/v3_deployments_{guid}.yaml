@@ -1,0 +1,88 @@
+get:
+  summary: Get a deployment
+  description: Retrieve a deployment.
+  operationId: getDeployment
+  tags:
+    - Deployments
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '200':
+      description: Successfully retrieved deployment
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Deployment.yaml
+      links:
+        app:
+          operationId: getApp
+          parameters:
+            guid: $response.body#/relationships/app/data/guid
+          description: Retrieve the app for this deployment
+        droplet:
+          operationId: getDroplet
+          parameters:
+            guid: $response.body#/droplet/data/guid
+          description: Retrieve the droplet for this deployment
+        previous_droplet:
+          operationId: getDroplet
+          parameters:
+            guid: $response.body#/previous_droplet/data/guid
+          description: Retrieve the previous droplet for this deployment
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+patch:
+  summary: Update a deployment
+  description: Update a deployment.
+  operationId: updateDeployment
+  tags:
+    - Deployments
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  requestBody:
+    description: Deployment object that needs to be updated
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            metadata:
+              $ref: ../components/schemas/Metadata.yaml
+          description: Request schema for updating a deployment
+        examples:
+          default:
+            summary: default
+            value:
+              metadata:
+                labels:
+                  key: value
+                annotations:
+                  note: detailed information
+  responses:
+    '200':
+      description: Successfully updated deployment
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Deployment.yaml
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '409':
+      $ref: ../components/responses/Conflict.yaml
+    '422':
+      $ref: ../components/responses/UnprocessableEntity.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+    '503':
+      $ref: ../components/responses/ServiceUnavailable.yaml

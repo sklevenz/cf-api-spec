@@ -1,0 +1,47 @@
+openapi: 3.1.0
+info:
+  title: UAA mock
+  version: 0.0.0
+servers:
+  - url: http://127.0.0.1:4010
+paths:
+  /info:
+    get:
+      security: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+                token_endpoint: http://127.0.0.1:4010/oauth/token
+                authorization_endpoint: http://127.0.0.1:4010/oauth/authorize
+  /oauth/token:
+    post:
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                grant_type:
+                  type: string
+                  enum: [password, refresh_token]
+                username:
+                  type: string
+                password:
+                  type: string
+                refresh_token:
+                  type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+                access_token: "eyJqa3UiOiJodHRwOi8vbG9jYWxob3N0OjQwMTAiLCJraWQiOiJrZXktMSIsInR5cCI6IkpXVCIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiIxMTExMTExMS0yMjIyLTMzMzMtNDQ0NC01NTU1NTU1NTU1NTUiLCJ1c2VyX25hbWUiOiJIb3JzdCIsImVtYWlsIjoiaG9yc3RAbXVlbGxlci5jb20iLCJvcmlnaW4iOiJsb2NhbCIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDAxMS9vYXV0aC90b2tlbiIsImNsaWVudF9pZCI6ImNmIiwiYXpwIjoiY2YiLCJjaWQiOiJjZiIsImF1ZCI6WyJjbG91ZF9jb250cm9sbGVyIiwiY2YiLCJ1YWEiXSwic2NvcGUiOlsiY2xvdWRfY29udHJvbGxlci5yZWFkIiwiY2xvdWRfY29udHJvbGxlci53cml0ZSIsInVhYS51c2VyIl0sImdyYW50X3R5cGUiOiJwYXNzd29yZCIsInVzZXJfaWQiOiIxMTExMTExMS0yMjIyLTMzMzMtNDQ0NC01NTU1NTU1NTU1NTUiLCJpYXQiOjE3Njk0MjAwMDAsImV4cCI6MTc2OTQyMTIwMCwianRpIjoibW9jay10b2tlbi1pZCIsInppZCI6InVhYSJ9.bW9jay1zaWduYXR1cmU"
+                token_type: Bearer
+                expires_in: 3600
+                refresh_token: mock-refresh-token

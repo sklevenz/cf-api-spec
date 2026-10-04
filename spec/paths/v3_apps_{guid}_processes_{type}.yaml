@@ -1,0 +1,60 @@
+get:
+  summary: Get a process for an app
+  description: Get a specific process for an app.
+  operationId: getProcessForApp
+  tags:
+    - Processes
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+    - name: type
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Process type, such as web or worker.
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Process.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+patch:
+  summary: Update a process for an app
+  description: Update a specific process for an app.
+  operationId: updateProcessForApp
+  tags:
+    - Processes
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+    - name: type
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Process type, such as web or worker.
+  requestBody:
+    $ref: ../components/requestBodies/ProcessUpdateRequestBody.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Process.yaml
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '422':
+      $ref: ../components/responses/UnprocessableEntity.yaml

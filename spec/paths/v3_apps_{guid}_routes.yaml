@@ -1,0 +1,120 @@
+get:
+  summary: List routes for an app
+  description: Retrieve all routes that have destinations that point to the given app.
+  operationId: listAppRoutes
+  tags:
+    - Routes
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+    - $ref: ../components/parameters/Page.yaml
+    - $ref: ../components/parameters/PerPage.yaml
+    - $ref: ../components/parameters/OrderBy.yaml
+    - name: domain_guids
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of domain guids to filter by
+    - name: hosts
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of hostnames to filter by
+    - name: paths
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of paths to filter by
+    - name: ports
+      in: query
+      schema:
+        type: array
+        items:
+          type: integer
+      description: Comma-delimited list of ports to filter by
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/RouteList.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                pagination:
+                  total_results: 3
+                  total_pages: 2
+                  first:
+                    href: https://api.example.org<%= path %>?page=1&per_page=2
+                  last:
+                    href: https://api.example.org<%= path %>?page=2&per_page=2
+                  next:
+                    href: https://api.example.org<%= path %>?page=2&per_page=2
+                  previous: null
+                resources:
+                  - guid: 123e4567-e89b-12d3-a456-426614174000
+                    protocol: http
+                    created_at: '2019-05-10T17:17:48Z'
+                    updated_at: '2019-05-10T17:17:48Z'
+                    host: a-hostname
+                    path: /some_path
+                    url: a-hostname.a-domain.com/some_path
+                    destinations:
+                      - guid: 123e4567-e89b-12d3-a456-426614174000
+                        app:
+                          guid: 123e4567-e89b-12d3-a456-426614174000
+                          process:
+                            type: web
+                        weight: null
+                        port: 8080
+                        protocol: http1
+                        created_at: '2019-05-10T17:17:48Z'
+                        updated_at: '2019-05-10T17:17:48Z'
+                      - guid: 123e4567-e89b-12d3-a456-426614174000
+                        app:
+                          guid: 123e4567-e89b-12d3-a456-426614174000
+                          process:
+                            type: web
+                        weight: null
+                        port: 8080
+                        protocol: http1
+                        created_at: '2019-05-10T17:17:48Z'
+                        updated_at: '2019-05-10T17:17:48Z'
+                    options:
+                      loadbalancing: round-robin
+                    metadata:
+                      labels: {}
+                      annotations: {}
+                    relationships:
+                      space:
+                        data:
+                          guid: 123e4567-e89b-12d3-a456-426614174000
+                      domain:
+                        data:
+                          guid: 123e4567-e89b-12d3-a456-426614174000
+                    links:
+                      self:
+                        href: >-
+                          https://api.example.org/v3/routes/cbad697f-cac1-48f4-9017-ac08f39dfb31
+                      space:
+                        href: >-
+                          https://api.example.org/v3/spaces/885a8cb3-c07b-4856-b448-eeb10bf36236
+                      domain:
+                        href: >-
+                          https://api.example.org/v3/domains/0b5f3633-194c-42d2-9408-972366617e0e
+                      destinations:
+                        href: >-
+                          https://api.example.org/v3/routes/cbad697f-cac1-48f4-9017-ac08f39dfb31/destinations
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml

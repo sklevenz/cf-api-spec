@@ -1,0 +1,90 @@
+post:
+  summary: Stop an app
+  description: Stop an app.
+  operationId: stopApp
+  tags:
+    - Apps
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '200':
+      description: Successfully stopped app
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/App.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                guid: 123e4567-e89b-12d3-a456-426614174000
+                name: my_app
+                state: STARTED
+                created_at: '2016-03-17T21:41:30Z'
+                updated_at: '2016-03-18T11:32:30Z'
+                lifecycle:
+                  type: buildpack
+                  data:
+                    buildpacks:
+                      - java_buildpack
+                    stack: cflinuxfs4
+                relationships:
+                  space:
+                    data:
+                      guid: 123e4567-e89b-12d3-a456-426614174000
+                  current_droplet:
+                    data:
+                      guid: 123e4567-e89b-12d3-a456-426614174000
+                links:
+                  self:
+                    href: >-
+                      https://api.example.org/v3/apps/1cb006ee-fb05-47e1-b541-c34179ddc446
+                  space:
+                    href: >-
+                      https://api.example.org/v3/spaces/2f35885d-0c9d-4423-83ad-fd05066f8576
+                  processes:
+                    href: >-
+                      https://api.example.org/v3/apps/1cb006ee-fb05-47e1-b541-c34179ddc446/processes
+                  packages:
+                    href: >-
+                      https://api.example.org/v3/apps/1cb006ee-fb05-47e1-b541-c34179ddc446/packages
+                  environment_variables:
+                    href: >-
+                      https://api.example.org/v3/apps/1cb006ee-fb05-47e1-b541-c34179ddc446/environment_variables
+                  current_droplet:
+                    href: >-
+                      https://api.example.org/v3/apps/1cb006ee-fb05-47e1-b541-c34179ddc446/droplets/current
+                  droplets:
+                    href: >-
+                      https://api.example.org/v3/apps/1cb006ee-fb05-47e1-b541-c34179ddc446/droplets
+                  tasks:
+                    href: >-
+                      https://api.example.org/v3/apps/1cb006ee-fb05-47e1-b541-c34179ddc446/tasks
+                  start:
+                    href: >-
+                      https://api.example.org/v3/apps/1cb006ee-fb05-47e1-b541-c34179ddc446/actions/start
+                    method: POST
+                  stop:
+                    href: >-
+                      https://api.example.org/v3/apps/1cb006ee-fb05-47e1-b541-c34179ddc446/actions/stop
+                    method: POST
+                  revisions:
+                    href: >-
+                      https://api.example.org/v3/apps/1cb006ee-fb05-47e1-b541-c34179ddc446/revisions
+                  deployed_revisions:
+                    href: >-
+                      https://api.example.org/v3/apps/1cb006ee-fb05-47e1-b541-c34179ddc446/revisions/deployed
+                  features:
+                    href: >-
+                      https://api.example.org/v3/apps/1cb006ee-fb05-47e1-b541-c34179ddc446/features
+                metadata:
+                  labels: {}
+                  annotations: {}
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '422':
+      $ref: ../components/responses/UnprocessableEntity.yaml

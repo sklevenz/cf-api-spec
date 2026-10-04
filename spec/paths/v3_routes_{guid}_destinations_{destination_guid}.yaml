@@ -1,0 +1,98 @@
+patch:
+  summary: Update a destination protocol for a route
+  description: >-
+    This endpoint updates the protocol of a route destination (app, port and
+    weight cannot be updated)
+  operationId: updateDestinationProtocolForRoute
+  tags:
+    - Routes
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+    - name: destination_guid
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: The GUID of the route destination
+  requestBody:
+    description: Protocol of the destination
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            protocol:
+              type: string
+              description: Protocol of the destination
+              enum:
+                - http1
+                - http2
+          required:
+            - protocol
+        examples:
+          default:
+            summary: default
+            value:
+              protocol: http2
+  responses:
+    '200':
+      description: Successfully updated protocol of the destination
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/RouteDestination.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                guid: 123e4567-e89b-12d3-a456-426614174000
+                app:
+                  guid: 123e4567-e89b-12d3-a456-426614174000
+                  process:
+                    type: web
+                weight: 61
+                port: 8080
+                protocol: http2
+                links:
+                  destinations:
+                    href: >-
+                      https://api.example.org/v3/routes/cbad697f-cac1-48f4-9017-ac08f39dfb31/destinations
+                  route:
+                    href: >-
+                      https://api.example.org/v3/routes/cbad697f-cac1-48f4-9017-ac08f39dfb31
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '422':
+      $ref: ../components/responses/UnprocessableEntity.yaml
+delete:
+  summary: Remove destination for a route
+  description: Remove a destination from a route.
+  operationId: removeDestinationForRoute
+  tags:
+    - Routes
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+    - name: destination_guid
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: The GUID of the route destination to remove
+  responses:
+    '204':
+      description: Successfully removed destination from the route
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '422':
+      $ref: ../components/responses/UnprocessableEntity.yaml

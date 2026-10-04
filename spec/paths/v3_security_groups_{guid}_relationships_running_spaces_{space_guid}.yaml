@@ -1,0 +1,23 @@
+delete:
+  summary: Unbind a running security group from a space
+  description: >-
+    This endpoint removes a space from a security group with the running
+    lifecycle. Apps within this space must be restarted for these changes to
+    take effect.
+  operationId: unbindRunningSecurityGroup
+  tags:
+    - Security Groups
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+    - $ref: ../components/parameters/SpaceGuid.yaml
+  responses:
+    '204':
+      description: No Content
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '422':
+      $ref: ../components/responses/UnprocessableEntity.yaml

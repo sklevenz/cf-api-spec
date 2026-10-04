@@ -1,0 +1,91 @@
+get:
+  summary: Get current droplet association for an app
+  description: This endpoint retrieves the current droplet relationship for an app.
+  operationId: getCurrentDropletAssociationForApp
+  tags:
+    - Apps
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/RelationshipToOne.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                data:
+                  guid: 123e4567-e89b-12d3-a456-426614174000
+                links:
+                  self:
+                    href: >-
+                      https://api.example.org/v3/apps/d4c91047-7b29-4fda-b7f9-04033e5c9c9f/relationships/current_droplet
+                  related:
+                    href: >-
+                      https://api.example.org/v3/apps/d4c91047-7b29-4fda-b7f9-04033e5c9c9f/droplets/current
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+patch:
+  summary: Set current droplet
+  description: >-
+    Set the current droplet for an app. The current droplet is the droplet that
+    the app will use when running.
+  operationId: setCurrentDropletForApp
+  tags:
+    - Apps
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  requestBody:
+    description: Droplet relationship object that needs to be set
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            data:
+              $ref: ../components/schemas/Relationship.yaml
+          required:
+            - data
+          description: Request schema for setting the current droplet
+        examples:
+          default:
+            summary: default
+            value:
+              data:
+                guid: 123e4567-e89b-12d3-a456-426614174000
+  responses:
+    '200':
+      description: Successfully set current droplet
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/RelationshipToOne.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                data:
+                  guid: 123e4567-e89b-12d3-a456-426614174000
+                links:
+                  self:
+                    href: >-
+                      https://api.example.org/v3/apps/d4c91047-7b29-4fda-b7f9-04033e5c9c9f/relationships/current_droplet
+                  related:
+                    href: >-
+                      https://api.example.org/v3/apps/d4c91047-7b29-4fda-b7f9-04033e5c9c9f/droplets/current
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '422':
+      $ref: ../components/responses/UnprocessableEntity.yaml

@@ -1,0 +1,59 @@
+post:
+  summary: Apply a space quota to a space
+  description: >-
+    This endpoint applies a space quota to one or more spaces.
+
+
+    Only an admin or an org manager in the quota’s parent organization can apply
+    a space quota to a space.
+  operationId: applySpaceQuota
+  tags:
+    - Space Quotas
+  parameters:
+    - name: quota_guid
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: GUID of the quota.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/RelationshipToMany.yaml
+        examples:
+          default:
+            summary: default
+            value:
+              data:
+                - guid: 123e4567-e89b-12d3-a456-426614174000
+                - guid: 123e4567-e89b-12d3-a456-426614174000
+    description: Request body for apply a space quota to a space.
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/RelationshipToMany.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                data:
+                  - guid: 123e4567-e89b-12d3-a456-426614174000
+                  - guid: 123e4567-e89b-12d3-a456-426614174000
+                  - guid: 123e4567-e89b-12d3-a456-426614174000
+                links:
+                  self:
+                    href: >-
+                      https://api.example.org/v3/space_quotas/quota-guid/relationships/spaces
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '422':
+      $ref: ../components/responses/UnprocessableEntity.yaml

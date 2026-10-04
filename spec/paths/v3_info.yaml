@@ -1,0 +1,106 @@
+get:
+  summary: Get platform info
+  description: Get information about the platform.
+  operationId: getPlatformInfo
+  security: []
+  tags:
+    - Info
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Name of the platform
+              build:
+                type: string
+                description: Build number of the platform
+              version:
+                type: integer
+                description: Version number of the platform
+              description:
+                type: string
+                description: Description of the platform
+              cli_version:
+                type: object
+                description: Minimum and recommended CLI versions
+                properties:
+                  minimum:
+                    type: string
+                    description: Minimum CLI version
+                  recommended:
+                    type: string
+                    description: Recommended CLI version
+              custom:
+                type: object
+                description: Custom information about the platform
+                additionalProperties:
+                  type: string
+              links:
+                type: object
+                description: Links to related resources
+                properties:
+                  self:
+                    allOf:
+                      - $ref: ../components/schemas/Link.yaml
+                      - description: Link to the current endpoint
+                    type: object
+                  support:
+                    allOf:
+                      - $ref: ../components/schemas/Link.yaml
+                      - description: Link to the support website for the platform
+                    type: object
+              osbapi_version:
+                type: string
+                description: Supported Open Service Broker API version.
+              rate_limits:
+                type: object
+                properties:
+                  enabled:
+                    type: boolean
+                  general_limit:
+                    type: integer
+                  reset_interval_in_minutes:
+                    type: integer
+          examples:
+            default:
+              summary: default
+              value:
+                build: ''
+                cli_version:
+                  minimum: ''
+                  recommended: ''
+                custom: {}
+                description: ''
+                name: ''
+                version: 0
+                osbapi_version: ''
+                rate_limits:
+                  enabled: false
+                  general_limit: 2000
+                  reset_interval_in_minutes: 30
+                links:
+                  self:
+                    href: http://api.example.com/v3/info
+                  support:
+                    href: ''
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '409':
+      $ref: ../components/responses/Conflict.yaml
+    '422':
+      $ref: ../components/responses/UnprocessableEntity.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+    '502':
+      $ref: ../components/responses/BadGateway.yaml
+    '503':
+      $ref: ../components/responses/ServiceUnavailable.yaml

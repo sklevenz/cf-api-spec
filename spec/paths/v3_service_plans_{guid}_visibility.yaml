@@ -1,0 +1,97 @@
+get:
+  summary: Get a service plan visibility
+  description: This endpoint retrieves the service plan visibility for a given plan.
+  operationId: getServicePlanVisibility
+  tags:
+    - Service Plans
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ServicePlanVisibility.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                type: public
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+patch:
+  summary: Update a service plan visibility
+  description: >-
+    This endpoint updates a service plan visibility. It behaves similar to the
+    [POST service plan visibility endpoint](#apply-a-service-plan-visibility)
+    but this endpoint will replace the existing list of organizations when the
+    service plan is `organization` visible.
+  operationId: updateServicePlanVisibility
+  tags:
+    - Service Plans
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  requestBody:
+    $ref: ../components/requestBodies/ServicePlanVisibilityUpdateRequestBody.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ServicePlanVisibility.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '422':
+      $ref: ../components/responses/UnprocessableEntity.yaml
+post:
+  summary: Apply a service plan visibility
+  description: >-
+    This endpoint applies a service plan visibility. It behaves similar to the
+    [PATCH service plan visibility endpoint](#update-a-service-plan-visibility)
+    but this endpoint will append to the existing list of organizations when the
+    service plan is `organization` visible.
+  operationId: applyServicePlanVisibility
+  tags:
+    - Service Plans
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  requestBody:
+    $ref: ../components/requestBodies/ServicePlanVisibilityCreateRequestBody.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ServicePlanVisibility.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                type: organization
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '409':
+      $ref: ../components/responses/Conflict.yaml
+    '422':
+      $ref: ../components/responses/UnprocessableEntity.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+    '503':
+      $ref: ../components/responses/ServiceUnavailable.yaml

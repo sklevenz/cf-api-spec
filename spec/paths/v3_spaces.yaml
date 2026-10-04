@@ -1,0 +1,211 @@
+get:
+  summary: List spaces
+  description: Retrieve all spaces the user has access to.
+  operationId: listSpaces
+  tags:
+    - Spaces
+  parameters:
+    - $ref: ../components/parameters/Page.yaml
+    - $ref: ../components/parameters/PerPage.yaml
+    - $ref: ../components/parameters/OrderBy.yaml
+    - $ref: ../components/parameters/CreatedAts.yaml
+    - $ref: ../components/parameters/UpdatedAts.yaml
+    - $ref: ../components/parameters/LabelSelector.yaml
+    - name: names
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of space names to filter by
+    - name: guids
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of space guids to filter by
+    - name: organization_guids
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Comma-delimited list of organization guids to filter by
+    - name: include
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - organization
+      description: Optionally include a list of unique related resources in the response
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/SpaceList.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                pagination:
+                  total_results: 2
+                  total_pages: 1
+                  first:
+                    href: https://api.example.org/v3/spaces?page=1&per_page=50
+                  last:
+                    href: https://api.example.org/v3/spaces?page=1&per_page=50
+                  next: null
+                  previous: null
+                resources:
+                  - guid: 123e4567-e89b-12d3-a456-426614174000
+                    created_at: '2017-02-01T01:33:58Z'
+                    updated_at: '2017-02-01T01:33:58Z'
+                    name: space1
+                    relationships:
+                      organization:
+                        data:
+                          guid: 123e4567-e89b-12d3-a456-426614174000
+                      quota:
+                        data: null
+                    links:
+                      self:
+                        href: >-
+                          https://api.example.org/v3/spaces/885735b5-aea4-4cf5-8e44-961af0e41920
+                      features:
+                        href: >-
+                          https://api.example.org/v3/spaces/885735b5-aea4-4cf5-8e44-961af0e41920/features
+                      organization:
+                        href: >-
+                          https://api.example.org/v3/organizations/e00705b9-7b42-4561-ae97-2520399d2133
+                      apply_manifest:
+                        href: >-
+                          https://api.example.org/v3/spaces/885735b5-aea4-4cf5-8e44-961af0e41920/actions/apply_manifest
+                        method: POST
+                    metadata:
+                      labels: {}
+                      annotations: {}
+                  - guid: 123e4567-e89b-12d3-a456-426614174000
+                    created_at: '2017-02-02T00:14:30Z'
+                    updated_at: '2017-02-02T00:14:30Z'
+                    name: space2
+                    relationships:
+                      organization:
+                        data:
+                          guid: 123e4567-e89b-12d3-a456-426614174000
+                      quota:
+                        data:
+                          guid: 123e4567-e89b-12d3-a456-426614174000
+                    links:
+                      self:
+                        href: >-
+                          https://api.example.org/v3/spaces/d4c91047-7b29-4fda-b7f9-04033e5c9c9f
+                      features:
+                        href: >-
+                          https://api.example.org/v3/spaces/d4c91047-7b29-4fda-b7f9-04033e5c9c9f/features
+                      organization:
+                        href: >-
+                          https://api.example.org/v3/organizations/b4ce91bd-31df-4b7d-8fd4-21a6b533276b
+                      quota:
+                        href: >-
+                          https://api.example.org/v3/space_quotas/6da62599-4890-4a08-8b6f-180a4f47e46b
+                      apply_manifest:
+                        href: >-
+                          https://api.example.org/v3/spaces/d4c91047-7b29-4fda-b7f9-04033e5c9c9/actions/apply_manifest
+                        method: POST
+                    metadata:
+                      labels: {}
+                      annotations: {}
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '409':
+      $ref: ../components/responses/Conflict.yaml
+    '422':
+      $ref: ../components/responses/UnprocessableEntity.yaml
+    '429':
+      $ref: ../components/responses/TooManyRequests.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+    '502':
+      $ref: ../components/responses/BadGateway.yaml
+    '503':
+      $ref: ../components/responses/ServiceUnavailable.yaml
+post:
+  summary: Create a space
+  description: Create a space.
+  operationId: createSpace
+  tags:
+    - Spaces
+  requestBody:
+    $ref: ../components/requestBodies/SpaceCreateRequestBody.yaml
+  responses:
+    '201':
+      description: Created
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Space.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                guid: 123e4567-e89b-12d3-a456-426614174000
+                created_at: '2017-02-01T01:33:58Z'
+                updated_at: '2017-02-01T01:33:58Z'
+                name: my-space
+                relationships:
+                  organization:
+                    data:
+                      guid: 123e4567-e89b-12d3-a456-426614174000
+                  quota:
+                    data: null
+                links:
+                  self:
+                    href: >-
+                      https://api.example.org/v3/spaces/885735b5-aea4-4cf5-8e44-961af0e41920
+                  features:
+                    href: >-
+                      https://api.example.org/v3/spaces/885735b5-aea4-4cf5-8e44-961af0e41920/features
+                  organization:
+                    href: >-
+                      https://api.example.org/v3/organizations/e00705b9-7b42-4561-ae97-2520399d2133
+                  apply_manifest:
+                    href: >-
+                      https://api.example.org/v3/spaces/885735b5-aea4-4cf5-8e44-961af0e41920/actions/apply_manifest
+                    method: POST
+                metadata:
+                  labels: {}
+                  annotations: {}
+      links:
+        organization:
+          operationId: getOrganization
+          parameters:
+            guid: $response.body#/relationships/organization/data/guid
+          description: Retrieve the organization for this space
+        quota:
+          operationId: getSpaceQuota
+          parameters:
+            guid: $response.body#/relationships/quota/data/guid
+          description: Retrieve the quota associated with this space
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '409':
+      $ref: ../components/responses/Conflict.yaml
+    '422':
+      $ref: ../components/responses/UnprocessableEntity.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+    '503':
+      $ref: ../components/responses/ServiceUnavailable.yaml

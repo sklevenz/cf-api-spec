@@ -1,0 +1,153 @@
+get:
+  summary: Get an organization
+  description: This endpoint retrieves the specified organization object.
+  operationId: getOrganization
+  tags:
+    - Organizations
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Organization.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                guid: 123e4567-e89b-12d3-a456-426614174000
+                created_at: '2017-02-01T01:33:58Z'
+                updated_at: '2017-02-01T01:33:58Z'
+                name: my-organization
+                suspended: false
+                relationships:
+                  quota:
+                    data:
+                      guid: 123e4567-e89b-12d3-a456-426614174000
+                links:
+                  self:
+                    href: >-
+                      https://api.example.org/v3/organizations/24637893-3b77-489d-bb79-8466f0d88b52
+                  domains:
+                    href: >-
+                      https://api.example.org/v3/organizations/24637893-3b77-489d-bb79-8466f0d88b52/domains
+                  default_domain:
+                    href: >-
+                      https://api.example.org/v3/organizations/24637893-3b77-489d-bb79-8466f0d88b52/domains/default
+                  quota:
+                    href: >-
+                      https://api.example.org/v3/organization_quotas/b7887f5c-34bb-40c5-9778-577572e4fb2d
+                metadata:
+                  labels: {}
+                  annotations: {}
+      links:
+        quota:
+          operationId: getOrganizationQuota
+          parameters:
+            guid: $response.body#/relationships/quota/data/guid
+            description: Retrieve the quota associated with this organization
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+patch:
+  summary: Update an organization
+  description: Update an organization.
+  operationId: updateOrganization
+  tags:
+    - Organizations
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  requestBody:
+    $ref: ../components/requestBodies/OrganizationUpdateRequestBody.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Organization.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                guid: 123e4567-e89b-12d3-a456-426614174000
+                created_at: '2017-02-01T01:33:58Z'
+                updated_at: '2017-02-01T01:33:58Z'
+                name: my-organization
+                suspended: false
+                relationships:
+                  quota:
+                    data:
+                      guid: 123e4567-e89b-12d3-a456-426614174000
+                links:
+                  self:
+                    href: >-
+                      https://api.example.org/v3/organizations/24637893-3b77-489d-bb79-8466f0d88b52
+                  domains:
+                    href: >-
+                      https://api.example.org/v3/organizations/24637893-3b77-489d-bb79-8466f0d88b52/domains
+                  default_domain:
+                    href: >-
+                      https://api.example.org/v3/organizations/24637893-3b77-489d-bb79-8466f0d88b52/domains/default
+                  quota:
+                    href: >-
+                      https://api.example.org/v3/organization_quotas/b7887f5c-34bb-40c5-9778-577572e4fb2d
+                metadata:
+                  labels: {}
+                  annotations: {}
+      links:
+        quota:
+          operationId: getOrganizationQuota
+          parameters:
+            guid: $response.body#/relationships/quota/data/guid
+          description: Retrieve the quota associated with this organization
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '409':
+      $ref: ../components/responses/Conflict.yaml
+    '422':
+      $ref: ../components/responses/UnprocessableEntity.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+    '503':
+      $ref: ../components/responses/ServiceUnavailable.yaml
+delete:
+  summary: Delete an organization
+  description: >-
+    When an organization is deleted, user roles associated with the organization
+    will also be deleted.
+  operationId: deleteOrganization
+  tags:
+    - Organizations
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '202':
+      description: Accepted
+      headers:
+        location:
+          description: URL of the job to query the asynchronous operation
+          schema:
+            type: string
+            format: uri
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '422':
+      $ref: ../components/responses/UnprocessableEntity.yaml
+    '500':
+      $ref: ../components/responses/500.yaml

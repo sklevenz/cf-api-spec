@@ -1,0 +1,86 @@
+get:
+  summary: Global API Root
+  description: >-
+    This endpoint returns links to the APIs available on a given Cloud Foundry
+    deployment.
+  operationId: getApiRoot
+  security: []
+  tags:
+    - Root
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              links:
+                type: object
+                description: Links to related resources
+                properties:
+                  self:
+                    allOf:
+                      - $ref: ../components/schemas/IndexLink.yaml
+                      - description: Link to the current endpoint
+                    type: object
+                  cloud_controller_v2:
+                    allOf:
+                      - $ref: ../components/schemas/IndexLink.yaml
+                      - description: Link to the Cloud Controller V2 API
+                    type: object
+                  cloud_controller_v3:
+                    allOf:
+                      - $ref: ../components/schemas/IndexLink.yaml
+                      - description: Link to the Cloud Controller V3 API
+                    type: object
+                  network_policy_v1:
+                    allOf:
+                      - $ref: ../components/schemas/IndexLink.yaml
+                      - description: Link to the Network Policy V1 API
+                    type: object
+                  uaa:
+                    allOf:
+                      - $ref: ../components/schemas/IndexLink.yaml
+                      - description: Link to the UAA API
+                    type: object
+                  logging:
+                    allOf:
+                      - $ref: ../components/schemas/IndexLink.yaml
+                      - description: Link to the Logging API
+                    type: object
+                  log_cache:
+                    allOf:
+                      - $ref: ../components/schemas/IndexLink.yaml
+                      - description: Link to the Log Cache API
+                    type: object
+                  log_stream:
+                    allOf:
+                      - $ref: ../components/schemas/IndexLink.yaml
+                      - description: Link to the Log Stream API
+                    type: object
+                  login:
+                    $ref: ../components/schemas/IndexLink.yaml
+                    type: object
+                    description: Link to the login service.
+          examples:
+            local:
+              summary: >-
+                Discovery endpoints for the local Prism and UAA mock on port
+                4010
+              value:
+                links:
+                  self:
+                    href: http://127.0.0.1:4010
+                  cloud_controller_v3:
+                    href: http://127.0.0.1:4010/v3
+                    meta:
+                      version: 3.232.0
+                  login:
+                    href: http://127.0.0.1:4010
+                  uaa:
+                    href: http://127.0.0.1:4010
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '500':
+      $ref: ../components/responses/500.yaml

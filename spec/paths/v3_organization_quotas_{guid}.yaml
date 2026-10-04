@@ -1,0 +1,143 @@
+get:
+  summary: Get an organization quota
+  description: This endpoint gets an individual organization quota resource.
+  operationId: getOrganizationQuota
+  tags:
+    - Organization Quotas
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/OrganizationQuota.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                guid: 123e4567-e89b-12d3-a456-426614174000
+                created_at: '2016-05-04T17:00:41Z'
+                updated_at: '2016-05-04T17:00:41Z'
+                name: don-quixote
+                apps:
+                  total_memory_in_mb: 5120
+                  per_process_memory_in_mb: 1024
+                  log_rate_limit_in_bytes_per_second: 1024
+                  total_instances: 10
+                  per_app_tasks: 5
+                services:
+                  paid_services_allowed: true
+                  total_service_instances: 10
+                  total_service_keys: 20
+                routes:
+                  total_routes: 8
+                  total_reserved_ports: 4
+                domains:
+                  total_domains: 7
+                relationships:
+                  organizations:
+                    data:
+                      - guid: 123e4567-e89b-12d3-a456-426614174000
+                links:
+                  self:
+                    href: https://api.example.org/v3/organization_quotas/quota-guid
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+patch:
+  summary: Update an organization quota
+  description: >-
+    This endpoint will only update the parameters specified in the request body.
+    Any unspecified parameters will retain their existing values.
+  operationId: updateOrganizationQuota
+  tags:
+    - Organization Quotas
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  requestBody:
+    $ref: ../components/requestBodies/OrganizationQuotaUpdateRequestBody.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/OrganizationQuota.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                guid: 123e4567-e89b-12d3-a456-426614174000
+                created_at: '2016-05-04T17:00:41Z'
+                updated_at: '2016-05-04T17:00:41Z'
+                name: don-quixote
+                apps:
+                  total_memory_in_mb: 5120
+                  per_process_memory_in_mb: 1024
+                  log_rate_limit_in_bytes_per_second: 1024
+                  total_instances: 10
+                  per_app_tasks: 5
+                services:
+                  paid_services_allowed: true
+                  total_service_instances: 10
+                  total_service_keys: 20
+                routes:
+                  total_routes: 8
+                  total_reserved_ports: 4
+                domains:
+                  total_domains: 7
+                relationships:
+                  organizations:
+                    data:
+                      - guid: 123e4567-e89b-12d3-a456-426614174000
+                links:
+                  self:
+                    href: https://api.example.org/v3/organization_quotas/quota-guid
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '409':
+      $ref: ../components/responses/Conflict.yaml
+    '422':
+      $ref: ../components/responses/UnprocessableEntity.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+    '503':
+      $ref: ../components/responses/ServiceUnavailable.yaml
+delete:
+  summary: Delete an organization quota
+  description: Organization quotas cannot be deleted when applied to any organizations.
+  operationId: deleteOrganizationQuota
+  tags:
+    - Organization Quotas
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '202':
+      description: Accepted
+      headers:
+        Location:
+          description: URL of the job that is deleting the organization quota
+          schema:
+            type: string
+            format: uri
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '422':
+      $ref: ../components/responses/UnprocessableEntity.yaml
+    '500':
+      $ref: ../components/responses/500.yaml

@@ -1,0 +1,106 @@
+get:
+  summary: Get a role
+  description: This endpoint gets an individual role resource.
+  operationId: getRole
+  tags:
+    - Roles
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+    - name: include
+      in: query
+      description: >-
+        Optionally include additional related resources in the response; valid
+        values are `user`, `space`, and `organization`.
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - user
+            - space
+            - organization
+  responses:
+    '200':
+      description: Role retrieved
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Role.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                guid: 123e4567-e89b-12d3-a456-426614174000
+                created_at: '2019-10-10T17:19:12Z'
+                updated_at: '2019-10-10T17:19:12Z'
+                type: organization_auditor
+                relationships:
+                  user:
+                    data:
+                      guid: 123e4567-e89b-12d3-a456-426614174000
+                  user_group:
+                    data: null
+                  organization:
+                    data:
+                      guid: 123e4567-e89b-12d3-a456-426614174000
+                  space:
+                    data: null
+                links:
+                  self:
+                    href: >-
+                      https://api.example.org/v3/roles/40557c70-d1bd-4976-a2ab-a85f5e882418
+                  user:
+                    href: >-
+                      https://api.example.org/v3/users/59eadb5f-fc13-414f-84ba-77a35e239cc8
+                  organization:
+                    href: >-
+                      https://api.example.org/v3/organizations/05c5da3b-6cbc-421c-87c3-20bb3c41ab7c
+      links:
+        user:
+          operationId: getUser
+          parameters:
+            guid: $response.body#/relationships/user/data/guid
+          description: Retrieve the user for this role
+        organization:
+          operationId: getOrganization
+          parameters:
+            guid: $response.body#/relationships/organization/data/guid
+          description: Retrieve the organization for this role (if organization role)
+        space:
+          operationId: getSpace
+          parameters:
+            guid: $response.body#/relationships/space/data/guid
+          description: Retrieve the space for this role (if space role)
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+delete:
+  summary: Delete a role
+  description: This endpoint deletes an individual role.
+  operationId: deleteRole
+  tags:
+    - Roles
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '202':
+      description: Accepted
+      headers:
+        Location:
+          description: URL of the job that is deleting the role
+          schema:
+            type: string
+            format: uri
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '422':
+      $ref: ../components/responses/UnprocessableEntity.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
