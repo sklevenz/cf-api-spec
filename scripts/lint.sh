@@ -45,7 +45,8 @@ main() {
     run "vacuum lint" \
       npx --yes vacuum lint "${spec_path}" \
         --ruleset="${VACUUM_RULESET}" \
-        --ignore-file "${VACUUM_IGNORE}"
+        --ignore-file "${VACUUM_IGNORE}" \
+        --timeout 30
   fi
 
   echo ""
