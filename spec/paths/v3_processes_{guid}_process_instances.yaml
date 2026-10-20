@@ -1,0 +1,70 @@
+get:
+  summary: List instances for a process
+  description: >-
+    Retrieve the instances for a process. Unlike the stats endpoint, this
+    returns a simplified view with only the index, state, and uptime of each
+    instance.
+  operationId: listProcessInstances
+  tags:
+    - Processes
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              resources:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    index:
+                      type: integer
+                    state:
+                      type: string
+                      enum:
+                        - RUNNING
+                        - CRASHED
+                        - STARTING
+                        - DOWN
+                    since:
+                      type: number
+                      format: double
+              links:
+                type: object
+                properties:
+                  self:
+                    $ref: ../components/schemas/Link.yaml
+                  process:
+                    $ref: ../components/schemas/Link.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                resources:
+                  - index: 0
+                    state: RUNNING
+                    since: 123456789
+                  - index: 1
+                    state: STARTING
+                    since: 123
+                  - index: 2
+                    state: DOWN
+                    since: 456
+                links:
+                  self:
+                    href: >-
+                      https://api.example.org/v3/processes/6a901b7c-9417-4dc1-8189-d3234aa0ab82/process_instances
+                  process:
+                    href: >-
+                      https://api.example.org/v3/processes/6a901b7c-9417-4dc1-8189-d3234aa0ab82
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml

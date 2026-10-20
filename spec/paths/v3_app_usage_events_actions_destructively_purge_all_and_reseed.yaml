@@ -1,0 +1,30 @@
+post:
+  summary: Purge and seed app usage events
+  description: |-
+    Destroys all existing events. Populates new usage events, one for each
+    started app. All populated events will have a created_at value of
+    current time. There is the potential race condition if apps are
+    currently being started, stopped, or scaled. The seeded usage events
+    will have the same guid as the app.
+  operationId: purgeAndSeedAppUsageEvents
+  tags:
+    - App Usage Events
+  responses:
+    '200':
+      description: OK
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '409':
+      $ref: ../components/responses/Conflict.yaml
+    '422':
+      $ref: ../components/responses/UnprocessableEntity.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+    '503':
+      $ref: ../components/responses/ServiceUnavailable.yaml

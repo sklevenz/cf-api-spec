@@ -1,0 +1,63 @@
+get:
+  summary: Get usage summary in shared spaces
+  description: >-
+    This endpoint returns the number of bound apps in spaces where the service
+    instance has been shared to.
+  operationId: getServiceInstanceUsageSummaryInSharedSpaces
+  tags:
+    - Service Instances
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              usage_summary:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    space:
+                      $ref: ../components/schemas/Relationship.yaml
+                    bound_app_count:
+                      type: integer
+              links:
+                type: object
+                properties:
+                  self:
+                    $ref: ../components/schemas/Link.yaml
+                  shared_spaces:
+                    $ref: ../components/schemas/Link.yaml
+                  service_instance:
+                    $ref: ../components/schemas/Link.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                usage_summary:
+                  - space:
+                      guid: 123e4567-e89b-12d3-a456-426614174000
+                    bound_app_count: 2
+                  - space:
+                      guid: 123e4567-e89b-12d3-a456-426614174000
+                    bound_app_count: 0
+                links:
+                  self:
+                    href: >-
+                      https://api.example.org/v3/service_instances/bdeg4371-cbd3-4155-b156-dc0c2a431b4c/relationships/shared_spaces/usage_summary
+                  shared_spaces:
+                    href: >-
+                      https://api.example.org/v3/service_instances/bdeg4371-cbd3-4155-b156-dc0c2a431b4c/relationships/shared_spaces
+                  service_instance:
+                    href: >-
+                      https://api.example.org/v3/service_instances/bdeg4371-cbd3-4155-b156-dc0c2a431b4c
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml

@@ -1,0 +1,105 @@
+get:
+  summary: Get a stack
+  description: Get a stack.
+  operationId: getStack
+  tags:
+    - Stacks
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Stack.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+patch:
+  summary: Update a stack
+  description: Update a stack.
+  operationId: updateStack
+  tags:
+    - Stacks
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  requestBody:
+    content:
+      application/json:
+        schema:
+          properties:
+            metadata:
+              $ref: ../components/schemas/Metadata.yaml
+            state:
+              type: string
+              enum:
+                - ACTIVE
+                - DEPRECATED
+                - RESTRICTED
+                - DISABLED
+            state_reason:
+              type:
+                - string
+                - 'null'
+              description: Optional explanation of the stack state change.
+          type: object
+        examples:
+          default:
+            summary: default
+            value:
+              metadata:
+                labels:
+                  key: value
+                annotations:
+                  note: detailed information
+              state: ACTIVE
+              state_reason: Optional plain text describing the stack state change
+    description: Request body for update a stack.
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Stack.yaml
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '409':
+      $ref: ../components/responses/Conflict.yaml
+    '422':
+      $ref: ../components/responses/UnprocessableEntity.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+    '503':
+      $ref: ../components/responses/ServiceUnavailable.yaml
+delete:
+  summary: Delete a stack
+  description: Delete a stack.
+  operationId: deleteStack
+  tags:
+    - Stacks
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '204':
+      description: No Content
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '422':
+      $ref: ../components/responses/UnprocessableEntity.yaml
+    '500':
+      $ref: ../components/responses/500.yaml

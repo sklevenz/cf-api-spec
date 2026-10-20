@@ -1,0 +1,29 @@
+type: object
+allOf:
+  - $ref: ./BaseSchema.yaml
+  - properties:
+      name:
+        type: string
+        description: Name of the isolation segment
+      metadata:
+        $ref: ./Metadata.yaml
+        description: Labels and annotations on the isolation segment
+        type: object
+      links:
+        type: object
+        properties:
+          self:
+            $ref: ./Link.yaml
+            description: The URL to get this isolation segment
+            type: object
+          organizations:
+            $ref: ./Link.yaml
+            description: >-
+              The URL to get the organizations entitled to this isolation
+              segment
+            type: object
+        description: Links to related resources
+    type: object
+description: >-
+  Isolation Segments provide dedicated pools of resources to which apps can be
+  deployed to isolate workloads.

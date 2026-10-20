@@ -1,0 +1,56 @@
+post:
+  summary: Scale a process for an app
+  description: Scale a specific process for an app.
+  operationId: scaleProcessForApp
+  tags:
+    - Processes
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+    - name: type
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Process type, such as web or worker.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          properties:
+            instances:
+              type:
+                - integer
+                - 'null'
+              description: The number of instances to run
+            memory_in_mb:
+              type:
+                - integer
+                - 'null'
+              description: The memory in MB allocated per instance
+            disk_in_mb:
+              type:
+                - integer
+                - 'null'
+              description: The disk in MB allocated per instance
+            log_rate_limit_in_bytes_per_second:
+              type:
+                - integer
+                - 'null'
+              description: The log rate limit in bytes per second per instance
+          type: object
+    description: Request body for scale a process for an app.
+  responses:
+    '202':
+      description: Accepted
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Process.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '422':
+      $ref: ../components/responses/UnprocessableEntity.yaml

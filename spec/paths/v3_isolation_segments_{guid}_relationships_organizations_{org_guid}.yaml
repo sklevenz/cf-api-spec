@@ -1,0 +1,33 @@
+delete:
+  summary: Revoke entitlement to isolation segment for an organization
+  description: >-
+    This endpoint revokes the entitlement for the specified organization to the
+    isolation segment. If the isolation segment is assigned to a space within an
+    organization, the entitlement cannot be revoked. If the isolation segment is
+    the organization's default, the entitlement cannot be revoked.
+
+
+    **Permitted roles:** Admin
+  operationId: revokeIsolationSegmentForOrganization
+  tags:
+    - Isolation Segments
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+    - name: org_guid
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: The guid of the organization to revoke entitlement from
+  responses:
+    '204':
+      description: No Content
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '422':
+      $ref: ../components/responses/UnprocessableEntity.yaml

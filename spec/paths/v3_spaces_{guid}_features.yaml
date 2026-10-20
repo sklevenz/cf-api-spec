@@ -1,0 +1,39 @@
+get:
+  summary: List space features
+  description: >-
+    This endpoint retrieves the list of features for the specified space.
+    Currently, the only feature on spaces is the SSH feature.
+  operationId: listSpaceFeatures
+  tags:
+    - Spaces
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              resources:
+                type: array
+                items:
+                  $ref: ../components/schemas/SpaceFeature.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                resources:
+                  - name: ssh
+                    description: Enable SSHing into apps in the space.
+                    enabled: true
+                  - name: diego_docker
+                    description: Allow Docker image support for the space.
+                    enabled: false
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml

@@ -1,0 +1,50 @@
+get:
+  summary: Get environment variables for a revision
+  description: Retrieve the environment variables that are associated with the revision.
+  operationId: getRevisionEnvironmentVariables
+  tags:
+    - Revisions
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '200':
+      description: Successfully retrieved revision environment variables
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              var:
+                type: object
+                description: Environment variables for the revision
+                additionalProperties:
+                  type: string
+              links:
+                type: object
+                properties:
+                  self:
+                    $ref: ../components/schemas/Link.yaml
+                  revision:
+                    $ref: ../components/schemas/Link.yaml
+                  app:
+                    $ref: ../components/schemas/Link.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                var:
+                  RAILS_ENV: production
+                links:
+                  self:
+                    href: >-
+                      https://api.example.org/v3/revisions/[guid]/environment_variables
+                  revision:
+                    href: https://api.example.org/v3/revisions/[guid]
+                  app:
+                    href: https://api.example.org/v3/apps/[app_guid]
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml

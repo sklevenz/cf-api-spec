@@ -1,0 +1,72 @@
+get:
+  summary: List feature flags
+  description: Retrieve all feature_flags.
+  operationId: listFeatureFlags
+  tags:
+    - Feature Flags
+  parameters:
+    - $ref: ../components/parameters/Page.yaml
+    - $ref: ../components/parameters/PerPage.yaml
+    - $ref: ../components/parameters/OrderBy.yaml
+    - name: updated_ats
+      in: query
+      required: false
+      schema:
+        type: string
+      description: >
+        Timestamp to filter by. When filtering on equality, several
+        comma-delimited timestamps may be passed.
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/FeatureFlagList.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                pagination:
+                  total_results: 3
+                  total_pages: 2
+                  first:
+                    href: https://api.example.org/v3/feature_flags?page=1&per_page=2
+                  last:
+                    href: https://api.example.org/v3/feature_flags?page=2&per_page=2
+                  next:
+                    href: https://api.example.org/v3/feature_flags?page=2&per_page=2
+                  previous: null
+                resources:
+                  - name: my_feature_flag
+                    enabled: true
+                    updated_at: '2016-10-17T20:00:42Z'
+                    custom_error_message: error message the user sees
+                    links:
+                      self:
+                        href: >-
+                          https://api.example.org/v3/feature_flags/my_feature_flag
+                  - name: my_second_feature_flag
+                    enabled: false
+                    updated_at: null
+                    custom_error_message: null
+                    links:
+                      self:
+                        href: >-
+                          https://api.example.org/v3/feature_flags/my_second_feature_flag
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '409':
+      $ref: ../components/responses/Conflict.yaml
+    '422':
+      $ref: ../components/responses/UnprocessableEntity.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+    '502':
+      $ref: ../components/responses/BadGateway.yaml
+    '503':
+      $ref: ../components/responses/ServiceUnavailable.yaml

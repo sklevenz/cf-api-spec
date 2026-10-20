@@ -1,0 +1,74 @@
+get:
+  summary: Get usage summary
+  description: >-
+    This endpoint retrieves the specified organization object's memory and app
+    instance usage summary.
+  operationId: getUsageSummaryForOrganization
+  tags:
+    - Organizations
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              usage_summary:
+                type: object
+                properties:
+                  started_instances:
+                    type: integer
+                  memory_in_mb:
+                    type: integer
+                  routes:
+                    type: integer
+                  service_instances:
+                    type: integer
+                  reserved_ports:
+                    type: integer
+                  domains:
+                    type: integer
+                  per_app_tasks:
+                    type: integer
+                  service_keys:
+                    type: integer
+              links:
+                type: object
+                properties:
+                  self:
+                    $ref: ../components/schemas/Link.yaml
+                    description: The URL to get this usage summary
+                    type: object
+                  organization:
+                    $ref: ../components/schemas/Link.yaml
+                    description: The URL to get the organization for this usage summary
+                    type: object
+          examples:
+            default:
+              summary: default
+              value:
+                usage_summary:
+                  started_instances: 3
+                  memory_in_mb: 50
+                  routes: 4
+                  service_instances: 2
+                  reserved_ports: 1
+                  domains: 4
+                  per_app_tasks: 2
+                  service_keys: 1
+                links:
+                  self:
+                    href: >-
+                      https://api.example.org/v3/organizations/d4c91047-7b29-4fda-b7f9-04033e5c9c9f/usage_summary
+                  organization:
+                    href: >-
+                      https://api.example.org/v3/organizations/d4c91047-7b29-4fda-b7f9-04033e5c9c9f
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml

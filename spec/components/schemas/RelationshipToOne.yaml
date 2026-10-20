@@ -1,0 +1,16 @@
+type: object
+properties:
+  data:
+    anyOf:
+      - $ref: ./Relationship.yaml
+      - type: 'null'
+  links:
+    type: object
+    properties:
+      self:
+        $ref: ./Link.yaml
+      related:
+        $ref: ./Link.yaml
+description: >
+  Some relationships relate a resource to exactly one other resource. For
+  example an app can belong to only one space.

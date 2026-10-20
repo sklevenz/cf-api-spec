@@ -1,0 +1,75 @@
+get:
+  summary: Get stats for a process
+  description: Get stats for a process.
+  operationId: getProcessStats
+  tags:
+    - Processes
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ProcessStats.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                resources:
+                  - type: web
+                    index: 0
+                    instance_guid: 123e4567-e89b-12d3-a456-426614174000
+                    state: RUNNING
+                    routable: true
+                    usage:
+                      time: '2016-03-23T23:17:30.476314154Z'
+                      cpu: 0.00038711029163348665
+                      cpu_entitlement: 0.01117396940977856
+                      mem: 19177472
+                      disk: 69705728
+                      log_rate: 0
+                    host: 10.244.16.10
+                    instance_internal_ip: 10.255.93.167
+                    instance_ports:
+                      - external: 64546
+                        internal: 8080
+                        external_tls_proxy_port: 61002
+                        internal_tls_proxy_port: 61003
+                    uptime: 9042
+                    mem_quota: 268435456
+                    disk_quota: 1073741824
+                    fds_quota: 16384
+                    isolation_segment: example_iso_segment
+                    log_rate_limit: null
+                    details: null
+                  - type: web
+                    index: 1
+                    state: STARTING
+                    routable: false
+                    usage:
+                      cpu: 0
+                      cpu_entitlement: 0
+                      disk: 0
+                      log_rate: 0
+                      mem: 0
+                      time: '2016-03-23T21:34:04+00:00'
+                    disk_quota: null
+                    fds_quota: 16384
+                    host: ''
+                    instance_internal_ip: ''
+                    instance_ports: null
+                    isolation_segment: null
+                    log_rate_limit: null
+                    mem_quota: null
+                    uptime: 0
+                    details: null
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '503':
+      $ref: ../components/responses/ServiceUnavailable.yaml

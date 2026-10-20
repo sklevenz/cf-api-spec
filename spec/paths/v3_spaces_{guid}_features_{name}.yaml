@@ -1,0 +1,88 @@
+get:
+  summary: Get a space feature
+  description: Get a space feature
+  operationId: getSpaceFeature
+  tags:
+    - Spaces
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+    - name: name
+      in: path
+      required: true
+      schema:
+        type: string
+        enum:
+          - ssh
+      description: Name of the feature.
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/SpaceFeature.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                name: ssh
+                description: Enable SSHing into apps in the space.
+                enabled: true
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+patch:
+  summary: Update a space feature
+  description: Update a space feature.
+  operationId: updateSpaceFeature
+  tags:
+    - Spaces
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+    - name: name
+      in: path
+      required: true
+      schema:
+        type: string
+        enum:
+          - ssh
+      description: Name of the feature.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          properties:
+            enabled:
+              type: boolean
+          type: object
+        examples:
+          default:
+            summary: default
+            value:
+              enabled: true
+    description: Request body for update a space feature.
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/SpaceFeature.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                name: ssh
+                description: Enable SSHing into apps in the space.
+                enabled: true
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '422':
+      $ref: ../components/responses/UnprocessableEntity.yaml

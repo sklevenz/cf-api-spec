@@ -1,0 +1,135 @@
+get:
+  summary: Get a sidecar
+  description: Get a sidecar.
+  operationId: getSidecar
+  tags:
+    - Sidecars
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Sidecar.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                guid: 123e4567-e89b-12d3-a456-426614174000
+                name: auth-sidecar
+                command: bundle exec rackup
+                process_types:
+                  - web
+                  - worker
+                memory_in_mb: 300
+                origin: user
+                relationships:
+                  app:
+                    data:
+                      guid: 123e4567-e89b-12d3-a456-426614174000
+                created_at: '2017-02-01T01:33:58Z'
+                updated_at: '2017-02-01T01:33:58Z'
+      links:
+        app:
+          operationId: getApp
+          parameters:
+            guid: $response.body#/relationships/app/data/guid
+          description: Retrieve the app for this sidecar
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '409':
+      $ref: ../components/responses/Conflict.yaml
+    '422':
+      $ref: ../components/responses/UnprocessableEntity.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+    '502':
+      $ref: ../components/responses/BadGateway.yaml
+    '503':
+      $ref: ../components/responses/ServiceUnavailable.yaml
+patch:
+  summary: Update a sidecar
+  description: Update a sidecar.
+  operationId: updateSidecar
+  tags:
+    - Sidecars
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  requestBody:
+    $ref: ../components/requestBodies/SidecarUpdateRequestBody.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Sidecar.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                guid: 123e4567-e89b-12d3-a456-426614174000
+                name: auth-sidecar
+                command: bundle exec rackup
+                process_types:
+                  - web
+                  - worker
+                memory_in_mb: 300
+                origin: user
+                relationships:
+                  app:
+                    data:
+                      guid: 123e4567-e89b-12d3-a456-426614174000
+                created_at: '2017-02-01T01:33:58Z'
+                updated_at: '2017-02-01T01:33:58Z'
+      links:
+        app:
+          operationId: getApp
+          parameters:
+            guid: $response.body#/relationships/app/data/guid
+          description: Retrieve the app for this sidecar
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '409':
+      $ref: ../components/responses/Conflict.yaml
+    '422':
+      $ref: ../components/responses/UnprocessableEntity.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+    '503':
+      $ref: ../components/responses/ServiceUnavailable.yaml
+delete:
+  summary: Delete a sidecar
+  description: Delete a sidecar.
+  operationId: deleteSidecar
+  tags:
+    - Sidecars
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '204':
+      description: No Content
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '422':
+      $ref: ../components/responses/UnprocessableEntity.yaml
+    '500':
+      $ref: ../components/responses/500.yaml

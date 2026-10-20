@@ -1,0 +1,66 @@
+post:
+  summary: Scale a process
+  description: Scale a process.
+  operationId: scaleProcess
+  tags:
+    - Processes
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  requestBody:
+    content:
+      application/json:
+        schema:
+          properties:
+            instances:
+              type:
+                - integer
+                - 'null'
+              description: The number of instances to run
+            memory_in_mb:
+              type:
+                - integer
+                - 'null'
+              description: The memory in MB allocated per instance
+            disk_in_mb:
+              type:
+                - integer
+                - 'null'
+              description: The disk in MB allocated per instance
+            log_rate_limit_in_bytes_per_second:
+              type:
+                - integer
+                - 'null'
+              description: The log rate limit in bytes per second per instance
+          type: object
+        examples:
+          default:
+            summary: default
+            value:
+              instances: 5
+              memory_in_mb: 256
+              disk_in_mb: 1024
+              log_rate_limit_in_bytes_per_second: 1024
+    description: Request body for scale a process.
+  responses:
+    '202':
+      description: Accepted
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Process.yaml
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '409':
+      $ref: ../components/responses/Conflict.yaml
+    '422':
+      $ref: ../components/responses/UnprocessableEntity.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+    '503':
+      $ref: ../components/responses/ServiceUnavailable.yaml

@@ -1,0 +1,196 @@
+get:
+  summary: Get a route policy
+  description: >-
+    Retrieve a single route policy.
+
+
+    **This feature is experimental and is subject to change.**
+
+
+    **Permitted roles:** Admin, Admin Read-Only, Global Auditor, Org Manager,
+    Org Auditor, Org Billing Manager *(will not be able to see any route
+    policies)*, Space Auditor, Space Developer, Space Manager, Space Supporter
+  operationId: getRoutePolicy
+  tags:
+    - Route Policies
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+    - name: include
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - route
+            - source
+      description: >-
+        Optionally include a list of unique related resources in the response;
+        valid values are `route` and `source` (source includes the app, space,
+        or organization referenced by the source field)
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/RoutePolicy.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                guid: a4ad8bc1-67a6-4ffa-95b7-f8cf04ad7d4f
+                created_at: '2026-04-21T10:15:30Z'
+                updated_at: '2026-04-21T10:15:30Z'
+                source: cf:app:d76446a1-f429-4444-8797-be2f78b75b08
+                metadata:
+                  labels: {}
+                  annotations: {}
+                relationships:
+                  route:
+                    data:
+                      guid: 89b32bd6-688f-4424-b94f-2e2c86495a5f
+                  app:
+                    data:
+                      guid: d76446a1-f429-4444-8797-be2f78b75b08
+                  space:
+                    data: null
+                  organization:
+                    data: null
+                links:
+                  self:
+                    href: >-
+                      https://api.example.org/v3/route_policies/a4ad8bc1-67a6-4ffa-95b7-f8cf04ad7d4f
+                  route:
+                    href: >-
+                      https://api.example.org/v3/routes/89b32bd6-688f-4424-b94f-2e2c86495a5f
+                  app:
+                    href: >-
+                      https://api.example.org/v3/apps/d76446a1-f429-4444-8797-be2f78b75b08
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '422':
+      $ref: ../components/responses/UnprocessableEntity.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+    '503':
+      $ref: ../components/responses/ServiceUnavailable.yaml
+patch:
+  summary: Update a route policy
+  description: >-
+    Update the metadata of a route policy.
+
+
+    > **Note:** This endpoint only supports updating metadata (labels and
+    annotations). The `source` and route relationship are immutable after
+    creation. To change the source, delete the policy and create a new one.
+
+
+    **This feature is experimental and is subject to change.**
+
+
+    **Permitted roles:** Admin, Space Developer *(can update policies for routes
+    in spaces they can write to)*
+  operationId: updateRoutePolicy
+  tags:
+    - Route Policies
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  requestBody:
+    $ref: ../components/requestBodies/RoutePolicyUpdateRequestBody.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/RoutePolicy.yaml
+          examples:
+            default:
+              summary: default
+              value:
+                guid: a4ad8bc1-67a6-4ffa-95b7-f8cf04ad7d4f
+                created_at: '2026-04-21T10:15:30Z'
+                updated_at: '2026-04-21T10:15:30Z'
+                source: cf:app:d76446a1-f429-4444-8797-be2f78b75b08
+                metadata:
+                  labels:
+                    team: backend
+                  annotations:
+                    note: Updated contact info
+                relationships:
+                  route:
+                    data:
+                      guid: 89b32bd6-688f-4424-b94f-2e2c86495a5f
+                  app:
+                    data:
+                      guid: d76446a1-f429-4444-8797-be2f78b75b08
+                  space:
+                    data: null
+                  organization:
+                    data: null
+                links:
+                  self:
+                    href: >-
+                      https://api.example.org/v3/route_policies/a4ad8bc1-67a6-4ffa-95b7-f8cf04ad7d4f
+                  route:
+                    href: >-
+                      https://api.example.org/v3/routes/89b32bd6-688f-4424-b94f-2e2c86495a5f
+                  app:
+                    href: >-
+                      https://api.example.org/v3/apps/d76446a1-f429-4444-8797-be2f78b75b08
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '422':
+      $ref: ../components/responses/UnprocessableEntity.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+    '503':
+      $ref: ../components/responses/ServiceUnavailable.yaml
+delete:
+  summary: Delete a route policy
+  description: >-
+    Deleting a route policy removes the access control for that specific source.
+    If this was the only policy on the route, the route will become inaccessible
+    (no callers will be allowed) until new policies are added or a `cf:any`
+    policy is created.
+
+
+    **This feature is experimental and is subject to change.**
+
+
+    **Permitted roles:** Admin, Space Developer *(can delete policies for routes
+    in spaces they can write to)*
+  operationId: deleteRoutePolicy
+  tags:
+    - Route Policies
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  responses:
+    '204':
+      description: No Content
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '422':
+      $ref: ../components/responses/UnprocessableEntity.yaml
+    '500':
+      $ref: ../components/responses/500.yaml
+    '503':
+      $ref: ../components/responses/ServiceUnavailable.yaml

@@ -1,0 +1,40 @@
+post:
+  summary: Apply a manifest to a space
+  description: >-
+    Apply changes specified in a manifest to the named apps and their underlying
+    processes. The apps must reside in the space. These changes are additive and
+    will not modify any unspecified properties or remove any existing
+    environment variables, app features, routes, or services.
+
+
+    Apply manifest will only trigger an immediate update for the “instances”
+    property or routing changes. All other properties require an app restart to
+    take effect.
+  operationId: applyManifestToSpace
+  tags:
+    - Spaces
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  requestBody:
+    content:
+      application/x-yaml:
+        schema:
+          type: string
+    description: Request body for apply a manifest to a space.
+  responses:
+    '202':
+      description: Accepted
+      headers:
+        Location:
+          description: URL of the job that is applying the manifest
+          schema:
+            type: string
+            format: uri
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '422':
+      $ref: ../components/responses/UnprocessableEntity.yaml

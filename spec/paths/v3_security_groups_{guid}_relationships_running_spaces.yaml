@@ -1,0 +1,43 @@
+post:
+  summary: Bind a running security group to spaces
+  description: >-
+    This endpoint binds one or more spaces to a security group with the running
+    lifecycle. Running app containers within these spaces will inherit the rules
+    specified by this security group. Apps within these spaces must be restarted
+    for these changes to take effect. Unless a security group is
+    globally-enabled, an admin must add it to a space for it to be visible for
+    the org and space managers. Once it's visible, org and space managers can
+    add it to additional spaces.
+  operationId: bindRunningSecurityGroup
+  tags:
+    - Security Groups
+  parameters:
+    - $ref: ../components/parameters/Guid.yaml
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/RelationshipToMany.yaml
+        examples:
+          default:
+            summary: default
+            value:
+              data:
+                - guid: 123e4567-e89b-12d3-a456-426614174000
+                - guid: 123e4567-e89b-12d3-a456-426614174000
+    description: Request body for bind a running security group to spaces.
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/RelationshipToMany.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '422':
+      $ref: ../components/responses/UnprocessableEntity.yaml
